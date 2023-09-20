@@ -1,0 +1,123 @@
+namespace ca.mcgill.ecse.assetplus.model;
+
+
+class AssetPlus
+{
+  1 <@>- * Employee employees;
+  1 <@>- * Guest guests;
+  1 <@>- 0..1 Manager manager;
+  1 <@>- * MaintenanceNote maintenanceNotes;
+  1 <@>- * MaintenanceTicket maintenanceTickets;
+  1 <@>- * TicketImage ticketImages;
+  1 <@>- * AssetType assetTypes;
+  1 <@>- * SpecificAsset specificAssets;
+}
+
+class User
+{
+  abstract;
+  unique String email;
+  String name;
+  String password;
+  String phoneNumber;
+}
+
+class HotelStaff
+{
+  isA User;
+  abstract;
+}
+
+class Guest
+{
+  isA User;
+}
+
+class Employee
+{
+  isA HotelStaff;
+}
+
+class Manager
+{
+  isA HotelStaff;
+}
+
+class MaintenanceNote
+{
+  unique Integer id;
+  Date date;
+  String description;
+}
+
+class MaintenanceTicket
+{
+  unique Integer id;
+  Date raisedOnDate;
+  String description;
+  TimeEstimate timeToResolve;
+  String imageUrl;
+
+  enum PriorityLevel {Urgent, Normal, Low}
+  enum TimeEstimate{oneToThreeHours, oneToThreeDays, threeToSevenDays, oneToThreeWeeks, threeOrMoreWeeks}
+  PriorityLevel priority;
+}
+
+class TicketImage
+{
+  String imageURL;
+}
+
+class SpecificAsset
+{
+  unique Integer assetNumber;
+  Integer floorNumber;
+  Integer roomNumber;
+  Date purchaseDate;
+}
+
+class AssetType
+{
+  unique String name;
+  Integer expectedLifeSpan;
+}
+
+association 
+{  
+  1 User ticketRaiser -- * MaintenanceTicket raisedTickets;  
+}
+
+association 
+{  
+  1 HotelStaff noteTaker -- * MaintenanceNote maintenanceNotes;  
+}
+
+association 
+{
+  * MaintenanceNote ticketNotes -- 1 MaintenanceTicket ticket;
+}
+
+association 
+{
+  0..1 HotelStaff ticketFixer -- * MaintenanceTicket maintenanceTasks;
+}
+
+association 
+{
+  1 MaintenanceTicket ticket -- * TicketImage ticketImages;
+}
+
+association 
+{
+  0..1 SpecificAsset asset -- * MaintenanceTicket maintenanceTickets;
+}
+
+association 
+{
+  1 AssetType assetType -- * SpecificAsset specificAssets;
+}
+
+association 
+{
+  0..1 Manager fixApprover -- * MaintenanceTicket ticketsForApproval;
+}
