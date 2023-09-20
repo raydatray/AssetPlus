@@ -6,7 +6,7 @@ _(Edit this file as needed, then remove this sentence)._
 
 _Provide a one-sentence overview of your project here._
 
-For more information about the BikeTourPlus application, please consult the [wiki](../../wiki).
+For more information about the AssetPlus application, please consult the [wiki](../../wiki).
 
 ## Team Members
 
