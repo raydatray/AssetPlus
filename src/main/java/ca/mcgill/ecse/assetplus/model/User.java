@@ -156,9 +156,9 @@ public abstract class User
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public MaintenanceTicket addRaisedTicket(int aId, Date aRaisedOnDate, String aDescription, MaintenanceTicket.TimeEstimate aTimeToResolve, String aImageUrl, MaintenanceTicket.PriorityLevel aPriority, AssetPlus aAssetPlus)
+  public MaintenanceTicket addRaisedTicket(int aId, Date aRaisedOnDate, String aDescription, MaintenanceTicket.TimeEstimate aTimeToResolve, MaintenanceTicket.PriorityLevel aPriority, AssetPlus aAssetPlus)
   {
-    return new MaintenanceTicket(aId, aRaisedOnDate, aDescription, aTimeToResolve, aImageUrl, aPriority, aAssetPlus, this);
+    return new MaintenanceTicket(aId, aRaisedOnDate, aDescription, aTimeToResolve, aPriority, aAssetPlus, this);
   }
 
   public boolean addRaisedTicket(MaintenanceTicket aRaisedTicket)

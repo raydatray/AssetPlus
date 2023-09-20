@@ -31,7 +31,6 @@ public class MaintenanceTicket
   private Date raisedOnDate;
   private String description;
   private TimeEstimate timeToResolve;
-  private String imageUrl;
   private PriorityLevel priority;
 
   //MaintenanceTicket Associations
@@ -47,12 +46,11 @@ public class MaintenanceTicket
   // CONSTRUCTOR
   //------------------------
 
-  public MaintenanceTicket(int aId, Date aRaisedOnDate, String aDescription, TimeEstimate aTimeToResolve, String aImageUrl, PriorityLevel aPriority, AssetPlus aAssetPlus, User aTicketRaiser)
+  public MaintenanceTicket(int aId, Date aRaisedOnDate, String aDescription, TimeEstimate aTimeToResolve, PriorityLevel aPriority, AssetPlus aAssetPlus, User aTicketRaiser)
   {
     raisedOnDate = aRaisedOnDate;
     description = aDescription;
     timeToResolve = aTimeToResolve;
-    imageUrl = aImageUrl;
     priority = aPriority;
     if (!setId(aId))
     {
@@ -119,14 +117,6 @@ public class MaintenanceTicket
     return wasSet;
   }
 
-  public boolean setImageUrl(String aImageUrl)
-  {
-    boolean wasSet = false;
-    imageUrl = aImageUrl;
-    wasSet = true;
-    return wasSet;
-  }
-
   public boolean setPriority(PriorityLevel aPriority)
   {
     boolean wasSet = false;
@@ -163,11 +153,6 @@ public class MaintenanceTicket
   public TimeEstimate getTimeToResolve()
   {
     return timeToResolve;
-  }
-
-  public String getImageUrl()
-  {
-    return imageUrl;
   }
 
   public PriorityLevel getPriority()
@@ -561,8 +546,7 @@ public class MaintenanceTicket
   {
     return super.toString() + "["+
             "id" + ":" + getId()+ "," +
-            "description" + ":" + getDescription()+ "," +
-            "imageUrl" + ":" + getImageUrl()+ "]" + System.getProperties().getProperty("line.separator") +
+            "description" + ":" + getDescription()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "raisedOnDate" + "=" + (getRaisedOnDate() != null ? !getRaisedOnDate().equals(this)  ? getRaisedOnDate().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "timeToResolve" + "=" + (getTimeToResolve() != null ? !getTimeToResolve().equals(this)  ? getTimeToResolve().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "priority" + "=" + (getPriority() != null ? !getPriority().equals(this)  ? getPriority().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +

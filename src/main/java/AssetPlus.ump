@@ -56,7 +56,6 @@ class MaintenanceTicket
   Date raisedOnDate;
   String description;
   TimeEstimate timeToResolve;
-  String imageUrl;
 
   enum PriorityLevel {Urgent, Normal, Low}
   enum TimeEstimate{oneToThreeHours, oneToThreeDays, threeToSevenDays, oneToThreeWeeks, threeOrMoreWeeks}

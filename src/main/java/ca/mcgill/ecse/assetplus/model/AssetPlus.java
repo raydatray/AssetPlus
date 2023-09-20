@@ -511,9 +511,9 @@ public class AssetPlus
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public MaintenanceTicket addMaintenanceTicket(int aId, Date aRaisedOnDate, String aDescription, MaintenanceTicket.TimeEstimate aTimeToResolve, String aImageUrl, MaintenanceTicket.PriorityLevel aPriority, User aTicketRaiser)
+  public MaintenanceTicket addMaintenanceTicket(int aId, Date aRaisedOnDate, String aDescription, MaintenanceTicket.TimeEstimate aTimeToResolve, MaintenanceTicket.PriorityLevel aPriority, User aTicketRaiser)
   {
-    return new MaintenanceTicket(aId, aRaisedOnDate, aDescription, aTimeToResolve, aImageUrl, aPriority, this, aTicketRaiser);
+    return new MaintenanceTicket(aId, aRaisedOnDate, aDescription, aTimeToResolve, aPriority, this, aTicketRaiser);
   }
 
   public boolean addMaintenanceTicket(MaintenanceTicket aMaintenanceTicket)
