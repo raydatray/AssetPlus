@@ -1,28 +1,32 @@
-Feature: Update Manager
-  As a manager, I wish to update my personal information linked to my account
+Feature: Update Manager Password
+  As a manager, I wish to update my password
 
   Background: 
-    Given the following employee exist in the system
-      | email          | password | name | phoneNumber   |
-      | jeff@ap.com    | pass1    | Jeff | (555)555-5555 |
-      | john@ap.com    | pass2    | John | (444)444-4444 |
+    Given the following manager exists in the system
+      | email          | password |
+      | manager@ap.com | manager  |
 
-  Scenario Outline: A manager updates their info successfully
-    When a manager with "<email>" attempts to update their account information to "<newPassword>", "<newName>", and "<newPhoneNumber>"
-    Then their account information will be updated and is now "<email>", "<newPassword>", "<newName>", and "<newPhoneNumber>"
-    Then the number of employees in the system shall be "2"
+  Scenario Outline: A manager updates their password successfully
+    When a manager with "<email>" attempts to update their password to "<newPassword>"
+    Then the manager account information will be updated and is now "<email>" and "<newPassword>"
+    Then the number of managers in the system shall be "1"
 
     Examples: 
-      | email          | newPassword | newName | newEmergencyContact |
-      | manager@ap.com | pass5       | Jake    | (111)111-1111       |
-      | manager@ap.com | pass1       | Lily    | (111)111-1111       |
+      | email          | newPassword |
+      | manager@ap.com | P!p1        |
+      | manager@ap.com | p#2P        |
+      | manager@ap.com | $aA3        |
 
-  Scenario Outline: A manager updates their email unsuccessfully
-    When a manager with "<email>" attempts to update the manager account information to "<newEmail>", "<newPassword>", "<newName>", and "<newEmergencyContact>"
+  Scenario Outline: A manager updates their password unsuccessfully
+    When a manager with "<email>" attempts to update their password to "<newPassword>"
     Then the following "<error>" shall be raised
-    Then the manager account information will not be updated and will keep "<email>", "<password>", "<name>", and "<emergencyContact>"
-    Then the number of employees in the system is 2
+    Then the manager account information will not be updated and will keep "<email>" and "<password>"
+    Then the number of managers in the system shall be "1"
 
     Examples: 
-      | email          | password | name | phoneNumber   | email               | newPassword | newName | newEmergencyContact | error                                |
-      | manager@ap.com | pass1    | Lily | (555)555-5555 | evil_manager@ap.com | pass5       | Spot    | (888)888-8888       | You may not change the email address |
+      | email          | password | error                                          |
+      | manager@ap.com | P!p      | Password must be at least four characters long |
+      | manager@ap.com | p2P2     | Password must contain one character out of !#$ |
+      | manager@ap.com |          | Password cannot be empty                       |
+      | manager@ap.com | !2P2     | Password must contain one lower-case character |
+      | manager@ap.com | !2p2     | Password must contain one upper-case character |

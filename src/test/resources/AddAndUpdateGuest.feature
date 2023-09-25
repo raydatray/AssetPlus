@@ -1,26 +1,35 @@
 Feature: Add/Update Guest
-  As an guest, I wish to register an guest account in the system
+  As a guest, I wish to register and update a guest account in the system
 
   Background: 
     Given the following guests exist in the system
       | email          | password | name | phoneNumber   |
       | jeff@gmail.com | pass1    | Jeff | (555)555-5555 |
       | john@gmail.com | pass2    | John | (444)444-4444 |
+    Given the following manager exists in the system
+      | email          | password |
+      | manager@ap.com | manager  |
 
-  Scenario Outline: An guest registers successfully
+  Scenario Outline: A guest registers successfully
     When a new guest attempts to register with "<email>", "<password>", "<name>", and "<phoneNumber>"
     Then a new guest account shall exist with "<email>", "<password>", "<name>", and "<phoneNumber>"
-    Then the number of guest in the system shall be "3"
+    Then the number of guests in the system shall be "3"
 
     Examples: 
-      | email          | password | name | emergencyContact |
-      | lisa@gmail.com | pass4    | Lisa | (888)888-8888    |
-      | liam@yahoo.com | pass5    | Liam | (777)777-7777    |
+      | email          | password | name | phoneNumber   |
+      | lisa@gmail.com | pass4    | Lisa | (888)888-8888 |
+      | liam@yahoo.com | pass5    | Liam | (777)777-7777 |
+      | owen@gmail.com | pass10   |      | (888)888-5555 |
+      | noah@gmail.com | pass11   | Noah |               |
 
-  Scenario Outline: An guest registers unsuccessfully
+  Scenario Outline: A guest registers unsuccessfully
     When a new guest attempts to register with "<email>", "<password>", "<name>", and "<phoneNumber>"
     Then the following "<error>" shall be raised
-    Then the number of guest in the system shall be "2"
+    Then the number of guests in the system shall be "2"
+    Then the following guests shall exist in the system
+      | email          | password | name | phoneNumber   |
+      | jeff@gmail.com | pass1    | Jeff | (555)555-5555 |
+      | john@gmail.com | pass2    | John | (444)444-4444 |
 
     Examples: 
       | email           | password | name | emergencyContact | error                                    |
@@ -35,27 +44,28 @@ Feature: Add/Update Guest
       | karl@.com       | pass8    | Karl | (111)777-6661    | Invalid email                            |
       |                 | pass9    | Vino | (777)888-5555    | Email cannot be empty                    |
       | luke@gmail.com  |          | Luke | (999)888-5555    | Password cannot be empty                 |
-      | owen@gmail.com  | pass10   |      | (888)888-5555    | Name cannot be empty                     |
-      | noah@gmail.com  | pass11   | Noah |                  | Phone number cannot be empty             |
 
-  Scenario Outline: An guest updates their info successfully
+  Scenario Outline: A guest updates their info successfully
     When the guest with "<email>" attempts to update their account information to "<newPassword>", "<newName>", and "<newPhoneNumber>"
     Then their guest account information will be updated and is now "<email>", "<newPassword>", "<newName>", and "<newPhoneNumber>"
-    Then the number of guest in the system shall be "2"
+    Then the number of guests in the system shall be "2"
 
     Examples: 
       | email          | newPassword | newName | newPhoneNumber |
       | jeff@gmail.com | pass5       | Jake    | (111)111-1111  |
       | john@gmail.com | pass6       | Johnny  | (111)777-7777  |
+      | john@gmail.com | pass2       |         | (444)444-7777  |
+      | john@gmail.com | pass2       | Jon     |                |
 
-  Scenario Outline: An guest updates their info unsuccessfully
+  Scenario Outline: A guest updates their info unsuccessfully
     When the guest with "<email>" attempts to update their account information to "<newPassword>", "<newName>", and "<newPhoneNumber>"
     Then the following "<error>" shall be raised
-    Then the guest account information will not be updated and will keep "<email>", "<password>", "<name>", and "<phoneNumber>"
-    Then the number of guest in the system shall be "2"
+    Then the number of guests in the system shall be "2"
+    Then the following guests shall exist in the system
+      | email          | password | name | phoneNumber   |
+      | jeff@gmail.com | pass1    | Jeff | (555)555-5555 |
+      | john@gmail.com | pass2    | John | (444)444-4444 |
 
     Examples: 
-      | email          | password | name | phoneNumber   | newPassword | newName | newPhoneNumber | error                             |
-      | jeff@gmail.com | pass1    | Jeff | (555)555-5555 |             | Jeff    | (555)666-5555  | Password cannot be empty          |
-      | john@gmail.com | pass2    | John | (444)444-4444 | pass2       |         | (444)444-7777  | Name cannot be empty              |
-      | john@gmail.com | pass2    | John | (444)444-4444 | pass2       | John    |                | Emergency contact cannot be empty |
+      | email          | password | name | phoneNumber   | newPassword | newName | newPhoneNumber | error                    |
+      | jeff@gmail.com | pass1    | Jeff | (555)555-5555 |             | Jeff    | (555)666-5555  | Password cannot be empty |

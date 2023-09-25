@@ -5,7 +5,7 @@ package ca.mcgill.ecse.assetplus.model;
 import java.util.*;
 import java.sql.Date;
 
-// line 25 "../../../../../AssetPlus.ump"
+// line 22 "../../../../../AssetPlus.ump"
 public abstract class HotelStaff extends User
 {
 
@@ -97,9 +97,9 @@ public abstract class HotelStaff extends User
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public MaintenanceNote addMaintenanceNote(int aId, Date aDate, String aDescription, AssetPlus aAssetPlus, MaintenanceTicket aTicket)
+  public MaintenanceNote addMaintenanceNote(Date aDate, String aDescription, MaintenanceTicket aTicket)
   {
-    return new MaintenanceNote(aId, aDate, aDescription, aAssetPlus, this, aTicket);
+    return new MaintenanceNote(aDate, aDescription, aTicket, this);
   }
 
   public boolean addMaintenanceNote(MaintenanceNote aMaintenanceNote)

@@ -1,75 +1,100 @@
 Feature: Add/Update Maintenance Tickets
-  As a manager, I want to add and update a maintenance ticket in the system.
+  As a ticket raiser, I want to add and update a maintenance ticket in the system.
 
   Background: 
-    Given the following users exist in the system
+    Given the following employees exist in the system
       | email        | password | name  | phoneNumber   |
       | jeff@ap.com  | pass1    | Jeff  | (555)555-5555 |
       | smith@ap.com | pass2    | Smith | (555)555-5555 |
+    Given the following manager exists in the system
+      | email          | password |
+      | manager@ap.com | manager  |
+    Given the following guests exist in the system
+      | email          | password | name | phoneNumber   |
+      | jeff@gmail.com | pass1    | Jeff | (555)555-5555 |
+      | john@gmail.com | pass2    | John | (444)444-4444 |
     Given the following asset types exist in the system
       | name | expectedLifeSpan |
-      | lamp |               20 |
-      | bed  |               35 |
+      | lamp |             1800 |
+      | bed  |             5000 |
     Given the following assets exist in the system
-      | id | type | purchaseDate | floorNumber | roomNumber |
-      |  1 | lamp |   2022-03-20 |           9 |         23 |
-      |  2 | bed  |   2010-01-30 |          10 |         35 |
-    Given the following maintenanceTickets exist in the system
-      | id | priorityLevel | ticketRaiser   | raisedOnDate | description                   | timeEstimate | assetId | ticketFixer |
-      |  1 | Low           | manager@ap.com |   2023-07-20 | This is a dummy description 1 |    1-3 weeks |       2 | jeff@ap.com |
-      |  2 | Urgent        | smith@ap.com   |   2023-07-10 | This is a dummy description 2 |    1-3 hours |       1 |             |
+      | assetNumber | type | purchaseDate | floorNumber | roomNumber |
+      |           1 | lamp |   2022-03-20 |           9 |         23 |
+      |           2 | bed  |   2010-01-30 |          10 |         35 |
+    Given the following tickets exist in the system
+      | id | ticketRaiser   | raisedOnDate | description                   | assetNumber |
+      |  1 | manager@ap.com |   2023-07-20 | This is a dummy description 1 |           2 |
+      |  2 | smith@ap.com   |   2023-07-10 | This is a dummy description 2 |           1 |
 
-  Scenario Outline: Successfully add a maintenance ticket to the system by a guest or employee
-    When the user with email "<ticketRaiser>" attempts to add a new maintenance ticket to the system with id "<id>", raisedOnDate "<raisedOnDate>", description "<description>", and assetId "<assetId>"
+  Scenario Outline: Successfully add a maintenance ticket to the system by a guest, employee, or manager
+    When the user with email "<ticketRaiser>" attempts to add a new maintenance ticket to the system with id "<id>", date "<raisedOnDate>", description "<description>", and asset number "<assetNumber>"
     Then the number of tickets in the system shall be "3"
-    Then the ticket with id "<id>", raisedOnDate "<raisedOnDate>", description "<description>", and assetId "<assetId>" shall exist in the system
+    Then the ticket raised by "<ticketRaiser>" and with id "<id>", date "<raisedOnDate>", description "<description>", and asset number "<assetNumber>" shall exist in the system
 
     Examples: 
-      | id | priorityLevel | ticketRaiser | raisedOnDate | description                   | timeEstimate | assetId |
-      |  3 |               | jeff@ap.com  |   2023-09-23 | This is a dummy description 1 |              |       2 |
-      |  4 |               | smith@ap.com |   2023-10-05 | This is a dummy description 2 |              |       1 |
+      | id | ticketRaiser   | raisedOnDate | description                   | assetNumber |
+      |  3 | john@gmail.com |   2023-09-23 | This is a dummy description 3 |           2 |
+      |  4 | smith@ap.com   |   2023-10-05 | This is a dummy description 2 |           1 |
+      |  3 | manager@ap.com |   2023-09-23 | This is a dummy description 1 |           1 |
 
-  Scenario Outline: successfully add a maintenance ticket to the system by a manager
-    When the user with email "<ticketRaiser>" attempts to add a new maintenance ticket to the system with id "<id>", priorityLevel  "<priorityLevel>", raisedOnDate "<raisedOnDate>", description "<description>", timeEstimate "<timeEstimate>", and assetId "<assetId>"
+  Scenario Outline: Successfully add a maintenance ticket without an asset to the system by a guest, employee, or manager
+    When the user with email "<ticketRaiser>" attempts to add a new maintenance ticket to the system with id "<id>", date "<raisedOnDate>", and description "<description>" but no asset number
     Then the number of tickets in the system shall be "3"
-    Then the ticket with id "<id>", priorityLevel "<priorityLevel>", ticketRaiser "<ticketRaiser>", raisedOnDate "<raisedOnDate>", description "<description>", and assetId "<assetId>" shall exist in the system
+    Then the ticket raised by "<ticketRaiser>" and with id "<id>", date "<raisedOnDate>", and description "<description>" but no asset shall exist in the system
 
     Examples: 
-      | id | priorityLevel | ticketRaiser   | raisedOnDate | description                   | timeEstimate | assetId |
-      |  3 | Low           | manager@ap.com |   2023-09-23 | This is a dummy description 1 |    1-3 weeks |       2 |
+      | id | ticketRaiser   | raisedOnDate | description               |
+      |  3 | john@gmail.com |   2023-09-23 | it is noisy               |
+      |  4 | smith@ap.com   |   2023-10-05 | it smells                 |
+      |  3 | manager@ap.com |   2023-09-23 | it smells and it is noisy |
 
-  Scenario Outline: Unsuccessfully add a maintenance ticket to the system.
-    When the user with email "<ticketRaiser>" attempts to add a new maintenance ticket to the system with id "<id>", raisedOnDate "<raisedOnDate>", description "<description>", and assetId "<assetId>"
+  Scenario Outline: Unsuccessfully add a maintenance ticket to the system
+    When the user with email "<ticketRaiser>" attempts to add a new maintenance ticket to the system with id "<id>", date "<raisedOnDate>", description "<description>", and asset number "<assetNumber>"
     Then the number of tickets in the system shall be "2"
-    Then the ticket with id "<id>" shall not exist in the system
     Then the following tickets shall exist in the system
-      | id | priorityLevel | ticketRaiser   | raisedOnDate | description                   | timeEstimate | assetId | ticketFixer |
-      |  1 | Low           | manager@ap.com |   2023-07-20 | This is a dummy description 1 |    1-3 weeks |       2 | jeff@ap.com |
-      |  2 | Urgent        | smith@ap.com   |   2023-07-10 | This is a dummy description 2 |    1-3 hours |       1 |             |
+      | id | ticketRaiser   | raisedOnDate | description                   | assetNumber |
+      |  1 | manager@ap.com |   2023-07-20 | This is a dummy description 1 |           2 |
+      |  2 | smith@ap.com   |   2023-07-10 | This is a dummy description 2 |           1 |
     Then the system shall raise the error "<error>"
 
     Examples: 
-      | id | priorityLevel | ticketRaiser   | raisedOnDate | description                   | timeEstimate | assetId | error                                 |
-      |  3 | Low           | manager@ap.com |   2023-09-23 | This is a dummy description 1 |    1-3 weeks |       3 | Asset id does not exit in the system. |
-      |  3 |               | smith@ap.com   |   2023-09-23 |                               |    1-3 weeks |       3 | Ticket description can not be empty.  |
+      | id | ticketRaiser   | raisedOnDate | description                   | assetNumber | error                              |
+      |  2 | smith@ap.com   |   2023-09-23 | This is a dummy description 1 |           2 | Ticket id already exists           |
+      |  3 | manager@ap.com |   2023-09-23 | This is a dummy description 1 |           3 | The asset does not exist           |
+      |  3 | none@ap.com    |   2023-09-23 | This is a dummy description 1 |           1 | The ticket raiser does not exist   |
+      |  3 | smith@ap.com   |   2023-09-23 |                               |           1 | Ticket description cannot be empty |
 
-  Scenario Outline: Successfully update a maintenance ticket information.
-    When the manager attempts to update a maintenance tickey in the system with id "<id>", from priority level "<oldPriorityLevel>" to "<newPriorityLevel>", time estimate from "<oldTimeEstimate>" to "<newTimeEstimate>", and ticketFixer from "<oldTicketFixer>" to "<newTicketFixer>"
-    Then the number of ticket in the system shall be "2"
-    Then the ticket with id "<id>", priorityLevel "<priorityLevel>", ticketRaiser "<ticketRaiser>", raisedOnDate "<raisedOnDate>", description "<description>", and assetId "<assetId>" shall exist in the system
+  Scenario Outline: Successfully update a maintenance ticket
+    When the manager attempts to update the maintenance ticket with id "<id>" to ticket raiser "<newTicketRaiser>", date "<newRaisedOnDate>", description "<newDescription>", and asset number "<newAssetNumber>"
+    Then the number of tickets in the system shall be "2"
+    Then the ticket raised by "<newTicketRaiser>" and with id "<id>", date "<newRaisedOnDate>", description "<newDescription>", and asset number "<newAssetNumber>" shall exist in the system
 
     Examples: 
-      | id | oldPriorityLevel | newPriorityLevel | ticketRaiser   | raisedOnDate | description                     | oldTimeEstimate | newTimeEstimate | assetId | oldticketFixer | newticketFixer |
-      |  1 | Low              | Urgent           | manager@ap.com |   2023-07-20 | lamp should be fized ASAP       |       1-3 weeks |       1-3 hours |       2 | jeff@ap.com    | jeff@ap.com    |
-      |  2 | Urgent           | Urgent           | smith@ap.com   |   2023-07-10 | This is not a dummy description |      1-3 weeks. |       1-3 hours |       1 |                | jeff@ap.com    |
+      | id | newTicketRaiser | newRaisedOnDate | newDescription         | newAssetNumber |
+      |  1 | smith@ap.com    |      2023-08-20 | bed needs to be fixed  |              1 |
+      |  2 | manager@ap.com  |      2023-08-10 | lamp needs to be fixed |              2 |
+
+  Scenario Outline: Successfully remove an asset from a maintenance ticket
+    When the manager attempts to update the maintenance ticket with id "<id>" to ticket raiser "<newTicketRaiser>", date "<newRaisedOnDate>", and description "<newDescription>" but no asset number
+    Then the number of tickets in the system shall be "2"
+    Then the ticket raised by "<newTicketRaiser>" and with id "<id>", date "<newRaisedOnDate>", and description "<newDescription>" but no asset shall exist in the system
+
+    Examples: 
+      | id | newTicketRaiser | newRaisedOnDate | newDescription |
+      |  1 | smith@ap.com    |      2023-08-20 | it is noisy    |
+      |  2 | manager@ap.com  |      2023-08-10 | it smells      |
 
   Scenario Outline: Unsuccessfully update a maintenance ticket with invalid information
-    When the manager attempts to update a maintenance tickey in the system with id "<id>", from priority level "<oldPriorityLevel>" to "<newPriorityLevel>", time estimate from "<oldTimeEstimate>" to "<newTimeEstimate>", and ticketFixer from "<oldTicketFixer>" to "<newTicketFixer>"
-    Then the number of ticket in the system shall be "2"
-    Then the ticket with id "<id>", priorityLevel "<priorityLevel>", ticketRaiser "<ticketRaiser>", raisedOnDate "<raisedOnDate>", description "<description>", and assetId "<assetId>" shall exist in the system
+    When the manager attempts to update the maintenance ticket with id "<id>" to ticket raiser "<newTicketRaiser>", date "<newRaisedOnDate>", description "<newDescription>", and asset number "<newAssetNumber>"
+    Then the number of tickets in the system shall be "2"
+    Then the following tickets shall exist in the system
+      | id | ticketRaiser   | raisedOnDate | description                   | assetNumber |
+      |  1 | manager@ap.com |   2023-07-20 | This is a dummy description 1 |           2 |
+      |  2 | smith@ap.com   |   2023-07-10 | This is a dummy description 2 |           1 |
     Then the system shall raise the error "<error>"
 
     Examples: 
-      | id | oldPriorityLevel | newPriorityLevel | ticketRaiser   | raisedOnDate | description                   | oldTimeEstimate | newTimeEstimate | assetId | oldticketFixer | newticketFixer | error                                              |
-      |  3 | Low              | Low              | manager@ap.com |   2023-07-20 | This is a dummy description 1 |       1-3 weeks |       1-3 weeks |       2 | jeff@ap.com    | jeff@ap.com    | Maintenance ticket id does not exist in the system |
-      |  2 | Urgent           | Urgent           | smith@ap.com   |   2023-07-10 |                               |      1-3 weeks. |       1-3 hours |       1 |                | jeff@ap.com    | Ticket description can not be empty.               |
+      | id | ticketRaiser   | raisedOnDate | description                   | assetNumber | error                              |
+      |  3 | manager@ap.com |   2023-09-23 | This is a dummy description 1 |           3 | The asset does not exist           |
+      |  3 | none@ap.com    |   2023-09-23 | This is a dummy description 1 |           1 | The ticket raiser does not exist   |
+      |  3 | smith@ap.com   |   2023-09-23 |                               |           1 | Ticket description cannot be empty |

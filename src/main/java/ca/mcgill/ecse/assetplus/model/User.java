@@ -5,7 +5,7 @@ package ca.mcgill.ecse.assetplus.model;
 import java.util.*;
 import java.sql.Date;
 
-// line 16 "../../../../../AssetPlus.ump"
+// line 13 "../../../../../AssetPlus.ump"
 public abstract class User
 {
 
@@ -156,9 +156,9 @@ public abstract class User
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public MaintenanceTicket addRaisedTicket(int aId, Date aRaisedOnDate, String aDescription, MaintenanceTicket.TimeEstimate aTimeToResolve, MaintenanceTicket.PriorityLevel aPriority, AssetPlus aAssetPlus)
+  public MaintenanceTicket addRaisedTicket(int aId, Date aRaisedOnDate, String aDescription, AssetPlus aAssetPlus)
   {
-    return new MaintenanceTicket(aId, aRaisedOnDate, aDescription, aTimeToResolve, aPriority, aAssetPlus, this);
+    return new MaintenanceTicket(aId, aRaisedOnDate, aDescription, aAssetPlus, this);
   }
 
   public boolean addRaisedTicket(MaintenanceTicket aRaisedTicket)

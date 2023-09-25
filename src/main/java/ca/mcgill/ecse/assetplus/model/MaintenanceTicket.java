@@ -5,7 +5,7 @@ package ca.mcgill.ecse.assetplus.model;
 import java.util.*;
 import java.sql.Date;
 
-// line 53 "../../../../../AssetPlus.ump"
+// line 43 "../../../../../AssetPlus.ump"
 public class MaintenanceTicket
 {
 
@@ -13,8 +13,8 @@ public class MaintenanceTicket
   // ENUMERATIONS
   //------------------------
 
+  public enum TimeEstimate { LessThanADay, OneToThreeDays, ThreeToSevenDays, OneToThreeWeeks, ThreeOrMoreWeeks }
   public enum PriorityLevel { Urgent, Normal, Low }
-  public enum TimeEstimate { OneToThreeHours, OneToThreeDays, ThreeToSevenDays, OneToThreeWeeks, ThreeOrMoreWeeks }
 
   //------------------------
   // STATIC VARIABLES
@@ -34,11 +34,11 @@ public class MaintenanceTicket
   private PriorityLevel priority;
 
   //MaintenanceTicket Associations
+  private List<MaintenanceNote> ticketNotes;
+  private List<TicketImage> ticketImages;
   private AssetPlus assetPlus;
   private User ticketRaiser;
-  private List<MaintenanceNote> ticketNotes;
   private HotelStaff ticketFixer;
-  private List<TicketImage> ticketImages;
   private SpecificAsset asset;
   private Manager fixApprover;
 
@@ -46,16 +46,16 @@ public class MaintenanceTicket
   // CONSTRUCTOR
   //------------------------
 
-  public MaintenanceTicket(int aId, Date aRaisedOnDate, String aDescription, TimeEstimate aTimeToResolve, PriorityLevel aPriority, AssetPlus aAssetPlus, User aTicketRaiser)
+  public MaintenanceTicket(int aId, Date aRaisedOnDate, String aDescription, AssetPlus aAssetPlus, User aTicketRaiser)
   {
     raisedOnDate = aRaisedOnDate;
     description = aDescription;
-    timeToResolve = aTimeToResolve;
-    priority = aPriority;
     if (!setId(aId))
     {
       throw new RuntimeException("Cannot create due to duplicate id. See http://manual.umple.org?RE003ViolationofUniqueness.html");
     }
+    ticketNotes = new ArrayList<MaintenanceNote>();
+    ticketImages = new ArrayList<TicketImage>();
     boolean didAddAssetPlus = setAssetPlus(aAssetPlus);
     if (!didAddAssetPlus)
     {
@@ -66,8 +66,6 @@ public class MaintenanceTicket
     {
       throw new RuntimeException("Unable to create raisedTicket due to ticketRaiser. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
-    ticketNotes = new ArrayList<MaintenanceNote>();
-    ticketImages = new ArrayList<TicketImage>();
   }
 
   //------------------------
@@ -159,16 +157,6 @@ public class MaintenanceTicket
   {
     return priority;
   }
-  /* Code from template association_GetOne */
-  public AssetPlus getAssetPlus()
-  {
-    return assetPlus;
-  }
-  /* Code from template association_GetOne */
-  public User getTicketRaiser()
-  {
-    return ticketRaiser;
-  }
   /* Code from template association_GetMany */
   public MaintenanceNote getTicketNote(int index)
   {
@@ -198,17 +186,6 @@ public class MaintenanceTicket
   {
     int index = ticketNotes.indexOf(aTicketNote);
     return index;
-  }
-  /* Code from template association_GetOne */
-  public HotelStaff getTicketFixer()
-  {
-    return ticketFixer;
-  }
-
-  public boolean hasTicketFixer()
-  {
-    boolean has = ticketFixer != null;
-    return has;
   }
   /* Code from template association_GetMany */
   public TicketImage getTicketImage(int index)
@@ -241,6 +218,27 @@ public class MaintenanceTicket
     return index;
   }
   /* Code from template association_GetOne */
+  public AssetPlus getAssetPlus()
+  {
+    return assetPlus;
+  }
+  /* Code from template association_GetOne */
+  public User getTicketRaiser()
+  {
+    return ticketRaiser;
+  }
+  /* Code from template association_GetOne */
+  public HotelStaff getTicketFixer()
+  {
+    return ticketFixer;
+  }
+
+  public boolean hasTicketFixer()
+  {
+    boolean has = ticketFixer != null;
+    return has;
+  }
+  /* Code from template association_GetOne */
   public SpecificAsset getAsset()
   {
     return asset;
@@ -262,53 +260,15 @@ public class MaintenanceTicket
     boolean has = fixApprover != null;
     return has;
   }
-  /* Code from template association_SetOneToMany */
-  public boolean setAssetPlus(AssetPlus aAssetPlus)
-  {
-    boolean wasSet = false;
-    if (aAssetPlus == null)
-    {
-      return wasSet;
-    }
-
-    AssetPlus existingAssetPlus = assetPlus;
-    assetPlus = aAssetPlus;
-    if (existingAssetPlus != null && !existingAssetPlus.equals(aAssetPlus))
-    {
-      existingAssetPlus.removeMaintenanceTicket(this);
-    }
-    assetPlus.addMaintenanceTicket(this);
-    wasSet = true;
-    return wasSet;
-  }
-  /* Code from template association_SetOneToMany */
-  public boolean setTicketRaiser(User aTicketRaiser)
-  {
-    boolean wasSet = false;
-    if (aTicketRaiser == null)
-    {
-      return wasSet;
-    }
-
-    User existingTicketRaiser = ticketRaiser;
-    ticketRaiser = aTicketRaiser;
-    if (existingTicketRaiser != null && !existingTicketRaiser.equals(aTicketRaiser))
-    {
-      existingTicketRaiser.removeRaisedTicket(this);
-    }
-    ticketRaiser.addRaisedTicket(this);
-    wasSet = true;
-    return wasSet;
-  }
   /* Code from template association_MinimumNumberOfMethod */
   public static int minimumNumberOfTicketNotes()
   {
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public MaintenanceNote addTicketNote(int aId, Date aDate, String aDescription, AssetPlus aAssetPlus, HotelStaff aNoteTaker)
+  public MaintenanceNote addTicketNote(Date aDate, String aDescription, HotelStaff aNoteTaker)
   {
-    return new MaintenanceNote(aId, aDate, aDescription, aAssetPlus, aNoteTaker, this);
+    return new MaintenanceNote(aDate, aDescription, this, aNoteTaker);
   }
 
   public boolean addTicketNote(MaintenanceNote aTicketNote)
@@ -372,32 +332,15 @@ public class MaintenanceTicket
     }
     return wasAdded;
   }
-  /* Code from template association_SetOptionalOneToMany */
-  public boolean setTicketFixer(HotelStaff aTicketFixer)
-  {
-    boolean wasSet = false;
-    HotelStaff existingTicketFixer = ticketFixer;
-    ticketFixer = aTicketFixer;
-    if (existingTicketFixer != null && !existingTicketFixer.equals(aTicketFixer))
-    {
-      existingTicketFixer.removeMaintenanceTask(this);
-    }
-    if (aTicketFixer != null)
-    {
-      aTicketFixer.addMaintenanceTask(this);
-    }
-    wasSet = true;
-    return wasSet;
-  }
   /* Code from template association_MinimumNumberOfMethod */
   public static int minimumNumberOfTicketImages()
   {
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public TicketImage addTicketImage(String aImageURL, AssetPlus aAssetPlus)
+  public TicketImage addTicketImage(String aImageURL)
   {
-    return new TicketImage(aImageURL, aAssetPlus, this);
+    return new TicketImage(aImageURL, this);
   }
 
   public boolean addTicketImage(TicketImage aTicketImage)
@@ -461,6 +404,61 @@ public class MaintenanceTicket
     }
     return wasAdded;
   }
+  /* Code from template association_SetOneToMany */
+  public boolean setAssetPlus(AssetPlus aAssetPlus)
+  {
+    boolean wasSet = false;
+    if (aAssetPlus == null)
+    {
+      return wasSet;
+    }
+
+    AssetPlus existingAssetPlus = assetPlus;
+    assetPlus = aAssetPlus;
+    if (existingAssetPlus != null && !existingAssetPlus.equals(aAssetPlus))
+    {
+      existingAssetPlus.removeMaintenanceTicket(this);
+    }
+    assetPlus.addMaintenanceTicket(this);
+    wasSet = true;
+    return wasSet;
+  }
+  /* Code from template association_SetOneToMany */
+  public boolean setTicketRaiser(User aTicketRaiser)
+  {
+    boolean wasSet = false;
+    if (aTicketRaiser == null)
+    {
+      return wasSet;
+    }
+
+    User existingTicketRaiser = ticketRaiser;
+    ticketRaiser = aTicketRaiser;
+    if (existingTicketRaiser != null && !existingTicketRaiser.equals(aTicketRaiser))
+    {
+      existingTicketRaiser.removeRaisedTicket(this);
+    }
+    ticketRaiser.addRaisedTicket(this);
+    wasSet = true;
+    return wasSet;
+  }
+  /* Code from template association_SetOptionalOneToMany */
+  public boolean setTicketFixer(HotelStaff aTicketFixer)
+  {
+    boolean wasSet = false;
+    HotelStaff existingTicketFixer = ticketFixer;
+    ticketFixer = aTicketFixer;
+    if (existingTicketFixer != null && !existingTicketFixer.equals(aTicketFixer))
+    {
+      existingTicketFixer.removeMaintenanceTask(this);
+    }
+    if (aTicketFixer != null)
+    {
+      aTicketFixer.addMaintenanceTask(this);
+    }
+    wasSet = true;
+    return wasSet;
+  }
   /* Code from template association_SetOptionalOneToMany */
   public boolean setAsset(SpecificAsset aAsset)
   {
@@ -499,6 +497,20 @@ public class MaintenanceTicket
   public void delete()
   {
     maintenanceticketsById.remove(getId());
+    while (ticketNotes.size() > 0)
+    {
+      MaintenanceNote aTicketNote = ticketNotes.get(ticketNotes.size() - 1);
+      aTicketNote.delete();
+      ticketNotes.remove(aTicketNote);
+    }
+    
+    while (ticketImages.size() > 0)
+    {
+      TicketImage aTicketImage = ticketImages.get(ticketImages.size() - 1);
+      aTicketImage.delete();
+      ticketImages.remove(aTicketImage);
+    }
+    
     AssetPlus placeholderAssetPlus = assetPlus;
     this.assetPlus = null;
     if(placeholderAssetPlus != null)
@@ -511,21 +523,11 @@ public class MaintenanceTicket
     {
       placeholderTicketRaiser.removeRaisedTicket(this);
     }
-    for(int i=ticketNotes.size(); i > 0; i--)
-    {
-      MaintenanceNote aTicketNote = ticketNotes.get(i - 1);
-      aTicketNote.delete();
-    }
     if (ticketFixer != null)
     {
       HotelStaff placeholderTicketFixer = ticketFixer;
       this.ticketFixer = null;
       placeholderTicketFixer.removeMaintenanceTask(this);
-    }
-    for(int i=ticketImages.size(); i > 0; i--)
-    {
-      TicketImage aTicketImage = ticketImages.get(i - 1);
-      aTicketImage.delete();
     }
     if (asset != null)
     {

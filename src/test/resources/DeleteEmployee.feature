@@ -1,16 +1,19 @@
 Feature: Delete Employee
-  As an employee, I wish to delete my employee accounts
+  As an employee, I wish to delete my employee account
 
   Background: 
     Given the following employees exist in the system
-      | email       | password | name | emergencyContact |
-      | jeff@ap.com | pass1    | Jeff | (555)555-5555    |
-      | john@ap.com | pass2    | John | (444)444-4444    |
+      | email       | password | name | phoneNumber   |
+      | jeff@ap.com | pass1    | Jeff | (555)555-5555 |
+      | john@ap.com | pass2    | John | (444)444-4444 |
+    Given the following manager exists in the system
+      | email          | password |
+      | manager@ap.com | manager  |
 
   Scenario Outline: Successfully deleting a employee
     When the employee attempts to delete their own account linked to the "<email>"
-    Then the employee account linked to the "<email>" shall not exist in the system
-    Then the number of guides in the system shall be "<numberOfEmployees>"
+    Then the employee account linked to "<email>" shall not exist in the system
+    Then the number of employees in the system shall be "<numberOfEmployees>"
 
     Examples: 
       | email       | numberOfEmployees |
@@ -21,6 +24,6 @@ Feature: Delete Employee
 
   Scenario: Successfully deleting an employee that does not exist but manager exists
     When the employee attempts to delete their own account linked to the "manager@ap.com"
-    Then a employee account linked to the "manager@ap.com" shall not exist in the system
-    Then a manager account linked to the "manager@ap.com" shall exist in the system
+    Then the employee account linked to "manager@ap.com" shall not exist in the system
+    Then the manager account linked to "manager@ap.com" shall exist in the system
     Then the number of employees in the system shall be "2"

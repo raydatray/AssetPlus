@@ -5,7 +5,7 @@ package ca.mcgill.ecse.assetplus.model;
 import java.util.*;
 import java.sql.Date;
 
-// line 4 "../../../../../AssetPlus.ump"
+// line 3 "../../../../../AssetPlus.ump"
 public class AssetPlus
 {
 
@@ -17,9 +17,7 @@ public class AssetPlus
   private List<Employee> employees;
   private List<Guest> guests;
   private Manager manager;
-  private List<MaintenanceNote> maintenanceNotes;
   private List<MaintenanceTicket> maintenanceTickets;
-  private List<TicketImage> ticketImages;
   private List<AssetType> assetTypes;
   private List<SpecificAsset> specificAssets;
 
@@ -31,9 +29,7 @@ public class AssetPlus
   {
     employees = new ArrayList<Employee>();
     guests = new ArrayList<Guest>();
-    maintenanceNotes = new ArrayList<MaintenanceNote>();
     maintenanceTickets = new ArrayList<MaintenanceTicket>();
-    ticketImages = new ArrayList<TicketImage>();
     assetTypes = new ArrayList<AssetType>();
     specificAssets = new ArrayList<SpecificAsset>();
   }
@@ -113,36 +109,6 @@ public class AssetPlus
     return has;
   }
   /* Code from template association_GetMany */
-  public MaintenanceNote getMaintenanceNote(int index)
-  {
-    MaintenanceNote aMaintenanceNote = maintenanceNotes.get(index);
-    return aMaintenanceNote;
-  }
-
-  public List<MaintenanceNote> getMaintenanceNotes()
-  {
-    List<MaintenanceNote> newMaintenanceNotes = Collections.unmodifiableList(maintenanceNotes);
-    return newMaintenanceNotes;
-  }
-
-  public int numberOfMaintenanceNotes()
-  {
-    int number = maintenanceNotes.size();
-    return number;
-  }
-
-  public boolean hasMaintenanceNotes()
-  {
-    boolean has = maintenanceNotes.size() > 0;
-    return has;
-  }
-
-  public int indexOfMaintenanceNote(MaintenanceNote aMaintenanceNote)
-  {
-    int index = maintenanceNotes.indexOf(aMaintenanceNote);
-    return index;
-  }
-  /* Code from template association_GetMany */
   public MaintenanceTicket getMaintenanceTicket(int index)
   {
     MaintenanceTicket aMaintenanceTicket = maintenanceTickets.get(index);
@@ -170,36 +136,6 @@ public class AssetPlus
   public int indexOfMaintenanceTicket(MaintenanceTicket aMaintenanceTicket)
   {
     int index = maintenanceTickets.indexOf(aMaintenanceTicket);
-    return index;
-  }
-  /* Code from template association_GetMany */
-  public TicketImage getTicketImage(int index)
-  {
-    TicketImage aTicketImage = ticketImages.get(index);
-    return aTicketImage;
-  }
-
-  public List<TicketImage> getTicketImages()
-  {
-    List<TicketImage> newTicketImages = Collections.unmodifiableList(ticketImages);
-    return newTicketImages;
-  }
-
-  public int numberOfTicketImages()
-  {
-    int number = ticketImages.size();
-    return number;
-  }
-
-  public boolean hasTicketImages()
-  {
-    boolean has = ticketImages.size() > 0;
-    return has;
-  }
-
-  public int indexOfTicketImage(TicketImage aTicketImage)
-  {
-    int index = ticketImages.indexOf(aTicketImage);
     return index;
   }
   /* Code from template association_GetMany */
@@ -434,86 +370,14 @@ public class AssetPlus
     return wasSet;
   }
   /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfMaintenanceNotes()
-  {
-    return 0;
-  }
-  /* Code from template association_AddManyToOne */
-  public MaintenanceNote addMaintenanceNote(int aId, Date aDate, String aDescription, HotelStaff aNoteTaker, MaintenanceTicket aTicket)
-  {
-    return new MaintenanceNote(aId, aDate, aDescription, this, aNoteTaker, aTicket);
-  }
-
-  public boolean addMaintenanceNote(MaintenanceNote aMaintenanceNote)
-  {
-    boolean wasAdded = false;
-    if (maintenanceNotes.contains(aMaintenanceNote)) { return false; }
-    AssetPlus existingAssetPlus = aMaintenanceNote.getAssetPlus();
-    boolean isNewAssetPlus = existingAssetPlus != null && !this.equals(existingAssetPlus);
-    if (isNewAssetPlus)
-    {
-      aMaintenanceNote.setAssetPlus(this);
-    }
-    else
-    {
-      maintenanceNotes.add(aMaintenanceNote);
-    }
-    wasAdded = true;
-    return wasAdded;
-  }
-
-  public boolean removeMaintenanceNote(MaintenanceNote aMaintenanceNote)
-  {
-    boolean wasRemoved = false;
-    //Unable to remove aMaintenanceNote, as it must always have a assetPlus
-    if (!this.equals(aMaintenanceNote.getAssetPlus()))
-    {
-      maintenanceNotes.remove(aMaintenanceNote);
-      wasRemoved = true;
-    }
-    return wasRemoved;
-  }
-  /* Code from template association_AddIndexControlFunctions */
-  public boolean addMaintenanceNoteAt(MaintenanceNote aMaintenanceNote, int index)
-  {  
-    boolean wasAdded = false;
-    if(addMaintenanceNote(aMaintenanceNote))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfMaintenanceNotes()) { index = numberOfMaintenanceNotes() - 1; }
-      maintenanceNotes.remove(aMaintenanceNote);
-      maintenanceNotes.add(index, aMaintenanceNote);
-      wasAdded = true;
-    }
-    return wasAdded;
-  }
-
-  public boolean addOrMoveMaintenanceNoteAt(MaintenanceNote aMaintenanceNote, int index)
-  {
-    boolean wasAdded = false;
-    if(maintenanceNotes.contains(aMaintenanceNote))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfMaintenanceNotes()) { index = numberOfMaintenanceNotes() - 1; }
-      maintenanceNotes.remove(aMaintenanceNote);
-      maintenanceNotes.add(index, aMaintenanceNote);
-      wasAdded = true;
-    } 
-    else 
-    {
-      wasAdded = addMaintenanceNoteAt(aMaintenanceNote, index);
-    }
-    return wasAdded;
-  }
-  /* Code from template association_MinimumNumberOfMethod */
   public static int minimumNumberOfMaintenanceTickets()
   {
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public MaintenanceTicket addMaintenanceTicket(int aId, Date aRaisedOnDate, String aDescription, MaintenanceTicket.TimeEstimate aTimeToResolve, MaintenanceTicket.PriorityLevel aPriority, User aTicketRaiser)
+  public MaintenanceTicket addMaintenanceTicket(int aId, Date aRaisedOnDate, String aDescription, User aTicketRaiser)
   {
-    return new MaintenanceTicket(aId, aRaisedOnDate, aDescription, aTimeToResolve, aPriority, this, aTicketRaiser);
+    return new MaintenanceTicket(aId, aRaisedOnDate, aDescription, this, aTicketRaiser);
   }
 
   public boolean addMaintenanceTicket(MaintenanceTicket aMaintenanceTicket)
@@ -574,78 +438,6 @@ public class AssetPlus
     else 
     {
       wasAdded = addMaintenanceTicketAt(aMaintenanceTicket, index);
-    }
-    return wasAdded;
-  }
-  /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfTicketImages()
-  {
-    return 0;
-  }
-  /* Code from template association_AddManyToOne */
-  public TicketImage addTicketImage(String aImageURL, MaintenanceTicket aTicket)
-  {
-    return new TicketImage(aImageURL, this, aTicket);
-  }
-
-  public boolean addTicketImage(TicketImage aTicketImage)
-  {
-    boolean wasAdded = false;
-    if (ticketImages.contains(aTicketImage)) { return false; }
-    AssetPlus existingAssetPlus = aTicketImage.getAssetPlus();
-    boolean isNewAssetPlus = existingAssetPlus != null && !this.equals(existingAssetPlus);
-    if (isNewAssetPlus)
-    {
-      aTicketImage.setAssetPlus(this);
-    }
-    else
-    {
-      ticketImages.add(aTicketImage);
-    }
-    wasAdded = true;
-    return wasAdded;
-  }
-
-  public boolean removeTicketImage(TicketImage aTicketImage)
-  {
-    boolean wasRemoved = false;
-    //Unable to remove aTicketImage, as it must always have a assetPlus
-    if (!this.equals(aTicketImage.getAssetPlus()))
-    {
-      ticketImages.remove(aTicketImage);
-      wasRemoved = true;
-    }
-    return wasRemoved;
-  }
-  /* Code from template association_AddIndexControlFunctions */
-  public boolean addTicketImageAt(TicketImage aTicketImage, int index)
-  {  
-    boolean wasAdded = false;
-    if(addTicketImage(aTicketImage))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfTicketImages()) { index = numberOfTicketImages() - 1; }
-      ticketImages.remove(aTicketImage);
-      ticketImages.add(index, aTicketImage);
-      wasAdded = true;
-    }
-    return wasAdded;
-  }
-
-  public boolean addOrMoveTicketImageAt(TicketImage aTicketImage, int index)
-  {
-    boolean wasAdded = false;
-    if(ticketImages.contains(aTicketImage))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfTicketImages()) { index = numberOfTicketImages() - 1; }
-      ticketImages.remove(aTicketImage);
-      ticketImages.add(index, aTicketImage);
-      wasAdded = true;
-    } 
-    else 
-    {
-      wasAdded = addTicketImageAt(aTicketImage, index);
     }
     return wasAdded;
   }
@@ -817,25 +609,11 @@ public class AssetPlus
       existingManager.delete();
       existingManager.setAssetPlus(null);
     }
-    while (maintenanceNotes.size() > 0)
-    {
-      MaintenanceNote aMaintenanceNote = maintenanceNotes.get(maintenanceNotes.size() - 1);
-      aMaintenanceNote.delete();
-      maintenanceNotes.remove(aMaintenanceNote);
-    }
-    
     while (maintenanceTickets.size() > 0)
     {
       MaintenanceTicket aMaintenanceTicket = maintenanceTickets.get(maintenanceTickets.size() - 1);
       aMaintenanceTicket.delete();
       maintenanceTickets.remove(aMaintenanceTicket);
-    }
-    
-    while (ticketImages.size() > 0)
-    {
-      TicketImage aTicketImage = ticketImages.get(ticketImages.size() - 1);
-      aTicketImage.delete();
-      ticketImages.remove(aTicketImage);
     }
     
     while (assetTypes.size() > 0)

@@ -1,14 +1,11 @@
 namespace ca.mcgill.ecse.assetplus.model;
 
-
 class AssetPlus
 {
   1 <@>- * Employee employees;
   1 <@>- * Guest guests;
   1 <@>- 0..1 Manager manager;
-  1 <@>- * MaintenanceNote maintenanceNotes;
   1 <@>- * MaintenanceTicket maintenanceTickets;
-  1 <@>- * TicketImage ticketImages;
   1 <@>- * AssetType assetTypes;
   1 <@>- * SpecificAsset specificAssets;
 }
@@ -43,23 +40,26 @@ class Manager
   isA HotelStaff;
 }
 
-class MaintenanceNote
-{
-  unique Integer id;
-  Date date;
-  String description;
-}
-
 class MaintenanceTicket
 {
+  1 ticket <@>- * MaintenanceNote ticketNotes;
+  1 ticket <@>- * TicketImage ticketImages;
+
   unique Integer id;
   Date raisedOnDate;
   String description;
-  TimeEstimate timeToResolve;
+
+  enum TimeEstimate{lessThanADay, oneToThreeDays, threeToSevenDays, oneToThreeWeeks, threeOrMoreWeeks}
+  lazy TimeEstimate timeToResolve;
 
   enum PriorityLevel {Urgent, Normal, Low}
-  enum TimeEstimate{oneToThreeHours, oneToThreeDays, threeToSevenDays, oneToThreeWeeks, threeOrMoreWeeks}
-  PriorityLevel priority;
+  lazy PriorityLevel priority;
+}
+
+class MaintenanceNote
+{
+  Date date;
+  String description;
 }
 
 class TicketImage
@@ -93,17 +93,7 @@ association
 
 association 
 {
-  * MaintenanceNote ticketNotes -- 1 MaintenanceTicket ticket;
-}
-
-association 
-{
   0..1 HotelStaff ticketFixer -- * MaintenanceTicket maintenanceTasks;
-}
-
-association 
-{
-  1 MaintenanceTicket ticket -- * TicketImage ticketImages;
 }
 
 association 
