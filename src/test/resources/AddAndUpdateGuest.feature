@@ -1,19 +1,19 @@
-Feature: Add/Update Guest
-  As a guest, I wish to register and update a guest account in the system
+Feature: Add/Update Guest (p10)
+As a guest, I wish to register and update a guest account in the system
 
   Background: 
-    Given the following guests exist in the system
+    Given the following guests exist in the system (p10)
       | email          | password | name | phoneNumber   |
       | jeff@gmail.com | pass1    | Jeff | (555)555-5555 |
       | john@gmail.com | pass2    | John | (444)444-4444 |
-    Given the following manager exists in the system
+    Given the following manager exists in the system (p10)
       | email          | password |
       | manager@ap.com | manager  |
 
   Scenario Outline: A guest registers successfully
-    When a new guest attempts to register with "<email>", "<password>", "<name>", and "<phoneNumber>"
-    Then a new guest account shall exist with "<email>", "<password>", "<name>", and "<phoneNumber>"
-    Then the number of guests in the system shall be "3"
+    When a new guest attempts to register with "<email>", "<password>", "<name>", and "<phoneNumber>" (p10)
+    Then a new guest account shall exist with "<email>", "<password>", "<name>", and "<phoneNumber>" (p10)
+    Then the number of guests in the system shall be "3" (p10)
 
     Examples: 
       | email          | password | name | phoneNumber   |
@@ -23,10 +23,10 @@ Feature: Add/Update Guest
       | noah@gmail.com | pass11   | Noah |               |
 
   Scenario Outline: A guest registers unsuccessfully
-    When a new guest attempts to register with "<email>", "<password>", "<name>", and "<phoneNumber>"
-    Then the following "<error>" shall be raised
-    Then the number of guests in the system shall be "2"
-    Then the following guests shall exist in the system
+    When a new guest attempts to register with "<email>", "<password>", "<name>", and "<phoneNumber>" (p10)
+    Then the following "<error>" shall be raised (p10)
+    Then the number of guests in the system shall be "2" (p10)
+    Then the following guests shall exist in the system (p10)
       | email          | password | name | phoneNumber   |
       | jeff@gmail.com | pass1    | Jeff | (555)555-5555 |
       | john@gmail.com | pass2    | John | (444)444-4444 |
@@ -46,9 +46,9 @@ Feature: Add/Update Guest
       | luke@gmail.com  |          | Luke | (999)888-5555    | Password cannot be empty                 |
 
   Scenario Outline: A guest updates their info successfully
-    When the guest with "<email>" attempts to update their account information to "<newPassword>", "<newName>", and "<newPhoneNumber>"
-    Then their guest account information will be updated and is now "<email>", "<newPassword>", "<newName>", and "<newPhoneNumber>"
-    Then the number of guests in the system shall be "2"
+    When the guest with "<email>" attempts to update their account information to "<newPassword>", "<newName>", and "<newPhoneNumber>" (p10)
+    Then their guest account information will be updated and is now "<email>", "<newPassword>", "<newName>", and "<newPhoneNumber>" (p10)
+    Then the number of guests in the system shall be "2" (p10)
 
     Examples: 
       | email          | newPassword | newName | newPhoneNumber |
@@ -58,10 +58,10 @@ Feature: Add/Update Guest
       | john@gmail.com | pass2       | Jon     |                |
 
   Scenario Outline: A guest updates their info unsuccessfully
-    When the guest with "<email>" attempts to update their account information to "<newPassword>", "<newName>", and "<newPhoneNumber>"
-    Then the following "<error>" shall be raised
-    Then the number of guests in the system shall be "2"
-    Then the following guests shall exist in the system
+    When the guest with "<email>" attempts to update their account information to "<newPassword>", "<newName>", and "<newPhoneNumber>" (p10)
+    Then the following "<error>" shall be raised (p10)
+    Then the number of guests in the system shall be "2" (p10)
+    Then the following guests shall exist in the system (p10)
       | email          | password | name | phoneNumber   |
       | jeff@gmail.com | pass1    | Jeff | (555)555-5555 |
       | john@gmail.com | pass2    | John | (444)444-4444 |

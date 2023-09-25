@@ -1,17 +1,17 @@
-Feature: Add/Update Asset Type
-  As the manager, I want to add and update an asset type in the system.
+Feature: Add/Update Asset Type (p14)
+As the manager, I want to add and update an asset type in the system.
 
   Background: 
-    Given the following asset types exist in the system
+    Given the following asset types exist in the system (p14)
       | name   | expectedLifeSpan |
       | lamp   |             1800 |
       | pillow |              700 |
       | bed    |             5000 |
 
   Scenario Outline: Successfully add an asset type
-    When the manager attempts to add a new asset type to the system with name "<name>" and expected life span of "<expectedLifeSpan>" days
-    Then the number of asset types in the system shall be "4"
-    Then the asset type with name "<name>" and expected life span of "<expectedLifeSpan>" days shall exist in the system
+    When the manager attempts to add a new asset type to the system with name "<name>" and expected life span of "<expectedLifeSpan>" days (p14)
+    Then the number of asset types in the system shall be "4" (p14)
+    Then the asset type with name "<name>" and expected life span of "<expectedLifeSpan>" days shall exist in the system (p14)
 
     Examples: 
       | name      | expectedLifeSpan |
@@ -19,14 +19,14 @@ Feature: Add/Update Asset Type
       | microwave |             2000 |
 
   Scenario Outline: Unsuccessfully add an asset type with invalid information
-    When the manager attempts to add a new asset type to the system with name "<name>" and expected life span of "<expectedLifeSpan>" days
-    Then the number of asset types in the system shall be "3"
-    Then the following asset types shall exist in the system
+    When the manager attempts to add a new asset type to the system with name "<name>" and expected life span of "<expectedLifeSpan>" days (p14)
+    Then the number of asset types in the system shall be "3" (p14)
+    Then the following asset types shall exist in the system (p14)
       | name   | expectedLifeSpan |
       | lamp   |             1800 |
       | pillow |              700 |
       | bed    |             5000 |
-    Then the system shall raise the error "<error>"
+    Then the system shall raise the error "<error>" (p14)
 
     Examples: 
       | name       | expectedLifeSpan | error                                              |
@@ -37,10 +37,10 @@ Feature: Add/Update Asset Type
       | bed        |               96 | The asset type already exists                      |
 
   Scenario Outline: Successfully update all information for an asset type
-    When the manager attempts to update an asset type in the system with name "<oldName>" to have name "<newName>" and expected life span of "<newExpectedLifeSpan>" days
-    Then the number of asset types in the system shall be "3"
-    Then the asset type with name "<name>" and expected life span of "<expectedLifeSpan>" days shall exist in the system
-    Then the asset type with name "<oldName>" and expected life span of "<oldExpectedLifeSpan>" days shall not exist in the system
+    When the manager attempts to update an asset type in the system with name "<oldName>" to have name "<newName>" and expected life span of "<newExpectedLifeSpan>" days (p14)
+    Then the number of asset types in the system shall be "3" (p14)
+    Then the asset type with name "<name>" and expected life span of "<expectedLifeSpan>" days shall exist in the system (p14)
+    Then the asset type with name "<oldName>" and expected life span of "<oldExpectedLifeSpan>" days shall not exist in the system (p14)
 
     Examples: 
       | oldName | oldExpectedLifeSpan | newName | newExpectedLifeSpan |
@@ -49,14 +49,14 @@ Feature: Add/Update Asset Type
       | bed     |                5000 | pot     |                 600 |
 
   Scenario Outline: Unsuccessfully update an asset type with invalid information
-    When the manager attempts to update an asset type in the system with name "lamp" to have name "<newName>" and expected life span of "<newExpectedLifeSpan> days
-    Then the number of asset types in the system shall be "3"
-    Then the following asset types shall exist in the system
+    When the manager attempts to update an asset type in the system with name "lamp" to have name "<newName>" and expected life span of "<newExpectedLifeSpan>" days (p14)
+    Then the number of asset types in the system shall be "3" (p14)
+    Then the following asset types shall exist in the system (p14)
       | name   | expectedLifeSpan |
       | lamp   |             1800 |
       | pillow |              700 |
       | bed    |             5000 |
-    Then the system shall raise the error "<error>"
+    Then the system shall raise the error "<error>" (p14)
 
     Examples: 
       | newName    | newExpectedLifeSpan | error                                              |
@@ -66,14 +66,14 @@ Feature: Add/Update Asset Type
       | pillow     |                 240 | The asset type already exists                      |
 
   Scenario Outline: Unsuccessfully update an asset type that does not exist in the system
-    When the manager attempts to update an asset type in the system with name "table lamp" to have name "<newName>" and expected life span of "<newExpectedLifeSpan>" days
-    Then the number of asset types in the system shall be "3"
-    Then the following asset types shall exist in the system
+    When the manager attempts to update an asset type in the system with name "table lamp" to have name "<newName>" and expected life span of "<newExpectedLifeSpan>" days (p14)
+    Then the number of asset types in the system shall be "3" (p14)
+    Then the following asset types shall exist in the system (p14)
       | name   | expectedLifeSpan |
       | lamp   |             1800 |
       | pillow |              700 |
       | bed    |             5000 |
-    Then the system shall raise the error "The asset type does not exist"
+    Then the system shall raise the error "The asset type does not exist" (p14)
 
     Examples: 
       | newName | newExpectedLifeSpan |

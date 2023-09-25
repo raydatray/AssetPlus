@@ -1,19 +1,19 @@
-Feature: Add/Update Employee
-  As an employee, I wish to register and update an employee account in the system
+Feature: Add/Update Employee (p11)
+As an employee, I wish to register and update an employee account in the system
 
   Background: 
-    Given the following employees exist in the system
+    Given the following employees exist in the system (p11)
       | email       | password | name | phoneNumber   |
       | jeff@ap.com | pass1    | Jeff | (555)555-5555 |
       | john@ap.com | pass2    | John | (444)444-4444 |
-    Given the following manager exists in the system
+    Given the following manager exists in the system (p11)
       | email          | password |
       | manager@ap.com | manager  |
 
   Scenario Outline: An employee registers successfully
-    When a new employee attempts to register with "<email>", "<password>", "<name>", and "<phoneNumber>"
-    Then a new employee account shall exist with "<email>", "<password>", "<name>", and "<phoneNumber>"
-    Then the number of employees in the system shall be "3"
+    When a new employee attempts to register with "<email>", "<password>", "<name>", and "<phoneNumber>" (p11)
+    Then a new employee account shall exist with "<email>", "<password>", "<name>", and "<phoneNumber>" (p11)
+    Then the number of employees in the system shall be "3" (p11)
 
     Examples: 
       | email       | password | name | phoneNumber   |
@@ -23,10 +23,10 @@ Feature: Add/Update Employee
       | noah@ap.com | pass11   | Noah |               |
 
   Scenario Outline: An employee registers unsuccessfully
-    When a new employee attempts to register with "<email>", "<password>", "<name>", and "<phoneNumber>"
-    Then the following "<error>" shall be raised
-    Then the number of employees in the system shall be "2"
-    Then the following employees shall exist in the system
+    When a new employee attempts to register with "<email>", "<password>", "<name>", and "<phoneNumber>" (p11)
+    Then the following "<error>" shall be raised (p11)
+    Then the number of employees in the system shall be "2" (p11)
+    Then the following employees shall exist in the system (p11)
       | email       | password | name | phoneNumber   |
       | jeff@ap.com | pass1    | Jeff | (555)555-5555 |
       | john@ap.com | pass2    | John | (444)444-4444 |
@@ -46,9 +46,9 @@ Feature: Add/Update Employee
       | luke@ap.com    |          | Luke | (999)888-5555 | Password cannot be empty                    |
 
   Scenario Outline: An employee updates their info successfully
-    When the employee with "<email>" attempts to update their account information to "<newPassword>", "<newName>", and "<newPhoneNumber>"
-    Then their employee account information will be updated and is now "<email>", "<newPassword>", "<newName>", and "<newPhoneNumber>"
-    Then the number of employees in the system shall be "2"
+    When the employee with "<email>" attempts to update their account information to "<newPassword>", "<newName>", and "<newPhoneNumber>" (p11)
+    Then their employee account information will be updated and is now "<email>", "<newPassword>", "<newName>", and "<newPhoneNumber>" (p11)
+    Then the number of employees in the system shall be "2" (p11)
 
     Examples: 
       | email       | newPassword | newName | newPhoneNumber |
@@ -58,10 +58,10 @@ Feature: Add/Update Employee
       | john@ap.com | pass2       | Jon     |                |
 
   Scenario Outline: An employee updates their info unsuccessfully
-    When the employee with "<email>" attempts to update their account information to "<newPassword>", "<newName>", and "<newPhoneNumber>"
-    Then the following "<error>" shall be raised
-    Then the number of employees in the system shall be "2"
-    Then the following employees shall exist in the system
+    When the employee with "<email>" attempts to update their account information to "<newPassword>", "<newName>", and "<newPhoneNumber>" (p11)
+    Then the following "<error>" shall be raised (p11)
+    Then the number of employees in the system shall be "2" (p11)
+    Then the following employees shall exist in the system (p11)
       | email       | password | name | phoneNumber   |
       | jeff@ap.com | pass1    | Jeff | (555)555-5555 |
       | john@ap.com | pass2    | John | (444)444-4444 |

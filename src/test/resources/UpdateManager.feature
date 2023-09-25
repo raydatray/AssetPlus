@@ -1,15 +1,15 @@
-Feature: Update Manager Password
-  As a manager, I wish to update my password
+Feature: Update Manager Password (p6)
+As a manager, I wish to update my password
 
   Background: 
-    Given the following manager exists in the system
+    Given the following manager exists in the system (p6)
       | email          | password |
       | manager@ap.com | manager  |
 
   Scenario Outline: A manager updates their password successfully
-    When a manager with "<email>" attempts to update their password to "<newPassword>"
-    Then the manager account information will be updated and is now "<email>" and "<newPassword>"
-    Then the number of managers in the system shall be "1"
+    When a manager with "<email>" attempts to update their password to "<newPassword>" (p6)
+    Then the manager account information will be updated and is now "<email>" and "<newPassword>" (p6)
+    Then the number of managers in the system shall be "1" (p6)
 
     Examples: 
       | email          | newPassword |
@@ -18,10 +18,10 @@ Feature: Update Manager Password
       | manager@ap.com | $aA3        |
 
   Scenario Outline: A manager updates their password unsuccessfully
-    When a manager with "<email>" attempts to update their password to "<newPassword>"
-    Then the following "<error>" shall be raised
-    Then the manager account information will not be updated and will keep "<email>" and "<password>"
-    Then the number of managers in the system shall be "1"
+    When a manager with "<email>" attempts to update their password to "<newPassword>" (p6)
+    Then the following "<error>" shall be raised (p6)
+    Then the manager account information will not be updated and will keep "<email>" and "<password>" (p6)
+    Then the number of managers in the system shall be "1" (p6)
 
     Examples: 
       | email          | password | error                                          |
