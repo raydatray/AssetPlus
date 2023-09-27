@@ -39,8 +39,8 @@ As manager, I want to review all maintenance tickets in the system.
     Then the following maintenance tickets shall be presented (p15)
       | id | ticketRaiser   | raisedOnDate | description                   | assetName | expectLifeSpan | purchaseDate | floorNumber | roomNumber |
       |  1 | manager@ap.com |   2023-07-20 | This is a dummy description 1 | bed       |           5000 |   2010-01-30 |          10 |         35 |
-      |  2 | smith@ap.com   |   2023-07-10 | This is a dummy description 2 | lamp      |           1800 |   2022-03-20 |             |            |
-      |  3 | manager@ap.com |   2023-07-20 | It is noisy                   |           |                |              |           9 |         23 |
+      |  2 | smith@ap.com   |   2023-07-10 | This is a dummy description 2 | lamp      |           1800 |   2022-03-20 |           9 |         23 |
+      |  3 | manager@ap.com |   2023-07-20 | It is noisy                   |           |                |              |             |            |
     Then the ticket with id "1" shall have the following notes (p15)
       | noteTaker      | addedOnDate | description                               |
       | smith@ap.com   |  2023-09-10 | This is another dummy note 2 for a ticket |

@@ -64,7 +64,7 @@ public class AddAndUpdateAssetStepDefinitions {
     throw new io.cucumber.java.PendingException();
   }
 
-  @Then("the following assets types shall exist in the system \\(p9)")
+  @Then("the following asset types shall exist in the system \\(p9)")
   public void the_following_assets_types_shall_exist_in_the_system_p9(
       io.cucumber.datatable.DataTable dataTable) {
     // Write code here that turns the phrase above into concrete actions

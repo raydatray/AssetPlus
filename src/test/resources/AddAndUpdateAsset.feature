@@ -25,7 +25,7 @@ As the manager, I want to add and update an asset in the system.
   Scenario Outline: Unsuccessfully add an asset with a type that does not exist
     When the manager attempts to add a new asset to the system with asset number "<assetNumber>", type "<type>", purchase date "<purchaseDate>", floor number "<floorNumber>", and room number "<roomNumber>" (p9)
     Then the number of assets in the system shall be "2" (p9)
-    Then the following assets types shall exist in the system (p9)
+    Then the following asset types shall exist in the system (p9)
       | assetNumber | type | purchaseDate | floorNumber | roomNumber |
       |           1 | lamp |   2022-03-20 |           9 |         23 |
       |           2 | bed  |   2010-01-30 |          10 |         35 |
