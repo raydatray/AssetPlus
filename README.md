@@ -8,10 +8,11 @@ This is the project of group 3 for ECSE 223.
 
 ## Team members:
 - Houman Azari
+- Aurelia Bouliane
 - Alice Godbout
 - Raymond Liu
 - Alexander Liu
-- Sebastien Reinhart
+- Sebastian Reinhardt
 - Colin Xiong
 
 
