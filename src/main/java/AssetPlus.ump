@@ -1,0 +1,71 @@
+namespace ca.mcgill.ecse.assetplus.model;
+
+class UserAccount {
+    abstract;
+    lazy String name;
+    immutable String email;
+    String password;
+    lazy Integer phoneNumber;
+}
+
+class GuestAccount {
+    isA UserAccount;
+    0..1 ticketCreator -- * MaintenanceTicket requests;
+}
+
+class ManagerAccount {
+    isA WorkerAccout;
+	singleton;
+	immutable String email = "manager@ap.com";
+	String password = "manager";
+}
+
+class EmployeeAccount {
+    isA WorkerAccout;
+    * employees -- 1 ManagerAccount managedBy;
+}
+
+class MaintenanceTicket {
+    enum TimeEstimate { Lt1Day, OneTo3Days, ThreeTo7Days, OneTo3Weeks, Gt3Weeks };
+    enum PriorityLevel { Urgent, Normal, Low };
+    TimeEstimate timeEstimate;
+    PriorityLevel priorityLevel;
+    autounique number;
+    String description;
+    lazy String[] pictureURLs;
+    boolean isResolved;
+    boolean needsApproval = false;
+    boolean managerHasApproved = false;
+    1 ticket <@>- * Note extraNotes;
+    * openTickets -- 0..1 WorkerAccout assignedTo;
+}
+
+class Note {
+    String note;
+    Date date;
+}
+
+class Asset {
+    autounique assetNumber;
+    Date purchaseDate;
+    Date expectedLifespan;
+    MaintenanceTicket[] maintenanceHistory;
+    1 brokenAsset-- * MaintenanceTicket activeTickets;
+    * assets -- 1 AssetType;
+}
+
+class Location {
+    Integer floorNumber;
+    Integer roomNumber;
+    1 location <@>- * Asset items;
+}
+
+class AssetType{
+  String type;
+}
+
+class WorkerAccout{
+    abstract;
+    isA UserAccount;
+    boolean isMaintenanceStaff = true;
+}
