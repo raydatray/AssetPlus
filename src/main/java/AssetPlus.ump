@@ -36,6 +36,7 @@ class MaintenanceTicket {
     boolean isResolved;
     boolean needsApproval = false;
     boolean managerHasApproved = false;
+    Date openedOn;
     1 ticket <@>- * Note extraNotes;
     * openTickets -- 0..1 WorkerAccout assignedTo;
 }

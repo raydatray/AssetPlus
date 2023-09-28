@@ -34,6 +34,7 @@ public class MaintenanceTicket
   private boolean isResolved;
   private boolean needsApproval;
   private boolean managerHasApproved;
+  private Date openedOn;
 
   //Autounique Attributes
   private int number;
@@ -48,7 +49,7 @@ public class MaintenanceTicket
   // CONSTRUCTOR
   //------------------------
 
-  public MaintenanceTicket(TimeEstimate aTimeEstimate, PriorityLevel aPriorityLevel, String aDescription, boolean aIsResolved, Asset aBrokenAsset)
+  public MaintenanceTicket(TimeEstimate aTimeEstimate, PriorityLevel aPriorityLevel, String aDescription, boolean aIsResolved, Date aOpenedOn, Asset aBrokenAsset)
   {
     timeEstimate = aTimeEstimate;
     priorityLevel = aPriorityLevel;
@@ -57,6 +58,7 @@ public class MaintenanceTicket
     isResolved = aIsResolved;
     needsApproval = false;
     managerHasApproved = false;
+    openedOn = aOpenedOn;
     number = nextNumber++;
     extraNotes = new ArrayList<Note>();
     boolean didAddBrokenAsset = setBrokenAsset(aBrokenAsset);
@@ -132,6 +134,14 @@ public class MaintenanceTicket
     return wasSet;
   }
 
+  public boolean setOpenedOn(Date aOpenedOn)
+  {
+    boolean wasSet = false;
+    openedOn = aOpenedOn;
+    wasSet = true;
+    return wasSet;
+  }
+
   public TimeEstimate getTimeEstimate()
   {
     return timeEstimate;
@@ -190,6 +200,11 @@ public class MaintenanceTicket
   public boolean getManagerHasApproved()
   {
     return managerHasApproved;
+  }
+
+  public Date getOpenedOn()
+  {
+    return openedOn;
   }
 
   public int getNumber()
@@ -419,6 +434,7 @@ public class MaintenanceTicket
             "managerHasApproved" + ":" + getManagerHasApproved()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "timeEstimate" + "=" + (getTimeEstimate() != null ? !getTimeEstimate().equals(this)  ? getTimeEstimate().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "priorityLevel" + "=" + (getPriorityLevel() != null ? !getPriorityLevel().equals(this)  ? getPriorityLevel().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
+            "  " + "openedOn" + "=" + (getOpenedOn() != null ? !getOpenedOn().equals(this)  ? getOpenedOn().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "assignedTo = "+(getAssignedTo()!=null?Integer.toHexString(System.identityHashCode(getAssignedTo())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "ticketCreator = "+(getTicketCreator()!=null?Integer.toHexString(System.identityHashCode(getTicketCreator())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "brokenAsset = "+(getBrokenAsset()!=null?Integer.toHexString(System.identityHashCode(getBrokenAsset())):"null");
