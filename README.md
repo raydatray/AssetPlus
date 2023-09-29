@@ -1,19 +1,20 @@
-# ECSE 233 GROUP PROJECT P3
-This is the project of group 3 for ECSE 223.
+# :hotel::heavy_plus_sign: ECSE223 AssetPlus Project: Team N
 
-## Table of Contents
-- [ECSE 233 GROUP PROJECT P3](ecse223-group-project-p3)
-  - [Table of Contents:](#table-of-contents)
-  - [Team members:](#team-members)
+_(Edit this file as needed, then remove this sentence)._
 
-## Team members:
-- Houman Azari
-- Aurelia Bouliane
-- Alice Godbout
-- Raymond Liu
-- Alexander Liu
-- Sebastian Reinhardt
-- Colin Xiong
+## Project Overview
 
+_Provide a one-sentence overview of your project here._
 
-  
+For more information about the AssetPlus application, please consult the [wiki](../../wiki).
+
+## Team Members
+
+| Name          | GitHub username |
+| ------------- | --------------- |
+| Team Member A | ...             |
+| Team Member B | ...             |
+| Team Member C | ...             |
+| Team Member D | ...             |
+| Team Member E | ...             |
+| Team Member F | ...             |

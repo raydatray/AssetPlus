@@ -1,72 +1,112 @@
 namespace ca.mcgill.ecse.assetplus.model;
 
-class UserAccount {
-    abstract;
-    lazy String name;
-    immutable String email;
-    String password;
-    lazy Integer phoneNumber;
+class AssetPlus
+{
+  1 <@>- * Employee employees;
+  1 <@>- * Guest guests;
+  1 <@>- 0..1 Manager manager;
+  1 <@>- * MaintenanceTicket maintenanceTickets;
+  1 <@>- * AssetType assetTypes;
+  1 <@>- * SpecificAsset specificAssets;
 }
 
-class GuestAccount {
-    isA UserAccount;
-    0..1 ticketCreator -- * MaintenanceTicket requests;
+class User
+{
+  abstract;
+  unique String email;
+  String name;
+  String password;
+  String phoneNumber;
 }
 
-class ManagerAccount {
-    isA WorkerAccout;
-	singleton;
-	immutable String email = "manager@ap.com";
-	String password = "manager";
+class HotelStaff
+{
+  isA User;
+  abstract;
 }
 
-class EmployeeAccount {
-    isA WorkerAccout;
-    * employees -- 1 ManagerAccount managedBy;
+class Guest
+{
+  isA User;
 }
 
-class MaintenanceTicket {
-    enum TimeEstimate { Lt1Day, OneTo3Days, ThreeTo7Days, OneTo3Weeks, Gt3Weeks };
-    enum PriorityLevel { Urgent, Normal, Low };
-    TimeEstimate timeEstimate;
-    PriorityLevel priorityLevel;
-    autounique number;
-    String description;
-    lazy String[] pictureURLs;
-    boolean isResolved;
-    boolean needsApproval = false;
-    boolean managerHasApproved = false;
-    Date openedOn;
-    1 ticket <@>- * Note extraNotes;
-    * openTickets -- 0..1 WorkerAccout assignedTo;
+class Employee
+{
+  isA HotelStaff;
 }
 
-class Note {
-    String note;
-    Date date;
+class Manager
+{
+  isA HotelStaff;
 }
 
-class Asset {
-    autounique assetNumber;
-    Date purchaseDate;
-    Date expectedLifespan;
-    MaintenanceTicket[] maintenanceHistory;
-    1 brokenAsset-- * MaintenanceTicket activeTickets;
-    * assets -- 1 AssetType;
+class MaintenanceTicket
+{
+  1 ticket <@>- * MaintenanceNote ticketNotes;
+  1 ticket <@>- * TicketImage ticketImages;
+
+  unique Integer id;
+  Date raisedOnDate;
+  String description;
+
+  enum TimeEstimate{lessThanADay, oneToThreeDays, threeToSevenDays, oneToThreeWeeks, threeOrMoreWeeks}
+  lazy TimeEstimate timeToResolve;
+
+  enum PriorityLevel {Urgent, Normal, Low}
+  lazy PriorityLevel priority;
 }
 
-class Location {
-    Integer floorNumber;
-    Integer roomNumber;
-    1 location <@>- * Asset items;
+class MaintenanceNote
+{
+  Date date;
+  String description;
 }
 
-class AssetType{
-  String type;
+class TicketImage
+{
+  String imageURL;
 }
 
-class WorkerAccout{
-    abstract;
-    isA UserAccount;
-    boolean isMaintenanceStaff = true;
+class SpecificAsset
+{
+  unique Integer assetNumber;
+  Integer floorNumber;
+  Integer roomNumber;
+  Date purchaseDate;
+}
+
+class AssetType
+{
+  unique String name;
+  Integer expectedLifeSpan;
+}
+
+association 
+{  
+  1 User ticketRaiser -- * MaintenanceTicket raisedTickets;  
+}
+
+association 
+{  
+  1 HotelStaff noteTaker -- * MaintenanceNote maintenanceNotes;  
+}
+
+association 
+{
+  0..1 HotelStaff ticketFixer -- * MaintenanceTicket maintenanceTasks;
+}
+
+association 
+{
+  0..1 SpecificAsset asset -- * MaintenanceTicket maintenanceTickets;
+}
+
+association 
+{
+  1 AssetType assetType -- * SpecificAsset specificAssets;
+}
+
+association 
+{
+  0..1 Manager fixApprover -- * MaintenanceTicket ticketsForApproval;
 }

@@ -5,155 +5,237 @@ package ca.mcgill.ecse.assetplus.model;
 import java.util.*;
 import java.sql.Date;
 
-// line 64 "../../../../../AssetPlus.ump"
+// line 78 "../../../../../AssetPlus.ump"
 public class AssetType
 {
+
+  //------------------------
+  // STATIC VARIABLES
+  //------------------------
+
+  private static Map<String, AssetType> assettypesByName = new HashMap<String, AssetType>();
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
 
   //AssetType Attributes
-  private String type;
+  private String name;
+  private int expectedLifeSpan;
 
   //AssetType Associations
-  private List<Asset> assets;
+  private AssetPlus assetPlus;
+  private List<SpecificAsset> specificAssets;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public AssetType(String aType)
+  public AssetType(String aName, int aExpectedLifeSpan, AssetPlus aAssetPlus)
   {
-    type = aType;
-    assets = new ArrayList<Asset>();
+    expectedLifeSpan = aExpectedLifeSpan;
+    if (!setName(aName))
+    {
+      throw new RuntimeException("Cannot create due to duplicate name. See http://manual.umple.org?RE003ViolationofUniqueness.html");
+    }
+    boolean didAddAssetPlus = setAssetPlus(aAssetPlus);
+    if (!didAddAssetPlus)
+    {
+      throw new RuntimeException("Unable to create assetType due to assetPlus. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
+    }
+    specificAssets = new ArrayList<SpecificAsset>();
   }
 
   //------------------------
   // INTERFACE
   //------------------------
 
-  public boolean setType(String aType)
+  public boolean setName(String aName)
   {
     boolean wasSet = false;
-    type = aType;
+    String anOldName = getName();
+    if (anOldName != null && anOldName.equals(aName)) {
+      return true;
+    }
+    if (hasWithName(aName)) {
+      return wasSet;
+    }
+    name = aName;
+    wasSet = true;
+    if (anOldName != null) {
+      assettypesByName.remove(anOldName);
+    }
+    assettypesByName.put(aName, this);
+    return wasSet;
+  }
+
+  public boolean setExpectedLifeSpan(int aExpectedLifeSpan)
+  {
+    boolean wasSet = false;
+    expectedLifeSpan = aExpectedLifeSpan;
     wasSet = true;
     return wasSet;
   }
 
-  public String getType()
+  public String getName()
   {
-    return type;
+    return name;
+  }
+  /* Code from template attribute_GetUnique */
+  public static AssetType getWithName(String aName)
+  {
+    return assettypesByName.get(aName);
+  }
+  /* Code from template attribute_HasUnique */
+  public static boolean hasWithName(String aName)
+  {
+    return getWithName(aName) != null;
+  }
+
+  public int getExpectedLifeSpan()
+  {
+    return expectedLifeSpan;
+  }
+  /* Code from template association_GetOne */
+  public AssetPlus getAssetPlus()
+  {
+    return assetPlus;
   }
   /* Code from template association_GetMany */
-  public Asset getAsset(int index)
+  public SpecificAsset getSpecificAsset(int index)
   {
-    Asset aAsset = assets.get(index);
-    return aAsset;
+    SpecificAsset aSpecificAsset = specificAssets.get(index);
+    return aSpecificAsset;
   }
 
-  public List<Asset> getAssets()
+  public List<SpecificAsset> getSpecificAssets()
   {
-    List<Asset> newAssets = Collections.unmodifiableList(assets);
-    return newAssets;
+    List<SpecificAsset> newSpecificAssets = Collections.unmodifiableList(specificAssets);
+    return newSpecificAssets;
   }
 
-  public int numberOfAssets()
+  public int numberOfSpecificAssets()
   {
-    int number = assets.size();
+    int number = specificAssets.size();
     return number;
   }
 
-  public boolean hasAssets()
+  public boolean hasSpecificAssets()
   {
-    boolean has = assets.size() > 0;
+    boolean has = specificAssets.size() > 0;
     return has;
   }
 
-  public int indexOfAsset(Asset aAsset)
+  public int indexOfSpecificAsset(SpecificAsset aSpecificAsset)
   {
-    int index = assets.indexOf(aAsset);
+    int index = specificAssets.indexOf(aSpecificAsset);
     return index;
   }
+  /* Code from template association_SetOneToMany */
+  public boolean setAssetPlus(AssetPlus aAssetPlus)
+  {
+    boolean wasSet = false;
+    if (aAssetPlus == null)
+    {
+      return wasSet;
+    }
+
+    AssetPlus existingAssetPlus = assetPlus;
+    assetPlus = aAssetPlus;
+    if (existingAssetPlus != null && !existingAssetPlus.equals(aAssetPlus))
+    {
+      existingAssetPlus.removeAssetType(this);
+    }
+    assetPlus.addAssetType(this);
+    wasSet = true;
+    return wasSet;
+  }
   /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfAssets()
+  public static int minimumNumberOfSpecificAssets()
   {
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Asset addAsset(Date aPurchaseDate, Date aExpectedLifespan, Location aLocation)
+  public SpecificAsset addSpecificAsset(int aAssetNumber, int aFloorNumber, int aRoomNumber, Date aPurchaseDate, AssetPlus aAssetPlus)
   {
-    return new Asset(aPurchaseDate, aExpectedLifespan, this, aLocation);
+    return new SpecificAsset(aAssetNumber, aFloorNumber, aRoomNumber, aPurchaseDate, aAssetPlus, this);
   }
 
-  public boolean addAsset(Asset aAsset)
+  public boolean addSpecificAsset(SpecificAsset aSpecificAsset)
   {
     boolean wasAdded = false;
-    if (assets.contains(aAsset)) { return false; }
-    AssetType existingAssetType = aAsset.getAssetType();
+    if (specificAssets.contains(aSpecificAsset)) { return false; }
+    AssetType existingAssetType = aSpecificAsset.getAssetType();
     boolean isNewAssetType = existingAssetType != null && !this.equals(existingAssetType);
     if (isNewAssetType)
     {
-      aAsset.setAssetType(this);
+      aSpecificAsset.setAssetType(this);
     }
     else
     {
-      assets.add(aAsset);
+      specificAssets.add(aSpecificAsset);
     }
     wasAdded = true;
     return wasAdded;
   }
 
-  public boolean removeAsset(Asset aAsset)
+  public boolean removeSpecificAsset(SpecificAsset aSpecificAsset)
   {
     boolean wasRemoved = false;
-    //Unable to remove aAsset, as it must always have a assetType
-    if (!this.equals(aAsset.getAssetType()))
+    //Unable to remove aSpecificAsset, as it must always have a assetType
+    if (!this.equals(aSpecificAsset.getAssetType()))
     {
-      assets.remove(aAsset);
+      specificAssets.remove(aSpecificAsset);
       wasRemoved = true;
     }
     return wasRemoved;
   }
   /* Code from template association_AddIndexControlFunctions */
-  public boolean addAssetAt(Asset aAsset, int index)
+  public boolean addSpecificAssetAt(SpecificAsset aSpecificAsset, int index)
   {  
     boolean wasAdded = false;
-    if(addAsset(aAsset))
+    if(addSpecificAsset(aSpecificAsset))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfAssets()) { index = numberOfAssets() - 1; }
-      assets.remove(aAsset);
-      assets.add(index, aAsset);
+      if(index > numberOfSpecificAssets()) { index = numberOfSpecificAssets() - 1; }
+      specificAssets.remove(aSpecificAsset);
+      specificAssets.add(index, aSpecificAsset);
       wasAdded = true;
     }
     return wasAdded;
   }
 
-  public boolean addOrMoveAssetAt(Asset aAsset, int index)
+  public boolean addOrMoveSpecificAssetAt(SpecificAsset aSpecificAsset, int index)
   {
     boolean wasAdded = false;
-    if(assets.contains(aAsset))
+    if(specificAssets.contains(aSpecificAsset))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfAssets()) { index = numberOfAssets() - 1; }
-      assets.remove(aAsset);
-      assets.add(index, aAsset);
+      if(index > numberOfSpecificAssets()) { index = numberOfSpecificAssets() - 1; }
+      specificAssets.remove(aSpecificAsset);
+      specificAssets.add(index, aSpecificAsset);
       wasAdded = true;
     } 
     else 
     {
-      wasAdded = addAssetAt(aAsset, index);
+      wasAdded = addSpecificAssetAt(aSpecificAsset, index);
     }
     return wasAdded;
   }
 
   public void delete()
   {
-    for(int i=assets.size(); i > 0; i--)
+    assettypesByName.remove(getName());
+    AssetPlus placeholderAssetPlus = assetPlus;
+    this.assetPlus = null;
+    if(placeholderAssetPlus != null)
     {
-      Asset aAsset = assets.get(i - 1);
-      aAsset.delete();
+      placeholderAssetPlus.removeAssetType(this);
+    }
+    for(int i=specificAssets.size(); i > 0; i--)
+    {
+      SpecificAsset aSpecificAsset = specificAssets.get(i - 1);
+      aSpecificAsset.delete();
     }
   }
 
@@ -161,6 +243,8 @@ public class AssetType
   public String toString()
   {
     return super.toString() + "["+
-            "type" + ":" + getType()+ "]";
+            "name" + ":" + getName()+ "," +
+            "expectedLifeSpan" + ":" + getExpectedLifeSpan()+ "]" + System.getProperties().getProperty("line.separator") +
+            "  " + "assetPlus = "+(getAssetPlus()!=null?Integer.toHexString(System.identityHashCode(getAssetPlus())):"null");
   }
 }
