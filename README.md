@@ -1,20 +1,19 @@
-# :hotel::heavy_plus_sign: ECSE223 AssetPlus Project: Team N
-
-_(Edit this file as needed, then remove this sentence)._
+# :hotel::heavy_plus_sign: ECSE223 AssetPlus Project: Team 3_
 
 ## Project Overview
 
-_Provide a one-sentence overview of your project here._
+Asset management system for a hotel.
 
 For more information about the AssetPlus application, please consult the [wiki](../../wiki).
 
 ## Team Members
 
-| Name          | GitHub username |
-| ------------- | --------------- |
-| Team Member A | ...             |
-| Team Member B | ...             |
-| Team Member C | ...             |
-| Team Member D | ...             |
-| Team Member E | ...             |
-| Team Member F | ...             |
+| Name                | GitHub username |
+| ------------------- | --------------- |
+| Houman Azari        | HoomanAzari     |
+| Aurelia Bouliane    | Goldrelia       |
+| Alice Godbout       | aliceg01        |
+| Ray Liu             | raydatray       |
+| Alexander Liu       | alexandre-liu   |
+| Sebastian Reinhardt | SReinhardt283   |
+| Colin Xiong         | CX899           |
