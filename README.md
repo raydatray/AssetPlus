@@ -1,4 +1,4 @@
-# :hotel::heavy_plus_sign: ECSE223 AssetPlus Project: Team 3_
+# :hotel::heavy_plus_sign: ECSE223 AssetPlus Project: Team 3
 
 ## Project Overview
 
