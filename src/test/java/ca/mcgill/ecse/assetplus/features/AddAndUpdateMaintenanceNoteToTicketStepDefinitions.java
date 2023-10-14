@@ -1,10 +1,23 @@
 package ca.mcgill.ecse.assetplus.features;
 
+import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet7Controller;
+import ca.mcgill.ecse.assetplus.model.AssetPlus;
+import ca.mcgill.ecse.assetplus.model.MaintenanceNote;
+import ca.mcgill.ecse.assetplus.model.MaintenanceTicket;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.sql.Date;
+
 public class AddAndUpdateMaintenanceNoteToTicketStepDefinitions {
+
+private AssetPlus assetPlus;
+private String error;
+private int errorCounter;
+
   @Given("the following employees exist in the system \\(p3)")
   public void the_following_employees_exist_in_the_system_p3(
       io.cucumber.datatable.DataTable dataTable) {
@@ -86,35 +99,47 @@ public class AddAndUpdateMaintenanceNoteToTicketStepDefinitions {
   @When("hotel staff with email {string} attempts to add a new note with date {string} and description {string} to an existing maintenance ticket {string} \\(p3)")
   public void hotel_staff_with_email_attempts_to_add_a_new_note_with_date_and_description_to_an_existing_maintenance_ticket_p3(
       String string, String string2, String string3, String string4) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    String output = AssetPlusFeatureSet7Controller.addMaintenanceNote(Date.valueOf(string2), string3, Integer.parseInt(string4), string);
+    if (!output.isEmpty()){
+      error = output;
+      errorCounter += 1;
+    }
   }
 
   @When("the manger attempts to update note number {string} for maintenance ticket {string} with note taker {string}, date {string}, and description {string} \\(p3)")
   public void the_manger_attempts_to_update_note_number_for_maintenance_ticket_with_note_taker_date_and_description_p3(
       String string, String string2, String string3, String string4, String string5) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    String output = AssetPlusFeatureSet7Controller.updateMaintenanceNote(Integer.parseInt(string2), Integer.parseInt(string), Date.valueOf(string4), string5, string3);
+    if (!output.isEmpty()){
+      error = output;
+      errorCounter += 1;
+    }
   }
 
   @Then("the number of notes in the system shall be {string} \\(p3)")
   public void the_number_of_notes_in_the_system_shall_be_p3(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    int amountOfNotes = 0;
+    for (MaintenanceTicket maintenanceTicket : assetPlus.getMaintenanceTickets()){
+      amountOfNotes += maintenanceTicket.getTicketNotes().size();
+    }
+    assertEquals(Integer.parseInt(string), amountOfNotes);
   }
 
   @Then("the number of notes for ticket {string} in the system shall be {string} \\(p3)")
   public void the_number_of_notes_for_ticket_in_the_system_shall_be_p3(String string,
       String string2) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    MaintenanceTicket maintenanceTicket = assetPlus.getMaintenanceTicket(Integer.parseInt(string));
+    assertEquals(Integer.parseInt(string2), maintenanceTicket.getTicketNotes().size());
   }
 
   @Then("the note number {string} for ticket {int} with noteTaker {string}, date {string}, and description {string} shall exist in the system \\(p3)")
   public void the_note_number_for_ticket_with_note_taker_date_and_description_shall_exist_in_the_system_p3(
       String string, Integer int1, String string2, String string3, String string4) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    MaintenanceTicket maintenanceTicket = assetPlus.getMaintenanceTicket(int1);
+    MaintenanceNote maintenanceNote = maintenanceTicket.getTicketNote(Integer.parseInt(string));
+    assertTrue(string2.equals(maintenanceNote.getNoteTaker().getEmail()));
+    assertTrue(string3.equals(maintenanceNote.getDate().toString()));
+    assertTrue(string4.equals(maintenanceNote.getDescription()));
   }
 
   @Then("the following notes shall exist in the system \\(p3)")
