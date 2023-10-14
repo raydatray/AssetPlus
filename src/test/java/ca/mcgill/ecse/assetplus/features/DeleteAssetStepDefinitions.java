@@ -31,14 +31,7 @@ public class DeleteAssetStepDefinitions {
           AssetPlusApplication.getAssetPlus().addAssetType(type);
       }
         
-    // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
-    // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    //
-    // For other transformations you can register a DataTableType.
-    //throw new io.cucumber.java.PendingException();
+    
   }
 
   @Given("the following assets exist in the system \\(p12)")
@@ -59,30 +52,20 @@ public class DeleteAssetStepDefinitions {
           SpecificAsset asset = AssetPlusApplication.getAssetPlus().addSpecificAsset(assetNumber, floorNumber, roomNumber, purchaseDate, AssetType.getWithName(assetType));
           AssetPlusApplication.getAssetPlus().addSpecificAsset(asset);
         }  
-    // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
-    // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    //
-    // For other transformations you can register a DataTableType.
-    //throw new io.cucumber.java.PendingException();
+   
   }
 
-  @When("the manager attempts to delete the asset with number {string} \\(p12)")
-  public void the_manager_attempts_to_delete_the_asset_with_number_p12(String string) {
+  @When("the manager attempts to delete the asset with number {assetNumber} \\(p12)")
+  public void the_manager_attempts_to_delete_the_asset_with_number_p12(String assetNumber) {
     //Removes the specific asset based on the asset number given.
-    AssetPlusFeatureSet3Controller.deleteSpecificAsset(Integer.parseInt(string));
-    // Write code here that turns the phrase above into concrete actions
-    //throw new io.cucumber.java.PendingException();
+    AssetPlusFeatureSet3Controller.deleteSpecificAsset(Integer.parseInt(assetNumber));
+    
   }
 
-  @Then("the number of assets in the system shall be {string} \\(p12)")
-  public void the_number_of_assets_in_the_system_shall_be_p12(String string) {
+  @Then("the number of assets in the system shall be {expectedNumberOfAssets} \\(p12)")
+  public void the_number_of_assets_in_the_system_shall_be_p12(String expectedNumberOfAssets) {
     //Confirms that the amount of assets has gone down after remvoving an asset.
-    assertEquals(Integer.parseInt(string), AssetPlusApplication.getAssetPlus().getSpecificAssets().size());
-    // Write code here that turns the phrase above into concrete actions
-    //throw new io.cucumber.java.PendingException();
+    assertEquals(Integer.parseInt(expectedNumberOfAssets), AssetPlusApplication.getAssetPlus().getSpecificAssets().size());
   }
 
   @Then("the following assets shall exist in the system \\(p12)")
@@ -102,12 +85,5 @@ public class DeleteAssetStepDefinitions {
           assertEquals(Date.valueOf(row.get("purchaseDate").toString()), asset.getPurchaseDate());
           applicationCounter++;
         }
-    // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
-    // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    // For other transformations you can register a DataTableType.
-    //throw new io.cucumber.java.PendingException();
   }
 }
