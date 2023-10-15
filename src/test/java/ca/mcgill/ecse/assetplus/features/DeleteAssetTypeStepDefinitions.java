@@ -71,7 +71,7 @@ public class DeleteAssetTypeStepDefinitions {
 	@Then("the number of asset types in the system shall be {string} \\(p4)")
 	public void the_number_of_asset_types_in_the_system_shall_be_p4(String expectedNumberOfAssetTypes) {
 		int expected = Integer.parseInt(expectedNumberOfAssetTypes);
-		assertEquals(assetPlus.numberOfAssetTypes(), expected);
+		assertEquals(expected,assetPlus.numberOfAssetTypes());
 	}
 
 	/**
