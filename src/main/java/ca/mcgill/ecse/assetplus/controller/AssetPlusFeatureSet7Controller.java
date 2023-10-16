@@ -42,7 +42,7 @@ public class AssetPlusFeatureSet7Controller {
         // find note taker associated with email; check if there exists a hotel staff (note taker) associated to given email
         HotelStaff noteTaker = (HotelStaff) HotelStaff.getWithEmail(email);
         if (noteTaker == null) {
-            error = "Staff with the provided email not found. ";
+            error = "Staff with the provided email not found.";
             return error;
         }
 
@@ -93,7 +93,7 @@ public class AssetPlusFeatureSet7Controller {
       //find note associated with index; check if there exists a note associated to given index
       MaintenanceNote note = ticket.getTicketNote(index);
       if (note == null) {
-          error = "Maintenance note at index " + index + " not found. ";
+          error = "Maintenance note at index " + index + " not found.";
           return error;
       }
 
@@ -141,7 +141,7 @@ public class AssetPlusFeatureSet7Controller {
     
     MaintenanceNote note = ticket.getTicketNote(index);
     if (note == null) {
-        throw new IllegalArgumentException("Maintenance note at index " + index + " not found. ");
+        throw new IllegalArgumentException("Maintenance note at index " + index + " not found.");
       }
 
 
