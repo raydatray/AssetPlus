@@ -38,7 +38,6 @@ public class DeleteAssetTypeStepDefinitions {
       String name = (row.get("name")).toString();
       int expectedLifeSpan = Integer.parseInt(row.get("expectedLifeSpan").toString());
       assetPlus.addAssetType(name, expectedLifeSpan);
-
     }
   }
 
@@ -89,7 +88,6 @@ public class DeleteAssetTypeStepDefinitions {
           && AssetType.getWithName(name).getExpectedLifeSpan() == lifeSpan
           && AssetType.getWithName(name).getAssetPlus() == assetPlus;
       assertTrue(contained);
-
     }
   }
 }
