@@ -11,31 +11,7 @@ import java.sql.Date;
 
 public class AssetPlusFeatureSet7Controller {
 
-  /**
-  * helper method, validates input details for a maintenance note given the constraints
-  *
-  * @param date date of maintenance note
-  * @param description description of maintenance note
-  * @param ticketID ticket ID of maintenance ticket containing maintenance note
-  * @param email email address associate to hotel staff
-  * @return string containing error message if the maintenance note inputs are invalid (empty string if valid)
-  * @author Alice Godbout
-  */
-  public static String isValidMaintenanceNote(Date date, String description, int ticketID, String email) {
-    // input validation
-    var error = "";
-     if (description == null || description.trim().isEmpty()) {
-        error += "Description must not be empty or null ";
-    } if (date == null) {
-        error += "Date cannot be null.";
-    } if (email == null || email.trim().isEmpty()) {
-        error += "Email address cannot be empty.";
-    }  if (ticketID <= 0) { // Verify
-      error += "Ticket ID must be greater than 0";
-    }
-    return error.trim(); // returns string containing errors
-  }
-
+ 
   /**
    * adds a maintenance note for a given ticket based on given details
    * 
@@ -159,12 +135,45 @@ public class AssetPlusFeatureSet7Controller {
 
     // find note with given ticketID and index
     MaintenanceTicket ticket = MaintenanceTicket.getWithId(ticketID);
+     if (ticket == null) {
+         throw new IllegalArgumentException("Ticket not found.");
+      }
+    
     MaintenanceNote note = ticket.getTicketNote(index);
+    if (note == null) {
+        throw new IllegalArgumentException("Maintenance note at index " + index + " not found. ");
+      }
+
 
     // if note exists, delete note
-    if (ticket != null && note != null) {
-      note.delete();
+    note.delete();
+
+  }
+
+
+   /**
+  * helper method, validates input details for a maintenance note given the constraints
+  *
+  * @param date date of maintenance note
+  * @param description description of maintenance note
+  * @param ticketID ticket ID of maintenance ticket containing maintenance note
+  * @param email email address associate to hotel staff
+  * @return string containing error message if the maintenance note inputs are invalid (empty string if valid)
+  * @author Alice Godbout
+  */
+  private static String isValidMaintenanceNote(Date date, String description, int ticketID, String email) {
+    // input validation
+    var error = "";
+     if (description == null || description.trim().isEmpty()) {
+        error += "Description must not be empty or null ";
+    } if (date == null) {
+        error += "Date cannot be null.";
+    } if (email == null || email.trim().isEmpty()) {
+        error += "Email address cannot be empty.";
+    }  if (ticketID <= 0) { // Verify
+      error += "Ticket ID must be greater than 0";
     }
+    return error.trim(); // returns string containing errors
   }
 
 }
