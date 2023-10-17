@@ -1,16 +1,12 @@
 package ca.mcgill.ecse.assetplus.controller;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
 import ca.mcgill.ecse.assetplus.model.AssetPlus;
 import ca.mcgill.ecse.assetplus.model.Employee;
-import ca.mcgill.ecse.assetplus.model.Guest;
-import ca.mcgill.ecse.assetplus.model.MaintenanceNote;
 import ca.mcgill.ecse.assetplus.model.MaintenanceTicket;
 import ca.mcgill.ecse.assetplus.model.TicketImage;
-import ca.mcgill.ecse.assetplus.model.User;
 
 public class AssetPlusFeatureSet6Controller {
 
