@@ -1,10 +1,28 @@
 package ca.mcgill.ecse.assetplus.controller;
 
+import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
+import ca.mcgill.ecse.assetplus.model.AssetPlus;
 import ca.mcgill.ecse.assetplus.model.AssetType;
+
+/**
+ * The AssetPlusFeatureSet2Controller class provides methods for managing Asset Types.
+ */
 
 public class AssetPlusFeatureSet2Controller {
 
+  /**
+     * Adds a new Asset Type with the specified name and expected lifespan.
+     *
+     * @param name                  The name of the new Asset Type. Must not be empty or null.
+     * @param expectedLifeSpanInDays The expected lifespan of the new Asset Type, in days. Must be greater than zero.
+     * @return                      A message indicating the success or failure of the operation.
+     */
+
+  private static AssetPlus assetPlus = AssetPlusApplication.getAssetPlus();
+
   public static String addAssetType(String name, int expectedLifeSpanInDays) {
+    // Implementation of the method
+
     // Ensure that name is not empty or null
     if (name == null || name.trim().isEmpty()) {
       return "AssetType name cannot be empty or null. Please enter another Asset.";
@@ -16,12 +34,22 @@ public class AssetPlusFeatureSet2Controller {
     }
 
     // Add Asset Type
-    AssetType assetType = AssetType.getWithName(name);
-    AssetType newAssetType =  new AssetType(name, expectedLifeSpanInDays, assetType.getAssetPlus());
+    AssetType newAssetType =  new AssetType(name, expectedLifeSpanInDays, assetPlus);
     return "AssetType added successfully!";
   }
 
+  /**
+     * Updates an existing Asset Type with a new name and expected lifespan.
+     *
+     * @param oldName                The current name of the Asset Type to be updated. Must not be empty or null.
+     * @param newName                The new name for the Asset Type. Must not be empty or null, and should not match the old name.
+     * @param newExpectedLifeSpanInDays The new expected lifespan for the Asset Type, in days. Must be greater than zero.
+     * @return                        A message indicating the success or failure of the operation.
+     */
+
   public static String updateAssetType(String oldName, String newName, int newExpectedLifeSpanInDays) {
+    // Implementation of the method
+
     // Ensure old name is not null or empty
     if (oldName == null || oldName.trim().isEmpty()) {
       return "Old name must not be empty or null. Please enter another old name.";
@@ -43,20 +71,22 @@ public class AssetPlusFeatureSet2Controller {
       return "AssetType with the oldname does not exist. Please enter another old name.";
     }
 
-
-    // Ensure that an Asset Type with the new name does not exist already and make sure not updating the new name to the same name it already has
-    AssetType existingAssetType = AssetType.getWithName(newName);
-    if (existingAssetType != null && existingAssetType != assetType) {
-      return "An AssetType with the new name already exists. Please enter another new name.";
-    }
-
     // Update the Asset Type
     assetType.setName(newName);
     assetType.setExpectedLifeSpan(newExpectedLifeSpanInDays);
     return "AssetType updated successfully!";
   }
 
+  /**
+     * Deletes an Asset Type with the specified name.
+     *
+     * @param name The name of the Asset Type to be deleted. Must not be empty or null.
+     * @throws IllegalArgumentException If the Asset Type with the specified name does not exist.
+     */
+
   public static void deleteAssetType(String name) {
+    // Implementation of the method
+    
     // Check if name is null or empty
     if (name == null || name.trim().isEmpty()) {
       throw new IllegalArgumentException("Name must not be empty or null. Please enter another name.");
