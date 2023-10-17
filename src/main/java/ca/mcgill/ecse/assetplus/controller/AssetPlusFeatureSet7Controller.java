@@ -165,7 +165,7 @@ public class AssetPlusFeatureSet7Controller {
     // input validation
     var error = "";
      if (description == null || description.trim().isEmpty()) {
-        error += "Description must not be empty or null ";
+        error += "Description must not be empty or null.";
     } if (date == null) {
         error += "Date cannot be null.";
     } if (email == null || email.trim().isEmpty()) {
@@ -173,7 +173,7 @@ public class AssetPlusFeatureSet7Controller {
     }  if (ticketID <= 0) { // Verify
       error += "Ticket ID must be greater than 0";
     }
-    return error.trim(); // returns string containing errors
+    return error.trim(); // returns string containing errors (or empty if none)
   }
 
 }
