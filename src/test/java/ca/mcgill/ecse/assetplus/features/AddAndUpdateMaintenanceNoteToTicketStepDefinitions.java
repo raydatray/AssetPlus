@@ -2,6 +2,7 @@ package ca.mcgill.ecse.assetplus.features;
 
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet7Controller;
 import ca.mcgill.ecse.assetplus.model.AssetPlus;
+import ca.mcgill.ecse.assetplus.model.AssetType;
 import ca.mcgill.ecse.assetplus.model.MaintenanceNote;
 import ca.mcgill.ecse.assetplus.model.MaintenanceTicket;
 import ca.mcgill.ecse.assetplus.model.Manager;
@@ -37,7 +38,8 @@ private String error;
     List<Map<String, String>> rows = dataTable.asMaps();
 
     for (Map<String, String> row : rows){
-      User manager = new Manager(row.get("email"), row.get("password"), assetPlus);
+      Manager manager = new Manager(row.get("email"), "", row.get("password"), "", assetPlus);
+      assetPlus.setManager(manager);
     }
   }
 
@@ -57,7 +59,7 @@ private String error;
     List<Map<String, String>> rows = dataTable.asMaps();
 
     for (Map<String, String> row : rows){
-      //assetPlus.addSpecificAsset(Integer.parseInt(row.get("assetNumber")), Integer.parseInt(row.get("floorNumber")), Integer.parseInt(row.get("roomNumber")), Date.valueOf(row.get("purchaseDate")), )
+      assetPlus.addSpecificAsset(Integer.parseInt(row.get("assetNumber")), Integer.parseInt(row.get("floorNumber")), Integer.parseInt(row.get("roomNumber")), Date.valueOf(row.get("purchaseDate")), AssetType.getWithName(row.get("type")));
     }
   }
 
@@ -67,21 +69,16 @@ private String error;
     List<Map<String, String>> rows = dataTable.asMaps();
 
     for (Map<String, String> row : rows){
-      //assetPlus.addMaintenanceTicket(Integer.parseInt(row.get("id")), Date.valueOf(row.get("raisedOnDate")), row.get("description"), )
+      assetPlus.addMaintenanceTicket(Integer.parseInt(row.get("id")), Date.valueOf(row.get("raisedOnDate")), row.get("description"), User.getWithEmail(row.get("ticketRaiser")));
     }
   }
 
   @Given("the following notes exist in the system \\(p3)")
   public void the_following_notes_exist_in_the_system_p3(
       io.cucumber.datatable.DataTable dataTable) {
-    // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
-    // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    //
-    // For other transformations you can register a DataTableType.
-    throw new io.cucumber.java.PendingException();
+    List<Map<String, String>> rows = dataTable.asMaps();
+
+
   }
 
   @When("hotel staff with email {string} attempts to add a new note with date {string} and description {string} to an existing maintenance ticket {string} \\(p3)")
@@ -115,7 +112,8 @@ private String error;
   @Then("the note number {string} for ticket {int} with noteTaker {string}, date {string}, and description {string} shall exist in the system \\(p3)")
   public void the_note_number_for_ticket_with_note_taker_date_and_description_shall_exist_in_the_system_p3(
       String noteId, Integer ticketId, String noteTaker, String dateAdded, String noteDescription) {
-    MaintenanceTicket maintenanceTicket = assetPlus.getMaintenanceTicket(ticketId);
+
+        MaintenanceTicket maintenanceTicket = assetPlus.getMaintenanceTicket(ticketId);
     MaintenanceNote maintenanceNote = maintenanceTicket.getTicketNote(Integer.parseInt(noteId));
     assertNotNull(maintenanceNote);
     assertTrue(noteTaker.equals(maintenanceNote.getNoteTaker().getEmail()));
@@ -126,18 +124,23 @@ private String error;
   @Then("the following notes shall exist in the system \\(p3)")
   public void the_following_notes_shall_exist_in_the_system_p3(
       io.cucumber.datatable.DataTable dataTable) {
-    // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
-    // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    //
-    // For other transformations you can register a DataTableType.
-    throw new io.cucumber.java.PendingException();
+    List<Map<String, String>> rows = dataTable.asMaps();
+
+    for (Map<String, String> row : rows){
+      MaintenanceTicket maintenanceTicket = MaintenanceTicket.getWithId(Integer.parseInt(row.get("ticketId")));
+      assertNotNull(maintenanceTicket);
+      List<MaintenanceNote> maintenanceNotes = maintenanceTicket.getTicketNotes();
+      for (MaintenanceNote note : maintenanceNotes){
+        assertNotNull(note);
+        assertTrue(row.get("noteTaker").equals(note.getNoteTaker().getEmail()));
+        assertTrue(row.get("addedOnDate").equals(note.getDate().toString()));
+        assertTrue(row.get("description").equals(note.getDescription()));
+      }
+    }
   }
 
   @Then("the system shall raise the error {string} \\(p3)")
-  public void the_system_shall_raise_the_error_p3(String string) {
-    assertTrue(error.contains(string));
+  public void the_system_shall_raise_the_error_p3(String errorMessage) {
+    assertTrue(error.contains(errorMessage));
   }
 }
