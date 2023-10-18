@@ -1,18 +1,16 @@
 package ca.mcgill.ecse.assetplus.features;
 
-import io.cucumber.core.gherkin.messages.internal.gherkin.internal.com.eclipsesource.json.ParseException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.sql.Date;
+import java.util.List;
+import java.util.Map;
+import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
+import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet3Controller;
+import ca.mcgill.ecse.assetplus.model.AssetType;
+import ca.mcgill.ecse.assetplus.model.SpecificAsset;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import java.util.List;
-import java.util.Map;
-import java.sql.Date;
-import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
-import ca.mcgill.ecse.assetplus.controller.*;
-import ca.mcgill.ecse.assetplus.model.AssetType;
-import ca.mcgill.ecse.assetplus.model.SpecificAsset;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class DeleteAssetStepDefinitions {
@@ -55,14 +53,14 @@ public class DeleteAssetStepDefinitions {
    
   }
 
-  @When("the manager attempts to delete the asset with number {assetNumber} \\(p12)")
+  @When("the manager attempts to delete the asset with number {string} \\(p12)")
   public void the_manager_attempts_to_delete_the_asset_with_number_p12(String assetNumber) {
     //Removes the specific asset based on the asset number given.
     AssetPlusFeatureSet3Controller.deleteSpecificAsset(Integer.parseInt(assetNumber));
     
   }
 
-  @Then("the number of assets in the system shall be {expectedNumberOfAssets} \\(p12)")
+  @Then("the number of assets in the system shall be {string} \\(p12)")
   public void the_number_of_assets_in_the_system_shall_be_p12(String expectedNumberOfAssets) {
     //Confirms that the amount of assets has gone down after remvoving an asset.
     assertEquals(Integer.parseInt(expectedNumberOfAssets), AssetPlusApplication.getAssetPlus().getSpecificAssets().size());
