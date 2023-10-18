@@ -97,7 +97,7 @@ public class AddAndUpdateGuestStepDefinitions {
     Integer expectedSize = Integer.parseInt(string);
 
     // Checks if the number of guests in AssetPlus matches the expected number
-    assertEquals(numberOfGuests, expectedSize);
+    assertEquals(expectedSize, numberOfGuests);
   }
 
   /**
