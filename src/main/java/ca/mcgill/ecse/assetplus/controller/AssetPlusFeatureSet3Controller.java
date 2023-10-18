@@ -1,8 +1,14 @@
 package ca.mcgill.ecse.assetplus.controller;
 
 import java.sql.Date;
+import ca.mcgill.ecse.assetplus.model.AssetPlus;
+import ca.mcgill.ecse.assetplus.model.AssetType;
+import ca.mcgill.ecse.assetplus.model.SpecificAsset;
+import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
 
 public class AssetPlusFeatureSet3Controller {
+
+  private static AssetPlus assetPlus = AssetPlusApplication.getAssetPlus();
 
   public static String addSpecificAsset(int assetNumber, int floorNumber, int roomNumber,
       Date purchaseDate, String assetTypeName) {
@@ -20,9 +26,13 @@ public class AssetPlusFeatureSet3Controller {
         if (roomNumber < -1) {
           return "Room number must be greater than or equal to minus one.";
         }
+        
+        //Error caught -> Specific asset has to be an asset in the first place
+        AssetType assetToAddTo = AssetType.getWithName(assetTypeName);
+        //THIS WILL NOT WORK IF YOUR ASSETTYPENAME IS NOT A REAL ONE
 
         //Add Asset
-        SpecificAsset mySpecificAsset = new SpecificAsset(assetNumber, floorNumber, roomNumber, purchaseDate, assetTypeName);
+        SpecificAsset mySpecificAsset = new SpecificAsset(assetNumber, floorNumber, roomNumber, purchaseDate, assetPlus, assetToAddTo);
         return "Specific asset added successfully!";
   }
 
@@ -43,33 +53,31 @@ public class AssetPlusFeatureSet3Controller {
           return "New room number must be greater than or equal to minus one.";
         }
 
-        //Checks if the asset exists in the first place
-        SpecificAsset mySpecificAsset = SpecificAsset.getSpecificAsset(assetNumber);
-        if (mySpecificAsset == null) {
-          return "Specific asset with this asset number does not exist.";
+        //Error caught -> you have to check within assets, if this specificasse exists
+
+        
+        //Case 1: Retain the same assetNumber, 
+        AssetType assetToUpdate = AssetType.getWithName(newAssetTypeName);
+
+        for (SpecificAsset specificAssetToUpdate : assetToUpdate.getSpecificAssets()){
+          if (specificAssetToUpdate.getAssetNumber() == assetNumber){
+            specificAssetToUpdate.setFloorNumber(newFloorNumber);
+            specificAssetToUpdate.setRoomNumber(newRoomNumber);
+            specificAssetToUpdate.setPurchaseDate(newPurchaseDate);
+            return "Specific asset updated";
+          }
         }
 
-        //Update the specific asset
-        mySpecificAsset.setFloorNumber(newFloorNumber);
-        mySpecificAsset.setRoomNumber(newRoomNumber);
-        mySpecificAsset.setPurchaseDate(newPurchaseDate); 
-        mySpecificAsset.setAssetType(newAssetTypeName);
-        return "Specific asset updated successfully";
+        return "Specific asset not updated";
   }
 
   public static void deleteSpecificAsset(int assetNumber) {
-    //Check if already at minimum number of specific assets
-    if (!hasSpecificAssets()) {
-      return "Already at minimum number of specific assets";
+    //Delete a specific asset by assetNumber
+    for (SpecificAsset assetToDelete: assetPlus.getSpecificAssets()){
+      if(assetToDelete.getAssetNumber() == assetNumber){
+        assetToDelete.delete();
+      }
     }
-
-    //Check if the asset with this number exists
-    SpecificAsset mySpecificAsset = SpecificAsset.getSpecificAsset(assetNumber);
-        if (mySpecificAsset == null) {
-          return "Specific asset with this asset number does not exist.";
-        }
-
-   mySpecificAsset.delete();
   }
 
 }
