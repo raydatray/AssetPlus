@@ -1,9 +1,7 @@
 package ca.mcgill.ecse.assetplus.controller;
 
-import ca.mcgill.ecse.assetplus.model.Employee;
-import ca.mcgill.ecse.assetplus.model.Guest;
-import ca.mcgill.ecse.assetplus.model.User;
-import ca.mcgill.ecse.assetplus.model.User;
+import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
+import ca.mcgill.ecse.assetplus.model.*;
 
 // completed by Colin Xiong (CX899 on github)
 
@@ -19,18 +17,29 @@ public class AssetPlusFeatureSet1Controller {
     //Check if password is valid
     var error = isValidPassword(password);
 
+    //Check if inputs are valid
     if (!error.isEmpty()) {
       System.out.println(error);
       return error.trim();
     }
 
-    try{
+    AssetPlus assetPlus = AssetPlusApplication.getAssetPlus();
+    Manager manager = assetPlus.getManager();
 
+    //Check if manager exists
+    if (manager == null){
+      error = "Manager does not exists. ";
+      return error;
+    }
+
+    //Update manager password
+    try{
+      manager.setPassword(password);
     } catch (RuntimeException e){
       error = e.getMessage();
     }
 
-    return error;
+    return error; // return error, or empty string meaning operation was successful (no error)
   }
 
   /**
@@ -47,43 +56,48 @@ public class AssetPlusFeatureSet1Controller {
         boolean isEmployee) {
     
     //Check if inputs are valid
-    var error = isValidEmployeeOrGuest(email, password, name, phoneNumber,
-        boolean isEmployee);
+    var error = isValidEmployeeOrGuest(email, password, name, phoneNumber);
 
     if (!error.isEmpty()) {
       System.out.println(error);
       return error.trim();
     }
-     
+
+    AssetPlus assetPlus = AssetPlusApplication.getAssetPlus();
+
     try{
       if (isEmployee) {
-        Employee employee = Employee.getWithEmail(email);
+        User employee = Employee.getWithEmail(email);
+        //Check if employee already exists
         if (employee != null) {
           error = "Employee already exists.";
           return error;
         }
 
-        if (!(email.substring(email.length() - 7).equals("@ap.com"))){
+        //Check if email domain is @ap.com
+        if (!(email.endsWith("@ap.com"))){
           error = "Employee email domain must be @ap.com";
           return error;
         }
 
-        Employee newEmployee = new Employee(email, password, name, phoneNumber);
+        Employee newEmployee = new Employee(email, password, name, phoneNumber, assetPlus);
       } 
     
       else {
-        Guest guest = Guest.getWithEmail(email);
+        User guest = Guest.getWithEmail(email);
+        //Check if guest already exists
         if (guest != null) {
           error = "Employee already exists.";
           return error;
         }
 
-        if (!(email.substring(email.length() - 7).equals("@ap.com"))){
+        //Check if email domain is @ap
+        if (!(email.endsWith("@ap.com"))){
           error = "Guest email domain cannot be @ap.com";
           return error;
         }
 
-        Guest newGuest = new Guest(email, password, name, phoneNumber);
+        Guest newGuest = new Guest(email, password, name, phoneNumber, assetPlus);
       }
     } catch (RuntimeException e) {
       error = e.getMessage();
@@ -104,6 +118,7 @@ public class AssetPlusFeatureSet1Controller {
   public static String updateEmployeeOrGuest(String email, String newPassword, String newName, String newPhoneNumber) {
     //Check if inputs are valid
     String error = isValidEmployeeOrGuest(email, newPassword, newName, newPhoneNumber);
+    AssetPlus assetPlus = AssetPlusApplication.getAssetPlus();
 
     if (!error.isEmpty()) {
       System.out.println(error);
@@ -112,7 +127,9 @@ public class AssetPlusFeatureSet1Controller {
      
     try{
         User user = User.getWithEmail(email);
-        if (employee == null) {
+
+        //Check if user exists
+        if (user == null) {
           error = "Employee does not exist.";
           return error;
         }
@@ -156,11 +173,11 @@ public class AssetPlusFeatureSet1Controller {
     if (email.indexOf("@") > (email.lastIndexOf(".") - 1)) {
       error += "Email must contain \".\" after \"@\". ";
     }
-    if (email.indexOf(".") == (email.length() - 1)) {
+    if (email.endsWith(".")) {
       error += "Email cannot end with \".\". ";
     }
     if (email.equals("manager@ap.com")) {
-      error += "Email cannot be manager@ap.com"
+      error += "Email cannot be manager@ap.com";
     }
     if (password == null || password.trim().isEmpty()) {
       error += "Password cannot be null or empty. ";
@@ -181,18 +198,18 @@ public class AssetPlusFeatureSet1Controller {
    * @param password The password to be validated.
    * @return A string describing any validation errors, or an empty string if the password is valid.
    */
-  public static String isValidPassword(pasword){
+  public static String isValidPassword(String password){
     var error = "";
      //Make sure the password is not empty
     if (password == null || password.length() == 0) {
       error += "Manager must have a password.";
     }
     //Make sure the password is at least 4 characters
-    if (password.length() < 4) {
+    if (password != null && password.length() < 4) {
       error += "Password must be at least 4 characters. ";
     }
     //Make sure password contains one special character out of !#$
-    if (!password.contains("!") & !password.contains("#") & !password.contains("$")) {
+    if (!password.contains("!") && !password.contains("#") && !password.contains("$")) {
       error += "Password must contain at least one character out of !#$";
     }
     //Make sure password contains at least one upper character
@@ -201,10 +218,10 @@ public class AssetPlusFeatureSet1Controller {
     boolean lowerFound = false;
     for (int i = 0; i < password.length(); i++) {
       char character = password.charAt(i);
-      if (Character.isUppercase(character)) {
+      if (Character.isUpperCase(character)) {
         upperFound = true;
       }
-      if (Character.isLowercase(character)) {
+      if (Character.isLowerCase(character)) {
         lowerFound = true;
       }
     }
