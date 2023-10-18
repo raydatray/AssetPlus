@@ -1,5 +1,6 @@
 package ca.mcgill.ecse.assetplus.features;
 
+import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet7Controller;
 import ca.mcgill.ecse.assetplus.model.AssetPlus;
 import ca.mcgill.ecse.assetplus.model.AssetType;
@@ -20,7 +21,7 @@ import java.util.*;
 
 public class AddAndUpdateMaintenanceNoteToTicketStepDefinitions {
 
-private AssetPlus assetPlus;
+private AssetPlus assetPlus = AssetPlusApplication.getAssetPlus();
 private String error;
 
   @Given("the following employees exist in the system \\(p3)")
@@ -94,7 +95,7 @@ private String error;
   @When("the manger attempts to update note number {string} for maintenance ticket {string} with note taker {string}, date {string}, and description {string} \\(p3)")
   public void the_manger_attempts_to_update_note_number_for_maintenance_ticket_with_note_taker_date_and_description_p3(
       String noteId, String ticketId, String noteTaker, String dateAdded, String noteDescription) {
-    error = AssetPlusFeatureSet7Controller.updateMaintenanceNote(Integer.parseInt(ticketId), Integer.parseInt(noteId), Date.valueOf(dateAdded), noteDescription, noteTaker);
+    error = AssetPlusFeatureSet7Controller.updateMaintenanceNote(Integer.parseInt(ticketId), Integer.parseInt(noteId), Date.valueOf(dateAdded.trim()), noteDescription, noteTaker);
   }
 
   @Then("the number of notes in the system shall be {string} \\(p3)")
@@ -110,18 +111,18 @@ private String error;
   public void the_number_of_notes_for_ticket_in_the_system_shall_be_p3(String ticketId,
       String expectedAmountOfNotes) {
     MaintenanceTicket maintenanceTicket = assetPlus.getMaintenanceTicket(Integer.parseInt(ticketId));
+    // assertNotNull?
     assertEquals(Integer.parseInt(expectedAmountOfNotes), maintenanceTicket.getTicketNotes().size());
   }
 
   @Then("the note number {string} for ticket {int} with noteTaker {string}, date {string}, and description {string} shall exist in the system \\(p3)")
   public void the_note_number_for_ticket_with_note_taker_date_and_description_shall_exist_in_the_system_p3(
-      String noteId, Integer ticketId, String noteTaker, String dateAdded, String noteDescription) {
-
-        MaintenanceTicket maintenanceTicket = assetPlus.getMaintenanceTicket(ticketId);
-    MaintenanceNote maintenanceNote = maintenanceTicket.getTicketNote(Integer.parseInt(noteId));
+      String noteIndex, Integer ticketId, String noteTaker, String dateAdded, String noteDescription) {
+    MaintenanceTicket maintenanceTicket = assetPlus.getMaintenanceTicket(ticketId);
+    MaintenanceNote maintenanceNote = maintenanceTicket.getTicketNote(Integer.parseInt(noteIndex));
     assertNotNull(maintenanceNote);
     assertTrue(noteTaker.equals(maintenanceNote.getNoteTaker().getEmail()));
-    assertTrue(dateAdded.equals(maintenanceNote.getDate().toString()));
+    assertTrue(dateAdded.equals(maintenanceNote.getDate().toString())); //right comparison?
     assertTrue(noteDescription.equals(maintenanceNote.getDescription()));
   }
 
