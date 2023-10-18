@@ -25,8 +25,7 @@ private AssetPlus assetPlus = AssetPlusApplication.getAssetPlus();
 private String error;
 
   @Given("the following employees exist in the system \\(p3)")
-  public void the_following_employees_exist_in_the_system_p3(
-      io.cucumber.datatable.DataTable dataTable) {
+  public void the_following_employees_exist_in_the_system_p3(io.cucumber.datatable.DataTable dataTable) {
     List<Map<String, String>> rows = dataTable.asMaps();
 
     for (Map<String, String> row : rows){
