@@ -67,7 +67,7 @@ public class DeleteGuestStepDefinitions {
    * Using an email address, attempts to delete an employee or guest's account.
    * 
    * @author Michael Rafferty
-   * @param string
+   * @param guestEmail
    */
   @When("the guest attempts to delete their own account linked to the {string} \\(p8)")
   public void the_guest_attempts_to_delete_their_own_account_linked_to_the_p8(String guestEmail) {
@@ -80,7 +80,7 @@ public class DeleteGuestStepDefinitions {
    * any guest's email.
    *
    * @author Vlad Arama
-   * @param string The email address to verify against the list of guests.
+   * @param expectedGuestEmail The email address to verify against the list of guests.
    */
   @Then("the guest account linked to {string} shall not exist in the system \\(p8)")
   public void the_guest_account_linked_to_shall_not_exist_in_the_system_p8(String expectedGuestEmail) {
@@ -95,7 +95,7 @@ public class DeleteGuestStepDefinitions {
    * Verifies that a manager exists and that its email matches the provided email
    * 
    * @author Li Yang Lei
-   * @param string
+   * @param expectedManagerEmail
    */
   @Then("the manager account linked to {string} shall exist in the system \\(p8)")
   public void the_manager_account_linked_to_shall_exist_in_the_system_p8(String expectedManagerEmail) {
@@ -107,7 +107,7 @@ public class DeleteGuestStepDefinitions {
 
   /**
    * @author Tim Pham
-   * @param string
+   * @param expectedNumberOfGuests
    */
   @Then("the number of guests in the system shall be {string} \\(p8)")
   public void the_number_of_guests_in_the_system_shall_be_p8(String expectedNumberOfGuests) {
