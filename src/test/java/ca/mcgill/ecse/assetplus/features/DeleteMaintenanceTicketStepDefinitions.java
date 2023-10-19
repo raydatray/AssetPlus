@@ -21,12 +21,12 @@ public class DeleteMaintenanceTicketStepDefinitions {
    * Adding employees given in the first @Given clause in Gherkin feature file.
    *
    * @author Isbat-ul Islam
-   * @param dataTable DataTable containing info on the employees we wish to test on
+   * @param employees DataTable containing info on the employees we wish to test on
    */
   @Given("the following employees exist in the system \\(p7)")
   public void the_following_employees_exist_in_the_system_p7(
-          io.cucumber.datatable.DataTable dataTable) {
-    List<Map<String, String>> rows = dataTable.asMaps();
+          io.cucumber.datatable.DataTable employees) {
+    List<Map<String, String>> rows = employees.asMaps();
     for (var row : rows) {
       String email = row.get("email");
       String password = row.get("password");
@@ -40,13 +40,13 @@ public class DeleteMaintenanceTicketStepDefinitions {
    * Adding Manager from the feature file.
    *
    * @author Isbat-ul Islam
-   * @param dataTable DataTable containing info on the Manage we wish to test on
+   * @param manager DataTable containing info on the Manager we wish to test on
    */
   @Given("the following manager exists in the system \\(p7)")
   public void the_following_manager_exists_in_the_system_p7(
-          io.cucumber.datatable.DataTable dataTable) {
+          io.cucumber.datatable.DataTable manager) {
 
-    List<Map<String, String>> rows = dataTable.asMaps();
+    List<Map<String, String>> rows = manager.asMaps();
     for (var row : rows) {
       String aEmail = row.get("email");
       String aPassword = row.get("password");
@@ -61,13 +61,13 @@ public class DeleteMaintenanceTicketStepDefinitions {
    * Adds asset types specified in the Gherkin Feature file.
    *
    * @author Isbat-ul Islam
-   * @param dataTable DataTable containing info on the AssetTypes we wish to test on
+   * @param assetTypes DataTable containing info on the AssetTypes we wish to test on
    */
   @Given("the following asset types exist in the system \\(p7)")
   public void the_following_asset_types_exist_in_the_system_p7(
-          io.cucumber.datatable.DataTable dataTable) {
+          io.cucumber.datatable.DataTable assetTypes) {
 
-    List<Map<String, String>> rows = dataTable.asMaps();
+    List<Map<String, String>> rows = assetTypes.asMaps();
     for (var row : rows) {
       String aName = row.get("name");
       Integer aExpectedLifeSpan = Integer.parseInt(row.get("expectedLifeSpan"));
@@ -79,13 +79,13 @@ public class DeleteMaintenanceTicketStepDefinitions {
    * Adds specific assets defined in Gherkin feature file.
    *
    * @author Isbat-ul Islam
-   * @param dataTable DataTable containing info on the SpecificAssets we wish to test on
+   * @param specificAssets DataTable containing info on the SpecificAssets we wish to test on
    */
   @Given("the following assets exist in the system \\(p7)")
   public void the_following_assets_exist_in_the_system_p7(
-          io.cucumber.datatable.DataTable dataTable) {
+          io.cucumber.datatable.DataTable specificAssets) {
 
-    List<Map<String, String>> rows = dataTable.asMaps(String.class, String.class);
+    List<Map<String, String>> rows = specificAssets.asMaps(String.class, String.class);
     for (var row : rows) {
       Integer aAssetNumber = Integer.parseInt(row.get("assetNumber"));
       AssetType aAssetType = AssetType.getWithName(row.get("type"));
@@ -100,12 +100,12 @@ public class DeleteMaintenanceTicketStepDefinitions {
    * Add specified Tickets defined in feature file.
    *
    * @author Isbat-ul Islam
-   * @param dataTable DataTable containing info on the MaintenanceTickets we wish to test on
+   * @param maintenanceTickets DataTable containing info on the MaintenanceTickets we wish to test on
    */
   @Given("the following tickets exist in the system \\(p7)")
   public void the_following_tickets_exist_in_the_system_p7(
-          io.cucumber.datatable.DataTable dataTable) {
-    List<Map<String, String>> rows = dataTable.asMaps();
+          io.cucumber.datatable.DataTable maintenanceTickets) {
+    List<Map<String, String>> rows = maintenanceTickets.asMaps();
     for (var row : rows) {
       Integer aID = Integer.parseInt(row.get("id"));
       String aTicketRaiserEmail = row.get("ticketRaiser");
@@ -121,11 +121,11 @@ public class DeleteMaintenanceTicketStepDefinitions {
    * Delete ticket with ticketID "string".
    *
    * @author Neil Joe George
-   * @param string The ID of the ticket we are trying to delete
+   * @param ticketId The ID of the ticket we are trying to delete
    */
   @When("the manager attempts to delete the maintenance ticket with id {string} \\(p7)")
-  public void the_manager_attempts_to_delete_the_maintenance_ticket_with_id_p7(String string) {
-    int aID = Integer.parseInt(string);
+  public void the_manager_attempts_to_delete_the_maintenance_ticket_with_id_p7(String ticketId) {
+    int aID = Integer.parseInt(ticketId);
     AssetPlusFeatureSet4Controller.deleteMaintenanceTicket(aID);
   }
 
@@ -134,12 +134,12 @@ public class DeleteMaintenanceTicketStepDefinitions {
    *
    * @author Mathieu Pestel
    * @author Neil Joe George
-   * @param dataTable DataTable containing info on the expected MaintenanceTickets in the system
+   * @param maintenanceTickets DataTable containing info on the expected MaintenanceTickets in the system
    */
   @Then("the following tickets shall exist in the system \\(p7)")
   public void the_following_tickets_shall_exist_in_the_system_p7(
-          io.cucumber.datatable.DataTable dataTable) {
-    List<Map<String, String>> ticketTable = dataTable.asMaps(String.class, String.class);
+          io.cucumber.datatable.DataTable maintenanceTickets) {
+    List<Map<String, String>> ticketTable = maintenanceTickets.asMaps(String.class, String.class);
     for (Map<String, String> ticket : ticketTable) {
       int ticketID = Integer.parseInt(ticket.get("id"));
       MaintenanceTicket currentTicket = MaintenanceTicket.getWithId(ticketID);
@@ -158,10 +158,10 @@ public class DeleteMaintenanceTicketStepDefinitions {
    * Check if the number of maintenance tickets in the system is correct
    *
    * @author Mathieu Pestel
-   * @param string The amount of tickets we expect to be in the system.
+   * @param numTickets The amount of tickets we expect to be in the system.
    */
   @Then("the number of maintenance tickets in the system shall be {string} \\(p7)")
-  public void the_number_of_maintenance_tickets_in_the_system_shall_be_p7(String string) {
-    assertEquals(Integer.parseInt(string), assetPlus.getMaintenanceTickets().size());
+  public void the_number_of_maintenance_tickets_in_the_system_shall_be_p7(String numTickets) {
+    assertEquals(Integer.parseInt(numTickets), assetPlus.getMaintenanceTickets().size());
   }
 }
