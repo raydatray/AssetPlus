@@ -56,10 +56,10 @@ public class AddAndUpdateEmployeeStepDefinitions {
    * @author Jatin Patel and Anastasiia Nemyrovska
    */
   @When("a new employee attempts to register with {string}, {string}, {string}, and {string} \\(p11)")
-  public void a_new_employee_attempts_to_register_with_and_p11(String string, String string2,
-      String string3, String string4) {
+  public void a_new_employee_attempts_to_register_with_and_p11(String email, String password,
+      String name, String phoneNumber) {
 
-    callController(addEmployeeOrGuest(string, string2, string3, string4,true));
+    callController(addEmployeeOrGuest(email, password, name, phoneNumber,true));
   }
 
   /**
@@ -67,42 +67,40 @@ public class AddAndUpdateEmployeeStepDefinitions {
    */
   @When("the employee with {string} attempts to update their account information to {string}, {string}, and {string} \\(p11)")
   public void the_employee_with_attempts_to_update_their_account_information_to_and_p11(
-      String string, String string2, String string3, String string4) {
-    // string = email; string2 = newPassword; string3 = newName; string4 = newPhoneNumber;
-    callController(updateEmployeeOrGuest(string, string2, string3, string4)); 
+      String email, String newPassword, String newName, String newPhoneNumber) {
+    callController(updateEmployeeOrGuest(email, newPassword, newName, newPhoneNumber));
   }
   /**
    * @author Pei Yan Geng, Dmytro Martyniuk and Laurence Perreault
    */
   @Then("the following {string} shall be raised \\(p11)")
-  public void the_following_shall_be_raised_p11(String string) {
-    assertTrue(error.contains(string));
+  public void the_following_shall_be_raised_p11(String errorString) {
+    assertTrue(error.contains(errorString));
   }
   /**
    * @author Pei Yan Geng, Dmytro Martyniuk and Laurence Perreault
    */
   @Then("the number of employees in the system shall be {string} \\(p11)")
-  public void the_number_of_employees_in_the_system_shall_be_p11(String string) {
+  public void the_number_of_employees_in_the_system_shall_be_p11(String expectedNumberOfEmployees) {
     
     List<Employee> employees = assetPlus.getEmployees();
 
-    assertEquals( (Integer) employees.size(), Integer.parseInt(string));
+    assertEquals( (Integer) employees.size(), Integer.parseInt(expectedNumberOfEmployees));
   }
   
    /**
    * @author Marc-Antoine Nadeau & Behrad Rezaie
    */
   @Then("a new employee account shall exist with {string}, {string}, {string}, and {string} \\(p11)")
-  public void a_new_employee_account_shall_exist_with_and_p11(String string, String string2,
-      String string3, String string4) {
+  public void a_new_employee_account_shall_exist_with_and_p11(String email, String password, String name, String phoneNumber) {
     
     //Checks an employee with given email exists
-    assertTrue(Employee.hasWithEmail(string));
+    assertTrue(Employee.hasWithEmail(email));
     //Checks other employee attributes
-    Employee existingEmployee = (Employee) User.getWithEmail(string);
-    assertEquals(string2, existingEmployee.getPassword());
-    assertEquals(string3, existingEmployee.getName());
-    assertEquals(string4,existingEmployee.getPhoneNumber());
+    Employee existingEmployee = (Employee) User.getWithEmail(email);
+    assertEquals(password, existingEmployee.getPassword());
+    assertEquals(name, existingEmployee.getName());
+    assertEquals(phoneNumber,existingEmployee.getPhoneNumber());
 
   }
   
@@ -110,14 +108,13 @@ public class AddAndUpdateEmployeeStepDefinitions {
    * @author Marc-Antoine Nadeau & Behrad Rezaie
    */
   @Then("their employee account information will be updated and is now {string}, {string}, {string}, and {string} \\(p11)")
-  public void their_employee_account_information_will_be_updated_and_is_now_and_p11(String string,
-      String string2, String string3, String string4) {
+  public void their_employee_account_information_will_be_updated_and_is_now_and_p11(String email, String newPassword, String newName, String newPhoneNumber) {
     
-    assertTrue(Employee.hasWithEmail(string));    
-    Employee updatedEmployeeWithKnownEmailAddress = (Employee) User.getWithEmail(string);
-    assertEquals(string2, updatedEmployeeWithKnownEmailAddress.getPassword());
-    assertEquals(string3, updatedEmployeeWithKnownEmailAddress.getName());
-    assertEquals(string4, updatedEmployeeWithKnownEmailAddress.getPhoneNumber());
+    assertTrue(Employee.hasWithEmail(email));    
+    Employee updatedEmployeeWithKnownEmailAddress = (Employee) User.getWithEmail(email);
+    assertEquals(newPassword, updatedEmployeeWithKnownEmailAddress.getPassword());
+    assertEquals(newName, updatedEmployeeWithKnownEmailAddress.getName());
+    assertEquals(newPhoneNumber, updatedEmployeeWithKnownEmailAddress.getPhoneNumber());
   }
 
   /**
@@ -152,4 +149,3 @@ public class AddAndUpdateEmployeeStepDefinitions {
     }
   }
 }
-
