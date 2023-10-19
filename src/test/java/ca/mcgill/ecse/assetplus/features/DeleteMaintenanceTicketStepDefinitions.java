@@ -21,7 +21,7 @@ public class DeleteMaintenanceTicketStepDefinitions {
    * Adding employees given in the first @Given clause in Gherkin feature file.
    *
    * @author Isbat-ul Islam
-   * @param dataTable
+   * @param dataTable DataTable containing info on the employees we wish to test on
    */
   @Given("the following employees exist in the system \\(p7)")
   public void the_following_employees_exist_in_the_system_p7(
@@ -40,7 +40,7 @@ public class DeleteMaintenanceTicketStepDefinitions {
    * Adding Manager from the feature file.
    *
    * @author Isbat-ul Islam
-   * @param dataTable
+   * @param dataTable DataTable containing info on the Manage we wish to test on
    */
   @Given("the following manager exists in the system \\(p7)")
   public void the_following_manager_exists_in_the_system_p7(
@@ -61,7 +61,7 @@ public class DeleteMaintenanceTicketStepDefinitions {
    * Adds asset types specified in the Gherkin Feature file.
    *
    * @author Isbat-ul Islam
-   * @param dataTable
+   * @param dataTable DataTable containing info on the AssetTypes we wish to test on
    */
   @Given("the following asset types exist in the system \\(p7)")
   public void the_following_asset_types_exist_in_the_system_p7(
@@ -79,7 +79,7 @@ public class DeleteMaintenanceTicketStepDefinitions {
    * Adds specific assets defined in Gherkin feature file.
    *
    * @author Isbat-ul Islam
-   * @param dataTable
+   * @param dataTable DataTable containing info on the SpecificAssets we wish to test on
    */
   @Given("the following assets exist in the system \\(p7)")
   public void the_following_assets_exist_in_the_system_p7(
@@ -100,7 +100,7 @@ public class DeleteMaintenanceTicketStepDefinitions {
    * Add specified Tickets defined in feature file.
    *
    * @author Isbat-ul Islam
-   * @param dataTable
+   * @param dataTable DataTable containing info on the MaintenanceTickets we wish to test on
    */
   @Given("the following tickets exist in the system \\(p7)")
   public void the_following_tickets_exist_in_the_system_p7(
@@ -118,10 +118,10 @@ public class DeleteMaintenanceTicketStepDefinitions {
   }
 
   /**
-   * Check if the number of maintenance tickets in the system is correct
+   * Delete ticket with ticketID "string".
    *
    * @author Neil Joe George
-   * @param string
+   * @param string The ID of the ticket we are trying to delete
    */
   @When("the manager attempts to delete the maintenance ticket with id {string} \\(p7)")
   public void the_manager_attempts_to_delete_the_maintenance_ticket_with_id_p7(String string) {
@@ -134,7 +134,7 @@ public class DeleteMaintenanceTicketStepDefinitions {
    *
    * @author Mathieu Pestel
    * @author Neil Joe George
-   * @param dataTable
+   * @param dataTable DataTable containing info on the expected MaintenanceTickets in the system
    */
   @Then("the following tickets shall exist in the system \\(p7)")
   public void the_following_tickets_shall_exist_in_the_system_p7(
@@ -158,7 +158,7 @@ public class DeleteMaintenanceTicketStepDefinitions {
    * Check if the number of maintenance tickets in the system is correct
    *
    * @author Mathieu Pestel
-   * @param string
+   * @param string The amount of tickets we expect to be in the system.
    */
   @Then("the number of maintenance tickets in the system shall be {string} \\(p7)")
   public void the_number_of_maintenance_tickets_in_the_system_shall_be_p7(String string) {
