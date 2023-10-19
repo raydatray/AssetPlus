@@ -18,7 +18,7 @@ As a manager, I wish to update my password
       | manager@ap.com | $aA3        |
 
   Scenario Outline: A manager updates their password unsuccessfully
-    When a manager with "<email>" attempts to update their password to "<newPassword>" (p6)
+    When a manager with "<email>" attempts to update their password to "<password>" (p6)
     Then the following "<error>" shall be raised (p6)
     Then the manager account information will not be updated and will keep "<email>" and "<password>" (p6)
     Then the number of managers in the system shall be "1" (p6)
