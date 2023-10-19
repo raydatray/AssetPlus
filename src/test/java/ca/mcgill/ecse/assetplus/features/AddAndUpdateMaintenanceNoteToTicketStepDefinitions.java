@@ -152,9 +152,9 @@ private String error;
     MaintenanceTicket maintenanceTicket = MaintenanceTicket.getWithId(ticketId); //getting the correct ticket
     MaintenanceNote maintenanceNote = maintenanceTicket.getTicketNote(Integer.parseInt(noteIndex)); //getting the correct ticket
     assertNotNull(maintenanceNote); //making sure it exists
-    assertTrue(noteTaker.equals(maintenanceNote.getNoteTaker().getEmail())); //asserting the noteTakers are the same
-    assertTrue(dateAdded.equals(maintenanceNote.getDate().toString())); //asserting the dateAddeds are the same
-    assertTrue(noteDescription.equals(maintenanceNote.getDescription())); //asserting the descriptions are the same
+    assertEquals(noteTaker, maintenanceNote.getNoteTaker().getEmail()); //asserting the noteTakers are the same
+    assertEquals(dateAdded, maintenanceNote.getDate().toString()); //asserting the dateAddeds are the same
+    assertEquals(noteDescription, maintenanceNote.getDescription()); //asserting the descriptions are the same
   }
 
   /**
@@ -170,9 +170,9 @@ private String error;
       List<MaintenanceNote> maintenanceNotes = maintenanceTicket.getTicketNotes(); //getting all of a tickets notes
       for (MaintenanceNote note : maintenanceNotes){ //iterating through the notes of a ticket
         assertNotNull(note); //asserting the ticket exists
-        assertTrue(row.get("noteTaker").equals(note.getNoteTaker().getEmail())); //asserting the noteTakers are the same
-        assertTrue(row.get("addedOnDate").equals(note.getDate().toString())); //asserting the dateAddeds are the same
-        assertTrue(row.get("description").equals(note.getDescription())); //asserting the descriptions are the same
+        assertEquals(row.get("noteTaker"), note.getNoteTaker().getEmail()); //asserting the noteTakers are the same
+        assertEquals(row.get("addedOnDate"), note.getDate().toString()); //asserting the dateAddeds are the same
+        assertEquals(row.get("description"), note.getDescription()); //asserting the descriptions are the same
       }
     }
   }
@@ -182,6 +182,6 @@ private String error;
    */
   @Then("the system shall raise the error {string} \\(p3)")
   public void the_system_shall_raise_the_error_p3(String errorMessage) {
-    assertTrue(error.equals(errorMessage)); //asserting the errorMessages are identical
+    assertEquals(errorMessage, error); //asserting the errorMessages are identical
   }
 }
