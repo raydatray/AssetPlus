@@ -29,8 +29,8 @@ public class AddAndUpdateAssetStepDefinitions {
       io.cucumber.datatable.DataTable dataTable) {
 
     List<Map<String, String>> rows = dataTable.asMaps(String.class, String.class);
+    
     for (Map<String, String> columns : rows) {
-
       new AssetType(columns.get("name"), Integer.parseInt(columns.get("expectedLifeSpan")), hotel);
     }
   }
@@ -46,14 +46,13 @@ public class AddAndUpdateAssetStepDefinitions {
       io.cucumber.datatable.DataTable dataTable) {
 
     List<Map<String, String>> rows = dataTable.asMaps();
-    for (var row : rows) {
 
+    for (var row : rows) {
       int aAssetNumber = Integer.parseInt(row.get("assetNumber"));
       AssetType aAssetType = AssetType.getWithName(row.get("type"));
       Date aPurchaseDate = Date.valueOf(row.get("purchaseDate"));
       int aFloorNumber = Integer.parseInt(row.get("floorNumber"));
       int aRoomNumber = Integer.parseInt(row.get("roomNumber"));
-
       new SpecificAsset(aAssetNumber, aFloorNumber, aRoomNumber, aPurchaseDate, hotel, aAssetType);
     }
   }
@@ -67,17 +66,9 @@ public class AddAndUpdateAssetStepDefinitions {
    * @param floorNum represents floor number
    * @param roomNum represents room number
    */
-  @When(
-      "the manager attempts to add a new asset to the system with asset number {string}, type"
-          + " {string}, purchase date {string}, floor number {string}, and room number {string}"
-          + " \\(p9)")
-  public void
-      the_manager_attempts_to_add_a_new_asset_to_the_system_with_asset_number_type_purchase_date_floor_number_and_room_number_p9(
-          String assetNum,
-          String assetType,
-          String purchaseDateString,
-          String floorNum,
-          String roomNum) {
+  @When("the manager attempts to add a new asset to the system with asset number {string}, type {string}, purchase date {string}, floor number {string}, and room number {string} \\(p9)")
+  public void the_manager_attempts_to_add_a_new_asset_to_the_system_with_asset_number_type_purchase_date_floor_number_and_room_number_p9(
+      String assetNum, String assetType, String purchaseDateString, String floorNum, String roomNum) {
 
     int assetNumber = Integer.parseInt(assetNum);
     int floorNumber = Integer.parseInt(floorNum);
@@ -85,8 +76,7 @@ public class AddAndUpdateAssetStepDefinitions {
     Date purchaseDate = Date.valueOf(purchaseDateString);
 
     error =
-        AssetPlusFeatureSet3Controller.addSpecificAsset(
-            assetNumber, floorNumber, roomNumber, purchaseDate, assetType);
+        AssetPlusFeatureSet3Controller.addSpecificAsset(assetNumber, floorNumber, roomNumber, purchaseDate, assetType);
   }
 
   /**
@@ -98,12 +88,9 @@ public class AddAndUpdateAssetStepDefinitions {
    * @param floorNum represents floor number
    * @param roomNum represents room number
    */
-  @When(
-      "the manager attempts to update asset number {string} in the system with type {string},"
-          + " purchaseDate {string}, floorNumber {string}, and roomNumber {string} \\(p9)")
-  public void
-      the_manager_attempts_to_update_asset_number_in_the_system_with_type_purchase_date_floor_number_and_room_number_p9(
-          String assetNum, String assetType, String purchaseDate, String floorNum, String roomNum) {
+  @When("the manager attempts to update asset number {string} in the system with type {string}, purchaseDate {string}, floorNumber {string}, and roomNumber {string} \\(p9)")
+  public void the_manager_attempts_to_update_asset_number_in_the_system_with_type_purchase_date_floor_number_and_room_number_p9(
+      String assetNum, String assetType, String purchaseDate, String floorNum, String roomNum) {
     // get all the new parameters
     int assetNumber = Integer.parseInt(assetNum);
     int newFloorNumber = Integer.parseInt(floorNum);
@@ -112,8 +99,7 @@ public class AddAndUpdateAssetStepDefinitions {
     String newAssetTypeName = assetType;
     // update the asset with new parameters and track possible error
     error =
-        AssetPlusFeatureSet3Controller.updateSpecificAsset(
-            assetNumber, newFloorNumber, newRoomNumber, newPurchaseDate, newAssetTypeName);
+        AssetPlusFeatureSet3Controller.updateSpecificAsset(assetNumber, newFloorNumber, newRoomNumber, newPurchaseDate, newAssetTypeName);
   }
 
   /**
@@ -125,7 +111,6 @@ public class AddAndUpdateAssetStepDefinitions {
   public void the_number_of_assets_in_the_system_shall_be_p9(String expectedNumOfAssets) {
 
     int numOfAssets = hotel.numberOfSpecificAssets();
-
     assertEquals(Integer.parseInt(expectedNumOfAssets), numOfAssets);
   }
 
@@ -164,12 +149,8 @@ public class AddAndUpdateAssetStepDefinitions {
     for (Map<String, String> columns : rows) {
       SpecificAsset currentAsset =
           SpecificAsset.getWithAssetNumber(Integer.parseInt(columns.get("assetNumber")));
-      assertEquals(
-          currentAsset.getAssetType().getName(),
-          AssetType.getWithName(columns.get("type")).getName());
-      assertEquals(
-          currentAsset.getAssetType().getExpectedLifeSpan(),
-          AssetType.getWithName(columns.get("type")).getExpectedLifeSpan());
+      assertEquals(currentAsset.getAssetType().getName(), AssetType.getWithName(columns.get("type")).getName());
+      assertEquals(currentAsset.getAssetType().getExpectedLifeSpan(), AssetType.getWithName(columns.get("type")).getExpectedLifeSpan());
     }
   }
 
@@ -193,16 +174,9 @@ public class AddAndUpdateAssetStepDefinitions {
    * @param floorNumber Floor Number of the compared asset
    * @param roomNumber Room Number of the compared asset
    */
-  @Then(
-      "the asset {string} with asset number {string}, purchase date {string}, floor number"
-          + " {string}, and room number {string} shall exist in the system \\(p9)")
-  public void
-      the_asset_with_asset_number_purchase_date_floor_number_and_room_number_shall_exist_in_the_system_p9(
-          String assetType,
-          String assetNumber,
-          String purchaseDate,
-          String floorNumber,
-          String roomNumber) {
+  @Then("the asset {string} with asset number {string}, purchase date {string}, floor number {string}, and room number {string} shall exist in the system \\(p9)")
+  public void the_asset_with_asset_number_purchase_date_floor_number_and_room_number_shall_exist_in_the_system_p9(
+      String assetType, String assetNumber, String purchaseDate, String floorNumber, String roomNumber) {
 
     SpecificAsset assetInSystem = SpecificAsset.getWithAssetNumber(Integer.parseInt(assetNumber));
     assertNotNull(assetInSystem);
