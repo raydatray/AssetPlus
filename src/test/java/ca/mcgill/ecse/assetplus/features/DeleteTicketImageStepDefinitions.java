@@ -8,7 +8,6 @@ import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet5Controller;
 import ca.mcgill.ecse.assetplus.model.AssetPlus;
 import ca.mcgill.ecse.assetplus.model.AssetType;
-
 import ca.mcgill.ecse.assetplus.model.MaintenanceTicket;
 import ca.mcgill.ecse.assetplus.model.Manager;
 import ca.mcgill.ecse.assetplus.model.SpecificAsset;
@@ -21,6 +20,7 @@ import io.cucumber.java.en.When;
 public class DeleteTicketImageStepDefinitions {
   private AssetPlus assetPlus = AssetPlusApplication.getAssetPlus();
 
+  // Step to create employees in the system
   @Given("the following employees exist in the system \\(p13)")
   public void the_following_employees_exist_in_the_system_p13(io.cucumber.datatable.DataTable dataTable) {
     List<Map<String, String>> rows = dataTable.asMaps();
@@ -33,6 +33,7 @@ public class DeleteTicketImageStepDefinitions {
     }    
   }
 
+  // Step to create a manager in the system
   @Given("the following manager exists in the system \\(p13)")
   public void the_following_manager_exists_in_the_system_p13(io.cucumber.datatable.DataTable dataTable) {
     List<Map<String, String>> rows = dataTable.asMaps();
@@ -48,6 +49,7 @@ public class DeleteTicketImageStepDefinitions {
     }
   }
 
+  // Step to create asset types in the system
   @Given("the following asset types exist in the system \\(p13)")
   public void the_following_asset_types_exist_in_the_system_p13(io.cucumber.datatable.DataTable dataTable) {
     List<Map<String, String>> rows = dataTable.asMaps();
@@ -58,9 +60,10 @@ public class DeleteTicketImageStepDefinitions {
     }
   }
 
+  // Step to create assets in the system
   @Given("the following assets exist in the system \\(p13)")
   public void the_following_assets_exist_in_the_system_p13(io.cucumber.datatable.DataTable dataTable) {
-    List <Map <String, String>> rows = dataTable.asMaps();
+    List<Map<String, String>> rows = dataTable.asMaps();
     for (var row : rows) {
       int assetNumber = Integer.parseInt(row.get("assetNumber"));
       AssetType assetType = AssetType.getWithName(row.get("type"));
@@ -71,11 +74,12 @@ public class DeleteTicketImageStepDefinitions {
     }
   }
 
+  // Step to create maintenance tickets in the system
   @Given("the following tickets exist in the system \\(p13)")
   public void the_following_tickets_exist_in_the_system_p13(io.cucumber.datatable.DataTable dataTable) {
-    List <Map <String, String>> rows = dataTable.asMaps(); 
+    List<Map<String, String>> rows = dataTable.asMaps(); 
     for (var row : rows){
-      int id = Integer.parseInt (row.get("id")); 
+      int id = Integer.parseInt(row.get("id")); 
       User ticketRaiser = User.getWithEmail(row.get("ticketRaiser"));
       Date raisedOnDate = Date.valueOf(row.get("raisedOnDate"));
       String description = row.get("description"); 
@@ -85,9 +89,10 @@ public class DeleteTicketImageStepDefinitions {
     }
   }
 
+  // Step to create ticket images in the system
   @Given("the following ticket images exist in the system \\(p13)")
   public void the_following_ticket_images_exist_in_the_system_p13(io.cucumber.datatable.DataTable dataTable) {
-    List <Map<String, String>> rows = dataTable.asMaps(); 
+    List<Map<String, String>> rows = dataTable.asMaps(); 
     for (var row : rows){
       String imageUrl = row.get("imageUrl"); 
       int ticketId = Integer.parseInt(row.get("ticketId"));
@@ -95,12 +100,14 @@ public class DeleteTicketImageStepDefinitions {
     }
   }
 
+  // Step for a manager to delete a ticket image
   @When("the manager deletes the ticket image {string} from the ticket with id {string} \\(p13)")
   public void the_manager_deletes_the_ticket_image_from_the_ticket_with_id_p13(String string, String string2) {
     int ticketId = Integer.parseInt(string2);
     AssetPlusFeatureSet5Controller.deleteImageFromMaintenanceTicket(string, ticketId);
   }
 
+  // Step to check the number of images in the system is correct
   @Then("the number of images in the system shall be {string} \\(p13)")
   public void the_number_of_images_in_the_system_shall_be_p13(String string) {
     List<MaintenanceTicket> maintenanceTicketList = assetPlus.getMaintenanceTickets();
@@ -111,19 +118,21 @@ public class DeleteTicketImageStepDefinitions {
     assertEquals(Integer.parseInt(string), count);
   }
 
+  // Step to check the number of images for the ticket with deleted image is correct
   @Then("the number of images for the ticket with id {string} in the system shall be {string} \\(p13)")
-  public void the_number_of_images_for_the_ticket_with_id_in_the_system_shall_be_p13(String string,String string2) {
+  public void the_number_of_images_for_the_ticket_with_id_in_the_system_shall_be_p13(String string, String string2) {
     MaintenanceTicket maintenanceTicket = MaintenanceTicket.getWithId(Integer.parseInt(string));
     assertEquals(Integer.parseInt(string2), maintenanceTicket.numberOfTicketImages());
   }
 
+  // Step to check that a specific ticket does not have a deleted image
   @Then("the ticket with id {string} shall not have an image with url {string} \\(p13)")
-  public void the_ticket_with_id_shall_not_have_an_image_with_url_p13(String string,String string2) {
+  public void the_ticket_with_id_shall_not_have_an_image_with_url_p13(String string, String string2) {
     MaintenanceTicket maintenanceTicket = MaintenanceTicket.getWithId(Integer.parseInt(string));
     List<TicketImage> images = maintenanceTicket.getTicketImages();
     boolean hasImage = false;
     for (var ticketImage : images){
-      if (ticketImage.getImageURL() == string2){
+      if (ticketImage.getImageURL().equals(string2)){
         hasImage = true;
       }
     }
