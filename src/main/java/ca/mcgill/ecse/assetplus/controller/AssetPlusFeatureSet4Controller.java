@@ -29,7 +29,7 @@ public class AssetPlusFeatureSet4Controller {
     try {
       User ticketRaiser = User.getWithEmail(email);
       MaintenanceTicket toBeAdded = new MaintenanceTicket(id, raisedOnDate, description, assetPlus, ticketRaiser);
-      boolean assetAdded = true;
+      boolean assetAdded = false;
       if (assetNumber != -1){
         for (SpecificAsset specificAsset : assetPlus.getSpecificAssets()){
         if (assetNumber == specificAsset.getAssetNumber()){

@@ -25,8 +25,8 @@ public class AssetPlusFeatureSet7Controller {
     // check if inputs are valid
     var error = isValidMaintenanceNote(date, description, ticketID, email);
 
-    if (!error.isEmpty()) {
-        return error.trim();
+    if (!error.trim().isEmpty()) {
+        return error;
     }
 
     try {
@@ -34,14 +34,14 @@ public class AssetPlusFeatureSet7Controller {
         
         MaintenanceTicket ticket = MaintenanceTicket.getWithId(ticketID);
         if (ticket == null) {
-            error = "Ticket not found.";
+            error = "Ticket does not exist";
             return error;
         }
 
         // find note taker associated with email
         HotelStaff noteTaker = (HotelStaff) HotelStaff.getWithEmail(email);
         if (noteTaker == null) {
-            error = "Staff with the provided email not found.";
+            error = "Hotel staff does not exist";
             return error;
         }
 
@@ -73,10 +73,10 @@ public class AssetPlusFeatureSet7Controller {
     // Input validation - index starts at 0
     var error = isValidMaintenanceNote(newDate, newDescription, ticketID, newEmail);
     if (index < 0) {
-        error += "Index must be a positive integer.";
-    } if (!error.isEmpty()) {
+        error += "Index must be a positive integer";
+    } if (!error.trim().isEmpty()) {
         System.out.println(error);
-        return error.trim();
+        return error;
     }
 
     
@@ -85,21 +85,21 @@ public class AssetPlusFeatureSet7Controller {
       // find ticket associated with ticket ID; check if there exists a ticket associated to given ticket ID
       MaintenanceTicket ticket = MaintenanceTicket.getWithId(ticketID);
       if (ticket == null) {
-          error = "Ticket not found.";
+          error = "Ticket does not exist";
           return error;
       }
      
       //find note associated with index; check if there exists a note associated to given index
       MaintenanceNote note = ticket.getTicketNote(index);
       if (note == null) {
-          error = "Maintenance note at index " + index + " not found.";
+          error = "Note does not exist";
           return error;
       }
 
       // find note taker associated with email; check if there exists a hotel staff (note taker) associated to given email
       HotelStaff newNoteTaker = (HotelStaff) HotelStaff.getWithEmail(newEmail);
       if (newNoteTaker == null) {
-          error = "Staff with the provided new email not found.";
+          error = "Hotel staff does not exist";
           return error;
       }
 
@@ -109,8 +109,7 @@ public class AssetPlusFeatureSet7Controller {
       note.setNoteTaker(newNoteTaker);
 
     } catch (RuntimeException e) {
-      error = e.getMessage();
-      
+      error = "Note does not exist";
     }
     return error; // empty string means operation was successful (no error)
   }
@@ -126,7 +125,7 @@ public class AssetPlusFeatureSet7Controller {
     
     // input validation - index starts at 0
     if (index < 0) {
-      throw new IllegalArgumentException("Index must be a positive integer.");
+      throw new IllegalArgumentException("Index must be a positive integer");
     }
 
     // find note with given ticketID and index
@@ -134,12 +133,12 @@ public class AssetPlusFeatureSet7Controller {
     try {
      MaintenanceTicket ticket = MaintenanceTicket.getWithId(ticketID);
      if (ticket == null) {
-         throw new IllegalArgumentException("Ticket not found.");
+         throw new IllegalArgumentException("Ticket does not exist");
       }
     
       MaintenanceNote note = ticket.getTicketNote(index);
       if (note == null) {
-          throw new IllegalArgumentException("Maintenance note at index " + index + " not found.");
+          throw new IllegalArgumentException("Note does not exist");
         }
 
       if (note != null){
@@ -165,7 +164,7 @@ public class AssetPlusFeatureSet7Controller {
 
     // constraint 1: Note description should not be empty or null
      if (description == null || description.trim().isEmpty()) {
-        error += "Description must not be empty or null.";
+        error += "Ticket description cannot be empty";
     } 
     
     // other constraints

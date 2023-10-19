@@ -24,6 +24,9 @@ public class AddAndUpdateMaintenanceNoteToTicketStepDefinitions {
 private AssetPlus assetPlus = AssetPlusApplication.getAssetPlus();
 private String error;
 
+  /**
+   * @author Sebastian Reinhardt
+   */
   @Given("the following employees exist in the system \\(p3)")
   public void the_following_employees_exist_in_the_system_p3(io.cucumber.datatable.DataTable dataTable) {
     List<Map<String, String>> rows = dataTable.asMaps();
@@ -33,6 +36,9 @@ private String error;
     }
   }
 
+  /**
+   * @author Alice Godbout
+   */
   @Given("the following manager exists in the system \\(p3)")
   public void the_following_manager_exists_in_the_system_p3(
       io.cucumber.datatable.DataTable dataTable) {
@@ -44,6 +50,9 @@ private String error;
     }
   }
 
+  /**
+   * @author Ray Liu
+   */
   @Given("the following asset types exist in the system \\(p3)")
   public void the_following_asset_types_exist_in_the_system_p3(
       io.cucumber.datatable.DataTable dataTable) {
@@ -54,6 +63,9 @@ private String error;
     }
   }
 
+  /**
+   * @author Colin Xiong
+   */
   @Given("the following assets exist in the system \\(p3)")
   public void the_following_assets_exist_in_the_system_p3(
       io.cucumber.datatable.DataTable dataTable) {
@@ -64,6 +76,9 @@ private String error;
     }
   }
 
+  /**
+   * @author Aurelia Bouliane
+   */
   @Given("the following tickets exist in the system \\(p3)")
   public void the_following_tickets_exist_in_the_system_p3(
       io.cucumber.datatable.DataTable dataTable) {
@@ -74,6 +89,9 @@ private String error;
     }
   }
 
+  /**
+   * @author Alexander Liu
+   */
   @Given("the following notes exist in the system \\(p3)")
   public void the_following_notes_exist_in_the_system_p3(
       io.cucumber.datatable.DataTable dataTable) {
@@ -85,18 +103,27 @@ private String error;
     }
   }
 
+  /**
+   * @author Houman Azari
+   */
   @When("hotel staff with email {string} attempts to add a new note with date {string} and description {string} to an existing maintenance ticket {string} \\(p3)")
   public void hotel_staff_with_email_attempts_to_add_a_new_note_with_date_and_description_to_an_existing_maintenance_ticket_p3(
       String userEmail, String addedOnDate, String noteDescription, String noteId) {
     error = AssetPlusFeatureSet7Controller.addMaintenanceNote(Date.valueOf(addedOnDate), noteDescription, Integer.parseInt(noteId), userEmail);
   }
 
+  /**
+   * @author Alice Godbout
+   */
   @When("the manger attempts to update note number {string} for maintenance ticket {string} with note taker {string}, date {string}, and description {string} \\(p3)")
   public void the_manger_attempts_to_update_note_number_for_maintenance_ticket_with_note_taker_date_and_description_p3(
       String noteId, String ticketId, String noteTaker, String dateAdded, String noteDescription) {
     error = AssetPlusFeatureSet7Controller.updateMaintenanceNote(Integer.parseInt(ticketId), Integer.parseInt(noteId), Date.valueOf(dateAdded.trim()), noteDescription, noteTaker);
   }
 
+  /**
+   * @author Ray Liu
+   */
   @Then("the number of notes in the system shall be {string} \\(p3)")
   public void the_number_of_notes_in_the_system_shall_be_p3(String expectedAmountOfNotes) {
     int amountOfNotes = 0;
@@ -106,25 +133,33 @@ private String error;
     assertEquals(Integer.parseInt(expectedAmountOfNotes), amountOfNotes);
   }
 
+  /**
+   * @author Aurelia Bouliane
+   */
   @Then("the number of notes for ticket {string} in the system shall be {string} \\(p3)")
   public void the_number_of_notes_for_ticket_in_the_system_shall_be_p3(String ticketId,
       String expectedAmountOfNotes) {
-    MaintenanceTicket maintenanceTicket = assetPlus.getMaintenanceTicket(Integer.parseInt(ticketId));
-    // assertNotNull?
+    MaintenanceTicket maintenanceTicket = MaintenanceTicket.getWithId(Integer.parseInt(ticketId));
     assertEquals(Integer.parseInt(expectedAmountOfNotes), maintenanceTicket.getTicketNotes().size());
   }
 
+  /**
+   * @author Sebastian Reinhardt
+   */
   @Then("the note number {string} for ticket {int} with noteTaker {string}, date {string}, and description {string} shall exist in the system \\(p3)")
   public void the_note_number_for_ticket_with_note_taker_date_and_description_shall_exist_in_the_system_p3(
       String noteIndex, Integer ticketId, String noteTaker, String dateAdded, String noteDescription) {
-    MaintenanceTicket maintenanceTicket = assetPlus.getMaintenanceTicket(ticketId);
+    MaintenanceTicket maintenanceTicket = MaintenanceTicket.getWithId(ticketId);
     MaintenanceNote maintenanceNote = maintenanceTicket.getTicketNote(Integer.parseInt(noteIndex));
     assertNotNull(maintenanceNote);
     assertTrue(noteTaker.equals(maintenanceNote.getNoteTaker().getEmail()));
-    assertTrue(dateAdded.equals(maintenanceNote.getDate().toString())); //right comparison?
+    assertTrue(dateAdded.equals(maintenanceNote.getDate().toString()));
     assertTrue(noteDescription.equals(maintenanceNote.getDescription()));
   }
 
+  /**
+   * @author Sebastian Reinhardt
+   */
   @Then("the following notes shall exist in the system \\(p3)")
   public void the_following_notes_shall_exist_in_the_system_p3(
       io.cucumber.datatable.DataTable dataTable) {
@@ -132,7 +167,6 @@ private String error;
 
     for (Map<String, String> row : rows){
       MaintenanceTicket maintenanceTicket = MaintenanceTicket.getWithId(Integer.parseInt(row.get("ticketId")));
-      assertNotNull(maintenanceTicket);
       List<MaintenanceNote> maintenanceNotes = maintenanceTicket.getTicketNotes();
       for (MaintenanceNote note : maintenanceNotes){
         assertNotNull(note);
@@ -143,8 +177,11 @@ private String error;
     }
   }
 
+  /**
+   * @author Alexander Liu
+   */
   @Then("the system shall raise the error {string} \\(p3)")
   public void the_system_shall_raise_the_error_p3(String errorMessage) {
-    assertTrue(error.contains(errorMessage));
+    assertTrue(error.equals(errorMessage));
   }
 }
