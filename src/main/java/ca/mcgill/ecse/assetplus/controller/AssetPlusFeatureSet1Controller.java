@@ -157,7 +157,7 @@ public class AssetPlusFeatureSet1Controller {
     var error = "";
     //Make sure the email is not empty or null
     if (email == null || email.trim().isEmpty()) {
-      error += "Empty address cannot be empty. ";
+      return "Email address cannot be empty. ";
     } 
     //Make sure the email does not contain spaces
     if (email.contains(" ")) {
