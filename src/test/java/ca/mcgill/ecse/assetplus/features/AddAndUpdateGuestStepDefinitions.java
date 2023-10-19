@@ -61,40 +61,40 @@ public class AddAndUpdateGuestStepDefinitions {
    * @author Qasim Li
    */
   @When("a new guest attempts to register with {string}, {string}, {string}, and {string} \\(p10)")
-  public void a_new_guest_attempts_to_register_with_and_p10(String string, String string2,
-      String string3, String string4) {
+  public void a_new_guest_attempts_to_register_with_and_p10(String email, String password,
+      String name, String phoneNumber) {
     // Calls the controller to add a guest to the AssetPlus object and stores the error code
     error =
-        AssetPlusFeatureSet1Controller.addEmployeeOrGuest(string, string2, string3, string4, false);
+        AssetPlusFeatureSet1Controller.addEmployeeOrGuest(email, password, name, phoneNumber, false);
   }
 
   /**
-   * @author Steve
+   * @author Steve Chen
    */
   @When("the guest with {string} attempts to update their account information to {string}, {string}, and {string} \\(p10)")
-  public void the_guest_with_attempts_to_update_their_account_information_to_and_p10(String string,
-      String string2, String string3, String string4) {
+  public void the_guest_with_attempts_to_update_their_account_information_to_and_p10(String email,
+      String newPassword, String newName, String newPhoneNumber) {
     // Updates a guest to the AssetPlus object and stores the error code
-    error = AssetPlusFeatureSet1Controller.updateEmployeeOrGuest(string, string2, string3, string4);
+    error = AssetPlusFeatureSet1Controller.updateEmployeeOrGuest(email, newPassword, newName, newPhoneNumber);
   }
 
   /**
    * @author Eric Zhu
    */
   @Then("the following {string} shall be raised \\(p10)")
-  public void the_following_shall_be_raised_p10(String string) {
+  public void the_following_shall_be_raised_p10(String errorString) {
     // Checks if the error code contains the expected error code as a substring
-    assertTrue(error.contains(string));
+    assertTrue(error.contains(errorString));
   }
 
   /**
    * @author Qasim Li, Bohan Wang
    */
   @Then("the number of guests in the system shall be {string} \\(p10)")
-  public void the_number_of_guests_in_the_system_shall_be_p10(String string) {
+  public void the_number_of_guests_in_the_system_shall_be_p10(String expectedGuestNumber) {
     // Retrieves the number of guests in the AssetPlus object and typecasts it into a String
     Integer numberOfGuests = AssetPlusApplication.getAssetPlus().getGuests().size();
-    Integer expectedSize = Integer.parseInt(string);
+    Integer expectedSize = Integer.parseInt(expectedGuestNumber);
 
     // Checks if the number of guests in AssetPlus matches the expected number
     assertEquals(expectedSize, numberOfGuests);
@@ -104,8 +104,8 @@ public class AddAndUpdateGuestStepDefinitions {
    * @author Christopher
    */
   @Then("a new guest account shall exist with {string}, {string}, {string}, and {string} \\(p10)")
-  public void a_new_guest_account_shall_exist_with_and_p10(String string, String string2,
-      String string3, String string4) {
+  public void a_new_guest_account_shall_exist_with_and_p10(String email, String password,
+      String name, String phoneNumber) {
     AssetPlus assetPlus = AssetPlusApplication.getAssetPlus();
 
     // Retrieves the list of guests currently in the AssetPlus object
@@ -114,7 +114,7 @@ public class AddAndUpdateGuestStepDefinitions {
 
     // Iterates through all guests, stores the guest with the specified email into newGuest
     for (Guest guest : guests) {
-      if (guest.getEmail().equals(string)) {
+      if (guest.getEmail().equals(email)) {
         newGuest = guest;
       }
     }
@@ -123,10 +123,10 @@ public class AddAndUpdateGuestStepDefinitions {
     assertNotNull(newGuest);
 
     // Checks if the guest attributes match the expected values
-    assertEquals(string, newGuest.getEmail());
-    assertEquals(string2, newGuest.getPassword());
-    assertEquals(string3, newGuest.getName());
-    assertEquals(string4, newGuest.getPhoneNumber());
+    assertEquals(email, newGuest.getEmail());
+    assertEquals(password, newGuest.getPassword());
+    assertEquals(name, newGuest.getName());
+    assertEquals(phoneNumber, newGuest.getPhoneNumber());
   }
 
   /**
@@ -147,17 +147,17 @@ public class AddAndUpdateGuestStepDefinitions {
   }
 
   /**
-   * @author Steve
+   * @author Steve Chen
    */
   @Then("their guest account information will be updated and is now {string}, {string}, {string}, and {string} \\(p10)")
-  public void their_guest_account_information_will_be_updated_and_is_now_and_p10(String string,
-      String string2, String string3, String string4) {
+  public void their_guest_account_information_will_be_updated_and_is_now_and_p10(String email,
+      String newPasssword, String newName, String newPhoneNumber) {
     AssetPlus assetPlus = AssetPlusApplication.getAssetPlus();
     Guest currentGuest = null;
 
     // Iterates through all guests, stores the guest with the specified email into newGuest
     for (Guest guest : assetPlus.getGuests()) {
-      if (string.equals(guest.getEmail())) {
+      if (email.equals(guest.getEmail())) {
         currentGuest = guest;
       }
     }
@@ -165,9 +165,9 @@ public class AddAndUpdateGuestStepDefinitions {
     // Checks if newGuest is null, i.e. if the email matches a guest in the system
     assertNotNull(currentGuest);
     // Checks if the guest attributes match the expected values
-    assertEquals(string, currentGuest.getEmail());
-    assertEquals(string2, currentGuest.getPassword());
-    assertEquals(string3, currentGuest.getName());
-    assertEquals(string4, currentGuest.getPhoneNumber());
+    assertEquals(email, currentGuest.getEmail());
+    assertEquals(newPasssword, currentGuest.getPassword());
+    assertEquals(newName, currentGuest.getName());
+    assertEquals(newPhoneNumber, currentGuest.getPhoneNumber());
   }
 }
