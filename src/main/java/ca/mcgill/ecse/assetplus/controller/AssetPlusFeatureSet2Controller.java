@@ -25,17 +25,17 @@ public class AssetPlusFeatureSet2Controller {
 
     // Ensure that name is not empty or null
     if (name == null || name.trim().isEmpty()) {
-      return "AssetType name cannot be empty or null. Please enter another Asset.";
+      return "The name must not be empty";
     }
 
     // Check if expected life is greater than zero
     if (expectedLifeSpanInDays <= 0) {
-      return "Expected life span must be greater than zero. Please enter another Asset.";
+      return "The expected life span must be greater than 0 days";
     }
 
     // Add Asset Type
     AssetType newAssetType =  new AssetType(name, expectedLifeSpanInDays, assetPlus);
-    return "AssetType added successfully!";
+    return "";
   }
 
   /**
@@ -52,29 +52,29 @@ public class AssetPlusFeatureSet2Controller {
 
     // Ensure old name is not null or empty
     if (oldName == null || oldName.trim().isEmpty()) {
-      return "Old name must not be empty or null. Please enter another old name.";
+      return "The name must not be empty";
     }
 
     // Ensure new name is not null or empty
     if (newName == null || newName.trim().isEmpty()) {
-      return "New name must not be empty or null. Please enter another new name.";
+      return "The name must not be empty";
     }
 
     // Check if newExpectedLifeSpanInDays is greater than 0
     if (newExpectedLifeSpanInDays <= 0) {
-      return "New expected life span must be greater than zero";
+      return "The expected life span must be greater than 0 days";
     }
 
     // Check if Asset Type with the old name already exists
     AssetType assetType = AssetType.getWithName(oldName);
     if (assetType == null) {
-      return "AssetType with the oldname does not exist. Please enter another old name.";
+      return "The asset type already exists";
     }
 
     // Update the Asset Type
     assetType.setName(newName);
     assetType.setExpectedLifeSpan(newExpectedLifeSpanInDays);
-    return "AssetType updated successfully!";
+    return "";
   }
 
   /**
@@ -89,13 +89,13 @@ public class AssetPlusFeatureSet2Controller {
     
     // Check if name is null or empty
     if (name == null || name.trim().isEmpty()) {
-      throw new IllegalArgumentException("Name must not be empty or null. Please enter another name.");
+      throw new IllegalArgumentException("The name must not be empty");
     }
 
     // Check if Asset Type exists
     AssetType assetType = AssetType.getWithName(name);
     if (assetType == null) {
-      throw new IllegalArgumentException("AssetType with the given name does not exist. Please enter another name.");
+      throw new IllegalArgumentException("AssetType with the given name does not exist. Please enter another name");
     }
 
     // Delete Asset Type
