@@ -124,16 +124,12 @@ public class AddAndUpdateAssetStepDefinitions {
 		
     List<Map<String, String>> rows = dataTable.asMaps(String.class, String.class);
 		for (Map<String, String> columns : rows) {
-
-			assertTrue(SpecificAsset.hasWithAssetNumber(Integer.parseInt(columns.get("assetNumber")) ));
-			assertEquals(AssetType.getWithName(columns.get("type")),
-					SpecificAsset.getWithAssetNumber(Integer.parseInt(columns.get("assetNumber"))).getAssetType());
-			assertEquals(Date.valueOf(columns.get("purchaseDate")),
-					SpecificAsset.getWithAssetNumber(Integer.parseInt(columns.get("assetNumber"))).getPurchaseDate());
-			assertEquals(Integer.parseInt(columns.get("floorNumber")),
-					SpecificAsset.getWithAssetNumber(Integer.parseInt(columns.get("assetNumber"))).getFloorNumber());
-			assertEquals(Integer.parseInt(columns.get("roomNumber")),
-					SpecificAsset.getWithAssetNumber(Integer.parseInt(columns.get("assetNumber"))).getRoomNumber());
+      SpecificAsset currentAsset = SpecificAsset.getWithAssetNumber(Integer.parseInt(columns.get("assetNumber")));
+			assertNotNull(currentAsset);
+			assertEquals(AssetType.getWithName(columns.get("type")), currentAsset.getAssetType());
+			assertEquals(Date.valueOf(columns.get("purchaseDate")), currentAsset.getPurchaseDate());
+			assertEquals(Integer.parseInt(columns.get("floorNumber")), currentAsset.getFloorNumber());
+			assertEquals(Integer.parseInt(columns.get("roomNumber")), currentAsset.getRoomNumber());
 		}
 	}
 
@@ -148,11 +144,9 @@ public class AddAndUpdateAssetStepDefinitions {
 
 		List<Map<String, String>> rows = dataTable.asMaps(String.class, String.class);
 		for (Map<String, String> columns : rows) {
-
-			assertEquals(SpecificAsset.getWithAssetNumber(Integer.parseInt(columns.get("assetNumber"))).getAssetType().getName(), 
-					AssetType.getWithName(columns.get("type")).getName());
-			assertEquals(SpecificAsset.getWithAssetNumber(Integer.parseInt(columns.get("assetNumber"))).getAssetType().getExpectedLifeSpan(), 
-					AssetType.getWithName(columns.get("type")).getExpectedLifeSpan());
+      SpecificAsset currentAsset = SpecificAsset.getWithAssetNumber(Integer.parseInt(columns.get("assetNumber")));
+			assertEquals(currentAsset.getAssetType().getName(), AssetType.getWithName(columns.get("type")).getName());
+			assertEquals(currentAsset.getAssetType().getExpectedLifeSpan(), AssetType.getWithName(columns.get("type")).getExpectedLifeSpan());
 		}
 	}
 
@@ -180,18 +174,11 @@ public class AddAndUpdateAssetStepDefinitions {
 	public void the_asset_with_asset_number_purchase_date_floor_number_and_room_number_shall_exist_in_the_system_p9(
 			String assetType, String assetNumber, String purchaseDate, String floorNumber, String roomNumber) {
 		
-    List<SpecificAsset> assetList = hotel.getSpecificAssets();
-		boolean pass = false;
-		for (SpecificAsset asset : assetList) {
-			if (assetType.equals(asset.getAssetType().getName()) &&
-					Integer.parseInt(assetNumber) == asset.getAssetNumber() &&
-					purchaseDate.equals(asset.getPurchaseDate().toString()) &&
-					Integer.parseInt(floorNumber) == asset.getFloorNumber() &&
-					Integer.parseInt(roomNumber) == asset.getRoomNumber()) {
-				pass = true;
-			}
-		}
-
-		assertTrue(pass);
+    SpecificAsset assetInSystem = SpecificAsset.getWithAssetNumber(Integer.parseInt(assetNumber));
+    assertNotNull(assetInSystem);
+		assertEquals(assetInSystem.getAssetType(), AssetType.getWithName(assetType));
+    assertEquals(assetInSystem.getPurchaseDate(), Date.valueOf(purchaseDate));
+    assertEquals(assetInSystem.getFloorNumber(), Integer.parseInt(floorNumber));
+    assertEquals(assetInSystem.getRoomNumber(), Integer.parseInt(roomNumber));
 	}
 }
