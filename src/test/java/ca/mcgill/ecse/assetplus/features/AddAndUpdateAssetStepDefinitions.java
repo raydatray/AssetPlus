@@ -1,92 +1,197 @@
 package ca.mcgill.ecse.assetplus.features;
 
+import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
+import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet3Controller;
+import ca.mcgill.ecse.assetplus.model.AssetPlus;
+import ca.mcgill.ecse.assetplus.model.AssetType;
+import ca.mcgill.ecse.assetplus.model.SpecificAsset;
+import java.sql.Date;
+import java.util.List;
+import java.util.Map;
+
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import static org.junit.Assert.*;
+
 public class AddAndUpdateAssetStepDefinitions {
-  @Given("the following asset types exist in the system \\(p9)")
-  public void the_following_asset_types_exist_in_the_system_p9(
-      io.cucumber.datatable.DataTable dataTable) {
-    // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
-    // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    //
-    // For other transformations you can register a DataTableType.
-    throw new io.cucumber.java.PendingException();
-  }
+	private AssetPlus hotel = AssetPlusApplication.getAssetPlus();
+	private String error;
 
-  @Given("the following assets exist in the system \\(p9)")
-  public void the_following_assets_exist_in_the_system_p9(
-      io.cucumber.datatable.DataTable dataTable) {
-    // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
-    // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    //
-    // For other transformations you can register a DataTableType.
-    throw new io.cucumber.java.PendingException();
-  }
+	/**
+	 * @author Jules Delabrousse (@JulesDelab)
+   * @author Deniz Emre (@denizemre03)
+	 * @param dataTable representing table of existing asset types (see ../resources/AddAndUpdateAsset.feature)
+	 */
+	@Given("the following asset types exist in the system \\(p9)")
+	public void the_following_asset_types_exist_in_the_system_p9(
+			io.cucumber.datatable.DataTable dataTable) {
 
-  @When("the manager attempts to add a new asset to the system with asset number {string}, type {string}, purchase date {string}, floor number {string}, and room number {string} \\(p9)")
-  public void the_manager_attempts_to_add_a_new_asset_to_the_system_with_asset_number_type_purchase_date_floor_number_and_room_number_p9(
-      String string, String string2, String string3, String string4, String string5) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-  }
+		List<Map<String, String>> rows = dataTable.asMaps(String.class, String.class);
+		for (Map<String, String> columns : rows) {
 
-  @When("the manager attempts to update asset number {string} in the system with type {string}, purchaseDate {string}, floorNumber {string}, and roomNumber {string} \\(p9)")
-  public void the_manager_attempts_to_update_asset_number_in_the_system_with_type_purchase_date_floor_number_and_room_number_p9(
-      String string, String string2, String string3, String string4, String string5) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-  }
+      new AssetType(columns.get("name"), Integer.parseInt(columns.get("expectedLifeSpan")), hotel);
+		}
+	}
 
-  @Then("the number of assets in the system shall be {string} \\(p9)")
-  public void the_number_of_assets_in_the_system_shall_be_p9(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-  }
+	/**
+	 * @author Kaitlyn Pereira (@kaitlynp18)
+   * @author Deniz Emre (@denizemre03)
+	 * @param dataTable representing table of existing assets (see ../resources/AddAndUpdateAsset.feature)
+	 */
+	@Given("the following assets exist in the system \\(p9)")
+	public void the_following_assets_exist_in_the_system_p9(
+			io.cucumber.datatable.DataTable dataTable) {
 
-  @Then("the following assets shall exist in the system \\(p9)")
-  public void the_following_assets_shall_exist_in_the_system_p9(
-      io.cucumber.datatable.DataTable dataTable) {
-    // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
-    // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    //
-    // For other transformations you can register a DataTableType.
-    throw new io.cucumber.java.PendingException();
-  }
+		List<Map<String, String>> rows = dataTable.asMaps();
+		for (var row : rows) {
+			
+			int aAssetNumber = Integer.parseInt(row.get("assetNumber"));
+			AssetType aAssetType = AssetType.getWithName(row.get("type"));
+			Date aPurchaseDate = Date.valueOf(row.get("purchaseDate"));
+			int aFloorNumber = Integer.parseInt(row.get("floorNumber"));
+			int aRoomNumber = Integer.parseInt(row.get("roomNumber"));
 
-  @Then("the following asset types shall exist in the system \\(p9)")
-  public void the_following_assets_types_shall_exist_in_the_system_p9(
-      io.cucumber.datatable.DataTable dataTable) {
-    // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
-    // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    //
-    // For other transformations you can register a DataTableType.
-    throw new io.cucumber.java.PendingException();
-  }
+      new SpecificAsset(aAssetNumber, aFloorNumber, aRoomNumber, aPurchaseDate, hotel, aAssetType);
+		}
+	}
 
-  @Then("the error {string} shall be raised \\(p9)")
-  public void the_error_shall_be_raised_p9(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-  }
+	/**
+	 * @author Viviane-Laura Tain (@vivianeltain)
+   * @author Deniz Emre (@denizemre03)
+	 * @param assetNum represents asset number to update
+	 * @param assetType represents asset type
+	 * @param purchaseDateString represents purchase date
+	 * @param floorNum represents floor number
+	 * @param roomNum represents room number
+	 */
+	@When("the manager attempts to add a new asset to the system with asset number {string}, type {string}, purchase date {string}, floor number {string}, and room number {string} \\(p9)")
+	public void the_manager_attempts_to_add_a_new_asset_to_the_system_with_asset_number_type_purchase_date_floor_number_and_room_number_p9(
+			String assetNum, String assetType, String purchaseDateString, String floorNum, String roomNum) {
 
-  @Then("the asset {string} with asset number {string}, purchase date {string}, floor number {string}, and room number {string} shall exist in the system \\(p9)")
-  public void the_asset_with_asset_number_purchase_date_floor_number_and_room_number_shall_exist_in_the_system_p9(
-      String string, String string2, String string3, String string4, String string5) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-  }
+		int assetNumber = Integer.parseInt(assetNum);
+		int floorNumber = Integer.parseInt(floorNum);
+		int roomNumber = Integer.parseInt(roomNum);
+		Date purchaseDate = Date.valueOf(purchaseDateString);
+
+		error = AssetPlusFeatureSet3Controller.addSpecificAsset(assetNumber, floorNumber, roomNumber, purchaseDate, assetType);
+	}
+
+	/**
+	 * @author Kaitlyn Pereira (@kaitlynp18)
+	 * @author Ana Floarea (@anafloarea)
+	 * @param assetNum represents asset number to update
+	 * @param assetType represents asset type
+	 * @param purchaseDate represents purchase date
+	 * @param floorNum represents floor number
+	 * @param roomNum represents room number
+	 */
+	@When("the manager attempts to update asset number {string} in the system with type {string}, purchaseDate {string}, floorNumber {string}, and roomNumber {string} \\(p9)")
+	public void the_manager_attempts_to_update_asset_number_in_the_system_with_type_purchase_date_floor_number_and_room_number_p9(
+			String assetNum, String assetType, String purchaseDate, String floorNum, String roomNum) {
+		//get all the new parameters
+		int assetNumber = Integer.parseInt(assetNum);
+		int newFloorNumber = Integer.parseInt(floorNum);
+		int newRoomNumber = Integer.parseInt(roomNum);
+		Date newPurchaseDate = Date.valueOf(purchaseDate);
+		String newAssetTypeName = assetType;
+		//update the asset with new parameters and track possible error
+		error = AssetPlusFeatureSet3Controller.updateSpecificAsset(assetNumber, newFloorNumber, newRoomNumber, newPurchaseDate, newAssetTypeName);
+	}
+
+	/**
+	 * @author Kaitlyn Pereira (@kaitlynp18)
+   * @author Caroline Thom (@carolinethom02)
+	 * @param expectedNumOfAssets represents the expected number of assets in the system
+	 */
+	@Then("the number of assets in the system shall be {string} \\(p9)")
+	public void the_number_of_assets_in_the_system_shall_be_p9(String expectedNumOfAssets) {
+
+    int numOfAssets = hotel.numberOfSpecificAssets();
+
+    assertEquals(Integer.parseInt(expectedNumOfAssets),numOfAssets);
+	}
+
+	/**
+	 * @author Jules Delabrousse (@JulesDelab)
+   * @author Caroline Thom (@carolinethom02)
+	 * @param dataTable representing table of supposedly existing assets (see ../resources/AddAndUpdateAsset.feature)
+	 */
+	@Then("the following assets shall exist in the system \\(p9)")
+	public void the_following_assets_shall_exist_in_the_system_p9(
+			io.cucumber.datatable.DataTable dataTable) {
+		
+    List<Map<String, String>> rows = dataTable.asMaps(String.class, String.class);
+		for (Map<String, String> columns : rows) {
+
+			assertTrue(SpecificAsset.hasWithAssetNumber(Integer.parseInt(columns.get("assetNumber")) ));
+			assertEquals(AssetType.getWithName(columns.get("type")),
+					SpecificAsset.getWithAssetNumber(Integer.parseInt(columns.get("assetNumber"))).getAssetType());
+			assertEquals(Date.valueOf(columns.get("purchaseDate")),
+					SpecificAsset.getWithAssetNumber(Integer.parseInt(columns.get("assetNumber"))).getPurchaseDate());
+			assertEquals(Integer.parseInt(columns.get("floorNumber")),
+					SpecificAsset.getWithAssetNumber(Integer.parseInt(columns.get("assetNumber"))).getFloorNumber());
+			assertEquals(Integer.parseInt(columns.get("roomNumber")),
+					SpecificAsset.getWithAssetNumber(Integer.parseInt(columns.get("assetNumber"))).getRoomNumber());
+		}
+	}
+
+	/**
+	 * @author Ana Floarea (@anafloarea)
+	 * @author Viviane-Laura Tain (@vivianeltain)
+	 * @param dataTable
+	 */
+	@Then("the following asset types shall exist in the system \\(p9)")
+	public void the_following_assets_types_shall_exist_in_the_system_p9(
+			io.cucumber.datatable.DataTable dataTable) {
+
+		List<Map<String, String>> rows = dataTable.asMaps(String.class, String.class);
+		for (Map<String, String> columns : rows) {
+
+			assertEquals(SpecificAsset.getWithAssetNumber(Integer.parseInt(columns.get("assetNumber"))).getAssetType().getName(), 
+					AssetType.getWithName(columns.get("type")).getName());
+			assertEquals(SpecificAsset.getWithAssetNumber(Integer.parseInt(columns.get("assetNumber"))).getAssetType().getExpectedLifeSpan(), 
+					AssetType.getWithName(columns.get("type")).getExpectedLifeSpan());
+		}
+	}
+
+	/**
+	 * @author Viviane-Laura Tain (@vivianeltain)
+   * @author Caroline Thom (@carolinethom02)
+	 * @param expectedError 
+	 */
+	@Then("the error {string} shall be raised \\(p9)")
+	public void the_error_shall_be_raised_p9(String expectedError) {
+
+    assertEquals(expectedError, error);
+	}
+
+	/**
+	 * @author Jules Delabrousse (@JulesDelab)
+	 * @author Ana Floarea (@anafloarea)
+	 * @param assetType Asset Type of the compared asset
+	 * @param assetNumber Asset Number of the compared asset
+	 * @param purchaseDate Purchase Date of the compared asset
+	 * @param floorNumber Floor Number of the compared asset
+	 * @param roomNumber Room Number of the compared asset
+	 */
+	@Then("the asset {string} with asset number {string}, purchase date {string}, floor number {string}, and room number {string} shall exist in the system \\(p9)")
+	public void the_asset_with_asset_number_purchase_date_floor_number_and_room_number_shall_exist_in_the_system_p9(
+			String assetType, String assetNumber, String purchaseDate, String floorNumber, String roomNumber) {
+		
+    List<SpecificAsset> assetList = hotel.getSpecificAssets();
+		boolean pass = false;
+		for (SpecificAsset asset : assetList) {
+			if (assetType.equals(asset.getAssetType().getName()) &&
+					Integer.parseInt(assetNumber) == asset.getAssetNumber() &&
+					purchaseDate.equals(asset.getPurchaseDate().toString()) &&
+					Integer.parseInt(floorNumber) == asset.getFloorNumber() &&
+					Integer.parseInt(roomNumber) == asset.getRoomNumber()) {
+				pass = true;
+			}
+		}
+
+		assertTrue(pass);
+	}
 }
