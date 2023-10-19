@@ -12,9 +12,9 @@ For more information about the AssetPlus application, please consult the [wiki](
 
 | Name          | GitHub username |
 | ------------- | --------------- |
-| Team Member A |Dmytro Martyniuk            |
-| Team Member B | Laurence Perrault             |
-| Team Member C | Jatin Patel            |
-| Team Member D | Marc-Antoine Nadeau             |
-| Team Member E | Behrad Rezaie             |
-| Team Member F | Pei Yang Geng             |
+| Team Member A | ...             |
+| Team Member B | ...             |
+| Team Member C | ...             |
+| Team Member D | ...             |
+| Team Member E | ...             |
+| Team Member F | ...             |
