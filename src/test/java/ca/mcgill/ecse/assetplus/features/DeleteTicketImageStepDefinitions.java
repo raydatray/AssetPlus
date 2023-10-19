@@ -102,37 +102,37 @@ public class DeleteTicketImageStepDefinitions {
 
   // Step for a manager to delete a ticket image
   @When("the manager deletes the ticket image {string} from the ticket with id {string} \\(p13)")
-  public void the_manager_deletes_the_ticket_image_from_the_ticket_with_id_p13(String string, String string2) {
-    int ticketId = Integer.parseInt(string2);
-    AssetPlusFeatureSet5Controller.deleteImageFromMaintenanceTicket(string, ticketId);
+  public void the_manager_deletes_the_ticket_image_from_the_ticket_with_id_p13(String imageURL, String ticketID) {
+    int ticketIdInt = Integer.parseInt(ticketID);
+    AssetPlusFeatureSet5Controller.deleteImageFromMaintenanceTicket(imageURL, ticketIdInt);
   }
 
   // Step to check the number of images in the system is correct
   @Then("the number of images in the system shall be {string} \\(p13)")
-  public void the_number_of_images_in_the_system_shall_be_p13(String string) {
+  public void the_number_of_images_in_the_system_shall_be_p13(String numberOfTicketImages) {
     List<MaintenanceTicket> maintenanceTicketList = assetPlus.getMaintenanceTickets();
     int count = 0;
     for (var ticket : maintenanceTicketList){
       count += ticket.numberOfTicketImages();
     }
-    assertEquals(Integer.parseInt(string), count);
+    assertEquals(Integer.parseInt(numberOfTicketImages), count);
   }
 
   // Step to check the number of images for the ticket with deleted image is correct
   @Then("the number of images for the ticket with id {string} in the system shall be {string} \\(p13)")
-  public void the_number_of_images_for_the_ticket_with_id_in_the_system_shall_be_p13(String string, String string2) {
-    MaintenanceTicket maintenanceTicket = MaintenanceTicket.getWithId(Integer.parseInt(string));
-    assertEquals(Integer.parseInt(string2), maintenanceTicket.numberOfTicketImages());
+  public void the_number_of_images_for_the_ticket_with_id_in_the_system_shall_be_p13(String ticketId, String numberOfImagesOfTicket) {
+    MaintenanceTicket maintenanceTicket = MaintenanceTicket.getWithId(Integer.parseInt(ticketId));
+    assertEquals(Integer.parseInt(numberOfImagesOfTicket), maintenanceTicket.numberOfTicketImages());
   }
 
   // Step to check that a specific ticket does not have a deleted image
   @Then("the ticket with id {string} shall not have an image with url {string} \\(p13)")
-  public void the_ticket_with_id_shall_not_have_an_image_with_url_p13(String string, String string2) {
-    MaintenanceTicket maintenanceTicket = MaintenanceTicket.getWithId(Integer.parseInt(string));
+  public void the_ticket_with_id_shall_not_have_an_image_with_url_p13(String ticketId, String imageUrl) {
+    MaintenanceTicket maintenanceTicket = MaintenanceTicket.getWithId(Integer.parseInt(ticketId));
     List<TicketImage> images = maintenanceTicket.getTicketImages();
     boolean hasImage = false;
     for (var ticketImage : images){
-      if (ticketImage.getImageURL().equals(string2)){
+      if (ticketImage.getImageURL().equals(imageUrl)){
         hasImage = true;
       }
     }
