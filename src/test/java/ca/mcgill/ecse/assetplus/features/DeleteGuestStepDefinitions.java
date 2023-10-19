@@ -22,12 +22,12 @@ public class DeleteGuestStepDefinitions {
    * Initiates the scenario by creating a couple test Guests.
    * 
    * @author William Wang
-   * @param dataTable
+   * @param guestsDataTable
    */
   @Given("the following guests exist in the system \\(p8)")
   public void the_following_guests_exist_in_the_system_p8(
-      io.cucumber.datatable.DataTable dataTable) {
-    List<Map<String, String>> rows = dataTable.asMaps();
+      io.cucumber.datatable.DataTable guestsDataTable) {
+    List<Map<String, String>> rows = guestsDataTable.asMaps();
     for (var row : rows) {
       String email = row.get("email");
       String password = row.get("password");
@@ -41,14 +41,14 @@ public class DeleteGuestStepDefinitions {
    * Initiates the scenario by creating a manager with specific email and password.
    * 
    * @author Krasimir Kirov
-   * @param dataTable The Manager's email and password
+   * @param managerDataTable The Manager's email and password
    */
   @Given("the following manager exists in the system \\(p8)")
   public void the_following_manager_exists_in_the_system_p8(
-      io.cucumber.datatable.DataTable dataTable) {
+      io.cucumber.datatable.DataTable managerDataTable) {
     String email = "";
     String password = "";
-    List<Map<String, String>> rows = dataTable.asMaps();
+    List<Map<String, String>> rows = managerDataTable.asMaps();
     for (var row : rows) {
       email = row.get("email");
       password = row.get("password");
