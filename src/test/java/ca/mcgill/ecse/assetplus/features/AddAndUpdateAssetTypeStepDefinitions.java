@@ -77,11 +77,7 @@ public class AddAndUpdateAssetTypeStepDefinitions {
       String name = row.get("name");
       int expectedLifeSpan = Integer.parseInt(row.get("expectedLifeSpan"));
       AssetType e = AssetType.getWithName(name);
-      if (e != null) {
-        assertNotNull(e);          
-      } else {
-        fail(error);
-      }
+      assertNotNull(e);          
     }
   }
 
@@ -94,9 +90,7 @@ public class AddAndUpdateAssetTypeStepDefinitions {
   @Then("the asset type with name {string} and expected life span of {string} days shall exist in the system \\(p14)")
   public void the_asset_type_with_name_and_expected_life_span_of_days_shall_exist_in_the_system_p14(String name, String expectedLifeSpan) {
     AssetType e = AssetType.getWithName(name); // Get the new element to test
-    if (e != null) { // If element exist
-      assertNotNull(e); 
-    }
+    assertNotNull(e); 
   }
 
   /**
@@ -108,9 +102,7 @@ public class AddAndUpdateAssetTypeStepDefinitions {
   @Then("the asset type with name {string} and expected life span of {string} days shall not exist in the system \\(p14)")
   public void the_asset_type_with_name_and_expected_life_span_of_days_shall_not_exist_in_the_system_p14(String name, String expectedLifeSpan) {
     AssetType e = AssetType.getWithName(name); // Get the old or new element to test
-    if (e == null) { // If element still exist
-      assertNull(e);
-    }
+    assertNull(e);
   }
 
   /**
