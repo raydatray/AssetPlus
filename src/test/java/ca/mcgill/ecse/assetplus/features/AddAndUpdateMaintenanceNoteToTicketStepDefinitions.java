@@ -165,19 +165,19 @@ private String error;
       io.cucumber.datatable.DataTable dataTable) {
     List<List<String>> rows = dataTable.asLists(); //Retrieving the data from the feature file in a usable format
 
-        List<MaintenanceTicket> tickets = assetPlus.getMaintenanceTickets();
-        List<MaintenanceNote> notes = new ArrayList<MaintenanceNote>();
+        List<MaintenanceTicket> tickets = assetPlus.getMaintenanceTickets(); //Gettting all the tickets
+        List<MaintenanceNote> notes = new ArrayList<MaintenanceNote>(); //Creating a list to contain the notes
         for (MaintenanceTicket ticket : tickets){
-          notes.addAll(ticket.getTicketNotes());
+          notes.addAll(ticket.getTicketNotes()); //iterating through the tickets to get all the notes in the system
         }
 
-        for (MaintenanceNote note : notes){
-          List<String> noteAsList = new ArrayList<String>();
-          noteAsList.add(note.getNoteTaker().getEmail());
-          noteAsList.add(""+note.getTicket().getId());
-          noteAsList.add(note.getDate().toString());
-          noteAsList.add(note.getDescription());
-          assertTrue(rows.contains(noteAsList));
+        for (MaintenanceNote note : notes){ //iterating through the notes
+          List<String> noteAsList = new ArrayList<String>(); //creating a list to store the note information
+          noteAsList.add(note.getNoteTaker().getEmail()); //adding the email to the list version of the note
+          noteAsList.add(""+note.getTicket().getId()); //adding the ticketId the note is associated to to the list version of the note
+          noteAsList.add(note.getDate().toString()); //adding the dateAddedOn to the list version of the note
+          noteAsList.add(note.getDescription()); //adding the description to the list version of the note
+          assertTrue(rows.contains(noteAsList)); //asserting that the list version of the note exactly is in the example of the feature file
         }
   }
 
