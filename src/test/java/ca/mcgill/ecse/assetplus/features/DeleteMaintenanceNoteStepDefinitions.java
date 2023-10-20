@@ -48,7 +48,7 @@ public class DeleteMaintenanceNoteStepDefinitions {
 
       // Instantiate and add the specified employees to the AssetPlus application
       Employee employee = new Employee(email, password, name, phoneNumber, assetPlus);
-      assetPlus.addEmployee(employee);
+
 
     }
   }
@@ -72,7 +72,7 @@ public class DeleteMaintenanceNoteStepDefinitions {
 
       // Instantiate and add the manager to the AssetPlus application
       Manager manager = new Manager(email, password, "", "", assetPlus);
-      assetPlus.setManager(manager);
+
 
     }
   }
@@ -96,7 +96,7 @@ public class DeleteMaintenanceNoteStepDefinitions {
 
       // Instantiate and add the specified asset types to the AssetPlus application
       AssetType assetType = new AssetType(name, expectedLifeSpan, assetPlus);
-      assetPlus.addAssetType(assetType);
+
 
     }
   }
@@ -124,7 +124,7 @@ public class DeleteMaintenanceNoteStepDefinitions {
       // Instantiate and add the specified assets to the AssetPlus application.
       AssetType assetType = AssetType.getWithName(assetTypeName);
       SpecificAsset asset = new SpecificAsset(assetNumber, floorNumber, roomNumber, purchaseDate, assetPlus, assetType);
-      assetPlus.addSpecificAsset(asset);
+
 
     }
   }
@@ -155,7 +155,7 @@ public class DeleteMaintenanceNoteStepDefinitions {
       SpecificAsset asset = SpecificAsset.getWithAssetNumber(assetNumber);
       MaintenanceTicket ticket = new MaintenanceTicket(ticketID, raisedOnDate, description, assetPlus, aUser);
       ticket.setAsset(asset);
-      assetPlus.addMaintenanceTicket(ticket);
+
 
 
     }
@@ -261,10 +261,7 @@ public class DeleteMaintenanceNoteStepDefinitions {
 
     MaintenanceTicket ticket = MaintenanceTicket.getWithId(ticketNumber);
 
-    if (noteNumber>= ticket.getTicketNotes().size()){
-      assertTrue(noteNumber>=ticket.getTicketNotes().size());
-    }
-    else {
+    if (noteNumber < ticket.getTicketNotes().size()){
       assertFalse(deletedNote.equals(ticket.getTicketNote(noteNumber)));
     }
   }
