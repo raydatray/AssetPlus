@@ -147,10 +147,12 @@ public class AddAndUpdateAssetStepDefinitions {
 
     List<Map<String, String>> rows = dataTable.asMaps(String.class, String.class);
     for (Map<String, String> columns : rows) {
-      SpecificAsset currentAsset =
-          SpecificAsset.getWithAssetNumber(Integer.parseInt(columns.get("assetNumber")));
-      assertEquals(currentAsset.getAssetType().getName(), AssetType.getWithName(columns.get("type")).getName());
-      assertEquals(currentAsset.getAssetType().getExpectedLifeSpan(), AssetType.getWithName(columns.get("type")).getExpectedLifeSpan());
+      AssetType actualAssetType =
+          SpecificAsset.getWithAssetNumber(Integer.parseInt(columns.get("assetNumber"))).getAssetType();
+      AssetType expectedAssetType =
+          AssetType.getWithName(columns.get("type"));
+      assertEquals(expectedAssetType.getName(), actualAssetType.getName());
+      assertEquals(expectedAssetType.getExpectedLifeSpan(), actualAssetType.getExpectedLifeSpan());
     }
   }
 
