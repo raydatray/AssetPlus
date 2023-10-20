@@ -1,17 +1,18 @@
 package ca.mcgill.ecse.assetplus.features;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
-import java.sql.Date;
-
 import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet4Controller;
-import ca.mcgill.ecse.assetplus.model.*;
+import ca.mcgill.ecse.assetplus.model.AssetPlus;
+import ca.mcgill.ecse.assetplus.model.AssetType;
+import ca.mcgill.ecse.assetplus.model.MaintenanceTicket;
+import ca.mcgill.ecse.assetplus.model.Manager;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DeleteMaintenanceTicketStepDefinitions {
 
@@ -25,7 +26,7 @@ public class DeleteMaintenanceTicketStepDefinitions {
    */
   @Given("the following employees exist in the system \\(p7)")
   public void the_following_employees_exist_in_the_system_p7(
-          io.cucumber.datatable.DataTable employees) {
+      io.cucumber.datatable.DataTable employees) {
     List<Map<String, String>> rows = employees.asMaps();
     for (var row : rows) {
       String email = row.get("email");
@@ -44,7 +45,7 @@ public class DeleteMaintenanceTicketStepDefinitions {
    */
   @Given("the following manager exists in the system \\(p7)")
   public void the_following_manager_exists_in_the_system_p7(
-          io.cucumber.datatable.DataTable manager) {
+      io.cucumber.datatable.DataTable manager) {
 
     List<Map<String, String>> rows = manager.asMaps();
     for (var row : rows) {
@@ -65,7 +66,7 @@ public class DeleteMaintenanceTicketStepDefinitions {
    */
   @Given("the following asset types exist in the system \\(p7)")
   public void the_following_asset_types_exist_in_the_system_p7(
-          io.cucumber.datatable.DataTable assetTypes) {
+      io.cucumber.datatable.DataTable assetTypes) {
 
     List<Map<String, String>> rows = assetTypes.asMaps();
     for (var row : rows) {
@@ -83,7 +84,7 @@ public class DeleteMaintenanceTicketStepDefinitions {
    */
   @Given("the following assets exist in the system \\(p7)")
   public void the_following_assets_exist_in_the_system_p7(
-          io.cucumber.datatable.DataTable specificAssets) {
+      io.cucumber.datatable.DataTable specificAssets) {
 
     List<Map<String, String>> rows = specificAssets.asMaps(String.class, String.class);
     for (var row : rows) {
@@ -100,11 +101,12 @@ public class DeleteMaintenanceTicketStepDefinitions {
    * Add specified Tickets defined in feature file.
    *
    * @author Isbat-ul Islam
-   * @param maintenanceTickets DataTable containing info on the MaintenanceTickets we wish to test on
+   * @param maintenanceTickets DataTable containing info on the MaintenanceTickets we wish to test
+   *        on
    */
   @Given("the following tickets exist in the system \\(p7)")
   public void the_following_tickets_exist_in_the_system_p7(
-          io.cucumber.datatable.DataTable maintenanceTickets) {
+      io.cucumber.datatable.DataTable maintenanceTickets) {
     List<Map<String, String>> rows = maintenanceTickets.asMaps();
     for (var row : rows) {
       Integer aID = Integer.parseInt(row.get("id"));
@@ -112,8 +114,8 @@ public class DeleteMaintenanceTicketStepDefinitions {
       Date dateRaised = Date.valueOf(row.get("raisedOnDate"));
       String description = row.get("description");
       Integer assetID = Integer.parseInt(row.get("assetNumber"));
-      AssetPlusFeatureSet4Controller.addMaintenanceTicket(
-              aID, dateRaised, description, aTicketRaiserEmail, assetID);
+      AssetPlusFeatureSet4Controller.addMaintenanceTicket(aID, dateRaised, description,
+          aTicketRaiserEmail, assetID);
     }
   }
 
@@ -134,11 +136,12 @@ public class DeleteMaintenanceTicketStepDefinitions {
    *
    * @author Mathieu Pestel
    * @author Neil Joe George
-   * @param maintenanceTickets DataTable containing info on the expected MaintenanceTickets in the system
+   * @param maintenanceTickets DataTable containing info on the expected MaintenanceTickets in the
+   *        system
    */
   @Then("the following tickets shall exist in the system \\(p7)")
   public void the_following_tickets_shall_exist_in_the_system_p7(
-          io.cucumber.datatable.DataTable maintenanceTickets) {
+      io.cucumber.datatable.DataTable maintenanceTickets) {
     List<Map<String, String>> ticketTable = maintenanceTickets.asMaps(String.class, String.class);
     for (Map<String, String> ticket : ticketTable) {
       int ticketID = Integer.parseInt(ticket.get("id"));
