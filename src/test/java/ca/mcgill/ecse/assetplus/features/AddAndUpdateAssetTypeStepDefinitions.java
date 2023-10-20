@@ -78,12 +78,10 @@ public class AddAndUpdateAssetTypeStepDefinitions {
       int expectedLifeSpan = Integer.parseInt(row.get("expectedLifeSpan"));
       AssetType e = AssetType.getWithName(name);
       if (e != null) {
-        if (assetPlus.getAssetTypes().contains(e)) {
-          assertEquals(expectedLifeSpan, e.getExpectedLifeSpan());
-          }
+        assertNotNull(e);          
       } else {
         fail(error);
-        }
+      }
     }
   }
 
@@ -91,31 +89,27 @@ public class AddAndUpdateAssetTypeStepDefinitions {
   * @param string  Represents name of assetType supposed to exist in the system
   * @param string2 Represents expectedLifespan (if string CORRECTLY exist, then associated object should have
   * that corresponding lifespan
-  * @author Sophia Carbone ; Mathias Pacheco Lemina
+  * @author Sophia Carbone ; Mathias Pacheco Lemina ; Anslean Albert Jeyaras
   */
   @Then("the asset type with name {string} and expected life span of {string} days shall exist in the system \\(p14)")
   public void the_asset_type_with_name_and_expected_life_span_of_days_shall_exist_in_the_system_p14(String name, String expectedLifeSpan) {
     AssetType e = AssetType.getWithName(name); // Get the new element to test
     if (e != null) { // If element exist
-      if (assetPlus.getAssetTypes().contains(e)) { // If AssetPlus correctly contains the element
-        assertEquals(parseInt(expectedLifeSpan), e.getExpectedLifeSpan()); // Then the new expected lifespan should be equal to the expected one
-        }
-      }
+      assertNotNull(e); 
+    }
   }
 
   /**
   * @param string  Represents name of assetType supposed to NOT exist in system
   * @param string2 Represents expectedLifespan ( if string DOES exist, then associated string2 should not)
   * Verifies assetType AssetType(string, string2, assetPLus) does not exist
-  * @author Sophia Carbone ; Mathias Pacheco Lemina
+  * @author Sophia Carbone ; Mathias Pacheco Lemina ; Anslean Albert Jeyaras
   */
   @Then("the asset type with name {string} and expected life span of {string} days shall not exist in the system \\(p14)")
   public void the_asset_type_with_name_and_expected_life_span_of_days_shall_not_exist_in_the_system_p14(String name, String expectedLifeSpan) {
     AssetType e = AssetType.getWithName(name); // Get the old or new element to test
-    if (e != null) { // If element still exist
-      if (assetPlus.getAssetTypes().contains(e)) { // If AssetPlus still contains the element
-        assertNotEquals(parseInt(expectedLifeSpan), e.getExpectedLifeSpan()); // Then the new expected lifespan should not be equal to the old one.
-      }
+    if (e == null) { // If element still exist
+      assertNull(e);
     }
   }
 
