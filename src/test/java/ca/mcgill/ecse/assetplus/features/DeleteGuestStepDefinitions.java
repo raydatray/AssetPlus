@@ -83,7 +83,8 @@ public class DeleteGuestStepDefinitions {
    * @param expectedGuestEmail The email address to verify against the list of guests.
    */
   @Then("the guest account linked to {string} shall not exist in the system \\(p8)")
-  public void the_guest_account_linked_to_shall_not_exist_in_the_system_p8(String expectedGuestEmail) {
+  public void the_guest_account_linked_to_shall_not_exist_in_the_system_p8(
+      String expectedGuestEmail) {
     List<Guest> guestsList = ap.getGuests();
     for (Guest guest : guestsList) {
       assertNotEquals("Guest with the same email has been found in the system.", expectedGuestEmail,
@@ -98,11 +99,13 @@ public class DeleteGuestStepDefinitions {
    * @param expectedManagerEmail
    */
   @Then("the manager account linked to {string} shall exist in the system \\(p8)")
-  public void the_manager_account_linked_to_shall_exist_in_the_system_p8(String expectedManagerEmail) {
+  public void the_manager_account_linked_to_shall_exist_in_the_system_p8(
+      String expectedManagerEmail) {
     Manager manager = ap.getManager();
     assertNotNull("Manager does not exist in the system.", manager);
-    assertEquals("The manager account linked to " + expectedManagerEmail + " does not exist in the system.",
-         expectedManagerEmail, manager.getEmail());
+    assertEquals(
+        "The manager account linked to " + expectedManagerEmail + " does not exist in the system.",
+        expectedManagerEmail, manager.getEmail());
   }
 
   /**
@@ -112,6 +115,7 @@ public class DeleteGuestStepDefinitions {
   @Then("the number of guests in the system shall be {string} \\(p8)")
   public void the_number_of_guests_in_the_system_shall_be_p8(String expectedNumberOfGuests) {
     // Write code here that turns the phrase above into concrete actions
-    assertEquals("Wrong number of guests", Integer.parseInt(expectedNumberOfGuests), ap.getGuests().size());
+    assertEquals("Wrong number of guests", Integer.parseInt(expectedNumberOfGuests),
+        ap.getGuests().size());
   }
 }
