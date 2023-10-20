@@ -163,18 +163,22 @@ private String error;
   @Then("the following notes shall exist in the system \\(p3)")
   public void the_following_notes_shall_exist_in_the_system_p3(
       io.cucumber.datatable.DataTable dataTable) {
-    List<Map<String, String>> rows = dataTable.asMaps(); //Retrieving the data from the feature file in a usable format
+    List<List<String>> rows = dataTable.asLists(); //Retrieving the data from the feature file in a usable format
 
-    for (Map<String, String> row : rows){ //iterating through the rows of the data from the feature file
-      MaintenanceTicket maintenanceTicket = MaintenanceTicket.getWithId(Integer.parseInt(row.get("ticketId"))); //getting each ticket by its id
-      List<MaintenanceNote> maintenanceNotes = maintenanceTicket.getTicketNotes(); //getting all of a tickets notes
-      for (MaintenanceNote note : maintenanceNotes){ //iterating through the notes of a ticket
-        assertNotNull(note); //asserting the ticket exists
-        assertEquals(row.get("noteTaker"), note.getNoteTaker().getEmail()); //asserting the noteTakers are the same
-        assertEquals(row.get("addedOnDate"), note.getDate().toString()); //asserting the dateAddeds are the same
-        assertEquals(row.get("description"), note.getDescription()); //asserting the descriptions are the same
-      }
-    }
+        List<MaintenanceTicket> tickets = assetPlus.getMaintenanceTickets();
+        List<MaintenanceNote> notes = new ArrayList<MaintenanceNote>();
+        for (MaintenanceTicket ticket : tickets){
+          notes.addAll(ticket.getTicketNotes());
+        }
+
+        for (MaintenanceNote note : notes){
+          List<String> noteAsList = new ArrayList<String>();
+          noteAsList.add(note.getNoteTaker().getEmail());
+          noteAsList.add(""+note.getTicket().getId());
+          noteAsList.add(note.getDate().toString());
+          noteAsList.add(note.getDescription());
+          assertTrue(rows.contains(noteAsList));
+        }
   }
 
   /**
