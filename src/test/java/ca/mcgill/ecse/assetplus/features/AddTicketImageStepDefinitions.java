@@ -2,12 +2,14 @@ package ca.mcgill.ecse.assetplus.features;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import ca.mcgill.ecse.assetplus.controller.*;
-import ca.mcgill.ecse.assetplus.model.MaintenanceTicket;
+import java.sql.Date;
+import java.util.List;
+import java.util.Map;
 import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
+import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet5Controller;
 import ca.mcgill.ecse.assetplus.model.AssetPlus;
 import ca.mcgill.ecse.assetplus.model.AssetType;
+import ca.mcgill.ecse.assetplus.model.MaintenanceTicket;
 import ca.mcgill.ecse.assetplus.model.Manager;
 import ca.mcgill.ecse.assetplus.model.SpecificAsset;
 import ca.mcgill.ecse.assetplus.model.TicketImage;
@@ -16,20 +18,14 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-import java.sql.Date;
-import java.util.List;
-import java.util.Map;
-
 public class AddTicketImageStepDefinitions {
   private AssetPlus assetPlus = AssetPlusApplication.getAssetPlus();
   private String error;
-  private int errorCntr;
 
   /** Calls controller and sets error and counter. */
   private void callController(String result) {
     if (!result.isEmpty()) {
       error += result;
-      errorCntr += 1;
     }
   }
 

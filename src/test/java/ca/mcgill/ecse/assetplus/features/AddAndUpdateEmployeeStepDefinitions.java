@@ -1,22 +1,24 @@
 package ca.mcgill.ecse.assetplus.features;
 
+import static ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet1Controller.addEmployeeOrGuest;
+import static ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet1Controller.updateEmployeeOrGuest;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.List;
+import java.util.Map;
 import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
+import ca.mcgill.ecse.assetplus.model.AssetPlus;
+import ca.mcgill.ecse.assetplus.model.Employee;
+import ca.mcgill.ecse.assetplus.model.Manager;
+import ca.mcgill.ecse.assetplus.model.User;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-import static ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet1Controller.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import ca.mcgill.ecse.assetplus.model.*;
-
-import java.util.List;
-import java.util.Map;
-
 public class AddAndUpdateEmployeeStepDefinitions {
   private static AssetPlus assetPlus = AssetPlusApplication.getAssetPlus();
-  private String error;  
+  private String error;
 
   /**
    * @author Jatin Patel and Anastasiia Nemyrovska
@@ -35,7 +37,7 @@ public class AddAndUpdateEmployeeStepDefinitions {
     }
   }
 
-  /** 
+  /**
    * @author Jatin Patel and Anastasiia Nemyrovska
    */
   @Given("the following manager exists in the system \\(p11)")
@@ -59,7 +61,7 @@ public class AddAndUpdateEmployeeStepDefinitions {
   public void a_new_employee_attempts_to_register_with_and_p11(String email, String password,
       String name, String phoneNumber) {
 
-    callController(addEmployeeOrGuest(email, password, name, phoneNumber,true));
+    callController(addEmployeeOrGuest(email, password, name, phoneNumber, true));
   }
 
   /**
@@ -70,6 +72,7 @@ public class AddAndUpdateEmployeeStepDefinitions {
       String email, String newPassword, String newName, String newPhoneNumber) {
     callController(updateEmployeeOrGuest(email, newPassword, newName, newPhoneNumber));
   }
+
   /**
    * @author Pei Yan Geng, Dmytro Martyniuk and Laurence Perreault
    */
@@ -77,40 +80,43 @@ public class AddAndUpdateEmployeeStepDefinitions {
   public void the_following_shall_be_raised_p11(String errorString) {
     assertTrue(error.contains(errorString));
   }
+
   /**
    * @author Pei Yan Geng, Dmytro Martyniuk and Laurence Perreault
    */
   @Then("the number of employees in the system shall be {string} \\(p11)")
   public void the_number_of_employees_in_the_system_shall_be_p11(String expectedNumberOfEmployees) {
-    
+
     List<Employee> employees = assetPlus.getEmployees();
 
-    assertEquals( (Integer) employees.size(), Integer.parseInt(expectedNumberOfEmployees));
+    assertEquals((Integer) employees.size(), Integer.parseInt(expectedNumberOfEmployees));
   }
-  
-   /**
+
+  /**
    * @author Marc-Antoine Nadeau & Behrad Rezaie
    */
   @Then("a new employee account shall exist with {string}, {string}, {string}, and {string} \\(p11)")
-  public void a_new_employee_account_shall_exist_with_and_p11(String email, String password, String name, String phoneNumber) {
-    
-    //Checks an employee with given email exists
+  public void a_new_employee_account_shall_exist_with_and_p11(String email, String password,
+      String name, String phoneNumber) {
+
+    // Checks an employee with given email exists
     assertTrue(Employee.hasWithEmail(email));
-    //Checks other employee attributes
+    // Checks other employee attributes
     Employee existingEmployee = (Employee) User.getWithEmail(email);
     assertEquals(password, existingEmployee.getPassword());
     assertEquals(name, existingEmployee.getName());
-    assertEquals(phoneNumber,existingEmployee.getPhoneNumber());
+    assertEquals(phoneNumber, existingEmployee.getPhoneNumber());
 
   }
-  
+
   /**
    * @author Marc-Antoine Nadeau & Behrad Rezaie
    */
   @Then("their employee account information will be updated and is now {string}, {string}, {string}, and {string} \\(p11)")
-  public void their_employee_account_information_will_be_updated_and_is_now_and_p11(String email, String newPassword, String newName, String newPhoneNumber) {
-    
-    assertTrue(Employee.hasWithEmail(email));    
+  public void their_employee_account_information_will_be_updated_and_is_now_and_p11(String email,
+      String newPassword, String newName, String newPhoneNumber) {
+
+    assertTrue(Employee.hasWithEmail(email));
     Employee updatedEmployeeWithKnownEmailAddress = (Employee) User.getWithEmail(email);
     assertEquals(newPassword, updatedEmployeeWithKnownEmailAddress.getPassword());
     assertEquals(newName, updatedEmployeeWithKnownEmailAddress.getName());
@@ -121,28 +127,30 @@ public class AddAndUpdateEmployeeStepDefinitions {
    * @author Marc-Antoine Nadeau & Behrad Rezaie
    */
   @Then("the following employees shall exist in the system \\(p11)")
-  public void the_following_employees_shall_exist_in_the_system_p11(io.cucumber.datatable.DataTable dataTable) {
+  public void the_following_employees_shall_exist_in_the_system_p11(
+      io.cucumber.datatable.DataTable dataTable) {
     List<Map<String, String>> employeeData = dataTable.asMaps();
-    //dataTable should be converted to this format:
-    //[
-    //  { "email"="jeff@ap.com", "password"="pass1", "name"="Jeff", "phoneNumber"="(555)555-5555" },
-    //  { "email"="john@ap.com", "password"="pass2", "name"="John", "phoneNumber"="(444)444-4444" }
-    //]
-      for (Map<String, String> data : employeeData) {
-        // Get info from each sub-directory
-        String email = data.get("email");
-        String name = data.get("name");
-        String password = data.get("password");
-        String phoneNumber = data.get("phoneNumber");
+    // dataTable should be converted to this format:
+    // [
+    // { "email"="jeff@ap.com", "password"="pass1", "name"="Jeff", "phoneNumber"="(555)555-5555" },
+    // { "email"="john@ap.com", "password"="pass2", "name"="John", "phoneNumber"="(444)444-4444" }
+    // ]
+    for (Map<String, String> data : employeeData) {
+      // Get info from each sub-directory
+      String email = data.get("email");
+      String name = data.get("name");
+      String password = data.get("password");
+      String phoneNumber = data.get("phoneNumber");
 
-        //Compares it to what we have in the system
-        Employee employee = (Employee) User.getWithEmail(email);
-        assertNotNull(employee, "Employee with" + email + " was not found." );
-        assertEquals(name, employee.getName());
-        assertEquals(password, employee.getPassword());
-        assertEquals(phoneNumber, employee.getPhoneNumber());
+      // Compares it to what we have in the system
+      Employee employee = (Employee) User.getWithEmail(email);
+      assertNotNull(employee, "Employee with" + email + " was not found.");
+      assertEquals(name, employee.getName());
+      assertEquals(password, employee.getPassword());
+      assertEquals(phoneNumber, employee.getPhoneNumber());
     }
   }
+
   private void callController(String result) {
     if (!result.isEmpty()) {
       error += result;

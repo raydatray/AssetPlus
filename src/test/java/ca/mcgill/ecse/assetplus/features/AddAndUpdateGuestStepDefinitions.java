@@ -64,8 +64,8 @@ public class AddAndUpdateGuestStepDefinitions {
   public void a_new_guest_attempts_to_register_with_and_p10(String email, String password,
       String name, String phoneNumber) {
     // Calls the controller to add a guest to the AssetPlus object and stores the error code
-    error =
-        AssetPlusFeatureSet1Controller.addEmployeeOrGuest(email, password, name, phoneNumber, false);
+    error = AssetPlusFeatureSet1Controller.addEmployeeOrGuest(email, password, name, phoneNumber,
+        false);
   }
 
   /**
@@ -75,7 +75,8 @@ public class AddAndUpdateGuestStepDefinitions {
   public void the_guest_with_attempts_to_update_their_account_information_to_and_p10(String email,
       String newPassword, String newName, String newPhoneNumber) {
     // Updates a guest to the AssetPlus object and stores the error code
-    error = AssetPlusFeatureSet1Controller.updateEmployeeOrGuest(email, newPassword, newName, newPhoneNumber);
+    error = AssetPlusFeatureSet1Controller.updateEmployeeOrGuest(email, newPassword, newName,
+        newPhoneNumber);
   }
 
   /**
