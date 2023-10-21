@@ -39,7 +39,7 @@ public class UpdateManagerStepDefinitions {
   public void a_manager_with_attempts_to_update_their_password_to_p6(String email, String password) {
     this.error = AssetPlusFeatureSet1Controller.updateManager(password);
     this.email = assetPlus.getManager().getEmail();
-    this.password = password;
+    this.password = assetPlus.getManager().getPassword();
   }
 
   /**
