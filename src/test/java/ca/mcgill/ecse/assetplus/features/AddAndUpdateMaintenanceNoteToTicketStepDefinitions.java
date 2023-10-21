@@ -128,7 +128,7 @@ private String error;
   public void the_number_of_notes_in_the_system_shall_be_p3(String expectedAmountOfNotes) {
     int amountOfNotes = 0;
     for (MaintenanceTicket maintenanceTicket : assetPlus.getMaintenanceTickets()){ //iterating through all the tickets in the system
-      amountOfNotes += maintenanceTicket.getTicketNotes().size(); //getting the number of notes per ticket
+      amountOfNotes += maintenanceTicket.numberOfTicketNotes(); //getting the number of notes per ticket
     }
     assertEquals(Integer.parseInt(expectedAmountOfNotes), amountOfNotes); // asserting the numbers match
   }
@@ -140,7 +140,7 @@ private String error;
   public void the_number_of_notes_for_ticket_in_the_system_shall_be_p3(String ticketId,
       String expectedAmountOfNotes) {
     MaintenanceTicket maintenanceTicket = MaintenanceTicket.getWithId(Integer.parseInt(ticketId)); //getting a specific maintenance ticket
-    assertEquals(Integer.parseInt(expectedAmountOfNotes), maintenanceTicket.getTicketNotes().size()); //getting the number of notes for that ticket and comparing to the expcted amount of tickets
+    assertEquals(Integer.parseInt(expectedAmountOfNotes), maintenanceTicket.numberOfTicketNotes()); //getting the number of notes for that ticket and comparing to the expcted amount of tickets
   }
 
   /**
