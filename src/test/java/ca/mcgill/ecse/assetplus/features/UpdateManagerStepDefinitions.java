@@ -1,6 +1,7 @@
 package ca.mcgill.ecse.assetplus.features;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Assertions;
 import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet1Controller;
 import ca.mcgill.ecse.assetplus.model.AssetPlus;
@@ -8,7 +9,6 @@ import ca.mcgill.ecse.assetplus.model.Manager;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.jupiter.api.Assertions;
 
 
 public class UpdateManagerStepDefinitions {
@@ -22,9 +22,12 @@ public class UpdateManagerStepDefinitions {
    * @author Omar Moussa
    */
   @Given("the following manager exists in the system \\(p6)")
-  public void the_following_manager_exists_in_the_system_p6(io.cucumber.datatable.DataTable dataTable) {
-    Manager manager = new Manager(dataTable.row(1).get(0), null, dataTable.row(1).get(1), null, assetPlus);
-    if(!assetPlus.hasManager()) assetPlus.setManager(manager);
+  public void the_following_manager_exists_in_the_system_p6(
+      io.cucumber.datatable.DataTable dataTable) {
+    Manager manager =
+        new Manager(dataTable.row(1).get(0), null, dataTable.row(1).get(1), null, assetPlus);
+    if (!assetPlus.hasManager())
+      assetPlus.setManager(manager);
 
     Assertions.assertTrue(assetPlus.hasManager());
     Assertions.assertEquals("manager@ap.com", assetPlus.getManager().getEmail());
@@ -36,7 +39,8 @@ public class UpdateManagerStepDefinitions {
    * @author Omar Moussa
    */
   @When("a manager with {string} attempts to update their password to {string} \\(p6)")
-  public void a_manager_with_attempts_to_update_their_password_to_p6(String email, String password) {
+  public void a_manager_with_attempts_to_update_their_password_to_p6(String email,
+      String password) {
     this.error = AssetPlusFeatureSet1Controller.updateManager(password);
     this.email = assetPlus.getManager().getEmail();
     this.password = assetPlus.getManager().getPassword();
@@ -55,6 +59,7 @@ public class UpdateManagerStepDefinitions {
    * @author Achraf Ghellach
    */
   @Then("the manager account information will not be updated and will keep {string} and {string} \\(p6)")
+
   public void the_manager_account_information_will_not_be_updated_and_will_keep_and_p6(
           String email, String password) {
     Assertions.assertEquals(this.email, email);
