@@ -122,27 +122,21 @@ public class AssetPlusFeatureSet7Controller {
    * @throws IllegalArgumentException if provided ticketID or index is negative
    */
   public static void deleteMaintenanceNote(int ticketID, int index) {
-    
+
     // input validation - index starts at 0
     if (index < 0) {
       throw new IllegalArgumentException("Index must be a positive integer");
     }
 
     // find note with given ticketID and index
-    
+
     try {
      MaintenanceTicket ticket = MaintenanceTicket.getWithId(ticketID);
-     if (ticket == null) {
-         throw new IllegalArgumentException("Ticket does not exist");
-      }
-    
-      MaintenanceNote note = ticket.getTicketNote(index);
-      if (note == null) {
-          throw new IllegalArgumentException("Note does not exist");
+     if (ticket != null && index <= ticket.numberOfTicketNotes()-1) {
+        MaintenanceNote note = ticket.getTicketNote(index);
+        if (note != null){
+            note.delete();
         }
-
-      if (note != null){
-          note.delete();
       }
     } catch (Exception e) {
       throw e;

@@ -16,44 +16,48 @@ public class AssetPlusFeatureSet4Controller {
   // assetNumber -1 means that no asset is specified
   public static String addMaintenanceTicket(int id, Date raisedOnDate, String description,
       String email, int assetNumber) {
-    var error = "";
+    String error = "";
 
     if (description.isEmpty() || description == null){
-      error = "The description must not be empty.";
-    }
-
-    if (!error.isEmpty()) {
-      return error.trim();
+      error = "Ticket description cannot be empty";
+      return error;
     }
 
     try {
       User ticketRaiser = User.getWithEmail(email);
-      MaintenanceTicket toBeAdded = new MaintenanceTicket(id, raisedOnDate, description, assetPlus, ticketRaiser);
-      boolean assetAdded = false;
+      if (ticketRaiser == null){
+        error = "The ticket raiser does not exist";
+        return error;
+      }
+
+      SpecificAsset specificAssetToBeAdded = null;
       if (assetNumber != -1){
         for (SpecificAsset specificAsset : assetPlus.getSpecificAssets()){
         if (assetNumber == specificAsset.getAssetNumber()){
-          assetAdded = toBeAdded.setAsset(specificAsset);
+          specificAssetToBeAdded = specificAsset;
+          }
         }
       }
-    }
-    else {
-      assetAdded = true;
-    }
-    if (assetAdded){
-      return "";
-    }
-    else {
-      error = "Asset unable to be added";
+      if (assetNumber != -1 && specificAssetToBeAdded == null){
+      error = "The asset does not exist";
       return error;
     }
 
+    MaintenanceTicket toBeAdded = new MaintenanceTicket(id, raisedOnDate, description, assetPlus, ticketRaiser);
+    boolean assetAdded = toBeAdded.setAsset(specificAssetToBeAdded);
+
+    if (assetAdded == false){
+      error = "Specific asset unable to be added";
+      return error;
+    }
+
+    return error;
     } catch (Exception e) {
 
       var message = e.getMessage();
 
       if (message.startsWith("Cannot create due to duplicate id")){
-        error = "Cannot add MaintenanceTicket due to duplicate id";
+        error = "Ticket id already exists";
       }
 
       else if (message.startsWith("Unable to create maintenanceTicket due to assetPlus")){
@@ -61,7 +65,7 @@ public class AssetPlusFeatureSet4Controller {
       }
 
       else if (message.startsWith("Unable to create raisedTicket due to ticketRaiser")){
-        error = "Cannot add MaintenanceTicket due to issue with ticketRaiser";
+        error = "The ticket raiser does not exist";
       }
 
       else{
@@ -78,7 +82,7 @@ public class AssetPlusFeatureSet4Controller {
     var error = "";
 
     if (newDescription.isEmpty() || newDescription == null){
-      error = "The description must not be empty.";
+      error = "Ticket description cannot be empty";
     }
 
     if (!error.isEmpty()) {
@@ -93,6 +97,10 @@ public class AssetPlusFeatureSet4Controller {
           toBeUpdated = maintenanceTicket;
         }
       }
+      if (toBeUpdated == null){
+        error ="Ticket not found";
+      }
+
       SpecificAsset newAsset = null;
       if (newAssetNumber != -1){
       for (SpecificAsset specificAsset : assetPlus.getSpecificAssets()){
@@ -102,7 +110,17 @@ public class AssetPlusFeatureSet4Controller {
       }
     }
 
+    if (newAsset == null && newAssetNumber != -1){
+      error = "The asset does not exist";
+      return error;
+    }
+
     User newTicketRaiser = User.getWithEmail(newEmail);
+
+    if (newTicketRaiser == null){
+      error = "The ticket raiser does not exist";
+      return error;
+    }
 
       if (toBeUpdated != null){
         boolean descriptionUpdated = toBeUpdated.setDescription(newDescription);
@@ -115,9 +133,6 @@ public class AssetPlusFeatureSet4Controller {
         else{
           error = "Ticket not updated";
         }
-      }
-      else{
-        error = "Ticket not found";
       }
 
       return error;

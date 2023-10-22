@@ -12,59 +12,75 @@ public class AssetPlusFeatureSet3Controller {
 
   public static String addSpecificAsset(int assetNumber, int floorNumber, int roomNumber,
       Date purchaseDate, String assetTypeName) {
+        String error = "";
         //Checks if assetNumber is greater or equal to one
         if (assetNumber < 1) {
-          return "Asset number must be greater than or equal to one.";
+          error = "The asset number shall not be less than 1";
+          return error;
         }
 
         //Checks if floorNumber is greater or equal to one
         if (floorNumber < 0) {
-          return "Floor number must be greater or equal to zero.";
+          error = "The floor number shall not be less than 0";
+          return error;
         }
 
         //Checks if roomNumber is greater than or equal to -1
         if (roomNumber < -1) {
-          return "Room number must be greater than or equal to minus one.";
+          error = "The room number shall not be less than -1";
+          return error;
         }
-        
+
         //Error caught -> Specific asset has to be an asset in the first place
         AssetType assetToAddTo = AssetType.getWithName(assetTypeName);
-        //THIS WILL NOT WORK IF YOUR ASSETTYPENAME IS NOT A REAL ONE
+        if (assetToAddTo == null){
+          error = "The asset type does not exist";
+          return error;
+        }
 
         //Add Asset
         SpecificAsset mySpecificAsset = new SpecificAsset(assetNumber, floorNumber, roomNumber, purchaseDate, assetPlus, assetToAddTo);
-        return "Specific asset added successfully!";
+        return error;
   }
 
   public static String updateSpecificAsset(int assetNumber, int newFloorNumber, int newRoomNumber,
       Date newPurchaseDate, String newAssetTypeName) {
+        String error = "";
         //Checks if assetNumber is greater or equal to one
         if (assetNumber < 1) {
-          return "Asset number must be greater than or equal to one.";
+          error = "The asset number shall not be less than 1";
+          return error;
         }
 
         //Checks if floorNumber is greater or equal to one
         if (newFloorNumber < 0) {
-          return "New floor number must be greater or equal to zero.";
+          error = "The floor number shall not be less than 0";
+          return error;
         }
 
         //Checks if roomNumber is greater than or equal to -1
         if (newRoomNumber < -1) {
-          return "New room number must be greater than or equal to minus one.";
+          error = "The room number shall not be less than -1";
+          return error;
         }
 
         //Error caught -> you have to check within assets, if this specificasse exists
 
         
         //Case 1: Retain the same assetNumber, 
-        AssetType assetToUpdate = AssetType.getWithName(newAssetTypeName);
+        AssetType assetTypeToUpdate = AssetType.getWithName(newAssetTypeName);
+        if (assetTypeToUpdate == null){
+          error = "The asset type does not exist";
+          return error;
+        }
 
-        for (SpecificAsset specificAssetToUpdate : assetToUpdate.getSpecificAssets()){
+        for (SpecificAsset specificAssetToUpdate : assetTypeToUpdate.getSpecificAssets()){
           if (specificAssetToUpdate.getAssetNumber() == assetNumber){
             specificAssetToUpdate.setFloorNumber(newFloorNumber);
             specificAssetToUpdate.setRoomNumber(newRoomNumber);
             specificAssetToUpdate.setPurchaseDate(newPurchaseDate);
-            return "Specific asset updated";
+            specificAssetToUpdate.setAssetType(assetTypeToUpdate);
+            return error;
           }
         }
 
