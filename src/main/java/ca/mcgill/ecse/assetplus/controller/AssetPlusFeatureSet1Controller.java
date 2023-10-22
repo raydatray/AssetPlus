@@ -6,6 +6,7 @@ import ca.mcgill.ecse.assetplus.model.*;
 // completed by Colin Xiong (CX899 on github)
 
 public class AssetPlusFeatureSet1Controller {
+  private static AssetPlus assetPlus = AssetPlusApplication.getAssetPlus();
 
   /**
    * Updates the manager password.
@@ -18,17 +19,15 @@ public class AssetPlusFeatureSet1Controller {
     var error = isValidPassword(password);
 
     //Check if inputs are valid
-    if (!error.isEmpty()) {
-      System.out.println(error);
-      return error.trim();
+    if (!error.trim().isEmpty()) {;
+      return error;
     }
 
-    AssetPlus assetPlus = AssetPlusApplication.getAssetPlus();
     Manager manager = assetPlus.getManager();
 
     //Check if manager exists
     if (manager == null){
-      error = "Manager does not exists. ";
+      error = "Manager does not exist";
       return error;
     }
 
@@ -54,55 +53,52 @@ public class AssetPlusFeatureSet1Controller {
    */
   public static String addEmployeeOrGuest(String email, String password, String name, String phoneNumber,
         boolean isEmployee) {
-    
+
     //Check if inputs are valid
     var error = isValidEmployeeOrGuest(email, password, name, phoneNumber);
 
-    if (!error.isEmpty()) {
-      System.out.println(error);
-      return error.trim();
+    if (!error.trim().isEmpty()) {
+      return error;
     }
-
-    AssetPlus assetPlus = AssetPlusApplication.getAssetPlus();
 
     try{
       if (isEmployee) {
+        //Check if email domain is @ap.com
+        if (!(email.endsWith("@ap.com"))){
+          error = "Email domain must be @ap.com";
+          return error;
+        }
+        
         User employee = Employee.getWithEmail(email);
         //Check if employee already exists
         if (employee != null) {
-          error = "Employee already exists.";
+          error = "Email already linked to an employee account";
           return error;
         }
 
-        //Check if email domain is @ap.com
-        if (!(email.endsWith("@ap.com"))){
-          error = "Employee email domain must be @ap.com";
-          return error;
-        }
+        Employee newEmployee = new Employee(email, name, password, phoneNumber, assetPlus);
+      }
 
-        Employee newEmployee = new Employee(email, password, name, phoneNumber, assetPlus);
-      } 
-    
       else {
         User guest = Guest.getWithEmail(email);
         //Check if guest already exists
         if (guest != null) {
-          error = "Employee already exists.";
+          error = "Email already linked to an guest account";
           return error;
         }
 
         //Check if email domain is @ap
-        if (!(email.endsWith("@ap.com"))){
-          error = "Guest email domain cannot be @ap.com";
+        if (email.endsWith("@ap.com")){
+          error = "Email domain cannot be @ap.com";
           return error;
         }
 
-        Guest newGuest = new Guest(email, password, name, phoneNumber, assetPlus);
+        Guest newGuest = new Guest(email, name, password, phoneNumber, assetPlus);
       }
     } catch (RuntimeException e) {
       error = e.getMessage();
     }
-    
+
     return error; // empty string means operation was successful (no error)
   }
 
@@ -118,13 +114,12 @@ public class AssetPlusFeatureSet1Controller {
   public static String updateEmployeeOrGuest(String email, String newPassword, String newName, String newPhoneNumber) {
     //Check if inputs are valid
     String error = isValidEmployeeOrGuest(email, newPassword, newName, newPhoneNumber);
-    AssetPlus assetPlus = AssetPlusApplication.getAssetPlus();
 
     if (!error.isEmpty()) {
       System.out.println(error);
       return error.trim();
     }
-     
+
     try{
         User user = User.getWithEmail(email);
 
@@ -140,7 +135,7 @@ public class AssetPlusFeatureSet1Controller {
     } catch (RuntimeException e) {
       error = e.getMessage();
     }
-    
+
     return error; // empty string means operation was successful (no error)
   }
 
@@ -153,41 +148,47 @@ public class AssetPlusFeatureSet1Controller {
    * @param phoneNumber The phone number of the employee or guest.
    * @return A string describing any validation errors, or an empty string if the details are valid.
    */
-  public static String isValidEmployeeOrGuest(String email, String password, String name, String phoneNumber){
+  private static String isValidEmployeeOrGuest(String email, String password, String name, String phoneNumber){
     var error = "";
     //Make sure the email is not empty or null
     if (email == null || email.trim().isEmpty()) {
-      return "Email address cannot be empty. ";
-    } 
+      return "Email cannot be empty";
+    }
     //Make sure the email does not contain spaces
     if (email.contains(" ")) {
-      error += "Email cannot contain spaces. ";
+      error += "Email must not contain any spaces";
+    }
+    if (!email.contains("@")){
+      error += "Invalid email";
     }
     //Make sure the email contains @
-    if (email.indexOf("@") <= 0) {
-      error += "Email must contain @ and cannot start with @. ";
+    if (email.indexOf("@")==0) {
+      error += "Invalid email";
     }
-    if (email.indexOf("@") == email.lastIndexOf("@")) {
-      error += "Email cannot have more than 1 \"@\". ";
+    if (email.indexOf("@")+1 == email.lastIndexOf(".")) {
+      error += "Invalid email";
+    }
+    if (email.indexOf("@") != email.lastIndexOf("@")) {
+      error += "Invalid email";
     }
     if (email.indexOf("@") > (email.lastIndexOf(".") - 1)) {
-      error += "Email must contain \".\" after \"@\". ";
+      error += "Invalid email";
     }
     if (email.endsWith(".")) {
-      error += "Email cannot end with \".\". ";
+      error += "Invalid email";
     }
     if (email.equals("manager@ap.com")) {
       error += "Email cannot be manager@ap.com";
     }
     if (password == null || password.trim().isEmpty()) {
-      error += "Password cannot be null or empty. ";
+      error += "Password cannot be empty";
     }
-    if (name == null){
-      error += "Name cannot be null. ";
-    }
-    if (phoneNumber == null){
-      error += "Phone number cannot be null. ";
-    }
+    // if (name == null || name.isEmpty()){
+    //   error += "Name cannot be null.";
+    // }
+    // if (phoneNumber == null || phoneNumber.isEmpty()){
+    //   error += "Phone number cannot be null.";
+    // }
 
     return error.trim(); // returns string containing errors (or empty if none)
   }
@@ -198,19 +199,22 @@ public class AssetPlusFeatureSet1Controller {
    * @param password The password to be validated.
    * @return A string describing any validation errors, or an empty string if the password is valid.
    */
-  public static String isValidPassword(String password){
+  private static String isValidPassword(String password){
     var error = "";
      //Make sure the password is not empty
     if (password == null || password.length() == 0) {
-      error += "Manager must have a password.";
+      error = "Password cannot be empty";
+      return error;
     }
     //Make sure the password is at least 4 characters
     if (password != null && password.length() < 4) {
-      error += "Password must be at least 4 characters. ";
+      error = "Password must be at least four characters long";
+      return error;
     }
     //Make sure password contains one special character out of !#$
     if (!password.contains("!") && !password.contains("#") && !password.contains("$")) {
-      error += "Password must contain at least one character out of !#$";
+      error = "Password must contain one character out of !#$";
+      return error;
     }
     //Make sure password contains at least one upper character
     boolean upperFound = false;
@@ -226,16 +230,19 @@ public class AssetPlusFeatureSet1Controller {
       }
     }
     if (!upperFound) {
-      error += "Password must contain at least one upper case.";
+      error = "Password must contain one upper-case character";
+      return error;
     }
     if (!lowerFound) {
-      error += "Password must contain at least one lower case.";
+      error = "Password must contain one lower-case character";
+      return error;
     }
     //Make sure the password does not have white spaces in it
     if (password.contains(" ")) {
-      error += "Password must not contain any white spaces.";
+      error = "Password must not contain any white spaces.";
+      return error;
     }
 
-    return error.trim();
+    return "";
   }
 }
