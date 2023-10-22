@@ -74,18 +74,18 @@ public class AssetPlusFeatureSet3Controller {
           return error;
         }
 
-        for (SpecificAsset specificAssetToUpdate : assetTypeToUpdate.getSpecificAssets()){
-          if (specificAssetToUpdate.getAssetNumber() == assetNumber){
-            specificAssetToUpdate.setFloorNumber(newFloorNumber);
-            specificAssetToUpdate.setRoomNumber(newRoomNumber);
-            specificAssetToUpdate.setPurchaseDate(newPurchaseDate);
-            specificAssetToUpdate.setAssetType(assetTypeToUpdate);
-            return error;
-          }
+        SpecificAsset specificAssetToUpdate = SpecificAsset.getWithAssetNumber(assetNumber);
+        if (specificAssetToUpdate == null) {
+          error = "The asset number does not exist";
+          return error;
         }
 
-        return "Specific asset not updated";
-  }
+        specificAssetToUpdate.setFloorNumber(newFloorNumber);
+        specificAssetToUpdate.setRoomNumber(newRoomNumber);
+        specificAssetToUpdate.setPurchaseDate(newPurchaseDate);
+        specificAssetToUpdate.setAssetType(assetTypeToUpdate);
+        return "";
+    }
 
   public static void deleteSpecificAsset(int assetNumber) {
     //Delete a specific asset by assetNumber

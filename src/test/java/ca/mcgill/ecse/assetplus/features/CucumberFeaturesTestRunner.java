@@ -11,7 +11,7 @@ import io.cucumber.junit.CucumberOptions;
 //"src/test/resources"
 
 @RunWith(Cucumber.class)
-@CucumberOptions(plugin = "pretty", features = "src/test/resources/AddAndUpdateAsset.feature",
+@CucumberOptions(plugin = "pretty", features = "src/test/resources/DeleteAsset.feature",
     glue = "ca.mcgill.ecse.assetplus.features")
 public class CucumberFeaturesTestRunner {
 
