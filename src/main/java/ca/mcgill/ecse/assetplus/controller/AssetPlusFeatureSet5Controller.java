@@ -11,13 +11,13 @@ public class AssetPlusFeatureSet5Controller {
   public static String addImageToMaintenanceTicket(String imageURL, int ticketID) {
     // Constraint 1: imageURL must not be empty or null
     if (imageURL == null || imageURL.trim().isEmpty()){
-      return "Image URL is null or empty";
+      return "Image URL cannot be empty";
     }
 
     //Constraint 2: URL must start with http:// or https://
 
     if (imageURL.substring(0, 6) != "http://" || imageURL.substring(0,7) != "https://"){
-      return "Image URL is not valid (Must begin with http:// or https://)";
+      return "Image URL must start with http:// or https://";
     }
     
     //TicketID has to be associated with a ticket
@@ -30,19 +30,19 @@ public class AssetPlusFeatureSet5Controller {
     }
 
     if (ticketFound == null) {
-      return "TicketID not found";
+      return "Ticket does not exist";
     }
 
     //Constraint 3: two imageURLs cannot be the same for a given ticket
     for (TicketImage image: ticketFound.getTicketImages()){
       if (image.getImageURL() == imageURL) {
-        return "Duplicate imageURL for given ticket";
+        return "Image already exists for the ticket";
       }
     }
 
     //Add image to ticket
     ticketFound.addTicketImage(imageURL);
-    return "imageURL added to ticket";
+    return "";
   }
 
   public static void deleteImageFromMaintenanceTicket(String imageURL, int ticketID) {
