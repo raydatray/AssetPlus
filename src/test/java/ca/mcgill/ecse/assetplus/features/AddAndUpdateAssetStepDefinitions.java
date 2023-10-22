@@ -189,31 +189,3 @@ public class AddAndUpdateAssetStepDefinitions {
     assertEquals(assetInSystem.getRoomNumber(), Integer.parseInt(roomNumber));
   }
 }
-
-
-/*AssetType assetTypeToUpdate = AssetType.getWithName(newAssetTypeName);
-        if (assetTypeToUpdate == null){
-          error = "The asset type does not exist";
-          return error;
-        } 
-
-for (SpecificAsset specificAssetToUpdate : assetTypeToUpdate.getSpecificAssets()){
-          if (specificAssetToUpdate.getAssetNumber() == assetNumber){
-            specificAssetToUpdate.setFloorNumber(newFloorNumber);
-            specificAssetToUpdate.setRoomNumber(newRoomNumber);
-            specificAssetToUpdate.setPurchaseDate(newPurchaseDate);
-            specificAssetToUpdate.setAssetType(assetTypeToUpdate);
-            return error;
-          }
-        }
-
-        
-        SpecificAsset specificAssetToUpdate = SpecificAsset.getWithAssetNumber(assetNumber);
-        if (specificAssetToUpdate == null){
-          error = "The specific asset type does not exist";
-          return error;
-        }
-        
-        
-        
-        */
