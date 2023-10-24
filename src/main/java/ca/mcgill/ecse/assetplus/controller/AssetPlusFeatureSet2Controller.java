@@ -109,20 +109,19 @@ public class AssetPlusFeatureSet2Controller {
 
   public static void deleteAssetType(String name) {
     // Implementation of the method
-    
+
     // Check if name is null or empty
     if (name == null || name.trim().isEmpty()) {
       throw new IllegalArgumentException("The name must not be empty");
     }
 
-    // Check if Asset Type exists
-    AssetType assetType = AssetType.getWithName(name);
-    if (assetType == null) {
-      throw new IllegalArgumentException("AssetType with the given name does not exist. Please enter another name");
+    try {
+      AssetType assetType = AssetType.getWithName(name);
+    if (assetType != null) {
+      assetType.delete();
     }
-
-    // Delete Asset Type
-    assetType.delete();
+    } catch (Exception e) {
+      throw e;
+    }
   }
-
 }

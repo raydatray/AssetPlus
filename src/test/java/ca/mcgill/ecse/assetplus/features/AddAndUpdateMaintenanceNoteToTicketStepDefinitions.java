@@ -22,12 +22,6 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import java.sql.Date;
-import java.util.*;
-
 public class AddAndUpdateMaintenanceNoteToTicketStepDefinitions {
 
 private AssetPlus assetPlus = AssetPlusApplication.getAssetPlus();
