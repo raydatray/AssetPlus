@@ -43,9 +43,6 @@ public class AssetPlusFeatureSet2Controller {
       error = "The asset type already exists";
       return error;
     }
-    // if (AssetType.hasWithName(name)) {
-
-    // }
 
     // Add Asset Type
     AssetType newAssetType =  new AssetType(name, expectedLifeSpanInDays, assetPlus);
@@ -64,9 +61,10 @@ public class AssetPlusFeatureSet2Controller {
   public static String updateAssetType(String oldName, String newName, int newExpectedLifeSpanInDays) {
     // Implementation of the method
     String error = "";
-    // Ensure old name is not null or empty
-    if (oldName == null || oldName.trim().isEmpty()) {
-      error = "The name must not be empty";
+
+    // Check if newExpectedLifeSpanInDays is greater than 0
+    if (newExpectedLifeSpanInDays <= 0) {
+      error = "The expected life span must be greater than 0 days";
       return error;
     }
 
@@ -76,9 +74,9 @@ public class AssetPlusFeatureSet2Controller {
       return error;
     }
 
-    // Check if newExpectedLifeSpanInDays is greater than 0
-    if (newExpectedLifeSpanInDays <= 0) {
-      error = "The expected life span must be greater than 0 days";
+    // Ensure old name is not null or empty
+    if (oldName == null || oldName.trim().isEmpty()) {
+      error = "The name must not be empty";
       return error;
     }
 
