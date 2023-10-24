@@ -87,6 +87,13 @@ public class AssetPlusFeatureSet2Controller {
       return error;
     }
 
+    // Check if Asset Type with the new name already exists
+    AssetType newAssetType = AssetType.getWithName(newName);
+    if (newAssetType != null) {
+      error = "The asset type already exists";
+      return error;
+    }
+
     // Update the Asset Type
     assetType.setName(newName);
     assetType.setExpectedLifeSpan(newExpectedLifeSpanInDays);
