@@ -15,16 +15,6 @@ public class AssetPlusFeatureSet6Controller {
   private static AssetPlus assetPlus = AssetPlusApplication.getAssetPlus();
 
   public static void deleteEmployeeOrGuest(String email) {
-    // Input validation for email
-    if (email == null 
-    || email.contains(" ") 
-    || email.indexOf("@") <= 0 // index starts at zero
-    || email.indexOf("@") != email.lastIndexOf("@")
-    || email.indexOf("@") >= email.lastIndexOf(".") - 1
-    || email.lastIndexOf(".") >= email.length() - 1) {
-    	throw new IllegalArgumentException("Input email is not a valid email.");
-    }
-
 		// Determine if email is an employee email or a guest email
 		if (email.endsWith("ap.com")) {
 			// Set to null to instantiate the variable
