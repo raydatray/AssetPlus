@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class AddAndUpdateEmployeeStepDefinitions {
   private static AssetPlus assetPlus = AssetPlusApplication.getAssetPlus();
-  private String error;  
+  private String error="";
 
   /**
    * @author Jatin Patel and Anastasiia Nemyrovska
