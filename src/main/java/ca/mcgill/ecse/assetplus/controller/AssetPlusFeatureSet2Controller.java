@@ -87,9 +87,9 @@ public class AssetPlusFeatureSet2Controller {
       return error;
     }
 
-    // Check if Asset Type with the new name already exists
+    // Check if Asset Type with the new name already exists and check if oldName and newName not equal to each other
     AssetType newAssetType = AssetType.getWithName(newName);
-    if (newAssetType != null) {
+    if (newAssetType != null && !oldName.equals(newName)) {
       error = "The asset type already exists";
       return error;
     }
