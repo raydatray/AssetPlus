@@ -16,7 +16,7 @@ public class AssetPlusFeatureSet5Controller {
 
     //Constraint 2: URL must start with http:// or https://
 
-    if (imageURL.substring(0, 6) != "http://" || imageURL.substring(0,7) != "https://"){
+    if (!(imageURL.startsWith("http://") || imageURL.startsWith("https://"))){
       return "Image URL must start with http:// or https://";
     }
     
@@ -56,7 +56,7 @@ public class AssetPlusFeatureSet5Controller {
     }
 
     if (ticketFound == null) {
-      throw new IllegalArgumentException("Ticket does not exist");
+      return;
     }
     
     for (TicketImage image : ticketFound.getTicketImages()){
