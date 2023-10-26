@@ -10,6 +10,13 @@ public class AssetPlusFeatureSet5Controller {
 
   private static AssetPlus assetPlus = AssetPlusApplication.getAssetPlus();
 
+  /**
+   * Adds a TicketImage to a MaintenanceTicket given the MaintenanceTicket's ID
+   * @param imageURL The URL of the image to be added
+   * @param ticketID The ID of the MaintenanceTicket to add the image to
+   * @return A string representing the error message, or an empty string if there were no errors
+   */
+
   public static String addImageToMaintenanceTicket(String imageURL, int ticketID) {
     // Constraint 1: imageURL must not be empty or null
     if (imageURL == null || imageURL.trim().isEmpty()){
@@ -46,6 +53,12 @@ public class AssetPlusFeatureSet5Controller {
     ticketFound.addTicketImage(imageURL);
     return "";
   }
+
+  /**
+   * Deletes a TicketImage of a MaintenanceTicket given the MaintenanceTicket's ID
+   * @param imageURL The URL of the image to be deleted
+   * @param ticketID The ID of the MaintenanceTicket to delete the image from
+   */
 
   public static void deleteImageFromMaintenanceTicket(String imageURL, int ticketID) {
     //Find if the ticket exists
