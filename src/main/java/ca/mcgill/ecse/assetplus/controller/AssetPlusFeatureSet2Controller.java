@@ -6,6 +6,7 @@ import ca.mcgill.ecse.assetplus.model.AssetType;
 
 /**
  * The AssetPlusFeatureSet2Controller class provides methods for managing Asset Types.
+ * Completed by Aurelia Bouliane (Goldrelia on github)
  */
 
 public class AssetPlusFeatureSet2Controller {
@@ -22,20 +23,30 @@ public class AssetPlusFeatureSet2Controller {
 
   public static String addAssetType(String name, int expectedLifeSpanInDays) {
     // Implementation of the method
+    String error = "";
 
     // Ensure that name is not empty or null
     if (name == null || name.trim().isEmpty()) {
-      return "The name must not be empty";
+      error = "The name must not be empty";
+      return error;
     }
 
     // Check if expected life is greater than zero
     if (expectedLifeSpanInDays <= 0) {
-      return "The expected life span must be greater than 0 days";
+      error = "The expected life span must be greater than 0 days";
+      return error;
+    }
+    
+    //  Check if asset type already exists
+    AssetType assetType = AssetType.getWithName(name);
+    if (assetType != null) {
+      error = "The asset type already exists";
+      return error;
     }
 
     // Add Asset Type
     AssetType newAssetType =  new AssetType(name, expectedLifeSpanInDays, assetPlus);
-    return "";
+    return error;
   }
 
   /**
@@ -49,32 +60,44 @@ public class AssetPlusFeatureSet2Controller {
 
   public static String updateAssetType(String oldName, String newName, int newExpectedLifeSpanInDays) {
     // Implementation of the method
+    String error = "";
 
-    // Ensure old name is not null or empty
-    if (oldName == null || oldName.trim().isEmpty()) {
-      return "The name must not be empty";
+    // Check if newExpectedLifeSpanInDays is greater than 0
+    if (newExpectedLifeSpanInDays <= 0) {
+      error = "The expected life span must be greater than 0 days";
+      return error;
     }
 
     // Ensure new name is not null or empty
     if (newName == null || newName.trim().isEmpty()) {
-      return "The name must not be empty";
+      error = "The name must not be empty";
+      return error;
     }
 
-    // Check if newExpectedLifeSpanInDays is greater than 0
-    if (newExpectedLifeSpanInDays <= 0) {
-      return "The expected life span must be greater than 0 days";
+    // Ensure old name is not null or empty
+    if (oldName == null || oldName.trim().isEmpty()) {
+      error = "The name must not be empty";
+      return error;
     }
 
     // Check if Asset Type with the old name already exists
     AssetType assetType = AssetType.getWithName(oldName);
     if (assetType == null) {
-      return "The asset type already exists";
+      error = "The asset type does not exist";
+      return error;
+    }
+
+    // Check if Asset Type with the new name already exists and check if oldName and newName not equal to each other
+    AssetType newAssetType = AssetType.getWithName(newName);
+    if (newAssetType != null && !oldName.equals(newName)) {
+      error = "The asset type already exists";
+      return error;
     }
 
     // Update the Asset Type
     assetType.setName(newName);
     assetType.setExpectedLifeSpan(newExpectedLifeSpanInDays);
-    return "";
+    return error;
   }
 
   /**
@@ -86,20 +109,19 @@ public class AssetPlusFeatureSet2Controller {
 
   public static void deleteAssetType(String name) {
     // Implementation of the method
-    
+
     // Check if name is null or empty
     if (name == null || name.trim().isEmpty()) {
       throw new IllegalArgumentException("The name must not be empty");
     }
 
-    // Check if Asset Type exists
-    AssetType assetType = AssetType.getWithName(name);
-    if (assetType == null) {
-      throw new IllegalArgumentException("AssetType with the given name does not exist. Please enter another name");
+    try {
+      AssetType assetType = AssetType.getWithName(name);
+    if (assetType != null) {
+      assetType.delete();
     }
-
-    // Delete Asset Type
-    assetType.delete();
+    } catch (Exception e) {
+      throw e;
+    }
   }
-
 }

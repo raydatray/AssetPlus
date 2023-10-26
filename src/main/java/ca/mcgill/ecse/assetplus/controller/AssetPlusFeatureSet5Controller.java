@@ -6,18 +6,27 @@ import ca.mcgill.ecse.assetplus.model.TicketImage;
 import ca.mcgill.ecse.assetplus.model.AssetPlus;
 
 public class AssetPlusFeatureSet5Controller {
+  // Completed by Ray Liu, raydatray on Github
+
   private static AssetPlus assetPlus = AssetPlusApplication.getAssetPlus();
+
+  /**
+   * Adds a TicketImage to a MaintenanceTicket given the MaintenanceTicket's ID
+   * @param imageURL The URL of the image to be added
+   * @param ticketID The ID of the MaintenanceTicket to add the image to
+   * @return A string representing the error message, or an empty string if there were no errors
+   */
 
   public static String addImageToMaintenanceTicket(String imageURL, int ticketID) {
     // Constraint 1: imageURL must not be empty or null
     if (imageURL == null || imageURL.trim().isEmpty()){
-      return "Image URL is null or empty";
+      return "Image URL cannot be empty";
     }
 
     //Constraint 2: URL must start with http:// or https://
 
-    if (imageURL.substring(0, 6) != "http://" || imageURL.substring(0,7) != "https://"){
-      return "Image URL is not valid (Must begin with http:// or https://)";
+    if (!(imageURL.startsWith("http://") || imageURL.startsWith("https://"))){
+      return "Image URL must start with http:// or https://";
     }
     
     //TicketID has to be associated with a ticket
@@ -30,20 +39,26 @@ public class AssetPlusFeatureSet5Controller {
     }
 
     if (ticketFound == null) {
-      return "TicketID not found";
+      return "Ticket does not exist";
     }
 
     //Constraint 3: two imageURLs cannot be the same for a given ticket
     for (TicketImage image: ticketFound.getTicketImages()){
-      if (image.getImageURL() == imageURL) {
-        return "Duplicate imageURL for given ticket";
+      if (image.getImageURL().equals(imageURL)) {
+        return "Image already exists for the ticket";
       }
     }
 
     //Add image to ticket
     ticketFound.addTicketImage(imageURL);
-    return "imageURL added to ticket";
+    return "";
   }
+
+  /**
+   * Deletes a TicketImage of a MaintenanceTicket given the MaintenanceTicket's ID
+   * @param imageURL The URL of the image to be deleted
+   * @param ticketID The ID of the MaintenanceTicket to delete the image from
+   */
 
   public static void deleteImageFromMaintenanceTicket(String imageURL, int ticketID) {
     //Find if the ticket exists
@@ -56,13 +71,20 @@ public class AssetPlusFeatureSet5Controller {
     }
 
     if (ticketFound == null) {
-      throw new IllegalArgumentException("Ticket does not exist");
+      return;
     }
+
+    TicketImage foundImage = null;
     
     for (TicketImage image : ticketFound.getTicketImages()){
-      if (image.getImageURL() == imageURL) {
-          image.delete();
+      if (image.getImageURL().equals(imageURL)) {
+          foundImage = image;
       }
     }
+
+    if (foundImage != null){
+      foundImage.delete();
+    }
+
   }
 }
