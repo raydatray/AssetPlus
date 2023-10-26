@@ -183,12 +183,6 @@ public class AssetPlusFeatureSet1Controller {
     if (password == null || password.trim().isEmpty()) {
       error += "Password cannot be empty";
     }
-    // if (name == null || name.isEmpty()){
-    //   error += "Name cannot be null.";
-    // }
-    // if (phoneNumber == null || phoneNumber.isEmpty()){
-    //   error += "Phone number cannot be null.";
-    // }
 
     return error.trim(); // returns string containing errors (or empty if none)
   }
