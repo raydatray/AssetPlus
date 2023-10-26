@@ -6,6 +6,8 @@ import ca.mcgill.ecse.assetplus.model.TicketImage;
 import ca.mcgill.ecse.assetplus.model.AssetPlus;
 
 public class AssetPlusFeatureSet5Controller {
+  // Completed by Ray Liu, raydatray on Github
+
   private static AssetPlus assetPlus = AssetPlusApplication.getAssetPlus();
 
   public static String addImageToMaintenanceTicket(String imageURL, int ticketID) {
@@ -35,7 +37,7 @@ public class AssetPlusFeatureSet5Controller {
 
     //Constraint 3: two imageURLs cannot be the same for a given ticket
     for (TicketImage image: ticketFound.getTicketImages()){
-      if (image.getImageURL() == imageURL) {
+      if (image.getImageURL().equals(imageURL)) {
         return "Image already exists for the ticket";
       }
     }
@@ -58,11 +60,18 @@ public class AssetPlusFeatureSet5Controller {
     if (ticketFound == null) {
       return;
     }
+
+    TicketImage foundImage = null;
     
     for (TicketImage image : ticketFound.getTicketImages()){
-      if (image.getImageURL() == imageURL) {
-          image.delete();
+      if (image.getImageURL().equals(imageURL)) {
+          foundImage = image;
       }
     }
+
+    if (foundImage != null){
+      foundImage.delete();
+    }
+
   }
 }
