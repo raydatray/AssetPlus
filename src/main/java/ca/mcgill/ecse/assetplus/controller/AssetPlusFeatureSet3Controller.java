@@ -3,10 +3,22 @@ package ca.mcgill.ecse.assetplus.controller;
 import java.sql.Date;
 import ca.mcgill.ecse.assetplus.model.AssetPlus;
 import ca.mcgill.ecse.assetplus.model.AssetType;
+import ca.mcgill.ecse.assetplus.model.MaintenanceTicket;
 import ca.mcgill.ecse.assetplus.model.SpecificAsset;
 import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
 
 public class AssetPlusFeatureSet3Controller {
+
+/**
+     * Adds a new Specific Asset with the specified asset number, floor number, room number, purchase data and asset type name
+     *
+     * @param assetNumber                  The number of the Asset. Must be greater or equal to 1.
+     * @param floorNumber                  The floor on which the Asset is placed. Must be greater or equal to 0.
+     * @param roomNumber                   The room in which the Asset is placed. Must be greater or equal to -1. -1 specifies no room.
+     * @param purchaseDate                 The purchase date of the Asset.
+     * @param asseTypeName                 The type of the Asset. Must be of an existing type.
+     * @return                      A message indicating the success or failure of the operation.
+     */
 
   private static AssetPlus assetPlus = AssetPlusApplication.getAssetPlus();
 
@@ -42,6 +54,17 @@ public class AssetPlusFeatureSet3Controller {
         SpecificAsset mySpecificAsset = new SpecificAsset(assetNumber, floorNumber, roomNumber, purchaseDate, assetPlus, assetToAddTo);
         return error;
   }
+
+  /**
+     * Updates a Specific Asset with the same asset number, new floor number, new room number, new purchase data and new asset type name.
+     *
+     * @param assetNumber                  The number of the Asset. Must be greater or equal to 1.
+     * @param newFloorNumber               The new floor on which the Asset is placed. Must be greater or equal to 0.
+     * @param newRoomNumber                The new room in which the Asset is placed. Must be greater or equal to -1. -1 specifies no room.
+     * @param newPurchaseDate              The new purchase date of the Asset.
+     * @param newAsseTypeName              The new type of the Asset. Must be of an existing type.
+     * @return                      A message indicating the success or failure of the operation.
+     */
 
   public static String updateSpecificAsset(int assetNumber, int newFloorNumber, int newRoomNumber,
       Date newPurchaseDate, String newAssetTypeName) {
@@ -87,12 +110,22 @@ public class AssetPlusFeatureSet3Controller {
         return "";
     }
 
+  /**
+     * Deletes a Specific Asset with the specified asset number.
+     *
+     * @param assetNumber The number of the Specific Asset to be deleted. Must not be less than 1.
+     * @throws Exception If the Asset Type with the specified name does not exist.
+     */  
   public static void deleteSpecificAsset(int assetNumber) {
-    //Delete a specific asset by assetNumber
-    for (SpecificAsset assetToDelete: assetPlus.getSpecificAssets()){
-      if(assetToDelete.getAssetNumber() == assetNumber){
-        assetToDelete.delete();
+    //Delete a Specific Asset by assetNumber
+     try {
+      SpecificAsset assetToDelete = SpecificAsset.getWithAssetNumber(assetNumber); // Get the Specific Asset with the corresponding asset number
+
+      if (assetToDelete != null){ // Check if the Specific Asset exists
+        assetToDelete.delete(); //Delete the Specific Asset
       }
+    } catch (Exception e) { //Catch any exceptions
+      throw e; //Throw the exception. This is required to delete any specific assets that do not exist
     }
   }
 
