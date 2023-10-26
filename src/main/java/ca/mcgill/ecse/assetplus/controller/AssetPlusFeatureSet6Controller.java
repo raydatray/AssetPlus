@@ -14,22 +14,34 @@ public class AssetPlusFeatureSet6Controller {
 
   private static AssetPlus assetPlus = AssetPlusApplication.getAssetPlus();
 
+	/**
+	 * Deletes an employee or guest account based on the provided email address.
+	 *
+	 * @param email The email address associated with the account to be deleted.
+	 *
+	 * This function determines whether the given email corresponds to an employee or a guest account.
+	 * If the email ends with "ap.com," it is considered an employee email. Otherwise, it is assumed
+	 * to be a guest email. If it is a guest email, the function searches for a matching account based 
+	 * on the email provided. If a match is found, the corresponding account is deleted. If no match
+	 * is found, the function does not do anything.
+	 *
+	 * Note: Deleting objects from a list while iterating through it can lead to a
+	 * ConcurrentModificationException. To prevent this, the function initializes a variable to
+	 * store the reference to the matching account and breaks out of the loop as soon as a match is found.
+	 * If no match is found, no action is taken.
+	 */
   public static void deleteEmployeeOrGuest(String email) {
-		// Determine if email is an employee email or a guest email
+
 		if (email.endsWith("ap.com")) {
-			// Set to null to instantiate the variable
+			
 			Employee employeeToDelete =  null;
 			
 			for (Employee e: assetPlus.getEmployees()) {
 				if (e.getEmail().equals(email)) {
-					// Initiliaze variable to hold reference of matching employee to avoid throwing
-					// an error (removing objects while still iterating through list --> ConcurrentModificationException) 
 					employeeToDelete = e;
-					// Exit loop once match is found
 					break;
 				}
 			}
-
 			// Check if an employee has been matched... if not do nothing
 			if (employeeToDelete != null) {
 				employeeToDelete.delete();
@@ -52,7 +64,21 @@ public class AssetPlusFeatureSet6Controller {
 		}
   }
 
-  // returns all tickets
+	/**
+	 * Retrieves a list of transfer objects (TOMaintenanceTicket) representing maintenance tickets in the system.
+	 *
+	 * This method processes the maintenance tickets in the system and creates corresponding transfer objects
+	 * to encapsulate ticket details for external use. Each TOMaintenanceTicket contains information about the ticket,
+	 * including its ID, raised date, description, and associated data such as asset information, ticket images,
+	 * and maintenance notes. The method handles different attributes and associations, initializing them as needed.
+	 *
+	 * If a maintenance ticket is associated with a specific asset, additional asset-related information is included.
+	 *
+	 * @return A list of TOMaintenanceTicket objects, representing the maintenance tickets in the system.
+	 *
+	 * Note: The constructor of TOMaintenanceTicket does not accept an ArrayList for certain attributes due to varargs.
+	 * As a result, the method iterates through maintenance notes to create the maintenanceNoteList.
+	 */
   public static List<TOMaintenanceTicket> getTickets() {
 	
 		List<TOMaintenanceTicket> TOMaintenanceTicketList = new ArrayList<>();
@@ -92,7 +118,7 @@ public class AssetPlusFeatureSet6Controller {
 			
 			// Create a transfer object for each maintenance ticket
 			TOMaintenanceTicket transferTicket = new TOMaintenanceTicket(id, raisedOnDate, description, raisedByEmail, assetName, expectedLifeSpanInDays, purchaseDate, floorNumber, roomNumber, ticketImageURLs, maintenanceNoteList);
-			// Append new transfer object to the list
+			
 			TOMaintenanceTicketList.add(transferTicket);
 		}
 
