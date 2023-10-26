@@ -156,9 +156,9 @@ public class AddAndUpdateMaintenanceNoteToTicketStepDefinitions {
    */
   @When("hotel staff with email {string} attempts to add a new note with date {string} and description {string} to an existing maintenance ticket {string} \\(p3)")
   public void hotel_staff_with_email_attempts_to_add_a_new_note_with_date_and_description_to_an_existing_maintenance_ticket_p3(
-      String userEmail, String addedOnDate, String noteDescription, String noteId) {
+      String userEmail, String addedOnDate, String noteDescription, String ticketId) {
     error = AssetPlusFeatureSet7Controller.addMaintenanceNote(Date.valueOf(addedOnDate),
-        noteDescription, Integer.parseInt(noteId), userEmail); // calling the controller method
+        noteDescription, Integer.parseInt(ticketId), userEmail); // calling the controller method
   }
 
   /**
@@ -166,9 +166,9 @@ public class AddAndUpdateMaintenanceNoteToTicketStepDefinitions {
    */
   @When("the manger attempts to update note number {string} for maintenance ticket {string} with note taker {string}, date {string}, and description {string} \\(p3)")
   public void the_manger_attempts_to_update_note_number_for_maintenance_ticket_with_note_taker_date_and_description_p3(
-      String noteId, String ticketId, String noteTaker, String dateAdded, String noteDescription) {
+      String noteIndex, String ticketId, String noteTaker, String dateAdded, String noteDescription) {
     error = AssetPlusFeatureSet7Controller.updateMaintenanceNote(Integer.parseInt(ticketId),
-        Integer.parseInt(noteId), Date.valueOf(dateAdded.trim()), noteDescription, noteTaker); // calling
+        Integer.parseInt(noteIndex), Date.valueOf(dateAdded.trim()), noteDescription, noteTaker); // calling
                                                                                                // the
                                                                                                // controller
                                                                                                // method
