@@ -8,7 +8,7 @@ import ca.mcgill.ecse.assetplus.model.SpecificAsset;
 import ca.mcgill.ecse.assetplus.model.User;
 
 public class AssetPlusFeatureSet4Controller {
-
+  // Done by Sebastian Reinhardt, SReinhardt283 on GitHub
   /**
    * The AssetPlus application we are using
    */
