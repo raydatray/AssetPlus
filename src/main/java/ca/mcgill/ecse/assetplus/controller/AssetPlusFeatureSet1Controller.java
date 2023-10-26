@@ -68,7 +68,7 @@ public class AssetPlusFeatureSet1Controller {
           error = "Email domain must be @ap.com";
           return error;
         }
-        
+
         User employee = Employee.getWithEmail(email);
         //Check if employee already exists
         if (employee != null) {
@@ -83,7 +83,7 @@ public class AssetPlusFeatureSet1Controller {
         User guest = Guest.getWithEmail(email);
         //Check if guest already exists
         if (guest != null) {
-          error = "Email already linked to an guest account";
+          error = "Email already linked to a guest account";
           return error;
         }
 
