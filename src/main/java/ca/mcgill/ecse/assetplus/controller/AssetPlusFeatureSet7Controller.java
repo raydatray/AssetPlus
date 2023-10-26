@@ -6,7 +6,6 @@ import ca.mcgill.ecse.assetplus.model.MaintenanceTicket;
 
 import java.sql.Date;
 
-
 // completed by Alice Godbout (aliceg01 on github)
 
 public class AssetPlusFeatureSet7Controller {
@@ -54,9 +53,7 @@ public class AssetPlusFeatureSet7Controller {
     }
 
     return error; // empty string means operation was successful (no error)
-    
   }
-
 
   /**
    * Updates the date, description and email (associated with hotel staff) of a maintenance note associated with a given ticket at a specific index.
@@ -78,8 +75,6 @@ public class AssetPlusFeatureSet7Controller {
         System.out.println(error);
         return error;
     }
-
-    
 
     try {
       // find ticket associated with ticket ID; check if there exists a ticket associated to given ticket ID
@@ -168,7 +163,6 @@ public class AssetPlusFeatureSet7Controller {
     } 
     
     // other constraints
-    
     if (date == null) {
         error += "Date cannot be null.";
     } if (email == null || email.trim().isEmpty()) {
@@ -178,5 +172,5 @@ public class AssetPlusFeatureSet7Controller {
     }
     return error.trim(); // returns string containing errors (or empty if none)
   }
-
+ 
 }
