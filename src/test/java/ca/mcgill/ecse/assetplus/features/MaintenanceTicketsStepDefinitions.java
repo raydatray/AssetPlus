@@ -1,101 +1,89 @@
 package ca.mcgill.ecse.assetplus.features;
 
+import java.util.*;
+import java.sql.Date;
+import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
+import ca.mcgill.ecse.assetplus.controller.TOMaintenanceTicket;
+import ca.mcgill.ecse.assetplus.model.AssetPlus;
+import ca.mcgill.ecse.assetplus.model.AssetType;
+import ca.mcgill.ecse.assetplus.model.HotelStaff;
+import ca.mcgill.ecse.assetplus.model.MaintenanceTicket;
+import ca.mcgill.ecse.assetplus.model.Manager;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class MaintenanceTicketsStepDefinitions {
+
+  private AssetPlus assetPlus = AssetPlusApplication.getAssetPlus();
+  private String error;
+  private List<TOMaintenanceTicket> tickets;
+
   @Given("the following employees exist in the system")
-  public void the_following_employees_exist_in_the_system(
-      io.cucumber.datatable.DataTable dataTable) {
-    // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
-    // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    //
-    // For other transformations you can register a DataTableType.
-    throw new io.cucumber.java.PendingException();
+  public void the_following_employees_exist_in_the_system(io.cucumber.datatable.DataTable dataTable) {
+    List<Map<String, String>> rows = dataTable.asMaps(); // Retrieving the data from the feature // file is a usable format
+
+    for (Map<String, String> row : rows) { // iterating through the rows of the data from the feature file
+    assetPlus.addEmployee(row.get("email"), row.get("name"), row.get("password"), row.get("phoneNumber")); // adding employees with the given information from the feature file to the assetPlus
+    }
   }
 
   @Given("the following manager exists in the system")
-  public void the_following_manager_exists_in_the_system(
-      io.cucumber.datatable.DataTable dataTable) {
-    // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
-    // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    //
-    // For other transformations you can register a DataTableType.
-    throw new io.cucumber.java.PendingException();
+  public void the_following_manager_exists_in_the_system(io.cucumber.datatable.DataTable dataTable) {
+    List<Map<String, String>> rows = dataTable.asMaps(); // Retrieving the data from the feature file is a usable format
+
+    for (Map<String, String> row : rows) { // iterating through the rows of the data from the feature file
+      Manager manager = new Manager(row.get("email"), "", row.get("password"), "", assetPlus); // Creating the corresponding manager
+      assetPlus.setManager(manager); // setting the manager
+    }
   }
 
   @Given("the following asset types exist in the system")
-  public void the_following_asset_types_exist_in_the_system(
-      io.cucumber.datatable.DataTable dataTable) {
-    // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
-    // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    //
-    // For other transformations you can register a DataTableType.
-    throw new io.cucumber.java.PendingException();
+  public void the_following_asset_types_exist_in_the_system(io.cucumber.datatable.DataTable dataTable) {
+    List<Map<String, String>> rows = dataTable.asMaps(); // Retrieving the data from the feature file is a usable format
+
+    for (Map<String, String> row : rows) { // iterating through the rows of the data from the feature file
+      assetPlus.addAssetType(row.get("name"), Integer.parseInt(row.get("expectedLifeSpan"))); // adding assetTypes with the given information from the feature file
+    }
   }
 
   @Given("the following assets exist in the system")
   public void the_following_assets_exist_in_the_system(io.cucumber.datatable.DataTable dataTable) {
-    // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
-    // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    //
-    // For other transformations you can register a DataTableType.
-    throw new io.cucumber.java.PendingException();
+    List<Map<String, String>> rows = dataTable.asMaps(); // Retrieving the data from the feature file is a usable format
+
+    for (Map<String, String> row : rows) { // iterating through the rows of the data from the feature file
+      assetPlus.addSpecificAsset(Integer.parseInt(row.get("assetNumber")),
+          Integer.parseInt(row.get("floorNumber")), Integer.parseInt(row.get("roomNumber")), Date.valueOf(row.get("purchaseDate")), AssetType.getWithName(row.get("type"))); // adding specificAssets with the given information from the feature file
+    }
   }
 
   @Given("the following tickets exist in the system")
   public void the_following_tickets_exist_in_the_system(io.cucumber.datatable.DataTable dataTable) {
-    // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
-    // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    //
-    // For other transformations you can register a DataTableType.
     throw new io.cucumber.java.PendingException();
   }
 
   @Given("the following notes exist in the system")
   public void the_following_notes_exist_in_the_system(io.cucumber.datatable.DataTable dataTable) {
-    // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
-    // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    //
-    // For other transformations you can register a DataTableType.
-    throw new io.cucumber.java.PendingException();
+    List<Map<String, String>> rows = dataTable.asMaps(); // Retrieving the data from the feature file is a usable format
+
+    for (Map<String, String> row : rows) { // iterating through the rows of the data from the feature file
+      MaintenanceTicket maintenanceTicket = MaintenanceTicket.getWithId(Integer.parseInt(row.get("ticketId"))); // finding the correct maintenanceTicket
+      maintenanceTicket.addTicketNote(Date.valueOf(row.get("addedOnDate")), row.get("description"), (HotelStaff) HotelStaff.getWithEmail(row.get("noteTaker"))); // adding the maintenanceNotes with the given information from the feature file
+    }
   }
 
   @Given("the following ticket images exist in the system")
-  public void the_following_ticket_images_exist_in_the_system(
-      io.cucumber.datatable.DataTable dataTable) {
-    // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
-    // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    //
-    // For other transformations you can register a DataTableType.
-    throw new io.cucumber.java.PendingException();
+  public void the_following_ticket_images_exist_in_the_system(io.cucumber.datatable.DataTable dataTable) {
+    List<Map<String, String>> rows = dataTable.asMaps(); // Retrieving the data from the feature file is a usable format
+    for (Map<String, String> row : rows) { // iterating through the rows of the data from the feature file
+      MaintenanceTicket maintenanceTicket = MaintenanceTicket.getWithId(Integer.parseInt(row.get("ticketId"))); // finding the correct maintenanceTicket
+      maintenanceTicket.addTicketImage(row.get("imageUrl")); // adding the TicketImages from the feature file
+    }
   }
 
   @Given("ticket {string} is marked as {string} with requires approval {string}")
-  public void ticket_is_marked_as_with_requires_approval(String string, String string2,
-      String string3) {
+  public void ticket_is_marked_as_with_requires_approval(String ticketId, String state,
+      String requiresApproval) {
     // Write code here that turns the phrase above into concrete actions
     throw new io.cucumber.java.PendingException();
   }
