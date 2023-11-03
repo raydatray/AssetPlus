@@ -1,7 +1,7 @@
-package main.java.ca.mcgill.ecse.assetplus.persistence;
+package ca.mcgill.ecse.assetplus.persistence;
 
-import ca.mcgill.ecse.biketourplus.application.AssetPlusApplication;
-import ca.mcgill.ecse.biketourplus.model.AssetPlus;
+import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
+import ca.mcgill.ecse.assetplus.model.AssetPlus;
 
 public class AssetPlusPersistence {
 

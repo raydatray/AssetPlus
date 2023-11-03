@@ -1,4 +1,4 @@
-package main.java.ca.mcgill.ecse.assetplus.persistence;
+package ca.mcgill.ecse.assetplus.persistence;
 
 import java.io.File;
 import java.io.IOException;
