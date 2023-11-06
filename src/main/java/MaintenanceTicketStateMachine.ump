@@ -1,0 +1,37 @@
+class MaintenanceTicket {
+	Status {
+    	
+        InReview {
+            // Is this how you pass a parameter to the event
+        	assign(HotelStaff staffMember) {
+            	doAssign(HotelStaff staffMember);
+            } -> Assigned;
+        }
+      
+      	Assigned {
+        	startTicket -> InProgress;
+        }
+      
+      	InProgress {
+        	closeTicket [!requiresManagerApproval()] -> Closed;
+          	closeTicket [requiresManagerApproval()] -> AwaitingApproval;
+        }
+      
+      	AwaitingApproval {
+        	disapprove -> InProgress;
+          	approve -> Closed;
+        }
+      
+      	Closed {
+        	
+        }
+    }
+
+    private void doAssign(HotelStaff staffMember) {
+        MaintenanceTicket.setTicketFixer(staffMember);
+    }
+
+    private boolean requiresManagerApproval() {
+        return MaintenanceTicket.hasFixApprover();
+    }
+}

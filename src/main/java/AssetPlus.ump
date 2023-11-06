@@ -1,5 +1,8 @@
 namespace ca.mcgill.ecse.assetplus.model;
 
+use MaintenanceTicketStateMachine.ump;
+use AssetPlusPersistence.ump;
+
 class AssetPlus
 {
   1 <@>- * Employee employees;
