@@ -183,10 +183,7 @@ public class MaintenanceTicketsStepDefinitions {
     // Houman
     // Write code here that turns the phrase above into concrete actions
     String expectedAmountOfTickets = string;
-    String amountOfTickets = 0;
-    for (MaintenanceTicket maintenanceTicket : assetPlus.getMaintenanceTickets()){ //iterating through all the tickets in the system
-      amountOfTickets += 1; //getting the number actual tickets
-    }
+    Int amountOfTickets = assetPlus.numberOfMaintenanceTickets()
     //Checking if the the two numbers are equal
     if !amountOfTickets.equals(Integer.parseInt(expectedAmountOfTickets)) {
       throw new io.cucumber.java.PendingException();
