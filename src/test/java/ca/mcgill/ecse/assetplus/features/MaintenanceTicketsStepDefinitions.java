@@ -1,6 +1,7 @@
 package ca.mcgill.ecse.assetplus.features;
 
 import java.util.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.sql.Date;
 import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
 import ca.mcgill.ecse.assetplus.controller.TOMaintenanceTicket;
@@ -181,7 +182,15 @@ public class MaintenanceTicketsStepDefinitions {
   public void the_number_of_tickets_in_the_system_shall_be(String string) {
     // Houman
     // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    String expectedAmountOfTickets = string;
+    String amountOfTickets = 0;
+    for (MaintenanceTicket maintenanceTicket : assetPlus.getMaintenanceTickets()){ //iterating through all the tickets in the system
+      amountOfTickets += 1; //getting the number actual tickets
+    }
+    //Checking if the the two numbers are equal
+    if !amountOfTickets.equals(Integer.parseInt(expectedAmountOfTickets)) {
+      throw new io.cucumber.java.PendingException();
+    }    
   }
 
   @Then("the following maintenance tickets shall be presented")
