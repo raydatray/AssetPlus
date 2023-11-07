@@ -53,7 +53,7 @@ class MaintenanceTicket {
       setTicketFixer(staffMember);
       setTimeToResolve(timeToResolve);
       setPriority(priority);
-      if (requiresManagerApproval) ? fixApprover = AssetPlus.getManager() : fixApprover = null;
+      requiresManagerApproval ? fixApprover = AssetPlus.getManager() : fixApprover = null
     }
 
     private boolean requiresManagerApproval() {
