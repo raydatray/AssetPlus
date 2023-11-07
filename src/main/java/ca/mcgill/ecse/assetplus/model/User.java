@@ -236,12 +236,12 @@ public abstract class User
 
   // line 12 "../../../../../AssetPlusPersistence.ump"
    public static  void reinitializeUniqueEmail(Manager manager, List<Employee> employees, List<Guest> guests){
-    usersByEmail = new HashMap<String, User>();
+    usersByEmail.clear();
     if(manager != null){
         usersByEmail.put(manager.getEmail(), manager);
     }
     for (Employee employee : employees) {
-        usersByEmail.put(employee.getEmail(), guide);
+        usersByEmail.put(employee.getEmail(), employee);
     }
     for (Guest guest : guests) {
         usersByEmail.put(guest.getEmail(), guest);

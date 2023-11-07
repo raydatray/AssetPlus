@@ -176,7 +176,7 @@ public class MaintenanceTicket
     return status;
   }
 
-  public boolean assign(HotelStaff staffMember)
+  public boolean assign(HotelStaff staffMember,TimeEstimate timeToResolve,PriorityLevel priority,boolean requiresManagerApproval,Manager manager)
   {
     boolean wasEventProcessed = false;
     
@@ -184,9 +184,33 @@ public class MaintenanceTicket
     switch (aStatus)
     {
       case InReview:
-        // line 6 "../../../../../MaintenanceTicketStateMachine.ump"
-        doAssign(staffMember);
+        // line 5 "../../../../../MaintenanceTicketStateMachine.ump"
+        doAssign(staffMember, timeToResolve, priority, requiresManagerApproval, manager);
         setStatus(Status.Assigned);
+        wasEventProcessed = true;
+        break;
+      case Assigned:
+        // line 18 "../../../../../MaintenanceTicketStateMachine.ump"
+        preventTransition("The maintenance ticket is already assigned.");
+        setStatus(Status.Assigned);
+        wasEventProcessed = true;
+        break;
+      case InProgress:
+        // line 28 "../../../../../MaintenanceTicketStateMachine.ump"
+        preventTransition("Cannot assign a maintenance ticket which is in progress.");
+        setStatus(Status.InProgress);
+        wasEventProcessed = true;
+        break;
+      case AwaitingApproval:
+        // line 38 "../../../../../MaintenanceTicketStateMachine.ump"
+        preventTransition("Cannot assign a maintenance ticket which is resolved.");
+        setStatus(Status.AwaitingApproval);
+        wasEventProcessed = true;
+        break;
+      case Closed:
+        // line 44 "../../../../../MaintenanceTicketStateMachine.ump"
+        preventTransition("Cannot assign a maintenance ticket which is closed.");
+        setStatus(Status.Closed);
         wasEventProcessed = true;
         break;
       default:
@@ -203,8 +227,32 @@ public class MaintenanceTicket
     Status aStatus = status;
     switch (aStatus)
     {
+      case InReview:
+        // line 9 "../../../../../MaintenanceTicketStateMachine.ump"
+        preventTransition("Cannot start a maintenance ticket which is open.");
+        setStatus(Status.InReview);
+        wasEventProcessed = true;
+        break;
       case Assigned:
         setStatus(Status.InProgress);
+        wasEventProcessed = true;
+        break;
+      case InProgress:
+        // line 29 "../../../../../MaintenanceTicketStateMachine.ump"
+        preventTransition("The maintenance ticket is already in progress.");
+        setStatus(Status.InProgress);
+        wasEventProcessed = true;
+        break;
+      case AwaitingApproval:
+        // line 39 "../../../../../MaintenanceTicketStateMachine.ump"
+        preventTransition("Cannot start a maintenance ticket which is resolved.");
+        setStatus(Status.AwaitingApproval);
+        wasEventProcessed = true;
+        break;
+      case Closed:
+        // line 45 "../../../../../MaintenanceTicketStateMachine.ump"
+        preventTransition("Cannot start a maintenance ticket which is closed.");
+        setStatus(Status.Closed);
         wasEventProcessed = true;
         break;
       default:
@@ -221,6 +269,18 @@ public class MaintenanceTicket
     Status aStatus = status;
     switch (aStatus)
     {
+      case InReview:
+        // line 10 "../../../../../MaintenanceTicketStateMachine.ump"
+        preventTransition("Cannot complete a maintenance ticket which is open.");
+        setStatus(Status.InReview);
+        wasEventProcessed = true;
+        break;
+      case Assigned:
+        // line 19 "../../../../../MaintenanceTicketStateMachine.ump"
+        preventTransition("Cannot complete a maintenance ticket which is assigned.");
+        setStatus(Status.Assigned);
+        wasEventProcessed = true;
+        break;
       case InProgress:
         if (!(requiresManagerApproval()))
         {
@@ -235,22 +295,16 @@ public class MaintenanceTicket
           break;
         }
         break;
-      default:
-        // Other states do respond to this event
-    }
-
-    return wasEventProcessed;
-  }
-
-  public boolean disapprove()
-  {
-    boolean wasEventProcessed = false;
-    
-    Status aStatus = status;
-    switch (aStatus)
-    {
       case AwaitingApproval:
-        setStatus(Status.InProgress);
+        // line 40 "../../../../../MaintenanceTicketStateMachine.ump"
+        preventTransition("The maintenance ticket is already resolved.");
+        setStatus(Status.AwaitingApproval);
+        wasEventProcessed = true;
+        break;
+      case Closed:
+        // line 46 "../../../../../MaintenanceTicketStateMachine.ump"
+        preventTransition("The maintenance ticket is already closed.");
+        setStatus(Status.Closed);
         wasEventProcessed = true;
         break;
       default:
@@ -260,14 +314,82 @@ public class MaintenanceTicket
     return wasEventProcessed;
   }
 
-  public boolean approve()
+  public boolean disapproveTicket(MaintenanceNote disapprovalNote)
   {
     boolean wasEventProcessed = false;
     
     Status aStatus = status;
     switch (aStatus)
     {
+      case InReview:
+        // line 11 "../../../../../MaintenanceTicketStateMachine.ump"
+        preventTransition("Cannot disapprove a maintenance ticket which is open.");
+        setStatus(Status.InReview);
+        wasEventProcessed = true;
+        break;
+      case Assigned:
+        // line 20 "../../../../../MaintenanceTicketStateMachine.ump"
+        preventTransition("Cannot disapprove a maintenance ticket which is assigned.");
+        setStatus(Status.Assigned);
+        wasEventProcessed = true;
+        break;
+      case InProgress:
+        // line 30 "../../../../../MaintenanceTicketStateMachine.ump"
+        preventTransition("Cannot disapprove a maintenance ticket which is in progress.");
+        setStatus(Status.InProgress);
+        wasEventProcessed = true;
+        break;
       case AwaitingApproval:
+        // line 35 "../../../../../MaintenanceTicketStateMachine.ump"
+        doDisapprove(disapprovalNote);
+        setStatus(Status.InProgress);
+        wasEventProcessed = true;
+        break;
+      case Closed:
+        // line 47 "../../../../../MaintenanceTicketStateMachine.ump"
+        preventTransition("Cannot disapprove a maintenance ticket which is closed.");
+        setStatus(Status.Closed);
+        wasEventProcessed = true;
+        break;
+      default:
+        // Other states do respond to this event
+    }
+
+    return wasEventProcessed;
+  }
+
+  public boolean approveTicket()
+  {
+    boolean wasEventProcessed = false;
+    
+    Status aStatus = status;
+    switch (aStatus)
+    {
+      case InReview:
+        // line 12 "../../../../../MaintenanceTicketStateMachine.ump"
+        preventTransition("Cannot approve a maintenance ticket which is open.");
+        setStatus(Status.InReview);
+        wasEventProcessed = true;
+        break;
+      case Assigned:
+        // line 21 "../../../../../MaintenanceTicketStateMachine.ump"
+        preventTransition("Cannot approve a maintenance ticket which is assigned.");
+        setStatus(Status.Assigned);
+        wasEventProcessed = true;
+        break;
+      case InProgress:
+        // line 31 "../../../../../MaintenanceTicketStateMachine.ump"
+        preventTransition("Cannot approve a maintenance ticket which is in progress.");
+        setStatus(Status.InProgress);
+        wasEventProcessed = true;
+        break;
+      case AwaitingApproval:
+        setStatus(Status.Closed);
+        wasEventProcessed = true;
+        break;
+      case Closed:
+        // line 48 "../../../../../MaintenanceTicketStateMachine.ump"
+        preventTransition("The maintenance ticket is already closed.");
         setStatus(Status.Closed);
         wasEventProcessed = true;
         break;
@@ -668,20 +790,32 @@ public class MaintenanceTicket
     }
   }
 
-  // line 31 "../../../../../MaintenanceTicketStateMachine.ump"
-   private void doAssign(HotelStaff staffMember){
-    this.setTicketFixer(staffMember);
+  // line 53 "../../../../../MaintenanceTicketStateMachine.ump"
+   private void doAssign(HotelStaff staffMember, TimeEstimate timeToResolve, PriorityLevel priority, boolean requiresManagerApproval, Manager manager){
+    setTimeToResolve(timeToResolve);
+      setPriority(priority);
+      setTicketFixer(staffMember);
+      requiresManagerApproval ? setFixApprover(manager) : setFixApprover(null);
   }
 
-  // line 35 "../../../../../MaintenanceTicketStateMachine.ump"
+  // line 60 "../../../../../MaintenanceTicketStateMachine.ump"
+   private void doDisapprove(MaintenanceNote disapprovalNote){
+    addTicketNote(disapprovalNote);
+  }
+
+  // line 64 "../../../../../MaintenanceTicketStateMachine.ump"
    private boolean requiresManagerApproval(){
-    return this.hasFixApprover();
+    return hasFixApprover();
+  }
+
+  // line 68 "../../../../../MaintenanceTicketStateMachine.ump"
+   private void preventTransition(String msg){
+    throw new RuntimeException(msg);
   }
 
   // line 27 "../../../../../AssetPlusPersistence.ump"
    public static  void reinitializeUniqueId(List<MaintenanceTicket> tickets){
-    maintenanceticketsById = new HashMap<Integer, MaintenanceTicket>();
-        maintenanceticketsById.clear();
+    maintenanceticketsById.clear();
         for (MaintenanceTicket ticket : tickets){
             maintenanceticketsById.put(ticket.getId(), ticket);
         }

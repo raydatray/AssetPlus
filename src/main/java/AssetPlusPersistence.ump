@@ -9,12 +9,12 @@ class AssetPlus {
 
 class User {
     public static void reinitializeUniqueEmail(Manager manager, List<Employee> employees, List<Guest> guests) {
-    usersByEmail = new HashMap<String, User>();
+    usersByEmail.clear();
     if(manager != null){
         usersByEmail.put(manager.getEmail(), manager);
     }
     for (Employee employee : employees) {
-        usersByEmail.put(employee.getEmail(), guide);
+        usersByEmail.put(employee.getEmail(), employee);
     }
     for (Guest guest : guests) {
         usersByEmail.put(guest.getEmail(), guest);
@@ -24,7 +24,6 @@ class User {
 
 class MaintenanceTicket {
     public static void reinitializeUniqueId(List<MaintenanceTicket> tickets){
-        maintenanceticketsById = new HashMap<Integer, MaintenanceTicket>();
         maintenanceticketsById.clear();
         for (MaintenanceTicket ticket : tickets){
             maintenanceticketsById.put(ticket.getId(), ticket);
@@ -34,19 +33,17 @@ class MaintenanceTicket {
 
 class SpecificAsset {
     public static void reinitializeUniqueAssetNumber(List<SpecificAsset> assets){
-        assetsById = new HashMap<Integer, SpecificAsset>();
-        assetsById.clear();
+        specificassetsByAssetNumber.clear();
         for (SpecificAsset asset : assets){
-            assetsById.put(asset.getAssetNumber(), asset);
+            specificassetsByAssetNumber.put(asset.getAssetNumber(), asset);
         }
     }
 }
 
 class AssetType{
     public static void reinitializeUniqueName(List<AssetType> assetTypes) {
-    assetTypesByName = new HashMap<String, AssetType>();
     for (AssetType assetType : assetTypes) {
-      assetTypesByName.put(type.getName(), type);
+      assettypesByName.put(assetType.getName(), assetType);
     }
   }
 }
