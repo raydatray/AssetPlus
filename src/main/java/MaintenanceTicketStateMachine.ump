@@ -3,8 +3,8 @@ class MaintenanceTicket {
     	
         InReview {
             // Is this how you pass a parameter to the event
-        	assign(HotelStaff staffMember) {
-            	doAssign(HotelStaff staffMember);
+        	assign(HotelStaff staffMember) / {
+            	doAssign(staffMember);
             } -> Assigned;
         }
       
@@ -14,7 +14,7 @@ class MaintenanceTicket {
       
       	InProgress {
         	closeTicket [!requiresManagerApproval()] -> Closed;
-          	closeTicket [requiresManagerApproval()] -> AwaitingApproval;
+          closeTicket [requiresManagerApproval()] -> AwaitingApproval;
         }
       
       	AwaitingApproval {
@@ -28,10 +28,10 @@ class MaintenanceTicket {
     }
 
     private void doAssign(HotelStaff staffMember) {
-        MaintenanceTicket.setTicketFixer(staffMember);
+        this.setTicketFixer(staffMember);
     }
 
     private boolean requiresManagerApproval() {
-        return MaintenanceTicket.hasFixApprover();
+        return this.hasFixApprover();
     }
 }

@@ -24,10 +24,10 @@ class User {
 
 class MaintenanceTicket {
     public static void reinitializeUniqueId(List<MaintenanceTicket> tickets){
-        ticketsById = new HashMap<Integer, MaintenanceTicket>();
-        ticketsById.clear();
+        maintenanceticketsById = new HashMap<Integer, MaintenanceTicket>();
+        maintenanceticketsById.clear();
         for (MaintenanceTicket ticket : tickets){
-            ticketsById.put(ticket.getId(), ticket);
+            maintenanceticketsById.put(ticket.getId(), ticket);
         }
     }
 }

@@ -5,7 +5,9 @@ package ca.mcgill.ecse.assetplus.model;
 import java.util.*;
 import java.sql.Date;
 
-// line 43 "../../../../../AssetPlus.ump"
+// line 1 "../../../../../MaintenanceTicketStateMachine.ump"
+// line 25 "../../../../../AssetPlusPersistence.ump"
+// line 46 "../../../../../AssetPlus.ump"
 public class MaintenanceTicket
 {
 
@@ -32,6 +34,10 @@ public class MaintenanceTicket
   private String description;
   private TimeEstimate timeToResolve;
   private PriorityLevel priority;
+
+  //MaintenanceTicket State Machines
+  public enum Status { InReview, Assigned, InProgress, AwaitingApproval, Closed }
+  private Status status;
 
   //MaintenanceTicket Associations
   private List<MaintenanceNote> ticketNotes;
@@ -66,6 +72,7 @@ public class MaintenanceTicket
     {
       throw new RuntimeException("Unable to create raisedTicket due to ticketRaiser. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
+    setStatus(Status.InReview);
   }
 
   //------------------------
@@ -156,6 +163,124 @@ public class MaintenanceTicket
   public PriorityLevel getPriority()
   {
     return priority;
+  }
+
+  public String getStatusFullName()
+  {
+    String answer = status.toString();
+    return answer;
+  }
+
+  public Status getStatus()
+  {
+    return status;
+  }
+
+  public boolean assign(HotelStaff staffMember)
+  {
+    boolean wasEventProcessed = false;
+    
+    Status aStatus = status;
+    switch (aStatus)
+    {
+      case InReview:
+        // line 6 "../../../../../MaintenanceTicketStateMachine.ump"
+        doAssign(staffMember);
+        setStatus(Status.Assigned);
+        wasEventProcessed = true;
+        break;
+      default:
+        // Other states do respond to this event
+    }
+
+    return wasEventProcessed;
+  }
+
+  public boolean startTicket()
+  {
+    boolean wasEventProcessed = false;
+    
+    Status aStatus = status;
+    switch (aStatus)
+    {
+      case Assigned:
+        setStatus(Status.InProgress);
+        wasEventProcessed = true;
+        break;
+      default:
+        // Other states do respond to this event
+    }
+
+    return wasEventProcessed;
+  }
+
+  public boolean closeTicket()
+  {
+    boolean wasEventProcessed = false;
+    
+    Status aStatus = status;
+    switch (aStatus)
+    {
+      case InProgress:
+        if (!(requiresManagerApproval()))
+        {
+          setStatus(Status.Closed);
+          wasEventProcessed = true;
+          break;
+        }
+        if (requiresManagerApproval())
+        {
+          setStatus(Status.AwaitingApproval);
+          wasEventProcessed = true;
+          break;
+        }
+        break;
+      default:
+        // Other states do respond to this event
+    }
+
+    return wasEventProcessed;
+  }
+
+  public boolean disapprove()
+  {
+    boolean wasEventProcessed = false;
+    
+    Status aStatus = status;
+    switch (aStatus)
+    {
+      case AwaitingApproval:
+        setStatus(Status.InProgress);
+        wasEventProcessed = true;
+        break;
+      default:
+        // Other states do respond to this event
+    }
+
+    return wasEventProcessed;
+  }
+
+  public boolean approve()
+  {
+    boolean wasEventProcessed = false;
+    
+    Status aStatus = status;
+    switch (aStatus)
+    {
+      case AwaitingApproval:
+        setStatus(Status.Closed);
+        wasEventProcessed = true;
+        break;
+      default:
+        // Other states do respond to this event
+    }
+
+    return wasEventProcessed;
+  }
+
+  private void setStatus(Status aStatus)
+  {
+    status = aStatus;
   }
   /* Code from template association_GetMany */
   public MaintenanceNote getTicketNote(int index)
@@ -541,6 +666,25 @@ public class MaintenanceTicket
       this.fixApprover = null;
       placeholderFixApprover.removeTicketsForApproval(this);
     }
+  }
+
+  // line 31 "../../../../../MaintenanceTicketStateMachine.ump"
+   private void doAssign(HotelStaff staffMember){
+    this.setTicketFixer(staffMember);
+  }
+
+  // line 35 "../../../../../MaintenanceTicketStateMachine.ump"
+   private boolean requiresManagerApproval(){
+    return this.hasFixApprover();
+  }
+
+  // line 27 "../../../../../AssetPlusPersistence.ump"
+   public static  void reinitializeUniqueId(List<MaintenanceTicket> tickets){
+    maintenanceticketsById = new HashMap<Integer, MaintenanceTicket>();
+        maintenanceticketsById.clear();
+        for (MaintenanceTicket ticket : tickets){
+            maintenanceticketsById.put(ticket.getId(), ticket);
+        }
   }
 
 
