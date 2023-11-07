@@ -180,7 +180,24 @@ public class AssetPlusFeatureSet4Controller {
 
   // check that ticketId exists
   public static String StartWorkOnMaintenanceTicket(String ticketId) {
-    return "String";
+    MaintenanceTicket targetTicket = null;
+
+    for (MaintenanceTicket ticket: assetPlus.getMaintenanceTickets()) {
+      if (ticket.getId() == Integer.parseInt(ticketId)) {
+        targetTicket = ticket;
+      }
+    }
+
+    if (targetTicket == null) {
+      return "The maintenance ticket you are looking for does not exist";
+    } else {
+      try {
+        targetTicket.startTicket();
+        return "";
+      } catch (RuntimeException e) {
+        return e.getMessage();
+      }
+    }
   }
 
   // check that ticketId exists
