@@ -10,6 +10,9 @@ import ca.mcgill.ecse.assetplus.model.AssetType;
 import ca.mcgill.ecse.assetplus.model.HotelStaff;
 import ca.mcgill.ecse.assetplus.model.MaintenanceTicket;
 import ca.mcgill.ecse.assetplus.model.Manager;
+import ca.mcgill.ecse.assetplus.model.MaintenanceTicket.PriorityLevel;
+import ca.mcgill.ecse.assetplus.model.MaintenanceTicket.TimeEstimate;
+import cucumber.api.cli.Main;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -146,29 +149,41 @@ public class MaintenanceTicketsStepDefinitions {
   public void the_ticket_shall_be_marked_as(String string, String string2) {
     // Colin
     // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    MaintenanceTicket maintenanceTicket = MaintenanceTicket.getWithId(Integer.parseInt(string));
+
+    maintenanceTicket.setDescription(string2);
   }
 
   @Then("the system shall raise the error {string}")
   public void the_system_shall_raise_the_error(String string) {
     // Colin
     // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    throw new AssertionError(string);
   }
 
   @Then("the ticket {string} shall not exist in the system")
   public void the_ticket_shall_not_exist_in_the_system(String string) {
     // Colin
     // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    MaintenanceTicket maintenanceTicket = MaintenanceTicket.getWithId(Integer.parseInt(string));
+
+    maintenanceTicket.delete();
   }
 
   @Then("the ticket {string} shall have estimated time {string}, priority {string}, and requires approval {string}")
   public void the_ticket_shall_have_estimated_time_priority_and_requires_approval(String string,
       String string2, String string3, String string4) {
     // Colin
-        // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    // Write code here that turns the phrase above into concrete actions
+    String estimatedTime = string2;
+    String priority = string3;
+    String requiresApproval = string4;
+
+    MaintenanceTicket maintenanceTicket = MaintenanceTicket.getWithId(Integer.parseInt(string));
+
+    maintenanceTicket.setTimeToResolve(TimeEstimate.estimatedTime);
+    maintenanceTicket.setPriority(PriorityLevel.priority);
+    maintenanceTicket.setFixApprover(requiresApproval);
   }
 
   @Then("the ticket {string} shall be assigned to {string}")
