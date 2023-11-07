@@ -173,4 +173,28 @@ public class AssetPlusFeatureSet4Controller {
     }
   }
 
+  // need to do input verification that ticketId exists, that staffMemberEmail exists, that timeToResolve exists as a TimeEstimate, that priority exists as a PriorityLevel, that requiresManagerApproval is only true or false since it will be a boolean, and that managerEmail is valid
+  public static String AssignHotelStaffToMaintenanceTicket(String ticketId, String staffMemberEmail, String timeToResolve, String priority, String requiresManagerApproval, String managerEmail) {
+    return "String";
+  }
+
+  // check that ticketId exists
+  public static String StartWorkOnMaintenanceTicket(String ticketId) {
+    return "String";
+  }
+
+  // check that ticketId exists
+  public static String CompleteWorkOnMaintenanceTicket(String ticketId) {
+    return "String";
+  }
+
+  // check that ticketId exists
+  public static String ApproveWorkOnMaintenanceTicket(String ticketId) {
+    return "String";
+  }
+
+  //check that ticketId exists, make sure date is valid, make sure description isnt empty, then it will always be manager who is the noteTaker when you create the MaintenanceNote
+  public static String DisapproveWorkOnMaintenanceTicket(String ticketId, String date, String description) {
+    return "String";
+  }
 }
