@@ -2,28 +2,38 @@ class MaintenanceTicket {
 	Status {
     	
         InReview {
-            // Is this how you pass a parameter to the event
         	assign(HotelStaff staffMember) / {
             	doAssign(staffMember);
             } -> Assigned;
+
+          startTicket / { preventTransition("Cannot start an unassigned maintenance ticket."); } -> InReview;
+          closeTicket / {preventTransition("Cannot close an unassigned maintenance ticket."); } -> InReview;
+          disapproveTicket / { preventTransition("Cannot disapprove an unassigned maintenance ticket."); } -> InReview;
+          approveTicket / { preventTransition("Cannot approve an unassigned maintenance ticket."); } -> InReview;
         }
       
       	Assigned {
         	startTicket -> InProgress;
+
+          assign / { preventTransition("The maintenance ticket is already assigned."); } -> Assigned;
         }
       
       	InProgress {
         	closeTicket [!requiresManagerApproval()] -> Closed;
           closeTicket [requiresManagerApproval()] -> AwaitingApproval;
+
+          assign / { preventTransition("Cannot assign a maintenance ticket which is in progress."); } -> InProgress;
         }
       
       	AwaitingApproval {
-        	disapprove -> InProgress;
-          	approve -> Closed;
+        	disapproveTicket -> InProgress;
+          approveTicket -> Closed;
+
+          assign / { preventTransition("Cannot assign a maintenance ticket which is resolved."); } -> AwaitingApproval;
         }
       
       	Closed {
-        	
+        	assign / { preventTransition("Cannot assign a maintenance ticket which is closed."); } -> Closed;
         }
     }
 
@@ -33,5 +43,9 @@ class MaintenanceTicket {
 
     private boolean requiresManagerApproval() {
         return this.hasFixApprover();
+    }
+
+    private void preventTransition(String msg) {
+      throw new RuntimeException(msg);
     }
 }
