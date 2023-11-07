@@ -180,6 +180,13 @@ public class AssetPlusFeatureSet4Controller {
 
   // check that ticketId exists
   public static String StartWorkOnMaintenanceTicket(String ticketId) {
+    // Input validation
+    try {
+      Integer.parseInt(ticketId);
+    } catch (Exception e) {
+      return "Invalid input";
+    }
+
     MaintenanceTicket targetTicket = null;
 
     for (MaintenanceTicket ticket: assetPlus.getMaintenanceTickets()) {
@@ -202,7 +209,31 @@ public class AssetPlusFeatureSet4Controller {
 
   // check that ticketId exists
   public static String CompleteWorkOnMaintenanceTicket(String ticketId) {
-    return "String";
+    // Input validation
+    try {
+      Integer.parseInt(ticketId);
+    } catch (Exception e) {
+      return "Invalid input";
+    }
+
+    MaintenanceTicket targetTicket = null;
+
+    for (MaintenanceTicket ticket: assetPlus.getMaintenanceTickets()) {
+      if (ticket.getId() == Integer.parseInt(ticketId)) {
+        targetTicket = ticket;
+      }
+    }
+
+    if (targetTicket == null) {
+      return "The maintenance ticket you are looking for does not exist";
+    } else {
+      try {
+        targetTicket.closeTicket();
+        return "";
+      } catch (RuntimeException e) {
+        return e.getMessage();
+      }
+    }
   }
 
   // check that ticketId exists
