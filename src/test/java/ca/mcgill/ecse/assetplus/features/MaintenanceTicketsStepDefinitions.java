@@ -78,7 +78,7 @@ public class MaintenanceTicketsStepDefinitions {
   }
 
   /**
-   * @author Sebastian Reinhardt
+   * @author Alexander Liu
    */
 
   @Given("the following tickets exist in the system")
