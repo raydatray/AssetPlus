@@ -6,16 +6,19 @@ class MaintenanceTicket {
             	doAssign(staffMember);
             } -> Assigned;
 
-          startTicket / { preventTransition("Cannot start an unassigned maintenance ticket."); } -> InReview;
-          closeTicket / {preventTransition("Cannot close an unassigned maintenance ticket."); } -> InReview;
-          disapproveTicket / { preventTransition("Cannot disapprove an unassigned maintenance ticket."); } -> InReview;
-          approveTicket / { preventTransition("Cannot approve an unassigned maintenance ticket."); } -> InReview;
+          startTicket / { preventTransition("Cannot start a maintenance ticket which is open."); } -> InReview;
+          closeTicket / {preventTransition("Cannot complete a maintenance ticket which is open."); } -> InReview;
+          disapproveTicket / { preventTransition("Cannot disapprove a maintenance ticket which is open."); } -> InReview;
+          approveTicket / { preventTransition("Cannot approve a maintenance ticket which is open."); } -> InReview;
         }
       
       	Assigned {
         	startTicket -> InProgress;
 
           assign / { preventTransition("The maintenance ticket is already assigned."); } -> Assigned;
+          closeTicket / { preventTransition("Cannot complete a maintenance ticket which is assigned."); } -> Assigned;
+          disapproveTicket / { preventTransition("Cannot disapprove a maintenance ticket which is assigned."); } -> Assigned;
+          approveTicket / { preventTransition("Cannot approve a maintenance ticket which is assigned."); } -> Assigned;
         }
       
       	InProgress {
@@ -23,6 +26,9 @@ class MaintenanceTicket {
           closeTicket [requiresManagerApproval()] -> AwaitingApproval;
 
           assign / { preventTransition("Cannot assign a maintenance ticket which is in progress."); } -> InProgress;
+          startTicket / { preventTransition("The maintenance ticket is already in progress."); } -> InProgress;
+          disapproveTicket / { preventTransition("Cannot disapprove a maintenance ticket which is in progress."); } -> InProgress;
+          approveTicket / { preventTransition("Cannot approve a maintenance ticket which is in progress."); } -> InProgress;
         }
       
       	AwaitingApproval {
@@ -30,15 +36,24 @@ class MaintenanceTicket {
           approveTicket -> Closed;
 
           assign / { preventTransition("Cannot assign a maintenance ticket which is resolved."); } -> AwaitingApproval;
+          startTicket / { preventTransition("Cannot start a maintenance ticket which is resolved."); } -> AwaitingApproval;
+          closeTicket / { preventTransition("The maintenance ticket is already resolved.");} -> AwaitingApproval;
         }
       
       	Closed {
         	assign / { preventTransition("Cannot assign a maintenance ticket which is closed."); } -> Closed;
+          startTicket / { preventTransition("Cannot start a maintenance ticket which is closed."); } -> Closed;
+          closeTicket / { preventTransition("The maintenance ticket is already closed."); } -> Closed;
+          disapproveTicket / { preventTransition("Cannot disapprove a maintenance ticket which is closed."); } -> Closed;
+          approveTicket / { preventTransition("The maintenance ticket is already closed."); } -> Closed;
         }
     }
 
-    private void doAssign(HotelStaff staffMember) {
-        this.setTicketFixer(staffMember);
+    private void doAssign(HotelStaff staffMember, TimeEstimate timeToResolve, PriorityLevel priority, boolean requiresManagerApproval) {
+      setTicketFixer(staffMember);
+      setTimeToResolve(timeToResolve);
+      setPriority(priority);
+      if (requiresManagerApproval) ? fixApprover = AssetPlus.getManager() : fixApprover = null;
     }
 
     private boolean requiresManagerApproval() {
