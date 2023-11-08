@@ -269,7 +269,16 @@ public class MaintenanceTicketsStepDefinitions {
   public void the_ticket_shall_be_assigned_to(String string, String string2) {
     // Houman
     // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    for (Employee employee: assetPlus.getEmployees()) {
+      if (employee.name.equals(string2)) {
+        Employee assignedEmployee = employee;
+        MaintenanceTicket ticketToAssign = assetPlus.getMaintenanceTicket(Int.parseInt(string)); //Ticket to assign
+        ticketToAssign.setTicketFixer(assignedEmployee);
+      }
+      else {
+        throw new io.cucumber.java.PendingException();
+      }
+    }
   }
 
   /**
@@ -281,9 +290,9 @@ public class MaintenanceTicketsStepDefinitions {
     // Houman
     // Write code here that turns the phrase above into concrete actions
     String expectedAmountOfTickets = string;
-    Int amountOfTickets = assetPlus.numberOfMaintenanceTickets()
+    Int amountOfTickets = assetPlus.numberOfMaintenanceTickets();
     //Checking if the the two numbers are equal
-    if !amountOfTickets.equals(Integer.parseInt(expectedAmountOfTickets)) {
+    if (!amountOfTickets.equals(Integer.parseInt(expectedAmountOfTickets))) {
       throw new io.cucumber.java.PendingException();
     }    
   }
