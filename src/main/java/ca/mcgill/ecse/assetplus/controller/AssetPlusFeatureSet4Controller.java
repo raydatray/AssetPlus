@@ -4,6 +4,7 @@ import java.sql.Date;
 import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
 import ca.mcgill.ecse.assetplus.model.AssetPlus;
 import ca.mcgill.ecse.assetplus.model.HotelStaff; // import
+import ca.mcgill.ecse.assetplus.model.MaintenanceNote;
 import ca.mcgill.ecse.assetplus.model.MaintenanceTicket;
 import ca.mcgill.ecse.assetplus.model.Manager; // import
 import ca.mcgill.ecse.assetplus.model.SpecificAsset;
@@ -319,7 +320,8 @@ public class AssetPlusFeatureSet4Controller {
     }
 
     try {
-      ticket.disapproveTicket(null); // TODO: Finish, what to put as argument
+      ticket.disapproveTicket( new MaintenanceNote(date, description, ticket, assetPlus.getManager())); // TODO: Finish, what to put as argument
+      //Add a ticket note above
     } catch (Exception e) {
       return e.getMessage();
     }
