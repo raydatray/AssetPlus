@@ -2,36 +2,69 @@ class MaintenanceTicket {
 	Status {
     	
         InReview {
-            // Is this how you pass a parameter to the event
-        	assign(HotelStaff staffMember) / {
-            	doAssign(staffMember);
+        	assign(HotelStaff staffMember, TimeEstimate timeToResolve, PriorityLevel priority, boolean requiresManagerApproval, Manager manager) / {
+            	doAssign(staffMember, timeToResolve, priority, requiresManagerApproval, manager);
             } -> Assigned;
+
+          startTicket / { preventTransition("Cannot start a maintenance ticket which is open."); } -> InReview;
+          closeTicket / {preventTransition("Cannot complete a maintenance ticket which is open."); } -> InReview;
+          disapproveTicket(MaintenanceNote disapprovalNote) / { preventTransition("Cannot disapprove a maintenance ticket which is open."); } -> InReview;
+          approveTicket / { preventTransition("Cannot approve a maintenance ticket which is open."); } -> InReview;
         }
       
       	Assigned {
         	startTicket -> InProgress;
+
+          assign(HotelStaff staffMember, TimeEstimate timeToResolve, PriorityLevel priority, boolean requiresManagerApproval, Manager manager) / { preventTransition("The maintenance ticket is already assigned."); } -> Assigned;
+          closeTicket / { preventTransition("Cannot complete a maintenance ticket which is assigned."); } -> Assigned;
+          disapproveTicket(MaintenanceNote disapprovalNote) / { preventTransition("Cannot disapprove a maintenance ticket which is assigned."); } -> Assigned;
+          approveTicket / { preventTransition("Cannot approve a maintenance ticket which is assigned."); } -> Assigned;
         }
       
       	InProgress {
         	closeTicket [!requiresManagerApproval()] -> Closed;
           closeTicket [requiresManagerApproval()] -> AwaitingApproval;
+
+          assign(HotelStaff staffMember, TimeEstimate timeToResolve, PriorityLevel priority, boolean requiresManagerApproval, Manager manager) / { preventTransition("Cannot assign a maintenance ticket which is in progress."); } -> InProgress;
+          startTicket / { preventTransition("The maintenance ticket is already in progress."); } -> InProgress;
+          disapproveTicket(MaintenanceNote disapprovalNote) / { preventTransition("Cannot disapprove a maintenance ticket which is in progress."); } -> InProgress;
+          approveTicket / { preventTransition("Cannot approve a maintenance ticket which is in progress."); } -> InProgress;
         }
       
       	AwaitingApproval {
-        	disapprove -> InProgress;
-          	approve -> Closed;
+        	disapproveTicket(MaintenanceNote disapprovalNote) / { doDisapprove(disapprovalNote); } -> InProgress;
+          approveTicket -> Closed;
+
+          assign(HotelStaff staffMember, TimeEstimate timeToResolve, PriorityLevel priority, boolean requiresManagerApproval, Manager manager) / { preventTransition("Cannot assign a maintenance ticket which is resolved."); } -> AwaitingApproval;
+          startTicket / { preventTransition("Cannot start a maintenance ticket which is resolved."); } -> AwaitingApproval;
+          closeTicket / { preventTransition("The maintenance ticket is already resolved.");} -> AwaitingApproval;
         }
       
       	Closed {
-        	
+        	assign(HotelStaff staffMember, TimeEstimate timeToResolve, PriorityLevel priority, boolean requiresManagerApproval, Manager manager) / { preventTransition("Cannot assign a maintenance ticket which is closed."); } -> Closed;
+          startTicket / { preventTransition("Cannot start a maintenance ticket which is closed."); } -> Closed;
+          closeTicket / { preventTransition("The maintenance ticket is already closed."); } -> Closed;
+          disapproveTicket(MaintenanceNote disapprovalNote) / { preventTransition("Cannot disapprove a maintenance ticket which is closed."); } -> Closed;
+          approveTicket / { preventTransition("The maintenance ticket is already closed."); } -> Closed;
         }
     }
 
-    private void doAssign(HotelStaff staffMember) {
-        this.setTicketFixer(staffMember);
+    private void doAssign(HotelStaff staffMember, TimeEstimate timeToResolve, PriorityLevel priority, boolean requiresManagerApproval, Manager manager) {
+      setTimeToResolve(timeToResolve);
+      setPriority(priority);
+      setTicketFixer(staffMember);
+      requiresManagerApproval ? setFixApprover(manager) : setFixApprover(null);
+    }
+
+    private void doDisapprove(MaintenanceNote disapprovalNote){
+      addTicketNote(disapprovalNote);
     }
 
     private boolean requiresManagerApproval() {
-        return this.hasFixApprover();
+        return hasFixApprover();
+    }
+
+    private void preventTransition(String msg) {
+      throw new RuntimeException(msg);
     }
 }

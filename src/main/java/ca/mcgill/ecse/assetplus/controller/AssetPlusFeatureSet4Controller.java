@@ -173,4 +173,100 @@ public class AssetPlusFeatureSet4Controller {
     }
   }
 
+  // need to do input verification that ticketId exists, that staffMemberEmail exists, that timeToResolve exists as a TimeEstimate, that priority exists as a PriorityLevel, that requiresManagerApproval is only true or false since it will be a boolean, and that managerEmail is valid
+  public static String AssignHotelStaffToMaintenanceTicket(String ticketId, String staffMemberEmail, String timeToResolve, String priority, String requiresManagerApproval, String managerEmail) {
+    return "String";
+  }
+
+  // check that ticketId exists
+  public static String StartWorkOnMaintenanceTicket(String ticketId) {
+    // Input validation
+    try {
+      Integer.parseInt(ticketId);
+    } catch (Exception e) {
+      return "Invalid input";
+    }
+
+    MaintenanceTicket targetTicket = null;
+
+    for (MaintenanceTicket ticket: assetPlus.getMaintenanceTickets()) {
+      if (ticket.getId() == Integer.parseInt(ticketId)) {
+        targetTicket = ticket;
+      }
+    }
+
+    if (targetTicket == null) {
+      return "The maintenance ticket you are looking for does not exist";
+    } else {
+      try {
+        targetTicket.startTicket();
+        return "";
+      } catch (RuntimeException e) {
+        return e.getMessage();
+      }
+    }
+  }
+
+  // check that ticketId exists
+  public static String CompleteWorkOnMaintenanceTicket(String ticketId) {
+    // Input validation
+    try {
+      Integer.parseInt(ticketId);
+    } catch (Exception e) {
+      return "Invalid input";
+    }
+
+    MaintenanceTicket targetTicket = null;
+
+    for (MaintenanceTicket ticket: assetPlus.getMaintenanceTickets()) {
+      if (ticket.getId() == Integer.parseInt(ticketId)) {
+        targetTicket = ticket;
+      }
+    }
+
+    if (targetTicket == null) {
+      return "The maintenance ticket you are looking for does not exist";
+    } else {
+      try {
+        targetTicket.closeTicket();
+        return "";
+      } catch (RuntimeException e) {
+        return e.getMessage();
+      }
+    }
+  }
+
+  // check that ticketId exists
+  public static String ApproveWorkOnMaintenanceTicket(String ticketId) {
+    // Input validation
+    try {
+      Integer.parseInt(ticketId);
+    } catch (Exception e) {
+      return "Invalid input";
+    }
+
+    MaintenanceTicket targetTicket = null;
+
+    for (MaintenanceTicket ticket: assetPlus.getMaintenanceTickets()) {
+      if (ticket.getId() == Integer.parseInt(ticketId)) {
+        targetTicket = ticket;
+      }
+    }
+
+    if (targetTicket == null) {
+      return "The maintenance ticket you are looking for does not exist";
+    } else {
+      try {
+        targetTicket.approveTicket();
+        return "";
+      } catch (RuntimeException e) {
+        return e.getMessage();
+      }
+    }
+  }
+
+  //check that ticketId exists, make sure date is valid, make sure description isnt empty, then it will always be manager who is the noteTaker when you create the MaintenanceNote
+  public static String DisapproveWorkOnMaintenanceTicket(String ticketId, String date, String description) {
+    return "String";
+  }
 }

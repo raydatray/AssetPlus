@@ -5,7 +5,7 @@ package ca.mcgill.ecse.assetplus.model;
 import java.util.*;
 import java.sql.Date;
 
-// line 45 "../../../../../AssetPlusPersistence.ump"
+// line 43 "../../../../../AssetPlusPersistence.ump"
 // line 81 "../../../../../AssetPlus.ump"
 public class AssetType
 {
@@ -240,11 +240,10 @@ public class AssetType
     }
   }
 
-  // line 47 "../../../../../AssetPlusPersistence.ump"
+  // line 45 "../../../../../AssetPlusPersistence.ump"
    public static  void reinitializeUniqueName(List<AssetType> assetTypes){
-    assetTypesByName = new HashMap<String, AssetType>();
     for (AssetType assetType : assetTypes) {
-      assetTypesByName.put(type.getName(), type);
+      assettypesByName.put(assetType.getName(), assetType);
     }
   }
 

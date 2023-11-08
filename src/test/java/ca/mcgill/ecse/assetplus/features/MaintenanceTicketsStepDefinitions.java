@@ -9,12 +9,15 @@ import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet4Controller;
 import ca.mcgill.ecse.assetplus.controller.TOMaintenanceTicket;
 import ca.mcgill.ecse.assetplus.model.AssetPlus;
 import ca.mcgill.ecse.assetplus.model.AssetType;
+import ca.mcgill.ecse.assetplus.model.Employee;
+import ca.mcgill.ecse.assetplus.model.Guest;
 import ca.mcgill.ecse.assetplus.model.HotelStaff;
 import ca.mcgill.ecse.assetplus.model.MaintenanceTicket;
 import ca.mcgill.ecse.assetplus.model.Manager;
+import ca.mcgill.ecse.assetplus.model.SpecificAsset;
+import ca.mcgill.ecse.assetplus.model.User;
 import ca.mcgill.ecse.assetplus.model.MaintenanceTicket.PriorityLevel;
 import ca.mcgill.ecse.assetplus.model.MaintenanceTicket.TimeEstimate;
-import cucumber.api.cli.Main;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -85,8 +88,37 @@ public class MaintenanceTicketsStepDefinitions {
 
   @Given("the following tickets exist in the system")
   public void the_following_tickets_exist_in_the_system(io.cucumber.datatable.DataTable dataTable) {
-    // Alex
-    throw new io.cucumber.java.PendingException();
+    // Retrieving the data from the feature file in a usable format
+    List<Map<String, String>> rows = dataTable.asMaps();
+    
+    for (Map<String, String> row: rows) {
+      // Get appropriate user who is the ticket raiser
+      String ticketRaiserEmail = row.get("ticketRaiser");
+      User ticketRaiser = null;
+
+      if (ticketRaiserEmail.equals("manager@ap.com")) {
+        ticketRaiser = assetPlus.getManager();
+      } else if (ticketRaiserEmail.endsWith("ap.com")) {
+        for (Employee employee: assetPlus.getEmployees()) {
+          if (employee.getEmail().equals(ticketRaiserEmail)) {
+            ticketRaiser = employee;
+          }
+        }
+      } else {
+        for (Guest guest: assetPlus.getGuests()) {
+          if (guest.getEmail().equals(ticketRaiserEmail)) {
+            ticketRaiser = guest;
+          }
+        }
+      }
+      // Can I assume that the feature file scenarios have valid input? Otherwise, I would have to do a null check on ticketRaiser to see if the ticketRaiser email was matched to a user in the system.
+
+      // Instantiate new maintenance ticket
+      MaintenanceTicket newMaintenanceTicket = new MaintenanceTicket(Integer.parseInt(row.get("id")), Date.valueOf(row.get("raisedOnDate")), row.get("description"), assetPlus, ticketRaiser);
+      // Add specific assets to the new maintenance ticket
+      newMaintenanceTicket.setAsset(SpecificAsset.getWithAssetNumber(Integer.parseInt(row.get("assetNumber"))));
+      // Once again assuming Integer.parseInt() will not throw an error because assuming the feature file's data table contains only valid input
+    }
   }
 
   /**
@@ -276,7 +308,16 @@ public class MaintenanceTicketsStepDefinitions {
   public void the_ticket_shall_be_assigned_to(String string, String string2) {
     // Houman
     // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    for (Employee employee: assetPlus.getEmployees()) {
+      if (employee.name.equals(string2)) {
+        Employee assignedEmployee = employee;
+        MaintenanceTicket ticketToAssign = assetPlus.getMaintenanceTicket(Int.parseInt(string)); //Ticket to assign
+        ticketToAssign.setTicketFixer(assignedEmployee);
+      }
+      else {
+        throw new io.cucumber.java.PendingException();
+      }
+    }
   }
 
   /**
@@ -288,9 +329,9 @@ public class MaintenanceTicketsStepDefinitions {
     // Houman
     // Write code here that turns the phrase above into concrete actions
     String expectedAmountOfTickets = string;
-    Int amountOfTickets = assetPlus.numberOfMaintenanceTickets()
+    Int amountOfTickets = assetPlus.numberOfMaintenanceTickets();
     //Checking if the the two numbers are equal
-    if !amountOfTickets.equals(Integer.parseInt(expectedAmountOfTickets)) {
+    if (!amountOfTickets.equals(Integer.parseInt(expectedAmountOfTickets))) {
       throw new io.cucumber.java.PendingException();
     }    
   }
