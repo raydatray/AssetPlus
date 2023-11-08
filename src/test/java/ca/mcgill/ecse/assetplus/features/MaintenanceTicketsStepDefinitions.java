@@ -1,9 +1,11 @@
 package ca.mcgill.ecse.assetplus.features;
 
 import java.util.*;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.sql.Date;
 import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
+import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet4Controller;
 import ca.mcgill.ecse.assetplus.controller.TOMaintenanceTicket;
 import ca.mcgill.ecse.assetplus.model.AssetPlus;
 import ca.mcgill.ecse.assetplus.model.AssetType;
@@ -212,9 +214,12 @@ public class MaintenanceTicketsStepDefinitions {
   public void the_ticket_shall_be_marked_as(String string, String string2) {
     // Colin
     // Write code here that turns the phrase above into concrete actions
-    MaintenanceTicket maintenanceTicket = MaintenanceTicket.getWithId(Integer.parseInt(string));
+    String ticketId = string;
+    String description = string2;
+    MaintenanceTicket maintenanceTicket = MaintenanceTicket.getWithId(Integer.parseInt(ticketId));
 
-    maintenanceTicket.setDescription(string2);
+    assertNotNull(maintenanceTicket); // Making sure that the ticket exists
+    assertEquals(maintenanceTicket.getDescription(), description); // Making sure that the description matches
   }
 
   /**
@@ -225,7 +230,9 @@ public class MaintenanceTicketsStepDefinitions {
   public void the_system_shall_raise_the_error(String string) {
     // Colin
     // Write code here that turns the phrase above into concrete actions
-    throw new AssertionError(string);
+    String errorMessage = string;
+
+    assertEquals(errorMessage, error);
   }
 
   /**
