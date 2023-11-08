@@ -314,7 +314,7 @@ public class MaintenanceTicket
     return wasEventProcessed;
   }
 
-  public boolean disapproveTicket(MaintenanceNote disapprovalNote)
+  public boolean disapproveTicket(Date date,String description,Manager manager)
   {
     boolean wasEventProcessed = false;
     
@@ -341,7 +341,7 @@ public class MaintenanceTicket
         break;
       case AwaitingApproval:
         // line 35 "../../../../../MaintenanceTicketStateMachine.ump"
-        doDisapprove(disapprovalNote);
+        doDisapprove(date, description, manager);
         setStatus(Status.InProgress);
         wasEventProcessed = true;
         break;
@@ -795,20 +795,25 @@ public class MaintenanceTicket
     setTimeToResolve(timeToResolve);
       setPriority(priority);
       setTicketFixer(staffMember);
-      requiresManagerApproval ? setFixApprover(manager) : setFixApprover(null);
+      if (requiresManagerApproval){
+        setFixApprover(manager);
+      }
+      else{
+        setFixApprover(null);
+      }
   }
 
-  // line 60 "../../../../../MaintenanceTicketStateMachine.ump"
-   private void doDisapprove(MaintenanceNote disapprovalNote){
-    addTicketNote(disapprovalNote);
+  // line 65 "../../../../../MaintenanceTicketStateMachine.ump"
+   private void doDisapprove(Date date, String description, Manager manager){
+    MaintenanceNote note = new MaintenanceNote(date, description, this, manager);
   }
 
-  // line 64 "../../../../../MaintenanceTicketStateMachine.ump"
+  // line 69 "../../../../../MaintenanceTicketStateMachine.ump"
    private boolean requiresManagerApproval(){
     return hasFixApprover();
   }
 
-  // line 68 "../../../../../MaintenanceTicketStateMachine.ump"
+  // line 73 "../../../../../MaintenanceTicketStateMachine.ump"
    private void preventTransition(String msg){
     throw new RuntimeException(msg);
   }
