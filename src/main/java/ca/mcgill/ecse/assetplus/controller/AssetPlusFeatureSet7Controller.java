@@ -3,7 +3,7 @@ package ca.mcgill.ecse.assetplus.controller;
 import ca.mcgill.ecse.assetplus.model.HotelStaff;
 import ca.mcgill.ecse.assetplus.model.MaintenanceNote;
 import ca.mcgill.ecse.assetplus.model.MaintenanceTicket;
-
+import ca.mcgill.ecse.assetplus.persistence.AssetPlusPersistence;
 import java.sql.Date;
 
 // completed by Alice Godbout (aliceg01 on github)
@@ -47,7 +47,7 @@ public class AssetPlusFeatureSet7Controller {
         // if no errors and ticket, note taker exist, add maintenance note to ticket
         ticket.addTicketNote(date, description, noteTaker); 
 
-
+      AssetPlusPersistence.save();
     } catch (RuntimeException e) {
         error = e.getMessage();
     }
@@ -103,6 +103,7 @@ public class AssetPlusFeatureSet7Controller {
       note.setDescription(newDescription);
       note.setNoteTaker(newNoteTaker);
 
+      AssetPlusPersistence.save();
     } catch (RuntimeException e) {
       error = "Note does not exist";
     }
@@ -133,6 +134,8 @@ public class AssetPlusFeatureSet7Controller {
             note.delete();
         }
       }
+      
+      AssetPlusPersistence.save();
     } catch (Exception e) {
       throw e;
     }
