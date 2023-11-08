@@ -245,10 +245,9 @@ public class MaintenanceTicketsStepDefinitions {
    */
 
   @When("the manager attempts to approve the ticket {string}")
-  public void the_manager_attempts_to_approve_the_ticket(String string) {
+  public void the_manager_attempts_to_approve_the_ticket(String ticketID) {
     // Write code here that turns the phrase above into concrete actions
-    String ticketID = string;
-    error = AssetPlusFeatureSet4Controller.CompleteWorkOnMaintenanceTicket(ticketId); //calling controller method
+    error = AssetPlusFeatureSet4Controller.CompleteWorkOnMaintenanceTicket(ticketID); //calling controller method
   }
 
   /**
@@ -256,10 +255,9 @@ public class MaintenanceTicketsStepDefinitions {
    */
 
   @When("the hotel staff attempts to complete the ticket {string}")
-  public void the_hotel_staff_attempts_to_complete_the_ticket(String string) {
+  public void the_hotel_staff_attempts_to_complete_the_ticket(String ticketID) {
     // Write code here that turns the phrase above into concrete actions
-    String ticketID = string;
-    error = AssetPlusFeatureSet4Controller.CompleteWorkOnMaintenanceTicket(ticketId); //calling controller method
+    error = AssetPlusFeatureSet4Controller.CompleteWorkOnMaintenanceTicket(ticketID); //calling controller method
   }
 
   /**
@@ -267,14 +265,12 @@ public class MaintenanceTicketsStepDefinitions {
    */
 
   @When("the manager attempts to disapprove the ticket {string} on date {string} and with reason {string}")
-  public void the_manager_attempts_to_disapprove_the_ticket_on_date_and_with_reason(String string,
-      String string2, String string3) {
+  public void the_manager_attempts_to_disapprove_the_ticket_on_date_and_with_reason(String ticketID,
+      String dateDisapproved, String reason) {
     // Write code here that turns the phrase above into concrete actions
-    String ticketID = string;
-    String dateDisapproved = string2;
-    String reason = string3;
+  
     //calling controller method
-    error = AssetPlusFeatureSet7Controller.DisapproveWorkOnMaintenanceTicket(Integer.parseInt(ticketID), Date.valueOf(dateDisapproved.trim()), reason);   
+    error = AssetPlusFeatureSet4Controller.DisapproveWorkOnMaintenanceTicket(Integer.parseInt(ticketID), Date.valueOf(dateDisapproved.trim()), reason);   
   }
 
   /**
