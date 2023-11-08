@@ -155,9 +155,41 @@ public class MaintenanceTicketsStepDefinitions {
   @Given("ticket {string} is marked as {string} with requires approval {string}")
   public void ticket_is_marked_as_with_requires_approval(String ticketId, String state,
       String requiresApproval) {
-    // Alex
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+
+    MaintenanceTicket targetTicket = null;
+    
+    // Fetching maintenance ticket from the system
+    for (MaintenanceTicket ticket: assetPlus.getMaintenanceTickets()) {
+      if (ticket.getId() == Integer.parseInt(ticketId)) {
+        targetTicket = ticket;
+      }
+    }
+
+    // Set proper attributes
+    if (targetTicket != null) {   // I have a null guard here... I have no idea if I am cooking the right thing
+      switch (state) {
+        case "Open":
+          break;
+        case "Assigned":
+          targetTicket.assign(null, null, null, false, null);
+          break;
+        case "InProgress":
+          targetTicket.assign(null, null, null, false, null);
+          targetTicket.startTicket();
+          break;
+        case "Resolved":
+          targetTicket.assign(null, null, null, false, null);
+          targetTicket.startTicket();
+          targetTicket.setFixApprover(assetPlus.getManager());
+          targetTicket.closeTicket();
+          break;
+        case "Closed":
+          targetTicket.assign(null, null, null, false, null);
+          targetTicket.startTicket();
+          targetTicket.closeTicket();
+          break;
+      }
+    }
   }
 
   /**
