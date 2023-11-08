@@ -347,7 +347,7 @@ public class MaintenanceTicketsStepDefinitions {
     for (Employee employee: assetPlus.getEmployees()) {
       if (employee.getEmail().equals(employeeEmail)) {
         Employee assignedEmployee = employee;
-        MaintenanceTicket ticketToAssign = assetPlus.getMaintenanceTicket(Int.parseInt(string)); //Ticket to assign
+        MaintenanceTicket ticketToAssign = assetPlus.getMaintenanceTicket(Integer.parseInt(string)); //Ticket to assign
         ticketToAssign.setTicketFixer(assignedEmployee);
       }
       else {
@@ -364,8 +364,8 @@ public class MaintenanceTicketsStepDefinitions {
   public void the_number_of_tickets_in_the_system_shall_be(String string) {
     // Houman
     // Write code here that turns the phrase above into concrete actions
-    Int expectedAmountOfTickets = Integer.parseInt(string);
-    Int amountOfTickets = assetPlus.numberOfMaintenanceTickets();
+    Integer expectedAmountOfTickets = Integer.parseInt(string);
+    Integer amountOfTickets = assetPlus.numberOfMaintenanceTickets();
     //Checking if the the two numbers are equal
     if (!amountOfTickets.equals(expectedAmountOfTickets)) {
       throw new io.cucumber.java.PendingException();
