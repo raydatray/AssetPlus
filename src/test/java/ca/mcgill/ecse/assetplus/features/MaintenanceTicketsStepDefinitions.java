@@ -329,12 +329,13 @@ public class MaintenanceTicketsStepDefinitions {
   public void the_number_of_tickets_in_the_system_shall_be(String string) {
     // Houman
     // Write code here that turns the phrase above into concrete actions
-    String expectedAmountOfTickets = string;
+    Int expectedAmountOfTickets = Integer.parseInt(string);
     Int amountOfTickets = assetPlus.numberOfMaintenanceTickets();
     //Checking if the the two numbers are equal
-    if (!amountOfTickets.equals(Integer.parseInt(expectedAmountOfTickets))) {
+    if (!amountOfTickets.equals(expectedAmountOfTickets)) {
       throw new io.cucumber.java.PendingException();
-    }    
+    }  
+    amountOfTickets = expectedAmountOfTickets; 
   }
 
   /**
@@ -352,6 +353,8 @@ public class MaintenanceTicketsStepDefinitions {
     // Double, Byte, Short, Long, BigInteger or BigDecimal.
     //
     // For other transformations you can register a DataTableType.
+    List<Map<String, String>> ticketList = dataTable.asMaps(String.class, String.class);
+    System.out.println(ticketList);
     throw new io.cucumber.java.PendingException();
   }
 
