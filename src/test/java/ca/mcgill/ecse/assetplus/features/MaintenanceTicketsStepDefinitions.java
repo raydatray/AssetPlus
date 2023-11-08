@@ -94,34 +94,15 @@ public class MaintenanceTicketsStepDefinitions {
   public void the_following_tickets_exist_in_the_system(io.cucumber.datatable.DataTable dataTable) {
     // Retrieving the data from the feature file in a usable format
     List<Map<String, String>> rows = dataTable.asMaps();
-    
+    // Iterate through the list
     for (Map<String, String> row: rows) {
       // Get appropriate user who is the ticket raiser
-      String ticketRaiserEmail = row.get("ticketRaiser");
-      User ticketRaiser = null;
-
-      if (ticketRaiserEmail.equals("manager@ap.com")) {
-        ticketRaiser = assetPlus.getManager();
-      } else if (ticketRaiserEmail.endsWith("ap.com")) {
-        for (Employee employee: assetPlus.getEmployees()) {
-          if (employee.getEmail().equals(ticketRaiserEmail)) {
-            ticketRaiser = employee;
-          }
-        }
-      } else {
-        for (Guest guest: assetPlus.getGuests()) {
-          if (guest.getEmail().equals(ticketRaiserEmail)) {
-            ticketRaiser = guest;
-          }
-        }
-      }
-      // Can I assume that the feature file scenarios have valid input? Otherwise, I would have to do a null check on ticketRaiser to see if the ticketRaiser email was matched to a user in the system.
-
+      User ticketRaiser = User.getWithEmail(row.get("ticketRaiser"));
       // Instantiate new maintenance ticket
       MaintenanceTicket newMaintenanceTicket = new MaintenanceTicket(Integer.parseInt(row.get("id")), Date.valueOf(row.get("raisedOnDate")), row.get("description"), assetPlus, ticketRaiser);
       // Add specific assets to the new maintenance ticket
       newMaintenanceTicket.setAsset(SpecificAsset.getWithAssetNumber(Integer.parseInt(row.get("assetNumber"))));
-      // Once again assuming Integer.parseInt() will not throw an error because assuming the feature file's data table contains only valid input
+
     }
   }
 
@@ -160,39 +141,35 @@ public class MaintenanceTicketsStepDefinitions {
   public void ticket_is_marked_as_with_requires_approval(String ticketId, String state,
       String requiresApproval) {
 
-    MaintenanceTicket targetTicket = null;
-    
-    // Fetching maintenance ticket from the system
-    for (MaintenanceTicket ticket: assetPlus.getMaintenanceTickets()) {
-      if (ticket.getId() == Integer.parseInt(ticketId)) {
-        targetTicket = ticket;
-      }
-    }
+    MaintenanceTicket targetTicket = MaintenanceTicket.getWithId(Integer.parseInt(ticketId));
 
-    // Set proper attributes
-    if (targetTicket != null) {   // I have a null guard here... I have no idea if I am cooking the right thing
-      switch (state) {
-        case "Open":
-          break;
-        case "Assigned":
-          targetTicket.assign(null, null, null, false, null);
-          break;
-        case "InProgress":
-          targetTicket.assign(null, null, null, false, null);
-          targetTicket.startTicket();
-          break;
-        case "Resolved":
-          targetTicket.assign(null, null, null, false, null);
-          targetTicket.startTicket();
-          targetTicket.setFixApprover(assetPlus.getManager());
-          targetTicket.closeTicket();
-          break;
-        case "Closed":
-          targetTicket.assign(null, null, null, false, null);
-          targetTicket.startTicket();
-          targetTicket.closeTicket();
-          break;
-      }
+    // Set maintenance ticket fix approver if applicable
+    if (requiresApproval.equals("true")) {
+      targetTicket.setFixApprover(assetPlus.getManager());
+    }
+    // Set state of the maintenance ticket
+    switch (state) {
+      case "Assigned":
+        targetTicket.assign(null, null, null, false, null);
+        break;
+      case "InProgress":
+        targetTicket.assign(null, null, null, false, null);
+        targetTicket.startTicket();
+        break;
+      case "Resolved":
+        targetTicket.assign(null, null, null, false, null);
+        targetTicket.startTicket();
+        targetTicket.closeTicket();
+        break;
+      case "Closed":
+        targetTicket.assign(null, null, null, false, null);
+        targetTicket.startTicket();
+        targetTicket.closeTicket();
+        break;
+      default:
+        // Default case does nothing
+        // This case includes the open state since maintenance tickets are in the open state by default
+        break;
     }
   }
 
@@ -202,9 +179,33 @@ public class MaintenanceTicketsStepDefinitions {
 
   @Given("ticket {string} is marked as {string}")
   public void ticket_is_marked_as(String string, String string2) {
-    // Alex
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    // Fetch maintenance ticket from the system
+    MaintenanceTicket targetTicket = MaintenanceTicket.getWithId(Integer.parseInt(string));
+    // Setting the maintenance ticket's state
+    switch (string2) {
+      case "Assigned":
+        targetTicket.assign(null, null, null, false, null);
+        break;
+      case "InProgress":
+        targetTicket.assign(null, null, null, false, null);
+        targetTicket.startTicket();
+        break;
+      case "Resolved":
+        targetTicket.assign(null, null, null, false, null);
+        targetTicket.startTicket();
+        targetTicket.setFixApprover(assetPlus.getManager());
+        targetTicket.closeTicket();
+        break;
+      case "Closed":
+        targetTicket.assign(null, null, null, false, null);
+        targetTicket.startTicket();
+        targetTicket.closeTicket();
+        break;
+      default:
+        // Default case does nothing
+        // This case includes the open state since maintenance tickets are in the open state by default
+        break;
+    }
   }
 
   /**
