@@ -285,9 +285,7 @@ public class MaintenanceTicketsStepDefinitions {
 
   @When("the manager attempts to view all maintenance tickets in the system")
   public void the_manager_attempts_to_view_all_maintenance_tickets_in_the_system() {
-    // Aurelia
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    //error = AssetPlusFeatureSet4Controller.;
   }
 
   /**
@@ -297,10 +295,7 @@ public class MaintenanceTicketsStepDefinitions {
   @When("the manager attempts to assign the ticket {string} to {string} with estimated time {string}, priority {string}, and requires approval {string}")
   public void the_manager_attempts_to_assign_the_ticket_to_with_estimated_time_priority_and_requires_approval(
       String ticketId, String employeeEmail, String timeEstimate, String priority, String requiresApproval) {
-    MaintenanceTicket ticket = MaintenanceTicket.getWithId(Integer.parseInt(ticketId));  
-        // Aurelia
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    error = AssetPlusFeatureSet4Controller.AssignHotelStaffToMaintenanceTicket(Integer.parseInt(ticketId), employeeEmail, TimeEstimate.valueOf(requiresApproval.trim()), Priority.valueOf(priority.trim()), Boolean.parseBoolean(requiresApproval), managerEmail); // How to find manager email again?
   }
 
   /**
@@ -309,7 +304,7 @@ public class MaintenanceTicketsStepDefinitions {
 
   @When("the hotel staff attempts to start the ticket {string}")
   public void the_hotel_staff_attempts_to_start_the_ticket(String ticketId) {
-    MaintenanceTicket ticket = MaintenanceTicket.getWithId(Integer.parseInt(ticketId));
+    error = AssetPlusFeatureSet4Controller.StartWorkOnMaintenanceTicket(ticketId); // calling controller method
   }
 
   /**
