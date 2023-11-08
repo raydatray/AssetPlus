@@ -8,6 +8,7 @@ import java.net.Inet4Address;
 import java.sql.Date;
 import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet4Controller;
+import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet7Controller;
 import ca.mcgill.ecse.assetplus.controller.TOMaintenanceTicket;
 import ca.mcgill.ecse.assetplus.model.AssetPlus;
 import ca.mcgill.ecse.assetplus.model.AssetType;
@@ -334,9 +335,43 @@ public class MaintenanceTicketsStepDefinitions {
 
     MaintenanceTicket maintenanceTicket = MaintenanceTicket.getWithId(Integer.parseInt(string));
 
-    maintenanceTicket.setTimeToResolve(TimeEstimate.estimatedTime);
-    maintenanceTicket.setPriority(PriorityLevel.priority);
-    maintenanceTicket.setFixApprover(requiresApproval);
+    // Set proper attributes
+    if (maintenanceTicket != null) {   
+      switch (estimatedTime) {
+        case "LessThanADay":
+          maintenanceTicket.setTimeToResolve(TimeEstimate.LessThanADay);
+          break;
+        case "OneToThreeDays":
+          maintenanceTicket.setTimeToResolve(TimeEstimate.OneToThreeDays);
+          break;
+        case "ThreeToSevenDays":
+          maintenanceTicket.setTimeToResolve(TimeEstimate.ThreeToSevenDays);
+          break;
+        case "OneToThreeWeeks":
+          maintenanceTicket.setTimeToResolve(TimeEstimate.OneToThreeWeeks);
+          break;
+        case "ThreeOrMoreWeeks":
+          maintenanceTicket.setTimeToResolve(TimeEstimate.OneToThreeWeeks);
+          break;
+      }
+
+      switch (priority) {
+      case "Urgent":
+        maintenanceTicket.setPriority(PriorityLevel.Urgent);
+        break;
+      case "Normal":
+        maintenanceTicket.setPriority(PriorityLevel.Normal);
+        break;
+      case "Low":
+        maintenanceTicket.setPriority(PriorityLevel.Low);
+        break;
+      }
+
+      if (maintenanceTicket.hasFixApprover()) {
+        maintenanceTicket.setFixApprover(assetPlus.getManager());
+      }
+    }
+
   }
 
   /**
