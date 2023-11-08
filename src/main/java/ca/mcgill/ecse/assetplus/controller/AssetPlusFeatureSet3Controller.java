@@ -4,6 +4,7 @@ import java.sql.Date;
 import ca.mcgill.ecse.assetplus.model.AssetPlus;
 import ca.mcgill.ecse.assetplus.model.AssetType;
 import ca.mcgill.ecse.assetplus.model.SpecificAsset;
+import ca.mcgill.ecse.assetplus.persistence.AssetPlusPersistence;
 import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
 
 public class AssetPlusFeatureSet3Controller {
@@ -42,15 +43,22 @@ public class AssetPlusFeatureSet3Controller {
           return error;
         }
 
-        //Error caught -> Specific asset has to be an asset in the first place
-        AssetType assetToAddTo = AssetType.getWithName(assetTypeName);
-        if (assetToAddTo == null){
-          error = "The asset type does not exist";
-          return error;
-        }
+        try {
+          //Error caught -> Specific asset has to be an asset in the first place
+          AssetType assetToAddTo = AssetType.getWithName(assetTypeName);
+          if (assetToAddTo == null){
+            error = "The asset type does not exist";
+            return error;
+          }
 
-        //Add Asset
-        SpecificAsset mySpecificAsset = new SpecificAsset(assetNumber, floorNumber, roomNumber, purchaseDate, assetPlus, assetToAddTo);
+          //Add Asset
+          SpecificAsset mySpecificAsset = new SpecificAsset(assetNumber, floorNumber, roomNumber, purchaseDate, assetPlus, assetToAddTo);
+         
+          AssetPlusPersistence.save();
+        } catch (Exception e) {
+          error = e.getMessage();
+        }
+        
         return error;
   }
 
@@ -88,25 +96,31 @@ public class AssetPlusFeatureSet3Controller {
 
         //Error caught -> you have to check within assets, if this specificasse exists
 
-        
-        //Case 1: Retain the same assetNumber, 
-        AssetType assetTypeToUpdate = AssetType.getWithName(newAssetTypeName);
-        if (assetTypeToUpdate == null){
-          error = "The asset type does not exist";
-          return error;
-        }
+        try {
+          //Case 1: Retain the same assetNumber, 
+          AssetType assetTypeToUpdate = AssetType.getWithName(newAssetTypeName);
+          if (assetTypeToUpdate == null){
+            error = "The asset type does not exist";
+            return error;
+          }
 
-        SpecificAsset specificAssetToUpdate = SpecificAsset.getWithAssetNumber(assetNumber);
-        if (specificAssetToUpdate == null) {
-          error = "The asset number does not exist";
-          return error;
-        }
+          SpecificAsset specificAssetToUpdate = SpecificAsset.getWithAssetNumber(assetNumber);
+          if (specificAssetToUpdate == null) {
+            error = "The asset number does not exist";
+            return error;
+          }
 
-        specificAssetToUpdate.setFloorNumber(newFloorNumber);
-        specificAssetToUpdate.setRoomNumber(newRoomNumber);
-        specificAssetToUpdate.setPurchaseDate(newPurchaseDate);
-        specificAssetToUpdate.setAssetType(assetTypeToUpdate);
-        return "";
+          specificAssetToUpdate.setFloorNumber(newFloorNumber);
+          specificAssetToUpdate.setRoomNumber(newRoomNumber);
+          specificAssetToUpdate.setPurchaseDate(newPurchaseDate);
+          specificAssetToUpdate.setAssetType(assetTypeToUpdate);
+          
+          AssetPlusPersistence.save();
+        } catch (Exception e) {
+          error = e.getMessage();
+        }
+      
+        return error;
     }
 
   /**
@@ -123,6 +137,8 @@ public class AssetPlusFeatureSet3Controller {
       if (assetToDelete != null){ // Check if the Specific Asset exists
         assetToDelete.delete(); //Delete the Specific Asset
       }
+
+      AssetPlusPersistence.save();
     } catch (Exception e) { //Catch any exceptions
       throw e; //Throw the exception. This is required to delete any specific assets that do not exist
     }
