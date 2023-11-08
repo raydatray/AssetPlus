@@ -102,7 +102,6 @@ public class MaintenanceTicketsStepDefinitions {
       MaintenanceTicket newMaintenanceTicket = new MaintenanceTicket(Integer.parseInt(row.get("id")), Date.valueOf(row.get("raisedOnDate")), row.get("description"), assetPlus, ticketRaiser);
       // Add specific assets to the new maintenance ticket
       newMaintenanceTicket.setAsset(SpecificAsset.getWithAssetNumber(Integer.parseInt(row.get("assetNumber"))));
-
     }
   }
 
