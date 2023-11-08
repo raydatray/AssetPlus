@@ -25,6 +25,7 @@ import ca.mcgill.ecse.assetplus.model.MaintenanceTicket.TimeEstimate;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import javafx.scene.layout.Priority;
 
 public class MaintenanceTicketsStepDefinitions {
 
@@ -100,8 +101,78 @@ public class MaintenanceTicketsStepDefinitions {
       User ticketRaiser = User.getWithEmail(row.get("ticketRaiser"));
       // Instantiate new maintenance ticket
       MaintenanceTicket newMaintenanceTicket = new MaintenanceTicket(Integer.parseInt(row.get("id")), Date.valueOf(row.get("raisedOnDate")), row.get("description"), assetPlus, ticketRaiser);
-      // Add specific assets to the new maintenance ticket
-      newMaintenanceTicket.setAsset(SpecificAsset.getWithAssetNumber(Integer.parseInt(row.get("assetNumber"))));
+      // Add specific assets to the new maintenance ticket if applicable
+      if (!(row.get("assetNumber").isEmpty())) {
+        newMaintenanceTicket.setAsset(SpecificAsset.getWithAssetNumber(Integer.parseInt(row.get("assetNumber"))));
+      }
+
+      // Check if the state is not open (... to initialize appropriate variables)
+      if (!(row.get("status").equals("Open"))) {
+        // Ticket fixer
+        HotelStaff ticketFixer = (HotelStaff) User.getWithEmail(row.get("fixedByEmail"));
+        // Time to resolve
+        TimeEstimate timeEstimate = null;
+        switch (row.get("timeToResolve")) {
+          case "LessThanADay":
+            timeEstimate = TimeEstimate.LessThanADay;
+            break;
+          case "OneToThreeDays":
+            timeEstimate = TimeEstimate.OneToThreeDays;
+            break;
+          case "ThreeToSevenDays":
+            timeEstimate = TimeEstimate.ThreeToSevenDays;
+          case "OneToThreeWeeks":
+            timeEstimate = TimeEstimate.OneToThreeWeeks;
+            break;
+          case "ThreeOrMoreWeeks":
+            timeEstimate = TimeEstimate.ThreeOrMoreWeeks;
+            break;
+          default:
+            // Do nothing
+            break;
+        }
+        // Priority level
+        PriorityLevel priorityLevel = null;
+        switch (row.get("priority")) {
+          case "Low":
+            priorityLevel = PriorityLevel.Low;
+            break;
+          case "Normal":
+            priorityLevel = PriorityLevel.Normal;
+            break;
+          case "Urgent":
+            priorityLevel = PriorityLevel.Urgent;
+            break;
+          default:
+            // Do nothing
+            break;
+        }
+        // Requires fix approver
+        Boolean isApprovalRequired = row.get("approvalRequired").equals("true");
+        // Set the new maintenance ticket's state
+        switch (row.get("status")) {
+          case "Assigned":
+            newMaintenanceTicket.assign(ticketFixer, timeEstimate, priorityLevel, isApprovalRequired, assetPlus.getManager());
+            break;
+          case "InProgress":
+            newMaintenanceTicket.assign(ticketFixer, timeEstimate, priorityLevel, isApprovalRequired, assetPlus.getManager());
+            newMaintenanceTicket.startTicket();
+            break;
+          case "Resolved":
+            newMaintenanceTicket.assign(ticketFixer, timeEstimate, priorityLevel, isApprovalRequired, assetPlus.getManager());
+            newMaintenanceTicket.startTicket();
+            newMaintenanceTicket.closeTicket();
+            break;
+          case "Closed":
+            newMaintenanceTicket.assign(ticketFixer, timeEstimate, priorityLevel, isApprovalRequired, assetPlus.getManager());
+            newMaintenanceTicket.startTicket();
+            newMaintenanceTicket.closeTicket();
+            break;
+          default:
+            // Do nothing
+            break;
+        }
+      }
     }
   }
 
