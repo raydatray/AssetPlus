@@ -301,8 +301,9 @@ public class MaintenanceTicketsStepDefinitions {
   public void the_ticket_shall_be_assigned_to(String string, String string2) {
     // Houman
     // Write code here that turns the phrase above into concrete actions
+    String employeeEmail = string2;
     for (Employee employee: assetPlus.getEmployees()) {
-      if (employee.name.equals(string2)) {
+      if (employee.getEmail().equals(employeeEmail)) {
         Employee assignedEmployee = employee;
         MaintenanceTicket ticketToAssign = assetPlus.getMaintenanceTicket(Int.parseInt(string)); //Ticket to assign
         ticketToAssign.setTicketFixer(assignedEmployee);
