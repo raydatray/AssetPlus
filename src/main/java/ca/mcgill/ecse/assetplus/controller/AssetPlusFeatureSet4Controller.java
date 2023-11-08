@@ -9,6 +9,7 @@ import ca.mcgill.ecse.assetplus.model.MaintenanceTicket;
 import ca.mcgill.ecse.assetplus.model.Manager; // import
 import ca.mcgill.ecse.assetplus.model.SpecificAsset;
 import ca.mcgill.ecse.assetplus.model.User;
+import ca.mcgill.ecse.assetplus.persistence.AssetPlusPersistence;
 import ca.mcgill.ecse.assetplus.model.MaintenanceTicket.PriorityLevel; // import
 import ca.mcgill.ecse.assetplus.model.MaintenanceTicket.TimeEstimate; // import
 
@@ -48,25 +49,27 @@ public class AssetPlusFeatureSet4Controller {
       SpecificAsset specificAssetToBeAdded = null; // Initializing the asset that is to be added
       if (assetNumber != -1){ // Checking if the asset number is -1
         for (SpecificAsset specificAsset : assetPlus.getSpecificAssets()){ // If the asset number is not -1, then iterate through the assets in the application
-        if (assetNumber == specificAsset.getAssetNumber()){ // Checking if the asset number to be added corresponds to an asset in the application
-          specificAssetToBeAdded = specificAsset; // If the asset number matches the asset to be added, then set the specificAssetToBeAdded to the matching asset
+          if (assetNumber == specificAsset.getAssetNumber()){ // Checking if the asset number to be added corresponds to an asset in the application
+            specificAssetToBeAdded = specificAsset; // If the asset number matches the asset to be added, then set the specificAssetToBeAdded to the matching asset
           }
         }
-      }
+        }
+        
       if (assetNumber != -1 && specificAssetToBeAdded == null){ // Checking that if asset number is not -1 and null, means that the asset to be added was not found
       error = "The asset does not exist"; // Corresponding error message if the asset to be added does not exist
       return error; // Returning the error message
-    }
+      }
 
-    MaintenanceTicket toBeAdded = new MaintenanceTicket(id, raisedOnDate, description, assetPlus, ticketRaiser); // Creating the MaintenanceTicket
-    boolean assetAdded = toBeAdded.setAsset(specificAssetToBeAdded); // Adding the asset associated with the ticket
+      MaintenanceTicket toBeAdded = new MaintenanceTicket(id, raisedOnDate, description, assetPlus, ticketRaiser); // Creating the MaintenanceTicket
+      boolean assetAdded = toBeAdded.setAsset(specificAssetToBeAdded); // Adding the asset associated with the ticket
 
-    if (assetAdded == false){ // Checking whether the appropriate asset could be added
-      error = "Specific asset unable to be added"; // Corresponding error message if the asset was not able to be added
-      return error; // Returning the error message
-    }
+      if (assetAdded == false){ // Checking whether the appropriate asset could be added
+        error = "Specific asset unable to be added"; // Corresponding error message if the asset was not able to be added
+        return error; // Returning the error message
+      }
 
-    return error; // If there are any problems, an error message will be returned, if not an empty string will be returned
+      AssetPlusPersistence.save();
+
     } catch (Exception e) {
 
       var message = e.getMessage(); // Getting the error message of the exception, which are possibly returned in the creating of the MaintenanceTicket
@@ -89,6 +92,9 @@ public class AssetPlusFeatureSet4Controller {
 
       return error; // Return the error raised
     }
+    
+    return error; // If there are any problems, an error message will be returned, if not an empty string will be returned
+
   }
   /**
    * Updating a MaintenanceTicket which already exists in the application
@@ -123,24 +129,24 @@ public class AssetPlusFeatureSet4Controller {
 
       SpecificAsset newAsset = null; // Initializing the asset that is to be updated
       if (newAssetNumber != -1){ // Checking if the asset number is -1
-      for (SpecificAsset specificAsset : assetPlus.getSpecificAssets()){ // If the asset number is not -1, then iterate through the assets in the application
-        if (newAssetNumber == specificAsset.getAssetNumber()){ // Checking if the asset number to be updated corresponds to an asset in the application
-          newAsset = specificAsset; // If the asset number matches the asset to be added, then set the toBeUpdated to the matching asset
+        for (SpecificAsset specificAsset : assetPlus.getSpecificAssets()){ // If the asset number is not -1, then iterate through the assets in the application
+          if (newAssetNumber == specificAsset.getAssetNumber()){ // Checking if the asset number to be updated corresponds to an asset in the application
+            newAsset = specificAsset; // If the asset number matches the asset to be added, then set the toBeUpdated to the matching asset
+          }
         }
       }
-    }
 
-    if (newAsset == null && newAssetNumber != -1){ // Checking that if asset number is not -1 and null, means that the asset to be updated was not found
-      error = "The asset does not exist"; // Corresponding error message if the asset to be added does not exist
-      return error; // Return the error message
-    }
+      if (newAsset == null && newAssetNumber != -1){ // Checking that if asset number is not -1 and null, means that the asset to be updated was not found
+        error = "The asset does not exist"; // Corresponding error message if the asset to be added does not exist
+        return error; // Return the error message
+      }
 
-    User newTicketRaiser = User.getWithEmail(newEmail); // Gets the user who raised the MaintenanceTicket
+      User newTicketRaiser = User.getWithEmail(newEmail); // Gets the user who raised the MaintenanceTicket
 
-    if (newTicketRaiser == null){ // Checking that the user exists
-      error = "The ticket raiser does not exist"; // Corresponding error message if the newTicketRaiser does not exist
-      return error; // Return the error message
-    }
+      if (newTicketRaiser == null){ // Checking that the user exists
+        error = "The ticket raiser does not exist"; // Corresponding error message if the newTicketRaiser does not exist
+        return error; // Return the error message
+      }
 
       if (toBeUpdated != null){ // Checking that the MaintenanceTicket to be updated was assigned
         boolean descriptionUpdated = toBeUpdated.setDescription(newDescription); // Setting the new description
@@ -155,11 +161,14 @@ public class AssetPlusFeatureSet4Controller {
         }
       }
 
-      return error; // Return the error message
+      AssetPlusPersistence.save();
 
     } catch (Exception e) { // Catch any exceptions that would crash the system
       return e.getMessage(); // Return the exception message
     }
+
+    return error; // Return the error message
+
   }
 
   /**
@@ -173,6 +182,8 @@ public class AssetPlusFeatureSet4Controller {
       if (maintenanceTicket != null){ // Check if the MaintenanceTicket exists
         maintenanceTicket.delete(); //Delete the MaintenanceTicket
       }
+
+      AssetPlusPersistence.save();
     } catch (Exception e) { //Catch any exceptions
       throw e; //Throw the exception. This is required to delete any tickets that do not exist
     }
@@ -216,6 +227,7 @@ public class AssetPlusFeatureSet4Controller {
     Manager hotelStaff = (Manager) hotelStaffInitial;
     try {
       ticket.assign(hotelStaff, timeToResolve, priority, requiresManagerApproval, manager); // Check if this is good please!
+      AssetPlusPersistence.save();
     } catch (RuntimeException e) {
       return e.getMessage();
     }
@@ -251,6 +263,7 @@ public class AssetPlusFeatureSet4Controller {
     } else {
       try {
         targetTicket.startTicket();
+        AssetPlusPersistence.save();
         return "";
       } catch (RuntimeException e) {
         return e.getMessage();
@@ -287,6 +300,7 @@ public class AssetPlusFeatureSet4Controller {
     } else {
       try {
         targetTicket.closeTicket();
+        AssetPlusPersistence.save();
         return "";
       } catch (RuntimeException e) {
         return e.getMessage();
@@ -323,6 +337,7 @@ public class AssetPlusFeatureSet4Controller {
     } else {
       try {
         targetTicket.approveTicket();
+        AssetPlusPersistence.save();
         return "";
       } catch (RuntimeException e) {
         return e.getMessage();
@@ -356,6 +371,7 @@ public class AssetPlusFeatureSet4Controller {
     try {
       ticket.disapproveTicket( new MaintenanceNote(date, description, ticket, assetPlus.getManager()));
       //Add a ticket note above
+      AssetPlusPersistence.save();
     } catch (Exception e) {
       return e.getMessage();
     }
