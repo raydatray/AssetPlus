@@ -182,8 +182,18 @@ public class AssetPlusFeatureSet4Controller {
    * Iteration 3 controller methods
    */
 
-
-  // need to do input verification that ticketId exists, that staffMemberEmail exists, that timeToResolve exists as a TimeEstimate, that priority exists as a PriorityLevel, that requiresManagerApproval is only true or false since it will be a boolean, and that managerEmail is valid
+   /**
+   * Assigns a hotel staff member to a maintenance ticket.
+   *
+   * @author Aurelia Bouliane
+   * @param ticketId               The ID of the maintenance ticket.
+   * @param staffMemberEmail       The email of the staff member to be assigned.
+   * @param timeToResolve          The estimated time to resolve the ticket.
+   * @param priority               The priority level of the ticket.
+   * @param requiresManagerApproval Whether the ticket requires manager approval.
+   * @param managerEmail           The email of the manager.
+   * @return An error message if any input validation fails, or an empty string on success.
+   */
   public static String AssignHotelStaffToMaintenanceTicket(int ticketId, String staffMemberEmail, TimeEstimate timeToResolve, PriorityLevel priority, boolean requiresManagerApproval, String managerEmail) {
     MaintenanceTicket ticket = MaintenanceTicket.getWithId(ticketId);
     String error = "";
@@ -199,11 +209,6 @@ public class AssetPlusFeatureSet4Controller {
       error = "Staff to assign does not exist";
     }
 
-    // Check if managerEmail is valid 
-    if (!(User.getWithEmail(managerEmail) instanceof Manager)) {
-      error = "Staff to assign does not exist"; // what error message to return? and do we need this?
-    }
-
     // If all input is valid, proceed with assigning the staff member to the maintenance ticket
     User managerInitial = User.getWithEmail(managerEmail);
     Manager manager = (Manager) managerInitial;
@@ -217,6 +222,13 @@ public class AssetPlusFeatureSet4Controller {
     return error;
 }
 
+  /**
+   * Starts work on a maintenance ticket.
+   * 
+   * @author Alexander Liu
+   * @param ticketId The ID of the maintenance ticket.
+   * @return An error message if the ticket doesn't exist or if starting the ticket fails, or an empty string on success.
+   */
   // check that ticketId exists
   public static String StartWorkOnMaintenanceTicket(String ticketId) {
     // Input validation
@@ -246,6 +258,13 @@ public class AssetPlusFeatureSet4Controller {
     }
   }
 
+   /**
+   * Completes work on a maintenance ticket.
+   *
+   * @author Alexander Liu
+   * @param ticketId The ID of the maintenance ticket.
+   * @return An error message if the ticket doesn't exist or if completing the ticket fails, or an empty string on success.
+   */
   // check that ticketId exists
   public static String CompleteWorkOnMaintenanceTicket(String ticketId) {
     // Input validation
@@ -275,6 +294,13 @@ public class AssetPlusFeatureSet4Controller {
     }
   }
 
+  /**
+   * Approves work on a maintenance ticket.
+   *
+   * @author Alexander Liu
+   * @param ticketId The ID of the maintenance ticket.
+   * @return An error message if the ticket doesn't exist or if approving the ticket fails, or an empty string on success.
+   */
   // check that ticketId exists
   public static String ApproveWorkOnMaintenanceTicket(String ticketId) {
     // Input validation
@@ -304,8 +330,16 @@ public class AssetPlusFeatureSet4Controller {
     }
   }
 
-  // TODO: FINISH THIS!!!
-  //check that ticketId exists, make sure date is valid, make sure description isnt empty, then it will always be manager who is the noteTaker when you create the MaintenanceNote
+  // TODO: DOUBLE CHECK THIS!!!
+  /**
+   * Disapproves work on a maintenance ticket and adds a note.
+   *
+   * @author Aurelia Bouliane and Ray Liu
+   * @param ticketId    The ID of the maintenance ticket.
+   * @param date        The date of the note.
+   * @param description The description of the note.
+   * @return An error message if input validation fails or if disapproving the ticket fails, or an empty string on success.
+   */
   public static String DisapproveWorkOnMaintenanceTicket(int ticketId, Date date, String description) {
     String error = "";
     MaintenanceTicket ticket = MaintenanceTicket.getWithId(ticketId);
@@ -315,12 +349,12 @@ public class AssetPlusFeatureSet4Controller {
       error = "Maintenance ticket does not exist.";
       return error;
     } else if (description == null || description.trim().isEmpty()) {
-      error = "Ticket description cannot be empty."; // check return message
+      error = "Ticket description cannot be empty."; // if check return is good message
       return error;
     }
 
     try {
-      ticket.disapproveTicket( new MaintenanceNote(date, description, ticket, assetPlus.getManager())); // TODO: Finish, what to put as argument
+      ticket.disapproveTicket( new MaintenanceNote(date, description, ticket, assetPlus.getManager()));
       //Add a ticket note above
     } catch (Exception e) {
       return e.getMessage();
