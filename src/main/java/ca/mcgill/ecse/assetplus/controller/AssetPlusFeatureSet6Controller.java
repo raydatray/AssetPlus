@@ -9,6 +9,7 @@ import ca.mcgill.ecse.assetplus.model.Employee;
 import ca.mcgill.ecse.assetplus.model.Guest;
 import ca.mcgill.ecse.assetplus.model.MaintenanceTicket;
 import ca.mcgill.ecse.assetplus.model.TicketImage;
+import ca.mcgill.ecse.assetplus.persistence.AssetPlusPersistence;
 
 public class AssetPlusFeatureSet6Controller {
 
@@ -32,7 +33,8 @@ public class AssetPlusFeatureSet6Controller {
 	 */
   public static void deleteEmployeeOrGuest(String email) {
 
-		if (email.endsWith("ap.com")) {
+		try {
+			if (email.endsWith("ap.com")) {
 			
 			Employee employeeToDelete =  null;
 			
@@ -47,24 +49,31 @@ public class AssetPlusFeatureSet6Controller {
 				employeeToDelete.delete();
 			}
 
-		} else {
+			} else {
 
-			Guest guestToDelete = null;
+				Guest guestToDelete = null;
 
-			for (Guest g: assetPlus.getGuests()) {
-				if (g.getEmail().equals(email)) {
-					guestToDelete = g;
-					break;
+				for (Guest g: assetPlus.getGuests()) {
+					if (g.getEmail().equals(email)) {
+						guestToDelete = g;
+						break;
+					}
+				}
+
+				if (guestToDelete != null) {
+					guestToDelete.delete();
 				}
 			}
-
-			if (guestToDelete != null) {
-				guestToDelete.delete();
-			}
+			AssetPlusPersistence.save();
+		} catch (Exception e) {
+			throw e;
 		}
+
   }
 
 	/**
+	 * @author Alexander Liu and Alice Godbout
+
 	 * Retrieves a list of transfer objects (TOMaintenanceTicket) representing maintenance tickets in the system.
 	 *
 	 * This method processes the maintenance tickets in the system and creates corresponding transfer objects
@@ -83,7 +92,9 @@ public class AssetPlusFeatureSet6Controller {
 	
 		List<TOMaintenanceTicket> TOMaintenanceTicketList = new ArrayList<>();
 
-		for (MaintenanceTicket ticket: assetPlus.getMaintenanceTickets()) {
+		try {
+
+			for (MaintenanceTicket ticket: assetPlus.getMaintenanceTickets()) {
 
 			// Create a list for the image URLs
 			List<String> ticketImageURLs = new ArrayList<>();
@@ -92,9 +103,9 @@ public class AssetPlusFeatureSet6Controller {
 			}
 			
 			// The constructor of TOMaintenanceTicket won't allow the use of an ArrayList... It has something to do with varargs in constructor of the class (unpacking of list...) --> forced to loop by index
-			TOMaintenanceNote[] maintenanceNoteList = new TOMaintenanceNote[ticket.getTicketNotes().size()];
+			TOMaintenanceNote[] allNotes = new TOMaintenanceNote[ticket.getTicketNotes().size()];
 			for (int i = 0; i < ticket.getTicketNotes().size(); i++) {
-				maintenanceNoteList[i] = new TOMaintenanceNote(ticket.getTicketNote(i).getDate(), ticket.getTicketNote(i).getDescription(), ticket.getTicketNote(i).getNoteTaker().getEmail());
+				allNotes[i] = new TOMaintenanceNote(ticket.getTicketNote(i).getDate(), ticket.getTicketNote(i).getDescription(), ticket.getTicketNote(i).getNoteTaker().getEmail());
 			}
 			// Instantiate other attributes
 			int id = ticket.getId();
@@ -107,6 +118,13 @@ public class AssetPlusFeatureSet6Controller {
 			int floorNumber = -1;
 			int roomNumber = -1;
 
+			String status = ticket.getStatusFullName();
+			String fixedByEmail = ticket.getFixApprover().getEmail();
+			String timeToResolve = ticket.getTimeToResolve().toString();
+			String priority = ticket.getPriority().toString();
+			boolean approvalRequired = ticket.hasFixApprover();
+
+
 			// If MaintenancetTicket is associated to a SpecificAsset instance, get respective values
 			if (ticket.getAsset() != null) {
 				assetName = ticket.getAsset().getAssetType().getName();
@@ -114,14 +132,22 @@ public class AssetPlusFeatureSet6Controller {
 				purchaseDate = ticket.getAsset().getPurchaseDate();
 				floorNumber = ticket.getAsset().getFloorNumber();
 				roomNumber = ticket.getAsset().getRoomNumber();
+				
 			}
 			
-			// Create a transfer object for each maintenance ticket
-			TOMaintenanceTicket transferTicket = new TOMaintenanceTicket(id, raisedOnDate, description, raisedByEmail, assetName, expectedLifeSpanInDays, purchaseDate, floorNumber, roomNumber, ticketImageURLs, maintenanceNoteList);
-			
-			TOMaintenanceTicketList.add(transferTicket);
-		}
+			// Create a transfer object for each maintenance ticket			
+			TOMaintenanceTicket transferTicket = new TOMaintenanceTicket(
+    	id, raisedOnDate, description, raisedByEmail, status, fixedByEmail, 
+   		timeToResolve, priority, approvalRequired, assetName, expectedLifeSpanInDays, 
+   		purchaseDate, floorNumber, roomNumber, ticketImageURLs, allNotes);
 
+			TOMaintenanceTicketList.add(transferTicket);
+			}
+
+			AssetPlusPersistence.save();
+		} catch (Exception e) {
+			throw e;
+		}
 		return TOMaintenanceTicketList;
   }
 }

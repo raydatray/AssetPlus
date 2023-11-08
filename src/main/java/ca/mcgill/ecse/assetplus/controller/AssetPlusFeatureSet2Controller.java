@@ -3,6 +3,7 @@ package ca.mcgill.ecse.assetplus.controller;
 import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
 import ca.mcgill.ecse.assetplus.model.AssetPlus;
 import ca.mcgill.ecse.assetplus.model.AssetType;
+import ca.mcgill.ecse.assetplus.persistence.AssetPlusPersistence;
 
 /**
  * The AssetPlusFeatureSet2Controller class provides methods for managing Asset Types.
@@ -37,15 +38,22 @@ public class AssetPlusFeatureSet2Controller {
       return error;
     }
     
-    //  Check if asset type already exists
-    AssetType assetType = AssetType.getWithName(name);
-    if (assetType != null) {
-      error = "The asset type already exists";
-      return error;
-    }
+    try {
+      //  Check if asset type already exists
+      AssetType assetType = AssetType.getWithName(name);
+      if (assetType != null) {
+        error = "The asset type already exists";
+        return error;
+      }
 
-    // Add Asset Type
-    AssetType newAssetType =  new AssetType(name, expectedLifeSpanInDays, assetPlus);
+      // Add Asset Type
+      AssetType newAssetType =  new AssetType(name, expectedLifeSpanInDays, assetPlus);
+
+      AssetPlusPersistence.save();
+    } catch (Exception e) {
+      error = e.getMessage();
+    }
+   
     return error;
   }
 
@@ -80,23 +88,29 @@ public class AssetPlusFeatureSet2Controller {
       return error;
     }
 
-    // Check if Asset Type with the old name already exists
-    AssetType assetType = AssetType.getWithName(oldName);
-    if (assetType == null) {
-      error = "The asset type does not exist";
-      return error;
-    }
+    try {
+      // Check if Asset Type with the old name already exists
+      AssetType assetType = AssetType.getWithName(oldName);
+      if (assetType == null) {
+        error = "The asset type does not exist";
+        return error;
+      }
 
-    // Check if Asset Type with the new name already exists and check if oldName and newName not equal to each other
-    AssetType newAssetType = AssetType.getWithName(newName);
-    if (newAssetType != null && !oldName.equals(newName)) {
-      error = "The asset type already exists";
-      return error;
-    }
+      // Check if Asset Type with the new name already exists and check if oldName and newName not equal to each other
+      AssetType newAssetType = AssetType.getWithName(newName);
+      if (newAssetType != null && !oldName.equals(newName)) {
+        error = "The asset type already exists";
+        return error;
+      }
 
-    // Update the Asset Type
-    assetType.setName(newName);
-    assetType.setExpectedLifeSpan(newExpectedLifeSpanInDays);
+      // Update the Asset Type
+      assetType.setName(newName);
+      assetType.setExpectedLifeSpan(newExpectedLifeSpanInDays);
+      
+      AssetPlusPersistence.save();
+    } catch (Exception e) {
+      error = e.getMessage();
+    }
     return error;
   }
 
@@ -120,8 +134,9 @@ public class AssetPlusFeatureSet2Controller {
     if (assetType != null) {
       assetType.delete();
     }
+    AssetPlusPersistence.save();
     } catch (Exception e) {
-      throw e;
+        throw e;
     }
   }
 }

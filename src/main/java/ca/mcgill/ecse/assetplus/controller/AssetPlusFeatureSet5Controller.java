@@ -3,6 +3,7 @@ package ca.mcgill.ecse.assetplus.controller;
 import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
 import ca.mcgill.ecse.assetplus.model.MaintenanceTicket;
 import ca.mcgill.ecse.assetplus.model.TicketImage;
+import ca.mcgill.ecse.assetplus.persistence.AssetPlusPersistence;
 import ca.mcgill.ecse.assetplus.model.AssetPlus;
 
 public class AssetPlusFeatureSet5Controller {
@@ -29,29 +30,36 @@ public class AssetPlusFeatureSet5Controller {
       return "Image URL must start with http:// or https://";
     }
     
-    //TicketID has to be associated with a ticket
-    MaintenanceTicket ticketFound = null;
+    try {
+      //TicketID has to be associated with a ticket
+      MaintenanceTicket ticketFound = null;
 
-    for (MaintenanceTicket ticket : assetPlus.getMaintenanceTickets()) {
-      if (ticket.getId()  == ticketID){
-        ticketFound = ticket;
+      for (MaintenanceTicket ticket : assetPlus.getMaintenanceTickets()) {
+        if (ticket.getId()  == ticketID){
+          ticketFound = ticket;
+        }
       }
-    }
 
-    if (ticketFound == null) {
-      return "Ticket does not exist";
-    }
-
-    //Constraint 3: two imageURLs cannot be the same for a given ticket
-    for (TicketImage image: ticketFound.getTicketImages()){
-      if (image.getImageURL().equals(imageURL)) {
-        return "Image already exists for the ticket";
+      if (ticketFound == null) {
+        return "Ticket does not exist";
       }
+
+      //Constraint 3: two imageURLs cannot be the same for a given ticket
+      for (TicketImage image: ticketFound.getTicketImages()){
+        if (image.getImageURL().equals(imageURL)) {
+          return "Image already exists for the ticket";
+        }
+      }
+
+      //Add image to ticket
+      ticketFound.addTicketImage(imageURL);
+      
+      AssetPlusPersistence.save();
+      return "";
+    } catch (RuntimeException e) {
+      return e.getMessage();
     }
 
-    //Add image to ticket
-    ticketFound.addTicketImage(imageURL);
-    return "";
   }
 
   /**
@@ -61,30 +69,36 @@ public class AssetPlusFeatureSet5Controller {
    */
 
   public static void deleteImageFromMaintenanceTicket(String imageURL, int ticketID) {
-    //Find if the ticket exists
-    MaintenanceTicket ticketFound = null;
 
-    for (MaintenanceTicket ticket : assetPlus.getMaintenanceTickets()){
-      if (ticket.getId()  == ticketID){
-        ticketFound = ticket;
+    try {
+      //Find if the ticket exists
+      MaintenanceTicket ticketFound = null;
+
+      for (MaintenanceTicket ticket : assetPlus.getMaintenanceTickets()){
+        if (ticket.getId()  == ticketID){
+          ticketFound = ticket;
+        }
       }
-    }
 
-    if (ticketFound == null) {
-      return;
-    }
-
-    TicketImage foundImage = null;
-    
-    for (TicketImage image : ticketFound.getTicketImages()){
-      if (image.getImageURL().equals(imageURL)) {
-          foundImage = image;
+      if (ticketFound == null) {
+        return;
       }
-    }
 
-    if (foundImage != null){
-      foundImage.delete();
-    }
+      TicketImage foundImage = null;
+      
+      for (TicketImage image : ticketFound.getTicketImages()){
+        if (image.getImageURL().equals(imageURL)) {
+            foundImage = image;
+        }
+      }
 
+      if (foundImage != null){
+        foundImage.delete();
+      }
+      
+      AssetPlusPersistence.save();
+    } catch (Exception e) {
+      throw e;
+    } 
   }
 }

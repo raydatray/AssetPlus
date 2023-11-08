@@ -8,7 +8,7 @@ class MaintenanceTicket {
 
           startTicket / { preventTransition("Cannot start a maintenance ticket which is open."); } -> InReview;
           closeTicket / {preventTransition("Cannot complete a maintenance ticket which is open."); } -> InReview;
-          disapproveTicket(MaintenanceNote disapprovalNote) / { preventTransition("Cannot disapprove a maintenance ticket which is open."); } -> InReview;
+          disapproveTicket(Date date, String description, Manager manager) / { preventTransition("Cannot disapprove a maintenance ticket which is open."); } -> InReview;
           approveTicket / { preventTransition("Cannot approve a maintenance ticket which is open."); } -> InReview;
         }
       
@@ -17,7 +17,7 @@ class MaintenanceTicket {
 
           assign(HotelStaff staffMember, TimeEstimate timeToResolve, PriorityLevel priority, boolean requiresManagerApproval, Manager manager) / { preventTransition("The maintenance ticket is already assigned."); } -> Assigned;
           closeTicket / { preventTransition("Cannot complete a maintenance ticket which is assigned."); } -> Assigned;
-          disapproveTicket(MaintenanceNote disapprovalNote) / { preventTransition("Cannot disapprove a maintenance ticket which is assigned."); } -> Assigned;
+          disapproveTicket(Date date, String description, Manager manager) / { preventTransition("Cannot disapprove a maintenance ticket which is assigned."); } -> Assigned;
           approveTicket / { preventTransition("Cannot approve a maintenance ticket which is assigned."); } -> Assigned;
         }
       
@@ -27,12 +27,12 @@ class MaintenanceTicket {
 
           assign(HotelStaff staffMember, TimeEstimate timeToResolve, PriorityLevel priority, boolean requiresManagerApproval, Manager manager) / { preventTransition("Cannot assign a maintenance ticket which is in progress."); } -> InProgress;
           startTicket / { preventTransition("The maintenance ticket is already in progress."); } -> InProgress;
-          disapproveTicket(MaintenanceNote disapprovalNote) / { preventTransition("Cannot disapprove a maintenance ticket which is in progress."); } -> InProgress;
+          disapproveTicket(Date date, String description, Manager manager) / { preventTransition("Cannot disapprove a maintenance ticket which is in progress."); } -> InProgress;
           approveTicket / { preventTransition("Cannot approve a maintenance ticket which is in progress."); } -> InProgress;
         }
       
       	AwaitingApproval {
-        	disapproveTicket(MaintenanceNote disapprovalNote) / { doDisapprove(disapprovalNote); } -> InProgress;
+        	disapproveTicket(Date date, String description, Manager manager) / { doDisapprove(date, description, manager); } -> InProgress;
           approveTicket -> Closed;
 
           assign(HotelStaff staffMember, TimeEstimate timeToResolve, PriorityLevel priority, boolean requiresManagerApproval, Manager manager) / { preventTransition("Cannot assign a maintenance ticket which is resolved."); } -> AwaitingApproval;
@@ -44,7 +44,7 @@ class MaintenanceTicket {
         	assign(HotelStaff staffMember, TimeEstimate timeToResolve, PriorityLevel priority, boolean requiresManagerApproval, Manager manager) / { preventTransition("Cannot assign a maintenance ticket which is closed."); } -> Closed;
           startTicket / { preventTransition("Cannot start a maintenance ticket which is closed."); } -> Closed;
           closeTicket / { preventTransition("The maintenance ticket is already closed."); } -> Closed;
-          disapproveTicket(MaintenanceNote disapprovalNote) / { preventTransition("Cannot disapprove a maintenance ticket which is closed."); } -> Closed;
+          disapproveTicket(Date date, String description, Manager manager) / { preventTransition("Cannot disapprove a maintenance ticket which is closed."); } -> Closed;
           approveTicket / { preventTransition("The maintenance ticket is already closed."); } -> Closed;
         }
     }
@@ -53,11 +53,16 @@ class MaintenanceTicket {
       setTimeToResolve(timeToResolve);
       setPriority(priority);
       setTicketFixer(staffMember);
-      requiresManagerApproval ? setFixApprover(manager) : setFixApprover(null);
+      if (requiresManagerApproval){
+        setFixApprover(manager);
+      }
+      else{
+        setFixApprover(null);
+      }
     }
 
-    private void doDisapprove(MaintenanceNote disapprovalNote){
-      addTicketNote(disapprovalNote);
+    private void doDisapprove(Date date, String description, Manager manager){
+      MaintenanceNote note = new MaintenanceNote(date, description, this, manager);
     }
 
     private boolean requiresManagerApproval() {

@@ -2,6 +2,7 @@ package ca.mcgill.ecse.assetplus.controller;
 
 import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
 import ca.mcgill.ecse.assetplus.model.*;
+import ca.mcgill.ecse.assetplus.persistence.AssetPlusPersistence;
 
 // completed by Colin Xiong (CX899 on github)
 
@@ -33,6 +34,7 @@ public class AssetPlusFeatureSet1Controller {
 
     //Update manager password
     try{
+      AssetPlusPersistence.save();
       manager.setPassword(password);
     } catch (RuntimeException e){
       error = e.getMessage();
@@ -95,6 +97,8 @@ public class AssetPlusFeatureSet1Controller {
 
         Guest newGuest = new Guest(email, name, password, phoneNumber, assetPlus);
       }
+
+      AssetPlusPersistence.save();
     } catch (RuntimeException e) {
       error = e.getMessage();
     }
@@ -121,17 +125,19 @@ public class AssetPlusFeatureSet1Controller {
     }
 
     try{
-        User user = User.getWithEmail(email);
+      User user = User.getWithEmail(email);
 
-        //Check if user exists
-        if (user == null) {
-          error = "Employee does not exist.";
-          return error;
-        }
+      //Check if user exists
+      if (user == null) {
+        error = "Employee does not exist.";
+        return error;
+      }
 
-        user.setPassword(newPassword);
-        user.setName(newName);
-        user.setPhoneNumber(newPhoneNumber);
+      user.setPassword(newPassword);
+      user.setName(newName);
+      user.setPhoneNumber(newPhoneNumber);
+
+      AssetPlusPersistence.save();
     } catch (RuntimeException e) {
       error = e.getMessage();
     }
