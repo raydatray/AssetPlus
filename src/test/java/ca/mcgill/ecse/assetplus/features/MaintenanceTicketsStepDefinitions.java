@@ -2,7 +2,9 @@ package ca.mcgill.ecse.assetplus.features;
 
 import java.util.*;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.net.Inet4Address;
 import java.sql.Date;
 import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet4Controller;
@@ -12,9 +14,11 @@ import ca.mcgill.ecse.assetplus.model.AssetType;
 import ca.mcgill.ecse.assetplus.model.Employee;
 import ca.mcgill.ecse.assetplus.model.Guest;
 import ca.mcgill.ecse.assetplus.model.HotelStaff;
+import ca.mcgill.ecse.assetplus.model.MaintenanceNote;
 import ca.mcgill.ecse.assetplus.model.MaintenanceTicket;
 import ca.mcgill.ecse.assetplus.model.Manager;
 import ca.mcgill.ecse.assetplus.model.SpecificAsset;
+import ca.mcgill.ecse.assetplus.model.TicketImage;
 import ca.mcgill.ecse.assetplus.model.User;
 import ca.mcgill.ecse.assetplus.model.MaintenanceTicket.PriorityLevel;
 import ca.mcgill.ecse.assetplus.model.MaintenanceTicket.TimeEstimate;
@@ -405,7 +409,21 @@ public class MaintenanceTicketsStepDefinitions {
     // Double, Byte, Short, Long, BigInteger or BigDecimal.
     //
     // For other transformations you can register a DataTableType.
-    throw new io.cucumber.java.PendingException();
+
+    int ticketId = Integer.valueOf(string);
+    List<List<String>> rows = dataTable.asLists();
+
+    for (MaintenanceNote note : MaintenanceTicket.getWithId(ticketId).getTicketNotes()){
+      List<String> noteAsList = new ArrayList<String>();
+
+      noteAsList.add(note.getNoteTaker().getEmail());
+
+      noteAsList.add(note.getDate().toString());
+
+      noteAsList.add(note.getDescription());
+
+      assertTrue(rows.contains(noteAsList));
+    }
   }
 
   /**
@@ -416,7 +434,10 @@ public class MaintenanceTicketsStepDefinitions {
   public void the_ticket_with_id_shall_have_no_notes(String string) {
     // Ray
     // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    int ticketId = Integer.valueOf(string);
+
+    assertEquals(0, MaintenanceTicket.getWithId(ticketId).numberOfTicketNotes());
+
   }
 
   /**
@@ -434,7 +455,13 @@ public class MaintenanceTicketsStepDefinitions {
     // Double, Byte, Short, Long, BigInteger or BigDecimal.
     //
     // For other transformations you can register a DataTableType.
-    throw new io.cucumber.java.PendingException();
+    int ticketId = Integer.valueOf(string);
+    List<String> rows = dataTable.asList();
+
+    for(TicketImage image : MaintenanceTicket.getWithId(ticketId).getTicketImages()){
+      String url = image.getImageURL();
+      assertTrue(rows.contains(url));
+    }
   }
 
   /**
@@ -445,6 +472,8 @@ public class MaintenanceTicketsStepDefinitions {
   public void the_ticket_with_id_shall_have_no_images(String string) {
     // Ray
     // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    int ticketId = Integer.valueOf(string);
+
+    assertEquals(0, MaintenanceTicket.getWithId(ticketId).numberOfTicketImages());
   }
 }
