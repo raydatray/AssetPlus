@@ -3,9 +3,13 @@ package ca.mcgill.ecse.assetplus.controller;
 import java.sql.Date;
 import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
 import ca.mcgill.ecse.assetplus.model.AssetPlus;
+import ca.mcgill.ecse.assetplus.model.HotelStaff; // import
 import ca.mcgill.ecse.assetplus.model.MaintenanceTicket;
+import ca.mcgill.ecse.assetplus.model.Manager; // import
 import ca.mcgill.ecse.assetplus.model.SpecificAsset;
 import ca.mcgill.ecse.assetplus.model.User;
+import ca.mcgill.ecse.assetplus.model.MaintenanceTicket.PriorityLevel; // import
+import ca.mcgill.ecse.assetplus.model.MaintenanceTicket.TimeEstimate; // import
 
 public class AssetPlusFeatureSet4Controller {
   // Done by Sebastian Reinhardt, SReinhardt283 on GitHub
@@ -173,10 +177,44 @@ public class AssetPlusFeatureSet4Controller {
     }
   }
 
+  /**
+   * Iteration 3 controller methods
+   */
+
+
   // need to do input verification that ticketId exists, that staffMemberEmail exists, that timeToResolve exists as a TimeEstimate, that priority exists as a PriorityLevel, that requiresManagerApproval is only true or false since it will be a boolean, and that managerEmail is valid
-  public static String AssignHotelStaffToMaintenanceTicket(String ticketId, String staffMemberEmail, String timeToResolve, String priority, String requiresManagerApproval, String managerEmail) {
-    return "String";
-  }
+  public static String AssignHotelStaffToMaintenanceTicket(int ticketId, String staffMemberEmail, TimeEstimate timeToResolve, PriorityLevel priority, boolean requiresManagerApproval, String managerEmail) {
+    MaintenanceTicket ticket = MaintenanceTicket.getWithId(ticketId);
+    String error = "";
+
+    // Ensure ticket is not null
+    if (ticket == null) {
+      error = "Maintenance ticket does not exists.";
+      return error;
+    }
+
+    // Check if staffMemberEmail exists
+    if (!(User.getWithEmail(staffMemberEmail) instanceof HotelStaff)) {
+      error = "Staff to assign does not exist";
+    }
+
+    // Check if managerEmail is valid 
+    if (!(User.getWithEmail(managerEmail) instanceof Manager)) {
+      error = "Staff to assign does not exist"; // what error message to return? and do we need this?
+    }
+
+    // If all input is valid, proceed with assigning the staff member to the maintenance ticket
+    User managerInitial = User.getWithEmail(managerEmail);
+    Manager manager = (Manager) managerInitial;
+    User hotelStaffInitial = User.getWithEmail(staffMemberEmail);
+    Manager hotelStaff = (Manager) hotelStaffInitial;
+    try {
+      ticket.assign(hotelStaff, timeToResolve, priority, requiresManagerApproval, manager); // Check if this is good please!
+    } catch (RuntimeException e) {
+      return e.getMessage();
+    }
+    return error;
+}
 
   // check that ticketId exists
   public static String StartWorkOnMaintenanceTicket(String ticketId) {
@@ -265,8 +303,27 @@ public class AssetPlusFeatureSet4Controller {
     }
   }
 
+  // TODO: FINISH THIS!!!
   //check that ticketId exists, make sure date is valid, make sure description isnt empty, then it will always be manager who is the noteTaker when you create the MaintenanceNote
-  public static String DisapproveWorkOnMaintenanceTicket(String ticketId, String date, String description) {
-    return "String";
+  public static String DisapproveWorkOnMaintenanceTicket(int ticketId, Date date, String description) {
+    String error = "";
+    MaintenanceTicket ticket = MaintenanceTicket.getWithId(ticketId);
+
+    // Ensure ticket is not null
+    if (ticket == null) {
+      error = "Maintenance ticket does not exist.";
+      return error;
+    } else if (description == null || description.trim().isEmpty()) {
+      error = "Ticket description cannot be empty."; // check return message
+      return error;
+    }
+
+    try {
+      ticket.disapproveTicket(null); // TODO: Finish, what to put as argument
+    } catch (Exception e) {
+      return e.getMessage();
+    }
+    
+    return error;
   }
 }
