@@ -230,7 +230,7 @@ public class AssetPlusFeatureSet4Controller {
    * @return An error message if the ticket doesn't exist or if starting the ticket fails, or an empty string on success.
    */
   // check that ticketId exists
-  public static String StartWorkOnMaintenanceTicket(String ticketId) {
+  public static String StartWorkOnMaintenanceTicket(String ticketId) { // ticketId should be int
     // Input validation
     try {
       Integer.parseInt(ticketId);
@@ -266,7 +266,7 @@ public class AssetPlusFeatureSet4Controller {
    * @return An error message if the ticket doesn't exist or if completing the ticket fails, or an empty string on success.
    */
   // check that ticketId exists
-  public static String CompleteWorkOnMaintenanceTicket(String ticketId) {
+  public static String CompleteWorkOnMaintenanceTicket(String ticketId) { // ticketID should be int
     // Input validation
     try {
       Integer.parseInt(ticketId);
@@ -302,7 +302,7 @@ public class AssetPlusFeatureSet4Controller {
    * @return An error message if the ticket doesn't exist or if approving the ticket fails, or an empty string on success.
    */
   // check that ticketId exists
-  public static String ApproveWorkOnMaintenanceTicket(String ticketId) {
+  public static String ApproveWorkOnMaintenanceTicket(String ticketId) { // ticketID should be int
     // Input validation
     try {
       Integer.parseInt(ticketId);
