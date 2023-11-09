@@ -210,7 +210,7 @@ public class AssetPlusFeatureSet4Controller {
 
     // Ensure ticket is not null
     if (ticket == null) {
-      error = "Maintenance ticket does not exists.";
+      error = "Maintenance ticket does not exist.";
       return error;
     }
 
@@ -252,7 +252,7 @@ public class AssetPlusFeatureSet4Controller {
     MaintenanceTicket targetTicket = MaintenanceTicket.getWithId(Integer.parseInt(ticketId));
 
     if (targetTicket == null) {
-      return "The maintenance ticket you are looking for does not exist";
+      return "Maintenance ticket does not exist.";
     } else {
       try {
         targetTicket.startTicket();
@@ -283,7 +283,7 @@ public class AssetPlusFeatureSet4Controller {
     MaintenanceTicket targetTicket = MaintenanceTicket.getWithId(Integer.parseInt(ticketId));
     
     if (targetTicket == null) {
-      return "The maintenance ticket you are looking for does not exist";
+      return "Maintenance ticket does not exist.";
     } else {
       try {
         targetTicket.closeTicket();
@@ -313,7 +313,7 @@ public class AssetPlusFeatureSet4Controller {
     MaintenanceTicket targetTicket = MaintenanceTicket.getWithId(Integer.parseInt(ticketId));
     
     if (targetTicket == null) {
-      return "The maintenance ticket you are looking for does not exist";
+      return "Maintenance ticket does not exist.";
     } else {
       try {
         targetTicket.approveTicket();

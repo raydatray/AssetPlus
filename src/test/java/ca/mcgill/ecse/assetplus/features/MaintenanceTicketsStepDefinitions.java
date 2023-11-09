@@ -2,19 +2,16 @@ package ca.mcgill.ecse.assetplus.features;
 
 import java.util.*;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import java.net.Inet4Address;
 import java.sql.Date;
 import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet4Controller;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet6Controller;
-import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet7Controller;
 import ca.mcgill.ecse.assetplus.controller.TOMaintenanceTicket;
 import ca.mcgill.ecse.assetplus.model.AssetPlus;
 import ca.mcgill.ecse.assetplus.model.AssetType;
-import ca.mcgill.ecse.assetplus.model.Employee;
-import ca.mcgill.ecse.assetplus.model.Guest;
 import ca.mcgill.ecse.assetplus.model.HotelStaff;
 import ca.mcgill.ecse.assetplus.model.MaintenanceNote;
 import ca.mcgill.ecse.assetplus.model.MaintenanceTicket;
@@ -27,7 +24,6 @@ import ca.mcgill.ecse.assetplus.model.MaintenanceTicket.TimeEstimate;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import javafx.scene.layout.Priority;
 
 public class MaintenanceTicketsStepDefinitions {
 
@@ -104,7 +100,7 @@ public class MaintenanceTicketsStepDefinitions {
       // Instantiate new maintenance ticket
       MaintenanceTicket newMaintenanceTicket = new MaintenanceTicket(Integer.parseInt(row.get("id")), Date.valueOf(row.get("raisedOnDate")), row.get("description"), assetPlus, ticketRaiser);
       // Add specific assets to the new maintenance ticket if applicable
-      if (!(row.get("assetNumber").isEmpty())) {
+      if (!(row.get("assetNumber") == null)) {
         newMaintenanceTicket.setAsset(SpecificAsset.getWithAssetNumber(Integer.parseInt(row.get("assetNumber"))));
       }
 
@@ -224,26 +220,28 @@ public class MaintenanceTicketsStepDefinitions {
     PriorityLevel priority = PriorityLevel.Low;
     Manager manager = assetPlus.getManager();
     
+    Boolean requiresManagerApproval = false;
     // Set maintenance ticket fix approver if applicable
     if (requiresApproval.equals("true")) {
+      requiresManagerApproval = true;
       targetTicket.setFixApprover(assetPlus.getManager());
     }
     // Set state of the maintenance ticket
     switch (state) {
       case "Assigned":
-        targetTicket.assign(ticketFixer, timeEstimate, priority, false, manager);
+        targetTicket.assign(ticketFixer, timeEstimate, priority, requiresManagerApproval, manager);
         break;
       case "InProgress":
-        targetTicket.assign(ticketFixer, timeEstimate, priority, false, manager);
+        targetTicket.assign(ticketFixer, timeEstimate, priority, requiresManagerApproval, manager);
         targetTicket.startTicket();
         break;
       case "Resolved":
-        targetTicket.assign(ticketFixer, timeEstimate, priority, true, manager);
+        targetTicket.assign(ticketFixer, timeEstimate, priority, requiresManagerApproval, manager);
         targetTicket.startTicket();
         targetTicket.closeTicket();
         break;
       case "Closed":
-        targetTicket.assign(ticketFixer, timeEstimate, priority, false, manager);
+        targetTicket.assign(ticketFixer, timeEstimate, priority, requiresManagerApproval, manager);
         targetTicket.startTicket();
         targetTicket.closeTicket();
         break;
@@ -259,9 +257,9 @@ public class MaintenanceTicketsStepDefinitions {
    */
 
   @Given("ticket {string} is marked as {string}")
-  public void ticket_is_marked_as(String string, String string2) {
+  public void ticket_is_marked_as(String ticketId, String status) {
     // Fetch maintenance ticket from the system
-    MaintenanceTicket targetTicket = MaintenanceTicket.getWithId(Integer.parseInt(string));
+    MaintenanceTicket targetTicket = MaintenanceTicket.getWithId(Integer.parseInt(ticketId));
     
     // ===== DUMMY VALUES =====
     HotelStaff ticketFixer = (HotelStaff) assetPlus.getManager();
@@ -270,21 +268,21 @@ public class MaintenanceTicketsStepDefinitions {
     Manager manager = assetPlus.getManager();
     
     // Setting the maintenance ticket's state
-    switch (string2) {
+    switch (status) {
       case "Assigned":
-        targetTicket.assign(ticketFixer, timeEstimate, priority, false, manager);
+        targetTicket.assign(ticketFixer, timeEstimate, priority, targetTicket.hasFixApprover(), manager);
         break;
       case "InProgress":
-        targetTicket.assign(ticketFixer, timeEstimate, priority, false, manager);
+        targetTicket.assign(ticketFixer, timeEstimate, priority, targetTicket.hasFixApprover(), manager);
         targetTicket.startTicket();
         break;
       case "Resolved":
-        targetTicket.assign(ticketFixer, timeEstimate, priority, true, manager);
+        targetTicket.assign(ticketFixer, timeEstimate, priority, targetTicket.hasFixApprover(), manager);
         targetTicket.startTicket();
         targetTicket.closeTicket();
         break;
       case "Closed":
-        targetTicket.assign(ticketFixer, timeEstimate, priority, false, manager);
+        targetTicket.assign(ticketFixer, timeEstimate, priority, targetTicket.hasFixApprover(), manager);
         targetTicket.startTicket();
         targetTicket.closeTicket();
         break;
@@ -330,7 +328,7 @@ public class MaintenanceTicketsStepDefinitions {
   @When("the manager attempts to approve the ticket {string}")
   public void the_manager_attempts_to_approve_the_ticket(String ticketID) {
     // Write code here that turns the phrase above into concrete actions
-    error = AssetPlusFeatureSet4Controller.CompleteWorkOnMaintenanceTicket(ticketID); //calling controller method
+    error = AssetPlusFeatureSet4Controller.ApproveWorkOnMaintenanceTicket(ticketID); //calling controller method
   }
 
   /**
@@ -353,7 +351,7 @@ public class MaintenanceTicketsStepDefinitions {
     // Write code here that turns the phrase above into concrete actions
   
     //calling controller method
-    error = AssetPlusFeatureSet4Controller.DisapproveWorkOnMaintenanceTicket(Integer.parseInt(ticketID), Date.valueOf(dateDisapproved.trim()), reason);   
+    error = AssetPlusFeatureSet4Controller.DisapproveWorkOnMaintenanceTicket(Integer.parseInt(ticketID), Date.valueOf(dateDisapproved.trim()), reason);
   }
 
   /**
@@ -361,15 +359,13 @@ public class MaintenanceTicketsStepDefinitions {
    */
 
   @Then("the ticket {string} shall be marked as {string}")
-  public void the_ticket_shall_be_marked_as(String string, String string2) {
+  public void the_ticket_shall_be_marked_as(String ticketId, String status) {
     // Colin
     // Write code here that turns the phrase above into concrete actions
-    String ticketId = string;
-    String description = string2;
     MaintenanceTicket maintenanceTicket = MaintenanceTicket.getWithId(Integer.parseInt(ticketId));
 
     assertNotNull(maintenanceTicket); // Making sure that the ticket exists
-    assertEquals(maintenanceTicket.getDescription(), description); // Making sure that the description matches
+    assertEquals(maintenanceTicket.getStatus().toString(), status); // Making sure that the description matches
   }
 
   /**
@@ -377,11 +373,9 @@ public class MaintenanceTicketsStepDefinitions {
    */
 
   @Then("the system shall raise the error {string}")
-  public void the_system_shall_raise_the_error(String string) {
+  public void the_system_shall_raise_the_error(String errorMessage) {
     // Colin
     // Write code here that turns the phrase above into concrete actions
-    String errorMessage = string;
-
     assertEquals(errorMessage, error);
   }
 
@@ -390,12 +384,12 @@ public class MaintenanceTicketsStepDefinitions {
    */
 
   @Then("the ticket {string} shall not exist in the system")
-  public void the_ticket_shall_not_exist_in_the_system(String string) {
+  public void the_ticket_shall_not_exist_in_the_system(String ticketId) {
     // Colin
     // Write code here that turns the phrase above into concrete actions
-    MaintenanceTicket maintenanceTicket = MaintenanceTicket.getWithId(Integer.parseInt(string));
+    MaintenanceTicket maintenanceTicket = MaintenanceTicket.getWithId(Integer.parseInt(ticketId));
 
-    maintenanceTicket.delete();
+    assertNull(maintenanceTicket);
   }
 
   /**
@@ -403,52 +397,53 @@ public class MaintenanceTicketsStepDefinitions {
    */
 
   @Then("the ticket {string} shall have estimated time {string}, priority {string}, and requires approval {string}")
-  public void the_ticket_shall_have_estimated_time_priority_and_requires_approval(String string,
-      String string2, String string3, String string4) {
+  public void the_ticket_shall_have_estimated_time_priority_and_requires_approval(String ticketId,
+      String estimatedTime, String priority, String requiresApproval) {
     // Colin
     // Write code here that turns the phrase above into concrete actions
-    String estimatedTime = string2;
-    String priority = string3;
-    String requiresApproval = string4;
 
-    MaintenanceTicket maintenanceTicket = MaintenanceTicket.getWithId(Integer.parseInt(string));
+    MaintenanceTicket maintenanceTicket = MaintenanceTicket.getWithId(Integer.parseInt(ticketId));
 
+    assertNotNull(maintenanceTicket);
+    assertEquals(TimeEstimate.valueOf(estimatedTime), maintenanceTicket.getTimeToResolve());
+    assertEquals(PriorityLevel.valueOf(priority), maintenanceTicket.getPriority());
+    assertEquals(requiresApproval, Boolean.toString(maintenanceTicket.hasFixApprover()));
     // Set proper attributes
-    if (maintenanceTicket != null) {   
-      switch (estimatedTime) {
-        case "LessThanADay":
-          maintenanceTicket.setTimeToResolve(TimeEstimate.LessThanADay);
-          break;
-        case "OneToThreeDays":
-          maintenanceTicket.setTimeToResolve(TimeEstimate.OneToThreeDays);
-          break;
-        case "ThreeToSevenDays":
-          maintenanceTicket.setTimeToResolve(TimeEstimate.ThreeToSevenDays);
-          break;
-        case "OneToThreeWeeks":
-          maintenanceTicket.setTimeToResolve(TimeEstimate.OneToThreeWeeks);
-          break;
-        case "ThreeOrMoreWeeks":
-          maintenanceTicket.setTimeToResolve(TimeEstimate.OneToThreeWeeks);
-          break;
-      }
+    // if (maintenanceTicket != null) {   
+    //   switch (estimatedTime) {
+    //     case "LessThanADay":
+    //       maintenanceTicket.setTimeToResolve(TimeEstimate.LessThanADay);
+    //       break;
+    //     case "OneToThreeDays":
+    //       maintenanceTicket.setTimeToResolve(TimeEstimate.OneToThreeDays);
+    //       break;
+    //     case "ThreeToSevenDays":
+    //       maintenanceTicket.setTimeToResolve(TimeEstimate.ThreeToSevenDays);
+    //       break;
+    //     case "OneToThreeWeeks":
+    //       maintenanceTicket.setTimeToResolve(TimeEstimate.OneToThreeWeeks);
+    //       break;
+    //     case "ThreeOrMoreWeeks":
+    //       maintenanceTicket.setTimeToResolve(TimeEstimate.OneToThreeWeeks);
+    //       break;
+    //   }
 
-      switch (priority) {
-      case "Urgent":
-        maintenanceTicket.setPriority(PriorityLevel.Urgent);
-        break;
-      case "Normal":
-        maintenanceTicket.setPriority(PriorityLevel.Normal);
-        break;
-      case "Low":
-        maintenanceTicket.setPriority(PriorityLevel.Low);
-        break;
-      }
+    //   switch (priority) {
+    //   case "Urgent":
+    //     maintenanceTicket.setPriority(PriorityLevel.Urgent);
+    //     break;
+    //   case "Normal":
+    //     maintenanceTicket.setPriority(PriorityLevel.Normal);
+    //     break;
+    //   case "Low":
+    //     maintenanceTicket.setPriority(PriorityLevel.Low);
+    //     break;
+    //   }
 
-      if (maintenanceTicket.hasFixApprover() == Boolean.parseBoolean(requiresApproval)) {
-        maintenanceTicket.setFixApprover(assetPlus.getManager());
-      }
-    }
+    //   if (maintenanceTicket.hasFixApprover() == Boolean.parseBoolean(requiresApproval)) {
+    //     maintenanceTicket.setFixApprover(assetPlus.getManager());
+    //   }
+    // }
 
   }
 
@@ -457,14 +452,16 @@ public class MaintenanceTicketsStepDefinitions {
    */
 
   @Then("the ticket {string} shall be assigned to {string}")
-  public void the_ticket_shall_be_assigned_to(String string, String string2) {
+  public void the_ticket_shall_be_assigned_to(String ticketId, String employeeEmail) {
     // Houman
     // Write code here that turns the phrase above into concrete actions
-    int ticketId = Integer.parseInt(string);
-    MaintenanceTicket tickeToAssign = assetPlus.getMaintenanceTicket(ticketId);
-    String employeeEmail = string2;
-    error = AssetPlusFeatureSet4Controller.AssignHotelStaffToMaintenanceTicket(ticketId, employeeEmail, tickeToAssign.getTimeToResolve(), tickeToAssign.getPriority(), tickeToAssign.hasFixApprover(), assetPlus.getManager().getEmail());
-  }
+
+    MaintenanceTicket targetTicket = assetPlus.getMaintenanceTicket(Integer.parseInt(ticketId));
+    User ticketFixer = (HotelStaff) User.getWithEmail(employeeEmail);
+
+    assertNotNull(targetTicket);
+    assertEquals(ticketFixer, targetTicket.getTicketFixer());
+    }
 
   /**
    * @author Houman Azari
@@ -477,8 +474,8 @@ public class MaintenanceTicketsStepDefinitions {
     int expectedAmountOfTickets = Integer.parseInt(string);
     int amountOfTickets = assetPlus.numberOfMaintenanceTickets();
     //Checking if the the two numbers are equal
-    assertEquals(expectedAmountOfTickets, amountOfTickets); 
-    }  
+    assertEquals(expectedAmountOfTickets, amountOfTickets);
+    }
 
   /**
    * @author Houman Azari
@@ -489,14 +486,45 @@ public class MaintenanceTicketsStepDefinitions {
       io.cucumber.datatable.DataTable dataTable) {
     // Houman
         // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
-    // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    //
-    // For other transformations you can register a DataTableType.
-    List<Map<String, String>> ticketList = dataTable.asMaps(String.class, String.class);
-    System.out.println(ticketList);
+    List<List<String>> rows = dataTable.asLists();
+
+    for (MaintenanceTicket ticket : assetPlus.getMaintenanceTickets()){
+      List<String> ticketAsList = new ArrayList<String>();
+      ticketAsList.add(""+ticket.getId());
+      ticketAsList.add(ticket.getTicketRaiser().getEmail());
+      ticketAsList.add(ticket.getRaisedOnDate().toString());
+      ticketAsList.add(ticket.getDescription());
+      if (ticket.getAsset() == null){
+        ticketAsList.add(null);
+        ticketAsList.add(null);
+        ticketAsList.add(null);
+        ticketAsList.add(null);
+        ticketAsList.add(null);
+      }
+      else{
+        ticketAsList.add(ticket.getAsset().getAssetType().getName());
+        ticketAsList.add(""+ticket.getAsset().getAssetType().getExpectedLifeSpan());
+        ticketAsList.add(ticket.getAsset().getPurchaseDate().toString());
+        ticketAsList.add(""+ticket.getAsset().getFloorNumber());
+        ticketAsList.add(""+ticket.getAsset().getRoomNumber());
+      }
+      if (ticket.getStatusFullName().equals("Open")){
+        ticketAsList.add(ticket.getStatusFullName());
+        ticketAsList.add(null);
+        ticketAsList.add(null);
+        ticketAsList.add(null);
+        ticketAsList.add(null);
+      }
+      else{
+        ticketAsList.add(ticket.getStatusFullName());
+        ticketAsList.add(ticket.getTicketFixer().getEmail());
+        ticketAsList.add(ticket.getTimeToResolve().toString());
+        ticketAsList.add(ticket.getPriority().toString());
+        ticketAsList.add(Boolean.toString(ticket.hasFixApprover()));
+
+        assertTrue(rows.contains(ticketAsList));
+      }
+    }
   }
 
   /**
