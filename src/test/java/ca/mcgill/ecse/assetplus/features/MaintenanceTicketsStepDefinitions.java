@@ -301,7 +301,7 @@ public class MaintenanceTicketsStepDefinitions {
 
   @When("the manager attempts to view all maintenance tickets in the system")
   public void the_manager_attempts_to_view_all_maintenance_tickets_in_the_system() {
-    tickets = AssetPlusFeatureSet6Controller.getTickets(); // Is this correct???
+    tickets = AssetPlusFeatureSet6Controller.getTickets();
   }
 
   /**
@@ -462,7 +462,7 @@ public class MaintenanceTicketsStepDefinitions {
     // Write code here that turns the phrase above into concrete actions
     int ticketId = Integer.parseInt(string);
     MaintenanceTicket tickeToAssign = assetPlus.getMaintenanceTicket(ticketId);
-    string employeeEmail = string2;
+    String employeeEmail = string2;
     error = AssetPlusFeatureSet4Controller.AssignHotelStaffToMaintenanceTicket(ticketId, employeeEmail, tickeToAssign.getTimeToResolve(), tickeToAssign.getPriority(), tickeToAssign.hasFixApprover(), assetPlus.getManager().getEmail());
   }
 
