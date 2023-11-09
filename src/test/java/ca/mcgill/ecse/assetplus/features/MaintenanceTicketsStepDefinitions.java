@@ -97,7 +97,7 @@ public class MaintenanceTicketsStepDefinitions {
   public void the_following_tickets_exist_in_the_system(io.cucumber.datatable.DataTable dataTable) {
     // Retrieving the data from the feature file in a usable format
     List<Map<String, String>> rows = dataTable.asMaps();
-    // Iterate through the list
+
     for (Map<String, String> row: rows) {
       // Get appropriate user who is the ticket raiser
       User ticketRaiser = User.getWithEmail(row.get("ticketRaiser"));
@@ -112,47 +112,12 @@ public class MaintenanceTicketsStepDefinitions {
       if (row.containsKey("timeToResolve")) {
         // Check if the state is not open (... to initialize appropriate variables)
         if (!(row.get("status").equals("Open"))) {
-          // Ticket fixer
+          // Storing values in variables
           HotelStaff ticketFixer = (HotelStaff) User.getWithEmail(row.get("fixedByEmail"));
-          // Time to resolve
-          TimeEstimate timeEstimate = null;
-          switch (row.get("timeToResolve")) {
-            case "LessThanADay":
-              timeEstimate = TimeEstimate.LessThanADay;
-              break;
-            case "OneToThreeDays":
-              timeEstimate = TimeEstimate.OneToThreeDays;
-              break;
-            case "ThreeToSevenDays":
-              timeEstimate = TimeEstimate.ThreeToSevenDays;
-            case "OneToThreeWeeks":
-              timeEstimate = TimeEstimate.OneToThreeWeeks;
-              break;
-            case "ThreeOrMoreWeeks":
-              timeEstimate = TimeEstimate.ThreeOrMoreWeeks;
-              break;
-            default:
-              // Do nothing
-              break;
-          }
-          // Priority level
-          PriorityLevel priorityLevel = null;
-          switch (row.get("priority")) {
-            case "Low":
-              priorityLevel = PriorityLevel.Low;
-              break;
-            case "Normal":
-              priorityLevel = PriorityLevel.Normal;
-              break;
-            case "Urgent":
-              priorityLevel = PriorityLevel.Urgent;
-              break;
-            default:
-              // Do nothing
-              break;
-          }
-          // Requires fix approver
+          TimeEstimate timeEstimate = TimeEstimate.valueOf(row.get("timeToResolve"));
+          PriorityLevel priorityLevel = PriorityLevel.valueOf(row.get("priority"));
           Boolean isApprovalRequired = row.get("approvalRequired").equals("true");
+
           // Set the new maintenance ticket's state
           switch (row.get("status")) {
             case "Assigned":
