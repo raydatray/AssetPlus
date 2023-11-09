@@ -445,7 +445,7 @@ public class MaintenanceTicketsStepDefinitions {
         break;
       }
 
-      if (maintenanceTicket.hasFixApprover()) {
+      if (maintenanceTicket.hasFixApprover() == Boolean.parseBoolean(requiresApproval)) {
         maintenanceTicket.setFixApprover(assetPlus.getManager());
       }
     }
