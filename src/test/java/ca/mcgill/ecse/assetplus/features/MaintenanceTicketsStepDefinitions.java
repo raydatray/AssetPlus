@@ -497,7 +497,6 @@ public class MaintenanceTicketsStepDefinitions {
     // For other transformations you can register a DataTableType.
     List<Map<String, String>> ticketList = dataTable.asMaps(String.class, String.class);
     System.out.println(ticketList);
-    throw new io.cucumber.java.PendingException();
   }
 
   /**
