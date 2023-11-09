@@ -8,6 +8,7 @@ import java.net.Inet4Address;
 import java.sql.Date;
 import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet4Controller;
+import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet6Controller;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet7Controller;
 import ca.mcgill.ecse.assetplus.controller.TOMaintenanceTicket;
 import ca.mcgill.ecse.assetplus.model.AssetPlus;
@@ -300,7 +301,7 @@ public class MaintenanceTicketsStepDefinitions {
 
   @When("the manager attempts to view all maintenance tickets in the system")
   public void the_manager_attempts_to_view_all_maintenance_tickets_in_the_system() {
-    //error = AssetPlusFeatureSet4Controller.;
+    tickets = AssetPlusFeatureSet6Controller.getTickets(); // Is this correct???
   }
 
   /**
