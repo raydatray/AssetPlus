@@ -107,71 +107,74 @@ public class MaintenanceTicketsStepDefinitions {
         newMaintenanceTicket.setAsset(SpecificAsset.getWithAssetNumber(Integer.parseInt(row.get("assetNumber"))));
       }
 
-      // Check if the state is not open (... to initialize appropriate variables)
-      if (!(row.get("status").equals("Open"))) {
-        // Ticket fixer
-        HotelStaff ticketFixer = (HotelStaff) User.getWithEmail(row.get("fixedByEmail"));
-        // Time to resolve
-        TimeEstimate timeEstimate = null;
-        switch (row.get("timeToResolve")) {
-          case "LessThanADay":
-            timeEstimate = TimeEstimate.LessThanADay;
-            break;
-          case "OneToThreeDays":
-            timeEstimate = TimeEstimate.OneToThreeDays;
-            break;
-          case "ThreeToSevenDays":
-            timeEstimate = TimeEstimate.ThreeToSevenDays;
-          case "OneToThreeWeeks":
-            timeEstimate = TimeEstimate.OneToThreeWeeks;
-            break;
-          case "ThreeOrMoreWeeks":
-            timeEstimate = TimeEstimate.ThreeOrMoreWeeks;
-            break;
-          default:
-            // Do nothing
-            break;
-        }
-        // Priority level
-        PriorityLevel priorityLevel = null;
-        switch (row.get("priority")) {
-          case "Low":
-            priorityLevel = PriorityLevel.Low;
-            break;
-          case "Normal":
-            priorityLevel = PriorityLevel.Normal;
-            break;
-          case "Urgent":
-            priorityLevel = PriorityLevel.Urgent;
-            break;
-          default:
-            // Do nothing
-            break;
-        }
-        // Requires fix approver
-        Boolean isApprovalRequired = row.get("approvalRequired").equals("true");
-        // Set the new maintenance ticket's state
-        switch (row.get("status")) {
-          case "Assigned":
-            newMaintenanceTicket.assign(ticketFixer, timeEstimate, priorityLevel, isApprovalRequired, assetPlus.getManager());
-            break;
-          case "InProgress":
-            newMaintenanceTicket.assign(ticketFixer, timeEstimate, priorityLevel, isApprovalRequired, assetPlus.getManager());
-            newMaintenanceTicket.startTicket();
-            break;
-          case "Resolved":
-            newMaintenanceTicket.assign(ticketFixer, timeEstimate, priorityLevel, isApprovalRequired, assetPlus.getManager());
-            newMaintenanceTicket.startTicket();
-            newMaintenanceTicket.closeTicket();
-            break;
-          case "Closed":
-            newMaintenanceTicket.assign(ticketFixer, timeEstimate, priorityLevel, isApprovalRequired, assetPlus.getManager());
-            newMaintenanceTicket.startTicket();
-            newMaintenanceTicket.closeTicket();
-            break;
-          default:
-            // Do nothing
-            break;
+      // Check if table has a column called timeToResolve
+      if (row.containsKey("timeToResolve")) {
+        // Check if the state is not open (... to initialize appropriate variables)
+        if (!(row.get("status").equals("Open"))) {
+          // Ticket fixer
+          HotelStaff ticketFixer = (HotelStaff) User.getWithEmail(row.get("fixedByEmail"));
+          // Time to resolve
+          TimeEstimate timeEstimate = null;
+          switch (row.get("timeToResolve")) {
+            case "LessThanADay":
+              timeEstimate = TimeEstimate.LessThanADay;
+              break;
+            case "OneToThreeDays":
+              timeEstimate = TimeEstimate.OneToThreeDays;
+              break;
+            case "ThreeToSevenDays":
+              timeEstimate = TimeEstimate.ThreeToSevenDays;
+            case "OneToThreeWeeks":
+              timeEstimate = TimeEstimate.OneToThreeWeeks;
+              break;
+            case "ThreeOrMoreWeeks":
+              timeEstimate = TimeEstimate.ThreeOrMoreWeeks;
+              break;
+            default:
+              // Do nothing
+              break;
+          }
+          // Priority level
+          PriorityLevel priorityLevel = null;
+          switch (row.get("priority")) {
+            case "Low":
+              priorityLevel = PriorityLevel.Low;
+              break;
+            case "Normal":
+              priorityLevel = PriorityLevel.Normal;
+              break;
+            case "Urgent":
+              priorityLevel = PriorityLevel.Urgent;
+              break;
+            default:
+              // Do nothing
+              break;
+          }
+          // Requires fix approver
+          Boolean isApprovalRequired = row.get("approvalRequired").equals("true");
+          // Set the new maintenance ticket's state
+          switch (row.get("status")) {
+            case "Assigned":
+              newMaintenanceTicket.assign(ticketFixer, timeEstimate, priorityLevel, isApprovalRequired, assetPlus.getManager());
+              break;
+            case "InProgress":
+              newMaintenanceTicket.assign(ticketFixer, timeEstimate, priorityLevel, isApprovalRequired, assetPlus.getManager());
+              newMaintenanceTicket.startTicket();
+              break;
+            case "Resolved":
+              newMaintenanceTicket.assign(ticketFixer, timeEstimate, priorityLevel, isApprovalRequired, assetPlus.getManager());
+              newMaintenanceTicket.startTicket();
+              newMaintenanceTicket.closeTicket();
+              break;
+            case "Closed":
+              newMaintenanceTicket.assign(ticketFixer, timeEstimate, priorityLevel, isApprovalRequired, assetPlus.getManager());
+              newMaintenanceTicket.startTicket();
+              newMaintenanceTicket.closeTicket();
+              break;
+            default:
+              // Do nothing
+              break;
+          }
         }
       }
     }
@@ -211,9 +214,15 @@ public class MaintenanceTicketsStepDefinitions {
   @Given("ticket {string} is marked as {string} with requires approval {string}")
   public void ticket_is_marked_as_with_requires_approval(String ticketId, String state,
       String requiresApproval) {
-
+    // Fetch specific ticket
     MaintenanceTicket targetTicket = MaintenanceTicket.getWithId(Integer.parseInt(ticketId));
-
+    
+    // ===== DUMMY VALUES =====
+    HotelStaff ticketFixer = (HotelStaff) assetPlus.getManager();
+    TimeEstimate timeEstimate = TimeEstimate.LessThanADay;
+    PriorityLevel priority = PriorityLevel.Low;
+    Manager manager = assetPlus.getManager();
+    
     // Set maintenance ticket fix approver if applicable
     if (requiresApproval.equals("true")) {
       targetTicket.setFixApprover(assetPlus.getManager());
@@ -221,19 +230,19 @@ public class MaintenanceTicketsStepDefinitions {
     // Set state of the maintenance ticket
     switch (state) {
       case "Assigned":
-        targetTicket.assign(null, null, null, false, null);
+        targetTicket.assign(ticketFixer, timeEstimate, priority, false, manager);
         break;
       case "InProgress":
-        targetTicket.assign(null, null, null, false, null);
+        targetTicket.assign(ticketFixer, timeEstimate, priority, false, manager);
         targetTicket.startTicket();
         break;
       case "Resolved":
-        targetTicket.assign(null, null, null, false, null);
+        targetTicket.assign(ticketFixer, timeEstimate, priority, true, manager);
         targetTicket.startTicket();
         targetTicket.closeTicket();
         break;
       case "Closed":
-        targetTicket.assign(null, null, null, false, null);
+        targetTicket.assign(ticketFixer, timeEstimate, priority, false, manager);
         targetTicket.startTicket();
         targetTicket.closeTicket();
         break;
@@ -252,23 +261,29 @@ public class MaintenanceTicketsStepDefinitions {
   public void ticket_is_marked_as(String string, String string2) {
     // Fetch maintenance ticket from the system
     MaintenanceTicket targetTicket = MaintenanceTicket.getWithId(Integer.parseInt(string));
+    
+    // ===== DUMMY VALUES =====
+    HotelStaff ticketFixer = (HotelStaff) assetPlus.getManager();
+    TimeEstimate timeEstimate = TimeEstimate.LessThanADay;
+    PriorityLevel priority = PriorityLevel.Low;
+    Manager manager = assetPlus.getManager();
+    
     // Setting the maintenance ticket's state
     switch (string2) {
       case "Assigned":
-        targetTicket.assign(null, null, null, false, null);
+        targetTicket.assign(ticketFixer, timeEstimate, priority, false, manager);
         break;
       case "InProgress":
-        targetTicket.assign(null, null, null, false, null);
+        targetTicket.assign(ticketFixer, timeEstimate, priority, false, manager);
         targetTicket.startTicket();
         break;
       case "Resolved":
-        targetTicket.assign(null, null, null, false, null);
+        targetTicket.assign(ticketFixer, timeEstimate, priority, true, manager);
         targetTicket.startTicket();
-        targetTicket.setFixApprover(assetPlus.getManager());
         targetTicket.closeTicket();
         break;
       case "Closed":
-        targetTicket.assign(null, null, null, false, null);
+        targetTicket.assign(ticketFixer, timeEstimate, priority, false, manager);
         targetTicket.startTicket();
         targetTicket.closeTicket();
         break;
