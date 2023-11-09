@@ -460,17 +460,10 @@ public class MaintenanceTicketsStepDefinitions {
   public void the_ticket_shall_be_assigned_to(String string, String string2) {
     // Houman
     // Write code here that turns the phrase above into concrete actions
-    String employeeEmail = string2;
-    for (Employee employee: assetPlus.getEmployees()) {
-      if (employee.getEmail().equals(employeeEmail)) {
-        Employee assignedEmployee = employee;
-        MaintenanceTicket ticketToAssign = assetPlus.getMaintenanceTicket(Integer.parseInt(string)); //Ticket to assign
-        ticketToAssign.setTicketFixer(assignedEmployee);
-      }
-      else {
-        throw new io.cucumber.java.PendingException();
-      }
-    }
+    int ticketId = Integer.parseInt(string);
+    MaintenanceTicket tickeToAssign = assetPlus.getMaintenanceTicket(ticketId);
+    string employeeEmail = string2;
+    error = AssetPlusFeatureSet4Controller.AssignHotelStaffToMaintenanceTicket(ticketId, employeeEmail, tickeToAssign.getTimeToResolve(), tickeToAssign.getPriority(), tickeToAssign.hasFixApprover(), assetPlus.getManager().getEmail());
   }
 
   /**
