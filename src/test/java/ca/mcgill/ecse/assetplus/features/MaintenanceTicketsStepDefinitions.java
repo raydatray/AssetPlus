@@ -477,10 +477,8 @@ public class MaintenanceTicketsStepDefinitions {
     int expectedAmountOfTickets = Integer.parseInt(string);
     int amountOfTickets = assetPlus.numberOfMaintenanceTickets();
     //Checking if the the two numbers are equal
-    if (amountOfTickets == expectedAmountOfTickets) {
-      amountOfTickets = expectedAmountOfTickets; 
+    assertEquals(expectedAmountOfTickets, amountOfTickets); 
     }  
-  }
 
   /**
    * @author Houman Azari
