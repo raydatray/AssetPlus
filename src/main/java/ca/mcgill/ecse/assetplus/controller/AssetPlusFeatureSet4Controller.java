@@ -1,7 +1,6 @@
 package ca.mcgill.ecse.assetplus.controller;
 
 import java.sql.Date;
-import com.ibm.jvm.j9.dump.extract.Main;
 import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
 import ca.mcgill.ecse.assetplus.model.AssetPlus;
 import ca.mcgill.ecse.assetplus.model.HotelStaff; // import

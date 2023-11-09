@@ -310,7 +310,7 @@ public class MaintenanceTicketsStepDefinitions {
   @When("the manager attempts to assign the ticket {string} to {string} with estimated time {string}, priority {string}, and requires approval {string}")
   public void the_manager_attempts_to_assign_the_ticket_to_with_estimated_time_priority_and_requires_approval(
       String ticketId, String employeeEmail, String timeEstimate, String priority, String requiresApproval) {
-    error = AssetPlusFeatureSet4Controller.AssignHotelStaffToMaintenanceTicket(Integer.parseInt(ticketId), employeeEmail, TimeEstimate.valueOf(timeEstimate.trim()), Priority.valueOf(priority.trim()), Boolean.parseBoolean(requiresApproval), "manager@ap.com"); // calling controller method
+    error = AssetPlusFeatureSet4Controller.AssignHotelStaffToMaintenanceTicket(Integer.parseInt(ticketId), employeeEmail, TimeEstimate.valueOf(timeEstimate.trim()), PriorityLevel.valueOf(priority.trim()), Boolean.parseBoolean(requiresApproval), "manager@ap.com"); // calling controller method
   }
 
   /**
