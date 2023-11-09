@@ -1,6 +1,7 @@
 package ca.mcgill.ecse.assetplus.controller;
 
 import java.sql.Date;
+import com.ibm.jvm.j9.dump.extract.Main;
 import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
 import ca.mcgill.ecse.assetplus.model.AssetPlus;
 import ca.mcgill.ecse.assetplus.model.HotelStaff; // import
@@ -248,14 +249,8 @@ public class AssetPlusFeatureSet4Controller {
     } catch (Exception e) {
       return "Invalid input";
     }
-
-    MaintenanceTicket targetTicket = null;
-
-    for (MaintenanceTicket ticket: assetPlus.getMaintenanceTickets()) {
-      if (ticket.getId() == Integer.parseInt(ticketId)) {
-        targetTicket = ticket;
-      }
-    }
+    // Fetch maintenance ticket from system
+    MaintenanceTicket targetTicket = MaintenanceTicket.getWithId(Integer.parseInt(ticketId));
 
     if (targetTicket == null) {
       return "The maintenance ticket you are looking for does not exist";
@@ -285,15 +280,9 @@ public class AssetPlusFeatureSet4Controller {
     } catch (Exception e) {
       return "Invalid input";
     }
-
-    MaintenanceTicket targetTicket = null;
-
-    for (MaintenanceTicket ticket: assetPlus.getMaintenanceTickets()) {
-      if (ticket.getId() == Integer.parseInt(ticketId)) {
-        targetTicket = ticket;
-      }
-    }
-
+    // Fetch maintenance ticket from system
+    MaintenanceTicket targetTicket = MaintenanceTicket.getWithId(Integer.parseInt(ticketId));
+    
     if (targetTicket == null) {
       return "The maintenance ticket you are looking for does not exist";
     } else {
@@ -314,23 +303,16 @@ public class AssetPlusFeatureSet4Controller {
    * @param ticketId The ID of the maintenance ticket.
    * @return An error message if the ticket doesn't exist or if approving the ticket fails, or an empty string on success.
    */
-  // check that ticketId exists
-  public static String ApproveWorkOnMaintenanceTicket(String ticketId) { // ticketID should be int
+  public static String ApproveWorkOnMaintenanceTicket(String ticketId) {
     // Input validation
     try {
       Integer.parseInt(ticketId);
     } catch (Exception e) {
       return "Invalid input";
     }
-
-    MaintenanceTicket targetTicket = null;
-
-    for (MaintenanceTicket ticket: assetPlus.getMaintenanceTickets()) {
-      if (ticket.getId() == Integer.parseInt(ticketId)) {
-        targetTicket = ticket;
-      }
-    }
-
+    // Fetch maintenance ticket from system
+    MaintenanceTicket targetTicket = MaintenanceTicket.getWithId(Integer.parseInt(ticketId));
+    
     if (targetTicket == null) {
       return "The maintenance ticket you are looking for does not exist";
     } else {
