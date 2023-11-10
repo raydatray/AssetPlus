@@ -1,5 +1,6 @@
 package ca.mcgill.ecse.assetplus.controller;
 
+import javax.swing.text.html.HTMLDocument.RunElement;
 import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
 import ca.mcgill.ecse.assetplus.model.*;
 import ca.mcgill.ecse.assetplus.persistence.AssetPlusPersistence;
@@ -17,7 +18,7 @@ public class AssetPlusFeatureSet1Controller {
    */
   public static String updateManager(String password) {
     //Check if password is valid
-    var error = isValidPassword(password);
+    String error = isValidPassword(password);
 
     //Check if inputs are valid
     if (!error.trim().isEmpty()) {;
@@ -34,8 +35,8 @@ public class AssetPlusFeatureSet1Controller {
 
     //Update manager password
     try{
-      AssetPlusPersistence.save();
       manager.setPassword(password);
+      AssetPlusPersistence.save();
     } catch (RuntimeException e){
       error = e.getMessage();
     }
@@ -57,31 +58,36 @@ public class AssetPlusFeatureSet1Controller {
         boolean isEmployee) {
 
     //Check if inputs are valid
-    var error = isValidEmployeeOrGuest(email, password, name, phoneNumber);
+    String error = isValidEmployeeOrGuest(email, password, name, phoneNumber);
 
     if (!error.trim().isEmpty()) {
       return error;
     }
 
-    try{
-      if (isEmployee) {
-        //Check if email domain is @ap.com
-        if (!(email.endsWith("@ap.com"))){
-          error = "Email domain must be @ap.com";
-          return error;
-        }
-
-        User employee = Employee.getWithEmail(email);
-        //Check if employee already exists
-        if (employee != null) {
-          error = "Email already linked to an employee account";
-          return error;
-        }
-
-        Employee newEmployee = new Employee(email, name, password, phoneNumber, assetPlus);
+    
+    if (isEmployee) {
+      //Check if email domain is @ap.com
+      if (!(email.endsWith("@ap.com"))){
+        error = "Email domain must be @ap.com";
+        return error;
       }
 
-      else {
+      User employee = Employee.getWithEmail(email);
+      //Check if employee already exists
+      if (employee != null) {
+        error = "Email already linked to an employee account";
+        return error;
+      }
+
+      try{
+        Employee newEmployee = new Employee(email, name, password, phoneNumber, assetPlus);
+        AssetPlusPersistence.save();
+        return "";
+      } catch (RuntimeException e) {
+        error = e.getMessage();
+      }
+
+    } else {
         User guest = Guest.getWithEmail(email);
         //Check if guest already exists
         if (guest != null) {
@@ -94,15 +100,14 @@ public class AssetPlusFeatureSet1Controller {
           error = "Email domain cannot be @ap.com";
           return error;
         }
-
-        Guest newGuest = new Guest(email, name, password, phoneNumber, assetPlus);
+        try {
+          Guest newGuest = new Guest(email, name, password, phoneNumber, assetPlus);
+          AssetPlusPersistence.save();
+          return "";
+        } catch (RuntimeException e){
+          error = e.getMessage();
+        }      
       }
-
-      AssetPlusPersistence.save();
-    } catch (RuntimeException e) {
-      error = e.getMessage();
-    }
-
     return error; // empty string means operation was successful (no error)
   }
 
@@ -124,7 +129,7 @@ public class AssetPlusFeatureSet1Controller {
       return error.trim();
     }
 
-    try{
+    try {
       User user = User.getWithEmail(email);
 
       //Check if user exists
