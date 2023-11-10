@@ -206,7 +206,6 @@ public class AssetPlusFeatureSet4Controller {
    */
   public static String AssignHotelStaffToMaintenanceTicket(int ticketId, String staffMemberEmail, TimeEstimate timeToResolve, PriorityLevel priority, boolean requiresManagerApproval, String managerEmail) {
     MaintenanceTicket ticket = MaintenanceTicket.getWithId(ticketId);
-    User staffMember = User.getWithEmail(staffMemberEmail);
     String error = "";
 
     // Ensure ticket is not null
@@ -216,7 +215,7 @@ public class AssetPlusFeatureSet4Controller {
     }
 
     // Check if staffMemberEmail exists
-    if (staffMember == null || !(staffMember instanceof HotelStaff)) {
+    if ((User.getWithEmail(staffMemberEmail) == null)) {
       error = "Staff to assign does not exist.";
       return error;
     }
