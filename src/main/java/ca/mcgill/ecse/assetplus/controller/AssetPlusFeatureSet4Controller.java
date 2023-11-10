@@ -221,12 +221,10 @@ public class AssetPlusFeatureSet4Controller {
     }
 
     // If all input is valid, proceed with assigning the staff member to the maintenance ticket
-    User managerInitial = User.getWithEmail(managerEmail);
-    Manager manager = (Manager) managerInitial;
-    User hotelStaffInitial = User.getWithEmail(staffMemberEmail);
-    HotelStaff hotelStaff = (HotelStaff) hotelStaffInitial;
+    Manager manager = (Manager) User.getWithEmail(managerEmail);
+    HotelStaff hotelStaff = (HotelStaff) User.getWithEmail(staffMemberEmail);
     try {
-      ticket.assign(hotelStaff, timeToResolve, priority, requiresManagerApproval, manager); // Check if this is good please!
+      ticket.assign(hotelStaff, timeToResolve, priority, requiresManagerApproval, manager);
       AssetPlusPersistence.save();
     } catch (RuntimeException e) {
       return e.getMessage();
@@ -241,8 +239,7 @@ public class AssetPlusFeatureSet4Controller {
    * @param ticketId The ID of the maintenance ticket.
    * @return An error message if the ticket doesn't exist or if starting the ticket fails, or an empty string on success.
    */
-  // check that ticketId exists
-  public static String StartWorkOnMaintenanceTicket(String ticketId) { // ticketId should be int
+  public static String StartWorkOnMaintenanceTicket(String ticketId) {
     // Input validation
     try {
       Integer.parseInt(ticketId);
@@ -252,11 +249,11 @@ public class AssetPlusFeatureSet4Controller {
     // Fetch maintenance ticket from system
     MaintenanceTicket targetTicket = MaintenanceTicket.getWithId(Integer.parseInt(ticketId));
 
-    if (targetTicket == null) {
+    if (targetTicket == null) { //Checking that the ticket exists
       return "Maintenance ticket does not exist.";
     } else {
       try {
-        targetTicket.startTicket();
+        targetTicket.startTicket(); //Start the ticket
         AssetPlusPersistence.save();
         return "";
       } catch (RuntimeException e) {
@@ -272,8 +269,7 @@ public class AssetPlusFeatureSet4Controller {
    * @param ticketId The ID of the maintenance ticket.
    * @return An error message if the ticket doesn't exist or if completing the ticket fails, or an empty string on success.
    */
-  // check that ticketId exists
-  public static String CompleteWorkOnMaintenanceTicket(String ticketId) { // ticketID should be int
+  public static String CompleteWorkOnMaintenanceTicket(String ticketId) {
     // Input validation
     try {
       Integer.parseInt(ticketId);
@@ -283,11 +279,11 @@ public class AssetPlusFeatureSet4Controller {
     // Fetch maintenance ticket from system
     MaintenanceTicket targetTicket = MaintenanceTicket.getWithId(Integer.parseInt(ticketId));
     
-    if (targetTicket == null) {
+    if (targetTicket == null) { //Check that the ticket exists
       return "Maintenance ticket does not exist.";
     } else {
       try {
-        targetTicket.closeTicket();
+        targetTicket.closeTicket(); //Close the ticket
         AssetPlusPersistence.save();
         return "";
       } catch (RuntimeException e) {
@@ -312,12 +308,12 @@ public class AssetPlusFeatureSet4Controller {
     }
     // Fetch maintenance ticket from system
     MaintenanceTicket targetTicket = MaintenanceTicket.getWithId(Integer.parseInt(ticketId));
-    
-    if (targetTicket == null) {
+
+    if (targetTicket == null) { //Check that the ticket exists
       return "Maintenance ticket does not exist.";
     } else {
       try {
-        targetTicket.approveTicket();
+        targetTicket.approveTicket(); //Approve the ticket
         AssetPlusPersistence.save();
         return "";
       } catch (RuntimeException e) {
@@ -326,7 +322,6 @@ public class AssetPlusFeatureSet4Controller {
     }
   }
 
-  // TODO: DOUBLE CHECK THIS!!!
   /**
    * Disapproves work on a maintenance ticket and adds a note.
    *
@@ -340,23 +335,21 @@ public class AssetPlusFeatureSet4Controller {
     String error = "";
     MaintenanceTicket ticket = MaintenanceTicket.getWithId(ticketId);
 
-    // Ensure ticket is not null
-    if (ticket == null) {
+    if (ticket == null) { // Ensure ticket is not null
       error = "Maintenance ticket does not exist.";
       return error;
-    } else if (description == null || description.trim().isEmpty()) {
-      error = "Ticket description cannot be empty."; // if check return is good message
+    } else if (description == null || description.trim().isEmpty()) { //Check that there is a description
+      error = "Ticket description cannot be empty."; //
       return error;
     }
 
     try {
-      ticket.disapproveTicket( date, description, assetPlus.getManager());
+      ticket.disapproveTicket( date, description, assetPlus.getManager()); //Disapprove the ticket
       //Add a ticket note above
       AssetPlusPersistence.save();
     } catch (Exception e) {
       return e.getMessage();
     }
-    
     return error;
   }
 }

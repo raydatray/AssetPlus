@@ -124,7 +124,7 @@ public class AssetPlusFeatureSet6Controller {
 			boolean approvalRequired;
 
 			String status = ticket.getStatusFullName();
-			if (status.equals("Open")){
+			if (status.equals("Open")){ //Need to check whether a ticket's status is open to properly instantiate it's corresponding info
 			fixedByEmail = "";
 			timeToResolve = "";
 			priority = "";
