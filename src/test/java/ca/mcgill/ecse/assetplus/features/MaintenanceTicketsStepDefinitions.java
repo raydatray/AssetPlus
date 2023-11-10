@@ -330,7 +330,7 @@ public class MaintenanceTicketsStepDefinitions {
     MaintenanceTicket maintenanceTicket = MaintenanceTicket.getWithId(Integer.parseInt(ticketId));
 
     assertNotNull(maintenanceTicket); // Making sure that the ticket exists
-    assertEquals(maintenanceTicket.getStatus().toString(), status); // Making sure that the description matches
+    assertEquals(status, maintenanceTicket.getStatusFullName()); // Making sure that the description matches
   }
 
   /**

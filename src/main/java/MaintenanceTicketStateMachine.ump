@@ -1,15 +1,15 @@
 class MaintenanceTicket {
 	Status {
     	
-        InReview {
+        Open {
         	assign(HotelStaff staffMember, TimeEstimate timeToResolve, PriorityLevel priority, boolean requiresManagerApproval, Manager manager) / {
             	doAssign(staffMember, timeToResolve, priority, requiresManagerApproval, manager);
             } -> Assigned;
 
-          startTicket / { preventTransition("Cannot start a maintenance ticket which is open."); } -> InReview;
-          closeTicket / {preventTransition("Cannot complete a maintenance ticket which is open."); } -> InReview;
-          disapproveTicket(Date date, String description, Manager manager) / { preventTransition("Cannot disapprove a maintenance ticket which is open."); } -> InReview;
-          approveTicket / { preventTransition("Cannot approve a maintenance ticket which is open."); } -> InReview;
+          startTicket / { preventTransition("Cannot start a maintenance ticket which is open."); } -> Open;
+          closeTicket / {preventTransition("Cannot complete a maintenance ticket which is open."); } -> Open;
+          disapproveTicket(Date date, String description, Manager manager) / { preventTransition("Cannot disapprove a maintenance ticket which is open."); } -> Open;
+          approveTicket / { preventTransition("Cannot approve a maintenance ticket which is open."); } -> Open;
         }
       
       	Assigned {
@@ -23,7 +23,7 @@ class MaintenanceTicket {
       
       	InProgress {
         	closeTicket [!requiresManagerApproval()] -> Closed;
-          closeTicket [requiresManagerApproval()] -> AwaitingApproval;
+          closeTicket [requiresManagerApproval()] -> Resolved;
 
           assign(HotelStaff staffMember, TimeEstimate timeToResolve, PriorityLevel priority, boolean requiresManagerApproval, Manager manager) / { preventTransition("Cannot assign a maintenance ticket which is in progress."); } -> InProgress;
           startTicket / { preventTransition("The maintenance ticket is already in progress."); } -> InProgress;
@@ -31,13 +31,13 @@ class MaintenanceTicket {
           approveTicket / { preventTransition("Cannot approve a maintenance ticket which is in progress."); } -> InProgress;
         }
       
-      	AwaitingApproval {
+      	Resolved {
         	disapproveTicket(Date date, String description, Manager manager) / { doDisapprove(date, description, manager); } -> InProgress;
           approveTicket -> Closed;
 
-          assign(HotelStaff staffMember, TimeEstimate timeToResolve, PriorityLevel priority, boolean requiresManagerApproval, Manager manager) / { preventTransition("Cannot assign a maintenance ticket which is resolved."); } -> AwaitingApproval;
-          startTicket / { preventTransition("Cannot start a maintenance ticket which is resolved."); } -> AwaitingApproval;
-          closeTicket / { preventTransition("The maintenance ticket is already resolved.");} -> AwaitingApproval;
+          assign(HotelStaff staffMember, TimeEstimate timeToResolve, PriorityLevel priority, boolean requiresManagerApproval, Manager manager) / { preventTransition("Cannot assign a maintenance ticket which is resolved."); } -> Resolved;
+          startTicket / { preventTransition("Cannot start a maintenance ticket which is resolved."); } -> Resolved;
+          closeTicket / { preventTransition("The maintenance ticket is already resolved.");} -> Resolved;
         }
       
       	Closed {

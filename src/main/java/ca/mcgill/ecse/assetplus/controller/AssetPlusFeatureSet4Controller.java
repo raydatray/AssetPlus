@@ -223,7 +223,7 @@ public class AssetPlusFeatureSet4Controller {
     User managerInitial = User.getWithEmail(managerEmail);
     Manager manager = (Manager) managerInitial;
     User hotelStaffInitial = User.getWithEmail(staffMemberEmail);
-    Manager hotelStaff = (Manager) hotelStaffInitial;
+    HotelStaff hotelStaff = (HotelStaff) hotelStaffInitial;
     try {
       ticket.assign(hotelStaff, timeToResolve, priority, requiresManagerApproval, manager); // Check if this is good please!
       AssetPlusPersistence.save();
