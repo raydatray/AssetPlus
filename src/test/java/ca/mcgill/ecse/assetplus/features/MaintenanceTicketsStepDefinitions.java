@@ -373,43 +373,6 @@ public class MaintenanceTicketsStepDefinitions {
     assertEquals(TimeEstimate.valueOf(estimatedTime), maintenanceTicket.getTimeToResolve());
     assertEquals(PriorityLevel.valueOf(priority), maintenanceTicket.getPriority());
     assertEquals(requiresApproval, Boolean.toString(maintenanceTicket.hasFixApprover()));
-    // Set proper attributes
-    // if (maintenanceTicket != null) {   
-    //   switch (estimatedTime) {
-    //     case "LessThanADay":
-    //       maintenanceTicket.setTimeToResolve(TimeEstimate.LessThanADay);
-    //       break;
-    //     case "OneToThreeDays":
-    //       maintenanceTicket.setTimeToResolve(TimeEstimate.OneToThreeDays);
-    //       break;
-    //     case "ThreeToSevenDays":
-    //       maintenanceTicket.setTimeToResolve(TimeEstimate.ThreeToSevenDays);
-    //       break;
-    //     case "OneToThreeWeeks":
-    //       maintenanceTicket.setTimeToResolve(TimeEstimate.OneToThreeWeeks);
-    //       break;
-    //     case "ThreeOrMoreWeeks":
-    //       maintenanceTicket.setTimeToResolve(TimeEstimate.OneToThreeWeeks);
-    //       break;
-    //   }
-
-    //   switch (priority) {
-    //   case "Urgent":
-    //     maintenanceTicket.setPriority(PriorityLevel.Urgent);
-    //     break;
-    //   case "Normal":
-    //     maintenanceTicket.setPriority(PriorityLevel.Normal);
-    //     break;
-    //   case "Low":
-    //     maintenanceTicket.setPriority(PriorityLevel.Low);
-    //     break;
-    //   }
-
-    //   if (maintenanceTicket.hasFixApprover() == Boolean.parseBoolean(requiresApproval)) {
-    //     maintenanceTicket.setFixApprover(assetPlus.getManager());
-    //   }
-    // }
-
   }
 
   /**
