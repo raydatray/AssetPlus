@@ -38,22 +38,22 @@ public class AssetPlusFeatureSet2Controller {
       return error;
     }
     
-    try {
-      //  Check if asset type already exists
-      AssetType assetType = AssetType.getWithName(name);
-      if (assetType != null) {
-        error = "The asset type already exists";
-        return error;
-      }
+   
+    //  Check if asset type already exists
+    AssetType assetType = AssetType.getWithName(name);
+    if (assetType != null) {
+      error = "The asset type already exists";
+      return error;
+    }
 
       // Add Asset Type
+    try {
       AssetType newAssetType =  new AssetType(name, expectedLifeSpanInDays, assetPlus);
-
       AssetPlusPersistence.save();
+      return error;
     } catch (Exception e) {
       error = e.getMessage();
     }
-   
     return error;
   }
 
@@ -131,12 +131,13 @@ public class AssetPlusFeatureSet2Controller {
 
     try {
       AssetType assetType = AssetType.getWithName(name);
-    if (assetType != null) {
-      assetType.delete();
-    }
-    AssetPlusPersistence.save();
+      
+      if (assetType != null) {
+        assetType.delete();
+      }
+      AssetPlusPersistence.save();
     } catch (Exception e) {
-        throw e;
+      throw e;
     }
   }
 }

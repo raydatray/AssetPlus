@@ -1,6 +1,5 @@
 package ca.mcgill.ecse.assetplus.controller;
 
-import javax.swing.text.html.HTMLDocument.RunElement;
 import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
 import ca.mcgill.ecse.assetplus.model.*;
 import ca.mcgill.ecse.assetplus.persistence.AssetPlusPersistence;
@@ -37,6 +36,7 @@ public class AssetPlusFeatureSet1Controller {
     try{
       manager.setPassword(password);
       AssetPlusPersistence.save();
+      return error;
     } catch (RuntimeException e){
       error = e.getMessage();
     }
@@ -82,7 +82,7 @@ public class AssetPlusFeatureSet1Controller {
       try{
         Employee newEmployee = new Employee(email, name, password, phoneNumber, assetPlus);
         AssetPlusPersistence.save();
-        return "";
+        return error;
       } catch (RuntimeException e) {
         error = e.getMessage();
       }
@@ -103,7 +103,7 @@ public class AssetPlusFeatureSet1Controller {
         try {
           Guest newGuest = new Guest(email, name, password, phoneNumber, assetPlus);
           AssetPlusPersistence.save();
-          return "";
+          return error;
         } catch (RuntimeException e){
           error = e.getMessage();
         }      
