@@ -215,8 +215,9 @@ public class AssetPlusFeatureSet4Controller {
     }
 
     // Check if staffMemberEmail exists
-    if (!(User.getWithEmail(staffMemberEmail) instanceof HotelStaff)) {
-      error = "Staff to assign does not exist";
+    if ((User.getWithEmail(staffMemberEmail) == null)) {
+      error = "Staff to assign does not exist.";
+      return error;
     }
 
     // If all input is valid, proceed with assigning the staff member to the maintenance ticket
