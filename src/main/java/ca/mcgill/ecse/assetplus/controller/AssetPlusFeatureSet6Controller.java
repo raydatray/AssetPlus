@@ -118,18 +118,23 @@ public class AssetPlusFeatureSet6Controller {
 			int floorNumber = -1;
 			int roomNumber = -1;
 
-			String fixedByEmail = "";
-			String timeToResolve = "";
-			String priority = "";
-			boolean approvalRequired = false;
-			
+			String fixedByEmail;
+			String timeToResolve;
+			String priority;
+			boolean approvalRequired;
+
 			String status = ticket.getStatusFullName();
-			if (!status.equals("InReview")){
-			fixedByEmail = ticket.getFixApprover().getEmail();
+			if (status.equals("Open")){
+			fixedByEmail = "";
+			timeToResolve = "";
+			priority = "";
+			approvalRequired = false;
+			}
+			else{
+			fixedByEmail = ticket.getTicketFixer().getEmail();
 			timeToResolve = ticket.getTimeToResolve().toString();
 			priority = ticket.getPriority().toString();
 			approvalRequired = ticket.hasFixApprover();}
-
 
 			// If MaintenancetTicket is associated to a SpecificAsset instance, get respective values
 			if (ticket.getAsset() != null) {
