@@ -235,19 +235,19 @@ public class MaintenanceTicketsStepDefinitions {
     // Setting the maintenance ticket's state
     switch (status) {
       case "Assigned":
-        targetTicket.assign(ticketFixer, timeEstimate, priority, targetTicket.hasFixApprover(), manager);
+        targetTicket.assign(ticketFixer, timeEstimate, priority, false, manager);
         break;
       case "InProgress":
-        targetTicket.assign(ticketFixer, timeEstimate, priority, targetTicket.hasFixApprover(), manager);
+        targetTicket.assign(ticketFixer, timeEstimate, priority, false, manager);
         targetTicket.startTicket();
         break;
       case "Resolved":
-        targetTicket.assign(ticketFixer, timeEstimate, priority, targetTicket.hasFixApprover(), manager);
+        targetTicket.assign(ticketFixer, timeEstimate, priority, true, manager);
         targetTicket.startTicket();
         targetTicket.closeTicket();
         break;
       case "Closed":
-        targetTicket.assign(ticketFixer, timeEstimate, priority, targetTicket.hasFixApprover(), manager);
+        targetTicket.assign(ticketFixer, timeEstimate, priority, false, manager);
         targetTicket.startTicket();
         targetTicket.closeTicket();
         break;
