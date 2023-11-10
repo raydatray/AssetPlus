@@ -189,7 +189,6 @@ public class MaintenanceTicketsStepDefinitions {
     // Set maintenance ticket fix approver if applicable
     if (requiresApproval.equals("true")) {
       requiresManagerApproval = true;
-      targetTicket.setFixApprover(assetPlus.getManager());
     }
     // Set state of the maintenance ticket
     switch (state) {
@@ -231,7 +230,7 @@ public class MaintenanceTicketsStepDefinitions {
     TimeEstimate timeEstimate = TimeEstimate.LessThanADay;
     PriorityLevel priority = PriorityLevel.Low;
     Manager manager = assetPlus.getManager();
-    
+
     // Setting the maintenance ticket's state
     switch (status) {
       case "Assigned":
