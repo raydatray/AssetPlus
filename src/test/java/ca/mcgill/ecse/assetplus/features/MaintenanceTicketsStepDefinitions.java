@@ -421,7 +421,8 @@ public class MaintenanceTicketsStepDefinitions {
     // Houman
     // Write code here that turns the phrase above into concrete actions
 
-    MaintenanceTicket targetTicket = assetPlus.getMaintenanceTicket(Integer.parseInt(ticketId));
+    MaintenanceTicket targetTicket = MaintenanceTicket.getWithId(Integer.parseInt(ticketId));
+
     User ticketFixer = (HotelStaff) User.getWithEmail(employeeEmail);
 
     assertNotNull(targetTicket);
