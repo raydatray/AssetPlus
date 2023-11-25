@@ -204,10 +204,17 @@ public class AssetPlusFeatureSet4Controller {
    * @param managerEmail           The email of the manager.
    * @return An error message if any input validation fails, or an empty string on success.
    */
-  public static String AssignHotelStaffToMaintenanceTicket(int ticketId, String staffMemberEmail, TimeEstimate timeToResolve, PriorityLevel priority, boolean requiresManagerApproval, String managerEmail) {
+  public static String AssignHotelStaffToMaintenanceTicket(int ticketId, String staffMemberEmail, String timeToResolve, String priority, boolean requiresManagerApproval, String managerEmail) {
     MaintenanceTicket ticket = MaintenanceTicket.getWithId(ticketId);
     String error = "";
-
+    TimeEstimate estimate;
+    PriorityLevel  priorityLevel;
+    try {
+      estimate = TimeEstimate.valueOf(timeToResolve);
+      priorityLevel = PriorityLevel.valueOf(priority);
+    } catch (Exception e) {
+      return "Invalid input";
+    }
     // Ensure ticket is not null
     if (ticket == null) {
       error = "Maintenance ticket does not exist.";
@@ -224,7 +231,7 @@ public class AssetPlusFeatureSet4Controller {
     Manager manager = (Manager) User.getWithEmail(managerEmail);
     HotelStaff hotelStaff = (HotelStaff) User.getWithEmail(staffMemberEmail);
     try {
-      ticket.assign(hotelStaff, timeToResolve, priority, requiresManagerApproval, manager);
+      ticket.assign(hotelStaff, estimate, priorityLevel, requiresManagerApproval, manager);
       AssetPlusPersistence.save();
     } catch (RuntimeException e) {
       return e.getMessage();
@@ -278,7 +285,6 @@ public class AssetPlusFeatureSet4Controller {
     }
     // Fetch maintenance ticket from system
     MaintenanceTicket targetTicket = MaintenanceTicket.getWithId(Integer.parseInt(ticketId));
-    
     if (targetTicket == null) { //Check that the ticket exists
       return "Maintenance ticket does not exist.";
     } else {
