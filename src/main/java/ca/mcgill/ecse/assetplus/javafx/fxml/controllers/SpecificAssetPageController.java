@@ -4,12 +4,12 @@ import java.sql.Date;
 import static ca.mcgill.ecse.assetplus.javafx.fxml.controllers.ViewUtils.successful;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet2Controller;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet3Controller;
-import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet4Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
