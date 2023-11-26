@@ -34,7 +34,7 @@ public class SpecificAssetPageController {
       String assetTypeName = assetTypeNameTextField.getText();
     
       try {
-          int assetNumber = Integer.parseInt(assetNumber);
+          int assetNumber = Integer.parseInt(assetNumStr);
           int floorNumber = Integer.parseInt(floorNumStr);
           int roomNumber = Integer.parseInt(roomNumStr);
           SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
