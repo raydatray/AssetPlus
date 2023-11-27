@@ -72,6 +72,18 @@ public class SpecificAssetPageController {
     }
 }
 
+@FXML
+void deleteAssetType(ActionEvent event) {
+    String assetNumberStr = assetNumberTextField.getText();
+    try {
+        int assetNumber = Integer.parseInt(assetNumberStr);
+        String result = AssetPlusFeatureSet3Controller.deleteSpecificAsset(assetNumber);
+        showAlert("Delete Asset Type", result);
+    } catch (NumberFormatException e) {
+        showAlert("Error", "Invalid Asset Number. Please enter a valid number.");   //TODO Have to Fix Error Message
+    }
+}
+
   /**
      * Displays an information alert with the given title and content.
      * @param title   The title of the alert.
