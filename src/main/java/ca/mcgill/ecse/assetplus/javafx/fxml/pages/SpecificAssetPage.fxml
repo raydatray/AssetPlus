@@ -30,4 +30,9 @@
         <Button text="Update Specific Asset" onAction="#updateSpecificAsset"/>
     </HBox>
    
+    <HBox spacing="10">
+        <TextField fx:id="assetNumberTextField" promptText="Asset Number"/>
+        <Button text="Delete Specific Asset" onAction="#deleteSpecific Asset"/>
+    </HBox>
+
 </VBox>
