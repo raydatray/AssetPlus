@@ -24,7 +24,12 @@ public class SpecificAssetPageController {
   @FXML private TextField roomNumberTextField;
   @FXML private TextField purchaseDateTextField;
   @FXML private TextField assetTypeNameTextField;
-  
+
+  @FXML private TextField newFloorNumberTextField;
+  @FXML private TextField newRoomNumberTextField;
+  @FXML private TextField newPurchaseDateTextField;
+  @FXML private TextField newAssetTypeTextField;
+
   @FXML
   void addSpecificAsset(ActionEvent event) {
       String assetNumStr = assetNumberTextField.getText();
@@ -42,10 +47,30 @@ public class SpecificAssetPageController {
           String result = AssetPlusFeatureSet3Controller.addSpecificAsset(assetNum, floorNumber, roomNumber, purchaseDate, assetTypeName);
           showAlert("Add Specific Asset", result);
       } catch (NumberFormatException e) {
-          showAlert("Error", result);
+          showAlert("Error", "result"); //TODO Have to Fix Error Message
       }
   }
 
+  @FXML 
+  void updateSpecificAsset(ActionEvent event) {
+      String assetNumStr = assetNumberTextField.getText();
+      String newFloorNumStr = newFloorNumberTextField.getText();
+      String newRoomNumStr = newRoomNumberTextField.getText();
+      String newPurchDateStr = newPurchaseDateTextField.getText();
+      String newAssetTypeName = newAssetTypeTextField.getText();  
+
+      try {
+          int assetNumber = Integer.parseInt(assetNumStr);
+          int newFloorNumber = Integer.parseInt(newFloorNumStr);
+          int newRoomNumber = Integer.parseInt(newRoomNumStr);
+          SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+          Date newPurchaseDate = sdf.parse(newPurchDateStr);
+          String result = AssetPlusFeatureSet3Controller.updateSpecificAsset(assetNumber, newFloorNumber, newRoomNumber, newPurchaseDate, newAssetTypeName );
+          showAlert("Update Specific Asset", result);
+    }   catch (NumberFormatException e) {
+          showAlert("Error", "Invalid new lifespan. Please enter a valid number."); //TODO Have to Fix Error Message
+    }
+}
 
   /**
      * Displays an information alert with the given title and content.
