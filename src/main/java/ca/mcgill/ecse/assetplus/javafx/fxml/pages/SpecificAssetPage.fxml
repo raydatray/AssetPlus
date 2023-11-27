@@ -21,5 +21,13 @@
         <Button text="Add Specific Asset" onAction="#addSpecificAsset"/>
     </HBox>
 
+    <HBox spacing="10">
+        <TextField fx:id="assetNumberTextField" promptText="Asset Number"/>
+        <TextField fx:id="newFloorNumberTextField" promptText="New Floor Number"/>
+        <TextField fx:id="newRoomNumberTextField" promptText="New Room Number"/>
+        <TextField fx:id="newPurchaseDateTextField" promptText="yyyy-MM-dd"/>
+        <TextField fx:id="newAssetTypeTextField" promptText="New Asset Type"/>
+        <Button text="Update Specific Asset" onAction="#updateSpecificAsset"/>
+    </HBox>
    
 </VBox>
