@@ -9,5 +9,19 @@ public class StdPageController {
   @FXML private Button search;
   @FXML private Button toggleView;
   @FXML private Button addEntry;
+
+  String headers[] = null;
+  String items[] = null;
+
+  @FXML
+  private void initialize() {
+  
+  }
+  
+  public void addElements(){
+    
+  }
+
+
     
 }
