@@ -1,6 +1,8 @@
 package ca.mcgill.ecse.assetplus.controller;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import ca.mcgill.ecse.assetplus.model.AssetPlus;
 import ca.mcgill.ecse.assetplus.model.AssetType;
 import ca.mcgill.ecse.assetplus.model.SpecificAsset;
@@ -143,5 +145,23 @@ public class AssetPlusFeatureSet3Controller {
       throw e; //Throw the exception. This is required to delete any specific assets that do not exist
     }
   }
+
+  public static List<TOSpecificAsset> getSpecificAssets() {
+
+    List<TOSpecificAsset> TOSpecificAssetList = new ArrayList<>();
+    try {
+
+			for (SpecificAsset asset: assetPlus.getSpecificAssets()) {
+
+      TOSpecificAsset transferSpecificAsset = new TOSpecificAsset(asset.getAssetNumber(), asset.getFloorNumber(), asset.getRoomNumber(), asset.getPurchaseDate());
+
+      TOSpecificAssetList.add(transferSpecificAsset);
+    }
+			AssetPlusPersistence.save();
+		} catch (Exception e) {
+			throw e;
+		}
+    return TOSpecificAssetList;
+}
 
 }

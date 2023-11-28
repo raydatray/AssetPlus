@@ -45,3 +45,11 @@ class TOUser {
   String name;
   String phoneNumber;
 }
+
+class TOSpecificAsset {
+  immutable;
+  Integer assetNumber;
+  Integer floorNumber;
+  Integer roomNumber;
+  Date purchaseDate;
+}
