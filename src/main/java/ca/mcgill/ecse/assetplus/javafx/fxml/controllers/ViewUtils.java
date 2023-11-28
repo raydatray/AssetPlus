@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
@@ -62,4 +63,13 @@ public class ViewUtils {
   public static void showError(String message) {
     makePopupWindow("Error", message);
   }
+
+
+  public static void closeWindow(Node node) {
+    if (node != null) {
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.close();
+    }
+  }
+
 }
