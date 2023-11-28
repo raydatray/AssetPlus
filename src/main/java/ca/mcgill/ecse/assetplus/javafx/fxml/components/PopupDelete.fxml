@@ -13,14 +13,15 @@
         <VBox alignment="CENTER" layoutX="10.0" layoutY="8.0" prefHeight="316.0" prefWidth="712.0" spacing="20.0">
             <children>
                 <HBox alignment="TOP_RIGHT" prefWidth="692.0" spacing="10.0">
-                    <Button minWidth="50.0" onAction="#handleExit" text="X" />
+                    <Button minWidth="50.0" onAction="#handleExit" prefHeight="25.0" prefWidth="30.0" text="X" />
                 </HBox>
                  <Region />
-                <Text style="-fx-font: 14px 'Arial'; -fx-font-weight: bold;" text="Delete?" />
-                <Text text="This action can't be undone." textAlignment="CENTER" wrappingWidth="650" />
+                <Text style="-fx-font: 25px 'Arial'; -fx-font-weight: bold;" text="Delete?" />
+                <Text style="-fx-font: 18px 'Arial';" text="This action can't be undone." textAlignment="CENTER" wrappingWidth="650" />
                 <HBox alignment="CENTER" prefHeight="170.0" prefWidth="692.0" spacing="10.0">
-                    <Button minWidth="50.0" onAction="#handleConfirmDelete" text="Yes" />
-                    <Button minWidth="50.0" onAction="#handleCancelDelete" text="No" />
+                    <Button minWidth="90.0" onAction="#handleConfirmDelete" text="Yes" />
+               <HBox prefHeight="121.0" prefWidth="173.0" />
+                    <Button minWidth="90.0" onAction="#handleCancelDelete" text="No" />
                 </HBox>
             </children>
             <VBox.margin>
