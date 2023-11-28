@@ -15,16 +15,16 @@
    <children>
       <HBox prefHeight="100.0" prefWidth="994.0">
          <children>
-            <Pane prefHeight="72.0" prefWidth="332.0" />
-            <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Add a New Asset" wrappingWidth="359.1875">
+            <Pane prefHeight="72.0" prefWidth="329.0" />
+            <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Add a New Asset" wrappingWidth="372.1875">
                <font>
-                  <Font name="Arial" size="32.0" />
+                  <Font name="Arial Bold" size="32.0" />
                </font>
             </Text>
-            <Pane prefHeight="72.0" prefWidth="235.0" />
+            <Pane prefHeight="72.0" prefWidth="229.0" />
             <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="33.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="X" textFill="#e5e3d9">
                <font>
-                  <Font size="15.0" />
+                  <Font name="System Bold" size="15.0" />
                </font>
             </Button>
          </children>
@@ -44,10 +44,13 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <TextField prefHeight="29.0" prefWidth="650.0" style="-fx-background-color: #303030; -fx-background-radius: 15;">
+                  <TextField prefHeight="29.0" prefWidth="650.0" promptText="ex: 1234" style="-fx-background-color: #303030; -fx-background-radius: 15;">
                      <HBox.margin>
-                        <Insets top="6.0" />
+                        <Insets />
                      </HBox.margin>
+                     <font>
+                        <Font name="System Italic" size="18.0" />
+                     </font>
                   </TextField>
                </children>
             </HBox>
@@ -61,10 +64,13 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <TextField prefHeight="29.0" prefWidth="650.0" style="-fx-background-color: #303030; -fx-background-radius: 15;">
+                  <TextField prefHeight="29.0" prefWidth="650.0" promptText="ex: 6" style="-fx-background-color: #303030; -fx-background-radius: 15;">
                      <HBox.margin>
-                        <Insets top="6.0" />
+                        <Insets />
                      </HBox.margin>
+                     <font>
+                        <Font name="System Italic" size="18.0" />
+                     </font>
                   </TextField>
                </children>
             </HBox>
@@ -78,10 +84,13 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <TextField prefHeight="29.0" prefWidth="650.0" style="-fx-background-color: #303030; -fx-background-radius: 15;">
+                  <TextField prefHeight="29.0" prefWidth="650.0" promptText="ex: 612" style="-fx-background-color: #303030; -fx-background-radius: 15;">
                      <HBox.margin>
-                        <Insets top="6.0" />
+                        <Insets />
                      </HBox.margin>
+                     <font>
+                        <Font name="System Italic" size="18.0" />
+                     </font>
                   </TextField>
                </children>
             </HBox>
@@ -95,20 +104,22 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <TextField prefHeight="29.0" prefWidth="690.0" style="-fx-background-color: #303030; -fx-background-radius: 15;">
+                  <TextField prefHeight="29.0" prefWidth="690.0" promptText="ex: Lamp" style="-fx-background-color: #303030; -fx-background-radius: 15;">
                      <HBox.margin>
-                        <Insets top="6.0" />
+                        <Insets />
                      </HBox.margin>
+                     <font>
+                        <Font name="System Italic" size="18.0" />
+                     </font>
                   </TextField>
                </children>
             </HBox>
          </children>
       </VBox>
-      <Button layoutX="429.0" layoutY="367.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="137.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="Enter" textFill="#e5e3d9">
+      <Button layoutX="429.0" layoutY="356.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="137.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="Enter" textFill="#e5e3d9">
          <font>
-            <Font size="24.0" />
+            <Font name="System Bold" size="24.0" />
          </font>
       </Button>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" />
    </children>
 </AnchorPane>
