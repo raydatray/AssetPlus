@@ -10,17 +10,18 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="994.0" style="-fx-background-color: #252627;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="994.0" style="-fx-background-color: #252627; -fx-border-color: #6699CC; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox prefHeight="100.0" prefWidth="994.0">
          <children>
-            <Pane prefHeight="72.0" prefWidth="284.0" />
+            <Pane prefHeight="72.0" prefWidth="274.0" />
             <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Update an Existing Asset" wrappingWidth="500.1875">
                <font>
                   <Font name="Arial Bold" size="32.0" />
                </font>
             </Text>
-            <Pane prefHeight="72.0" prefWidth="128.0" />
+            <Pane prefHeight="72.0" prefWidth="156.0" />
             <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="33.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="X" textFill="#e5e3d9">
                <font>
                   <Font name="System Bold" size="15.0" />
@@ -115,7 +116,7 @@
             </HBox>
          </children>
       </VBox>
-      <Button layoutX="429.0" layoutY="356.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="137.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="Update" textFill="#e5e3d9">
+      <Button layoutX="429.0" layoutY="356.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="137.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="UPDATE" textFill="#e5e3d9">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
