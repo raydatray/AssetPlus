@@ -11,7 +11,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class UsersController {
+public class AddUserPopUpController {
 
   @FXML private Button addNewUserButton;
   @FXML private Button closePopUpButton;
@@ -22,7 +22,7 @@ public class UsersController {
   public void promptAddUserPopUp(Button addButton) {
     try {
       // Load the FXML file
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pages/AddUserPopUp.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/AddUserPopUp.fxml"));
       Parent root = loader.load();
       // Create a new stage for the pop-up
       Stage popupStage = new Stage();
@@ -36,7 +36,7 @@ public class UsersController {
       // Show the pop-up
       popupStage.show();
     } catch (Exception e) {
-      addButton.setStyle("-fx-background-color: red;");
+      // Maybe prompt error pop up in case or error?
       System.err.println("Error loading FXML: " + e.getMessage());
     }
   }

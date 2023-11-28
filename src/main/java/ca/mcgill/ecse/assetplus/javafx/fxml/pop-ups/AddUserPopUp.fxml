@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="712.0" style="-fx-background-color: #252627; -fx-background-radius: 50; -fx-border-color: #6699CC; -fx-border-radius: 45; -fx-border-width: 4;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.assetplus.javafx.fxml.controllers.UsersController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="712.0" style="-fx-background-color: #252627; -fx-background-radius: 50; -fx-border-color: #6699CC; -fx-border-radius: 45; -fx-border-width: 4;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.assetplus.javafx.fxml.controllers.AddUserPopUpController">
    <top>
       <StackPane prefHeight="67.0" prefWidth="704.0" BorderPane.alignment="CENTER">
          <children>

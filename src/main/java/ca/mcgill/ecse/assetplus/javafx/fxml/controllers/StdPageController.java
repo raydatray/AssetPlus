@@ -94,8 +94,8 @@ public class StdPageController {
     pageTitle.setText("Users");
     addButton.setText("Add User");
 
-    UsersController usersController = new UsersController();
-    addButton.setOnAction(e -> usersController.promptAddUserPopUp(addButton));
+    AddUserPopUpController popUpController = new AddUserPopUpController();
+    addButton.setOnAction(e -> popUpController.promptAddUserPopUp(addButton));
 
     dataTable.getColumns().clear();
     dataTable.getItems().clear();
