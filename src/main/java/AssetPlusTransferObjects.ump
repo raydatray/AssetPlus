@@ -32,3 +32,9 @@ class TOMaintenanceNote {
   String description;
   String noteTakerEmail;
 }
+
+class TOAssetType {
+  immutable;
+  String name;
+  Integer expectedLifeSpan;
+}
