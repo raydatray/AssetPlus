@@ -20,7 +20,8 @@ public class StdPageController {
   @FXML private TableView dataTable;
 
   public void viewTicketsButtonClicked() { 
-    
+    pageTitle.setText("Maintenance Tickets");
+
     TableColumn<TOMaintenanceTicket, String> ticketIdColumn = new TableColumn<>("Ticket ID");
     ticketIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(Integer.toString(cellData.getValue().getId())));
 
