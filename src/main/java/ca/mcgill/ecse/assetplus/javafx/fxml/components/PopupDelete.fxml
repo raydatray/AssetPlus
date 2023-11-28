@@ -13,15 +13,15 @@
         <VBox alignment="CENTER" layoutX="-7.0" prefHeight="324.0" prefWidth="729.0" spacing="20.0" style="-fx-background-color: #252627;">
             <children>
                 <HBox alignment="TOP_RIGHT" prefWidth="692.0" spacing="10.0">
-                    <Button minWidth="50.0" onAction="#handleExit" prefHeight="25.0" prefWidth="30.0" style="-fx-background-color: #444B4D; -fx-text-fill: #E5E3D9;" text="X" />
+                    <Button minWidth="50.0" onAction="#handleExit" prefHeight="25.0" prefWidth="30.0" style="-fx-background-color: #6699CC; -fx-text-fill: #E5E3D9;" text="X" />
                 </HBox>
                 <Region />
                 <Text style="-fx-font: 25px 'Arial'; -fx-font-weight: bold; -fx-fill: #E5E3D9;" text="Delete?" />
                 <Text style="-fx-font: 18px 'Arial'; -fx-fill: #E5E3D9;" text="This action can't be undone." textAlignment="CENTER" wrappingWidth="650" />
                 <HBox alignment="CENTER" prefHeight="170.0" prefWidth="692.0" spacing="10.0">
-                    <Button minWidth="90.0" onAction="#handleConfirmDelete" style="-fx-background-color: #444B4D; -fx-text-fill: #E5E3D9;" text="Yes" />
+                    <Button minWidth="90.0" onAction="#handleConfirmDelete" style="-fx-background-color: #6699CC; -fx-text-fill: #E5E3D9;" text="Yes" />
                     <Region prefHeight="121.0" prefWidth="173.0" />
-                    <Button minWidth="90.0" onAction="#handleCancelDelete" style="-fx-background-color: #444B4D; -fx-text-fill: #E5E3D9;" text="No" />
+                    <Button minWidth="90.0" onAction="#handleCancelDelete" style="-fx-background-color: #6699CC; -fx-text-fill: #E5E3D9;" text="No" />
                 </HBox>
             </children>
             <VBox.margin>
