@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="your.package.UpdateManagerPasswordController">
+    <children>
+        <VBox alignment="CENTER" spacing="10.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <children>
+                <Text text="Reset Password" style="-fx-font-size: 16px; -fx-font-family: 'Arial'; -fx-font-weight: bold;"/>
+                <Text text="Change the password for the manager account" wrappingWidth="280"/>
+                <PasswordField fx:id="currentPasswordField" promptText="Current Password"/>
+                <PasswordField fx:id="newPasswordField" promptText="New Password"/>
+                <PasswordField fx:id="confirmPasswordField" promptText="Confirm New Password"/>
+                <Button text="Reset Password" onAction="#handleResetPassword" maxWidth="Infinity"/>
+            </children>
+            <VBox.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </VBox.margin>
+        </VBox>
+    </children>
+</AnchorPane>
