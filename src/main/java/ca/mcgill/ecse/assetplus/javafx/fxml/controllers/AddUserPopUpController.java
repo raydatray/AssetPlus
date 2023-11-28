@@ -1,5 +1,6 @@
 package ca.mcgill.ecse.assetplus.javafx.fxml.controllers;
 
+import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet1Controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -39,5 +40,25 @@ public class AddUserPopUpController {
       // Maybe prompt error pop up in case or error?
       System.err.println("Error loading FXML: " + e.getMessage());
     }
+  }
+
+  public void handleCloseButtonClick() {
+    // Get the stage (window) from the close button
+    Stage stage = (Stage) closePopUpButton.getScene().getWindow();
+    // Close the stage
+    stage.close();
+  }
+
+  public void handleAddNewUserButtonClick() {
+
+    String userEmail = emailtextField.getText();
+    String userName = nameTextField.getText();
+    String userPhoneNumber = phoneNumberTextField.getText();
+
+    AssetPlusFeatureSet1Controller.addEmployeeOrGuest(userEmail, "12345", userName, userPhoneNumber, false);
+    // Close the pop-up
+    handleCloseButtonClick();
+    // refresh data table
+
   }
 }
