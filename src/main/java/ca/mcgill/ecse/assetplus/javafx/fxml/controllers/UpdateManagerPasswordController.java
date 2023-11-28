@@ -30,23 +30,26 @@ public class UpdateManagerPasswordController {
     Boolean isPasswordMatching = newPassword.equals(confirmPassword);
 
     if (!isCurrentPasswordCorrect) {
-      // TODO: display error message for incorrect current password
+      showAlert("Error Updating Password", "Current password is incorrect.");
+      return;
     } 
 
     if (!hasCompleteFields) {
-      // TODO: display error message for incomplete fields
+      showAlert( "Error Updating Password", "Please fill in all fields.");
+      return;
     }
 
     if (!isPasswordMatching) {
-      // TODO: display error message for non-matching passwords
+      showAlert("Error Updating Password", "New password and confirm password do not match.");
+      return;
     }
 
     try {
       String updateManagerResult = AssetPlusFeatureSet1Controller.updateManager(newPassword);
-      showAlert("Update Specific Asset", updateManagerResult);
+      showAlert("Update Manager Password", updateManagerResult);
     } catch (Exception e) {
       showAlert("Error", e.getMessage()); 
-    }
+    } 
   }
 
   /**
