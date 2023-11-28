@@ -44,8 +44,8 @@ public class SpecificAssetPageController {
           int roomNumber = Integer.parseInt(roomNumStr);
           //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
           //Date purchaseDate = sdf.parse(purchaseDateStr);
-          String result = AssetPlusFeatureSet3Controller.addSpecificAsset(assetNum, floorNumber, roomNumber, new Date(LocalDate.now().toEpochDay()), assetTypeName);
-          showAlert("Add Specific Asset", result);
+        //   String result = AssetPlusFeatureSet3Controller.addSpecificAsset(assetNum, floorNumber, roomNumber, new Date(LocalDate.now().toEpochDay()), assetTypeName);
+        //   showAlert("Add Specific Asset", result);
       } catch (NumberFormatException e) {
           showAlert("Error", "result"); //TODO Have to Fix Error Message
       }
@@ -78,7 +78,7 @@ void deleteSpecificAsset(ActionEvent event) {
     try {
         int assetNumber = Integer.parseInt(assetNumberStr);
         AssetPlusFeatureSet3Controller.deleteSpecificAsset(assetNumber);
-        showAlert("Delete Asset Type", result);
+        // showAlert("Delete Asset Type", result);
     } catch (NumberFormatException e) {
         showAlert("Error", "Invalid Asset Number. Please enter a valid number.");   //TODO Have to Fix Error Message
     }
