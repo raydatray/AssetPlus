@@ -18,16 +18,27 @@ public class TOSpecificAsset
   private int roomNumber;
   private Date purchaseDate;
 
+  //TOSpecificAsset Associations
+  private TOAssetType assetType;
+
+  //Helper Variables
+  private boolean canSetAssetType;
+
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public TOSpecificAsset(int aAssetNumber, int aFloorNumber, int aRoomNumber, Date aPurchaseDate)
+  public TOSpecificAsset(int aAssetNumber, int aFloorNumber, int aRoomNumber, Date aPurchaseDate, TOAssetType aAssetType)
   {
     assetNumber = aAssetNumber;
     floorNumber = aFloorNumber;
     roomNumber = aRoomNumber;
     purchaseDate = aPurchaseDate;
+    canSetAssetType = true;
+    if (!setAssetType(aAssetType))
+    {
+      throw new RuntimeException("Unable to create TOSpecificAsset due to aAssetType. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
+    }
   }
 
   //------------------------
@@ -53,6 +64,24 @@ public class TOSpecificAsset
   {
     return purchaseDate;
   }
+  /* Code from template association_GetOne */
+  public TOAssetType getAssetType()
+  {
+    return assetType;
+  }
+  /* Code from template association_SetUnidirectionalOne */
+  private boolean setAssetType(TOAssetType aNewAssetType)
+  {
+    boolean wasSet = false;
+    if (!canSetAssetType) { return false; }
+    canSetAssetType = false;
+    if (aNewAssetType != null)
+    {
+      assetType = aNewAssetType;
+      wasSet = true;
+    }
+    return wasSet;
+  }
 
   public void delete()
   {}
@@ -64,6 +93,7 @@ public class TOSpecificAsset
             "assetNumber" + ":" + getAssetNumber()+ "," +
             "floorNumber" + ":" + getFloorNumber()+ "," +
             "roomNumber" + ":" + getRoomNumber()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "purchaseDate" + "=" + (getPurchaseDate() != null ? !getPurchaseDate().equals(this)  ? getPurchaseDate().toString().replaceAll("  ","    ") : "this" : "null");
+            "  " + "purchaseDate" + "=" + (getPurchaseDate() != null ? !getPurchaseDate().equals(this)  ? getPurchaseDate().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
+            "  " + "assetType = "+(getAssetType()!=null?Integer.toHexString(System.identityHashCode(getAssetType())):"null");
   }
 }

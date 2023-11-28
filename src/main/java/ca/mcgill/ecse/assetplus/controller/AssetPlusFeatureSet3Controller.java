@@ -152,8 +152,9 @@ public class AssetPlusFeatureSet3Controller {
     try {
 
 			for (SpecificAsset asset: assetPlus.getSpecificAssets()) {
+      TOAssetType assetType = new TOAssetType(asset.getAssetType().getName(), asset.getAssetType().getExpectedLifeSpan());
 
-      TOSpecificAsset transferSpecificAsset = new TOSpecificAsset(asset.getAssetNumber(), asset.getFloorNumber(), asset.getRoomNumber(), asset.getPurchaseDate());
+      TOSpecificAsset transferSpecificAsset = new TOSpecificAsset(asset.getAssetNumber(), asset.getFloorNumber(), asset.getRoomNumber(), asset.getPurchaseDate(), assetType);
 
       TOSpecificAssetList.add(transferSpecificAsset);
     }
