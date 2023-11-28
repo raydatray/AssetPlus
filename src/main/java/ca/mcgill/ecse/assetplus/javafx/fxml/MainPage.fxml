@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1440.0" stylesheets="@resources/MainPage.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.assetplus.javafx.fxml.controllers.StdPageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="1024.0" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1440.0" stylesheets="@resources/MainPage.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.assetplus.javafx.fxml.controllers.StdPageController">
    <center>
       <AnchorPane prefHeight="1024.0" prefWidth="1033.0" styleClass="contentBackground" BorderPane.alignment="TOP_LEFT">
          <children>
@@ -30,7 +30,7 @@
                         <SVGPath content="M0 8.49366C0 13.1768 3.8475 16.9873 8.57627 16.9873C10.4463 16.9873 12.1551 16.3913 13.5629 15.3908L18.8506 20.638C19.0978 20.8829 19.4202 21 19.7641 21C20.4949 21 21 20.4571 21 19.744C21 19.4034 20.871 19.0947 20.6454 18.8713L15.39 13.6346C16.4969 12.2083 17.1525 10.4308 17.1525 8.49366C17.1525 3.81043 13.305 0 8.57627 0C3.8475 0 0 3.81043 0 8.49366ZM1.83777 8.49366C1.83777 4.81094 4.85773 1.82007 8.57627 1.82007C12.2948 1.82007 15.3147 4.81094 15.3147 8.49366C15.3147 12.1764 12.2948 15.1672 8.57627 15.1672C4.85773 15.1672 1.83777 12.1764 1.83777 8.49366Z" fill="#e5e3d9" />
                      </graphic>
                   </Button>
-                  <Button fx:id="addEntry" mnemonicParsing="false" prefHeight="60.0" prefWidth="224.0" styleClass="contentButton" text="Add Entry">
+                  <Button fx:id="addButton" mnemonicParsing="false" styleClass="contentButton" text="Add Entry">
                      <graphic>
                         <SVGPath content="M0 9.99999C0 10.5939 0.49697 11.0788 1.07879 11.0788H8.9212V18.9211C8.9212 19.503 9.40604 20 9.99999 20C10.5939 20 11.0909 19.503 11.0909 18.9211V11.0788H18.9211C19.503 11.0788 20 10.5939 20 9.99999C20 9.40604 19.503 8.90908 18.9211 8.90908H11.0909V1.07879C11.0909 0.49697 10.5939 0 9.99999 0C9.40604 0 8.9212 0.49697 8.9212 1.07879V8.90908H1.07879C0.49697 8.90908 0 9.40604 0 9.99999Z" fill="#e5e3d9" />
                      </graphic>
@@ -97,7 +97,7 @@
                </graphic>
             </Button>
             <Region prefHeight="0.0" VBox.vgrow="ALWAYS" />
-               <Label graphicTextGap="10.0" text="Label">
+               <Label graphicTextGap="10.0" text="HOLDER">
                   <graphic>
                   <SVGPath content="M16 31.9999C24.753 31.9999 32 24.7565 32 16.0078C32 7.27483 24.7372 0.015625 15.9843 0.015625C7.24705 0.015625 0 7.27483 0 16.0078C0 24.7565 7.26273 31.9999 16 31.9999ZM8.61176 24.2234C7.95293 24.2234 7.65488 23.8001 7.65488 23.2043C7.65488 21.4483 10.3216 16.8544 16 16.8544C21.6784 16.8544 24.345 21.4483 24.345 23.2043C24.345 23.8001 24.047 24.2234 23.3881 24.2234H8.61176ZM16 15.5218C13.7098 15.5061 11.8431 13.5776 11.8431 10.975C11.8431 8.56047 13.7098 6.55361 16 6.55361C18.2901 6.55361 20.1568 8.56047 20.1568 10.975C20.1568 13.5776 18.2901 15.5375 16 15.5218Z" fill="#e5e3d9" />
                   </graphic>

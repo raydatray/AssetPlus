@@ -27,9 +27,9 @@ public class AssetPlusFxmlView extends Application {
       root.setStyle("");
       var scene = new Scene(root);
       primaryStage.setScene(scene);
-      primaryStage.setMinWidth(800);
-      primaryStage.setMinHeight(600);
-      primaryStage.setTitle("BTMS");
+      primaryStage.setMinWidth(1440);
+      primaryStage.setMinHeight(1044);
+      primaryStage.setTitle("AssetPlus");
       primaryStage.show();
       refresh();
     } catch (IOException e) {

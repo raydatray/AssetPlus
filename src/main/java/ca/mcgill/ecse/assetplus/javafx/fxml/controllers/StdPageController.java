@@ -23,7 +23,7 @@ public class StdPageController {
   @FXML private Label pageTitle;
   @FXML private Button search;
   @FXML private Button toggleView;
-  @FXML private Button addEntry;
+  @FXML private Button addButton;
 
   @FXML private Button assetsButton;
   @FXML private Button assetsTypeButton;
@@ -40,6 +40,7 @@ public class StdPageController {
   @FXML 
   public void assetButtonClicked(ActionEvent event){
     pageTitle.setText("Assets");
+    addButton.setText("Add Asset");
 
     dataTable.getColumns().clear();
     dataTable.getItems().clear();
@@ -71,6 +72,7 @@ public class StdPageController {
   @FXML
   public void assetTypeButtonClicked(ActionEvent event){
     pageTitle.setText("Asset Types");
+    addButton.setText("Add Type");
 
     dataTable.getColumns().clear();
     dataTable.getItems().clear();
@@ -90,6 +92,7 @@ public class StdPageController {
   @FXML 
   public void usersButtonClicked(ActionEvent event) {
     pageTitle.setText("Users");
+    addButton.setText("Add User");
 
     dataTable.getColumns().clear();
     dataTable.getItems().clear();
@@ -113,6 +116,7 @@ public class StdPageController {
   @FXML
   public void viewTicketsButtonClicked(ActionEvent event) { 
     pageTitle.setText("Maintenance Tickets");
+    addButton.setText("Add Ticket");
 
     dataTable.getColumns().clear();
     dataTable.getItems().clear();
