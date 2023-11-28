@@ -1,5 +1,5 @@
 package ca.mcgill.ecse.assetplus.javafx.fxml.controllers;
 
-public class AssetTypePopupUpdate {
+public class UpdateAssetTypePopup {
   
 }
