@@ -38,3 +38,10 @@ class TOAssetType {
   String name;
   Integer expectedLifeSpan;
 }
+
+class TOUser {
+  immutable;
+  String email;
+  String name;
+  String phoneNumber;
+}

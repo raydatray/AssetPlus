@@ -1,5 +1,7 @@
 package ca.mcgill.ecse.assetplus.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
 import ca.mcgill.ecse.assetplus.model.*;
 import ca.mcgill.ecse.assetplus.persistence.AssetPlusPersistence;
@@ -265,4 +267,34 @@ public class AssetPlusFeatureSet1Controller {
 
     return "";
   }
+
+  public static List<TOUser> getUsers() {
+
+    List<TOUser> TOUserList = new ArrayList<>();
+    try {
+      List<Employee> employees = assetPlus.getEmployees();
+      List<Guest> guests = assetPlus.getGuests();
+      List<User> users = new ArrayList<>();
+      for (Employee employee : employees){
+        users.add(employee);
+      }
+      for (Guest guest : guests){
+        users.add(guest);
+      }
+			for (User user : users) {
+        String name;
+        String phoneNumber;
+        name = user.getName();
+        phoneNumber = user.getPhoneNumber();
+
+      TOUser transferUser = new TOUser(user.getEmail(), name, phoneNumber);
+
+      TOUserList.add(transferUser);
+    }
+			AssetPlusPersistence.save();
+		} catch (Exception e) {
+			throw e;
+		}
+    return TOUserList;
+}
 }
