@@ -24,12 +24,22 @@ public class UpdateAssetPopupController {
   @FXML private TextField purchaseDateTextField;
   @FXML private TextField assetTypeTextField;
 
+  public void setAssetNumber(String assetNumber) {
+    if (assetNumberTextField != null) {
+      assetNumberTextField.setText(assetNumber);
+    }
+  }
 
-  public void promptUpdateAssetPopUp(Button updateButton) {
+  public void promptUpdateAssetPopUp(Button updateButton, String assetNumber) {
     try {
       // Load the FXML file
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/UpdateAssetPopUp.fxml"));
       Parent root = loader.load();
+
+      // Autofill the assetNumber textfield
+      UpdateAssetPopupController controller = loader.getController();
+      controller.setAssetNumber(assetNumber);     //TODO assetNumber is a string or int
+
       // Create a new stage for the pop-up
       Stage popupStage = new Stage();
       popupStage.initModality(Modality.APPLICATION_MODAL);
@@ -153,3 +163,5 @@ public class UpdateAssetPopupController {
 //   }
 // }
 
+message.txt
+6 KB
