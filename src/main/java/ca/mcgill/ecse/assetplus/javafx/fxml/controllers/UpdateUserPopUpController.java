@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.PasswordField;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -54,7 +55,7 @@ public class UpdateUserPopUpController {
 
     String userEmail = emailtextField.getText();
     String userName = nameTextField.getText();
-    String userPassword = PassWordTextField.getText();
+    String userPassword = passwordTextField.getText();
     String userPhoneNumber = phoneNumberTextField.getText();
 
     AssetPlusFeatureSet1Controller.addEmployeeOrGuest(userEmail, userPassword, userName, userPhoneNumber, false);
