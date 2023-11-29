@@ -11,21 +11,6 @@ import ca.mcgill.ecse.assetplus.persistence.AssetPlusPersistence;
 public class AssetPlusFeatureSet1Controller {
   private static AssetPlus assetPlus = AssetPlusApplication.getAssetPlus();
 
-  //TODO: Check if this is allowed
-  /**
-   * Checks if the manager password is correct.
-   *
-   * @param password The password to be checked.
-   * @return A boolean indicating whether the password is correct.
-   */
-  public static Boolean isManagerPasswordCorrect(String password) {
-    Manager manager = assetPlus.getManager();
-    if (manager == null) {
-      return false;
-    }
-    return manager.getPassword().equals(password);
-  }
-
   /**
    * Updates the manager password.
    *

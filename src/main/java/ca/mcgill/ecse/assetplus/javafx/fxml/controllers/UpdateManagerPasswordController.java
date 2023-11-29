@@ -3,44 +3,24 @@ package ca.mcgill.ecse.assetplus.javafx.fxml.controllers;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet1Controller;
-import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet3Controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
 
 public class UpdateManagerPasswordController {
-  @FXML
-  private TextField currentPasswordField;
 
   @FXML
   private TextField newPasswordField;
 
   @FXML
-  private TextField confirmPassworField;
-
-  @FXML
   private void handleResetPassword() {
-    String currentPassword = currentPasswordField.getText();
     String newPassword = newPasswordField.getText();
-    String confirmPassword = confirmPassworField.getText();
 
-    Boolean isCurrentPasswordCorrect = AssetPlusFeatureSet1Controller.isManagerPasswordCorrect(currentPassword);
-    Boolean hasCompleteFields = !currentPassword.isEmpty() && !newPassword.isEmpty() && !confirmPassword.isEmpty();
-    Boolean isPasswordMatching = newPassword.equals(confirmPassword);
-
-    if (!isCurrentPasswordCorrect) {
-      showAlert("Error Updating Password", "Current password is incorrect.");
-      return;
-    } 
+    Boolean hasCompleteFields = !newPassword.isEmpty();
 
     if (!hasCompleteFields) {
       showAlert( "Error Updating Password", "Please fill in all fields.");
-      return;
-    }
-
-    if (!isPasswordMatching) {
-      showAlert("Error Updating Password", "New password and confirm password do not match.");
       return;
     }
 
