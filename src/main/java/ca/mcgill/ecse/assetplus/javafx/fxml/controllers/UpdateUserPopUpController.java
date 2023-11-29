@@ -15,7 +15,7 @@ import javafx.stage.StageStyle;
 
 public class UpdateUserPopUpController {
 
-  @FXML private Button UpdateUserButton;
+  @FXML private Button updateUserButton;
   @FXML private Button closePopUpButton;
   @FXML private TextField emailtextField;
   @FXML private TextField nameTextField;
