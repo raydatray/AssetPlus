@@ -6,12 +6,16 @@ import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet1Controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 
 public class UpdateManagerPasswordController {
 
   @FXML
   private TextField newPasswordField;
+
+  @FXML 
+  private Button closePopUpButton;
 
   @FXML
   private void handleResetPassword() {
@@ -30,6 +34,14 @@ public class UpdateManagerPasswordController {
     } catch (Exception e) {
       showAlert("Error", e.getMessage()); 
     } 
+  }
+
+  //TODO: Verify how to implement this based on the deisgn of the page
+  public void handleCloseButtonClick() {
+    // Get the stage (window) from the close button
+    Stage stage = (Stage) closePopUpButton.getScene().getWindow();
+    // Close the stage
+    stage.close();
   }
 
   /**
