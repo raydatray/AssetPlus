@@ -22,16 +22,27 @@ public class UpdateUserPopUpController {
   @FXML private TextField phoneNumberTextField;
   @FXML private PasswordField passwordTextField;
 
-  public void promptUpdatePopUp(Button updateButton) {
+  public void setEmail(String email) {
+    if (emailtextField != null) {
+        emailtextField.setText(email);
+    }
+  }
+
+  public void promptUpdatePopUp(Button updateButton, String email) {
     try {
       // Load the FXML file
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/UpdateUserPopUp.fxml"));
       Parent root = loader.load();
+
+      // Autofill the email textfield
+      UpdateUserPopUpController controller = loader.getController();
+      controller.setEmail(email); 
+
       // Create a new stage for the pop-up
       Stage popupStage = new Stage();
       popupStage.initModality(Modality.APPLICATION_MODAL);
       popupStage.initStyle(StageStyle.TRANSPARENT);
-      popupStage.setTitle("Add User");
+      popupStage.setTitle("Update User");
       // Set the content from the FXML file
       Scene scene = new Scene(root);
       scene.setFill(Color.TRANSPARENT);
@@ -40,15 +51,12 @@ public class UpdateUserPopUpController {
       popupStage.show();
     } catch (Exception e) {
       // Maybe prompt error pop up in case or error?
-      System.err.println("Error loading FXML: " + e.getMessage());
+      ViewUtils.showError(e.getMessage());
     }
   }
 
   public void handleCloseButtonClick() {
-    // Get the stage (window) from the close button
-    Stage stage = (Stage) closePopUpButton.getScene().getWindow();
-    // Close the stage
-    stage.close();
+    ViewUtils.closeWindow(closePopUpButton);
   }
 
   public void handleUpdateUserButtonClick() {
@@ -58,10 +66,13 @@ public class UpdateUserPopUpController {
     String userPassword = passwordTextField.getText();
     String userPhoneNumber = phoneNumberTextField.getText();
 
-    AssetPlusFeatureSet1Controller.addEmployeeOrGuest(userEmail, userPassword, userName, userPhoneNumber, false);
-    // Close the pop-up
-    handleCloseButtonClick();
-    // refresh data table
+    String error = AssetPlusFeatureSet1Controller.updateEmployeeOrGuest(userEmail, userPassword, userName, userPhoneNumber).replaceAll("([A-Z])", "\n$1");
 
+    // Check if string is not empty... if string is empty, operation was successful
+    if (!error.equals("")) {
+      ViewUtils.showError(error);
+    }
+
+    ViewUtils.closeWindow(emailtextField);
   }
 }
