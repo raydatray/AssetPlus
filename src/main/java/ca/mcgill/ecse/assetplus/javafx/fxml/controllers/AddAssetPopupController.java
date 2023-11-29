@@ -61,7 +61,7 @@ public class AddAssetPopupController {
     String roomStr = roomTextField.getText();
     String assetTypeStr = assetTypeTextField.getText();
 
-    AssetPlusFeatureSet3Controller.addSpecificAsset(assetNumStr, floorStr, roomStr, new Date(LocalDate.now().toEpochDay()), assetTypeStr);
+    //AssetPlusFeatureSet3Controller.addSpecificAsset(assetNumStr, floorStr, roomStr, new Date(LocalDate.now().toEpochDay()), assetTypeStr);
     // try {
     //   int assetNumber = Integer.parseInt(assetNumStr);
     // } catch (NumberFormatException e) {
@@ -80,7 +80,7 @@ public class AddAssetPopupController {
     //   showAlert("Error", "Room number must be an integer.");
     // }
 
-    AssetPlusFeatureSet3Controller.addSpecificAsset(assetNumber, floorNumber , roomNumber, new Date(LocalDate.now().toEpochDay()), assetTypeStr);
+    //AssetPlusFeatureSet3Controller.addSpecificAsset(assetNumber, floorNumber , roomNumber, new Date(LocalDate.now().toEpochDay()), assetTypeStr);
     // Close the pop-up
     handleCloseButtonClick();
     // refresh data table
