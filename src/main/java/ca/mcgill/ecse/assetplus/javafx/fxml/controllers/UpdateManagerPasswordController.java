@@ -2,9 +2,14 @@ package ca.mcgill.ecse.assetplus.javafx.fxml.controllers;
 
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet1Controller;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.scene.control.Button;
 
 
@@ -16,45 +21,44 @@ public class UpdateManagerPasswordController {
   @FXML 
   private Button closePopUpButton;
 
-  @FXML
-  private void handleResetPassword() {
+  public void promptUpdateManagerPasswordPopUp(Button updateButton) {
+    try {
+      // Load the FXML file
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/UpdateManagerPopUp.fxml"));
+      Parent root = loader.load();
+
+      // Create a new stage for the pop-up
+      Stage popupStage = new Stage();
+      popupStage.initModality(Modality.APPLICATION_MODAL);
+      popupStage.initStyle(StageStyle.TRANSPARENT);
+      popupStage.setTitle("Update Manager Password");
+      // Set the content from the FXML file
+      Scene scene = new Scene(root);
+      scene.setFill(Color.TRANSPARENT);
+      popupStage.setScene(scene);
+      // Show the pop-up
+      popupStage.show();
+    } catch (Exception e) {
+      // Maybe prompt error pop up in case or error?
+      ViewUtils.showError(e.getMessage());
+    }
+  }
+
+  public void handleCloseButtonClick() {
+    ViewUtils.closeWindow(closePopUpButton);
+  }
+
+  public void handleUpdateUserButtonClick() {
     String newPassword = newPasswordField.getText();
 
-    Boolean hasCompleteFields = !newPassword.isEmpty();
+    String error = AssetPlusFeatureSet1Controller.updateManager(newPassword).replaceAll("([A-Z])", "\n$1");
 
-    if (!hasCompleteFields) {
-      showAlert( "Error Updating Password", "Please fill in all fields.");
-      return;
+    // Check if string is not empty... if string is empty, operation was successful
+    if (!error.equals("")) {
+      ViewUtils.showError(error);
     }
 
-    try {
-      String updateManagerResult = AssetPlusFeatureSet1Controller.updateManager(newPassword);
-      showAlert("Update Manager Password", updateManagerResult);
-    } catch (Exception e) {
-      showAlert("Error", e.getMessage()); 
-    } 
-  }
-
-  //TODO: Verify how to implement this based on the deisgn of the page
-  public void handleCloseButtonClick() {
-    // Get the stage (window) from the close button
-    Stage stage = (Stage) closePopUpButton.getScene().getWindow();
-    // Close the stage
-    stage.close();
-  }
-
-  /**
-   * Displays an information alert with the given title and content.
-   * @param title   The title of the alert.
-   * @param content The content or message of the alert.
-   */
-
-  private void showAlert(String title, String content) {
-    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-    alert.setTitle(title);
-    alert.setHeaderText(null);
-    alert.setContentText(content);
-    alert.showAndWait();
+    ViewUtils.closeWindow(newPasswordField);
   }
 }
       
