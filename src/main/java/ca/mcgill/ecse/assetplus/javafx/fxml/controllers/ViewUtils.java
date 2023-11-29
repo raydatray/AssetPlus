@@ -11,6 +11,13 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+
+import javafx.scene.paint.Color;
+
+import javafx.stage.StageStyle;
+
 public class ViewUtils {
 
   /** Calls the controller and shows an error, if applicable. */
@@ -69,4 +76,27 @@ public class ViewUtils {
     }
   }
 
-}
+
+
+  public void promptPopUp(Button button, String xmlFile, String title) {
+    try {
+      // Load the FXML file
+      FXMLLoader loader = new FXMLLoader(getClass().getResource(title));
+      Parent root = loader.load();
+      // Create a new stage for the pop-up
+      Stage popupStage = new Stage();
+      popupStage.initModality(Modality.APPLICATION_MODAL);
+      popupStage.initStyle(StageStyle.TRANSPARENT);
+      popupStage.setTitle(title);
+      // Set the content from the FXML file
+      Scene scene = new Scene(root);
+      scene.setFill(Color.TRANSPARENT);
+      popupStage.setScene(scene);
+      // Show the pop-up
+      popupStage.show();
+    } catch (Exception e) {
+      // Maybe prompt error pop up in case or error?
+      System.err.println("Error loading FXML: " + e.getMessage());
+    }
+  }
+} 
