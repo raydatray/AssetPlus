@@ -1,6 +1,5 @@
 package ca.mcgill.ecse.assetplus.javafx.fxml.controllers;
 
-import com.thoughtworks.xstream.mapper.SystemAttributeAliasingMapper;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet1Controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
