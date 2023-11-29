@@ -381,7 +381,7 @@ public class StdPageController {
 
 
     AddUserPopUpController popUpController = new AddUserPopUpController();
-    addButton.setOnAction(e -> popUpController.promptAddUserPopUp(addButton));
+    addButton.setOnAction(e -> popUpController.promptAddUserPopUp());
 
     dataTable.getColumns().clear();
     dataTable.getItems().clear();
@@ -407,6 +407,9 @@ public class StdPageController {
   
   @FXML
   public void viewTicketsButtonClicked(ActionEvent event) { 
+    AddTicketPopUpController ticketPopUpController = new AddTicketPopUpController();
+    addButton.setOnAction(e -> ticketPopUpController.promptAddTicketPopUp());
+    
     pageTitle.setText("Maintenance Tickets");
     addButton.setText("Add Ticket");
     addButton.setVisible(true);

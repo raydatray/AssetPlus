@@ -11,8 +11,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class AddUserPopUpController {
 
@@ -23,7 +21,7 @@ public class AddUserPopUpController {
   @FXML private TextField nameTextField;
   @FXML private TextField phoneNumberTextField;
 
-  public void promptAddUserPopUp(Button addButton) {
+  public void promptAddUserPopUp() {
     try {
       // Load the FXML file
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/AddUserPopUp.fxml"));

@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="994.0" style="-fx-background-color: #252627; -fx-border-color: #6699CC; -fx-border-width: 3; -fx-background-radius: 50; -fx-border-radius: 45;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.assetplus.javafx.fxml.controllers.SpecificAssetPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="994.0" style="-fx-background-color: #252627; -fx-border-color: #6699CC; -fx-border-width: 3; -fx-background-radius: 50; -fx-border-radius: 45;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.assetplus.javafx.fxml.controllers.AddTicketPopUpController">
    <children>
       <HBox prefHeight="100.0" prefWidth="994.0">
          <children>
@@ -21,7 +21,7 @@
                </font>
             </Text>
             <Pane prefHeight="72.0" prefWidth="216.0" />
-            <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="33.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="x" textFill="#e5e3d9">
+            <Button fx:id="closePopUpButton" onAction="#handleCloseButtonClick" mnemonicParsing="false" prefHeight="33.0" prefWidth="33.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="x" textFill="#e5e3d9">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
@@ -43,7 +43,7 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <TextField prefHeight="39.0" prefWidth="724.0" promptText="ex: 1234" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;" text="ex: 982349898">
+                  <TextField fx:id="ticketIdTextField" prefHeight="39.0" prefWidth="724.0" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;" promptText="ex: 982349898">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -63,7 +63,7 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <TextField prefHeight="39.0" prefWidth="695.0" promptText="ex: 2020-01-03" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
+                  <TextField fx:id="dateRaisedTextField" prefHeight="39.0" prefWidth="695.0" promptText="ex: 2020-01-03" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -83,7 +83,7 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <TextField prefHeight="39.0" prefWidth="765.0" promptText="ex: user@ap.com" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
+                  <TextField fx:id="raiserEmailTextField" prefHeight="39.0" prefWidth="765.0" promptText="ex: user@ap.com" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -103,7 +103,7 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <TextField prefHeight="39.0" prefWidth="673.0" promptText="ex: 1234" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
+                  <TextField fx:id="assetNumberTextField" prefHeight="39.0" prefWidth="673.0" promptText="ex: 1234" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -123,7 +123,7 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <TextField alignment="TOP_LEFT" prefHeight="127.0" prefWidth="692.0" promptText="ex: Lamp" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
+                  <TextField fx:id="descriptionTextField" alignment="TOP_LEFT" prefHeight="127.0" prefWidth="692.0" promptText="ex: Lamp" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
                      <font>
                         <Font name="System Italic" size="18.0" />
                      </font>
@@ -132,7 +132,7 @@
             </HBox>
          </children>
       </VBox>
-      <Button layoutX="435.0" layoutY="617.0" mnemonicParsing="false" onAction="#addSpecificAsset" prefHeight="51.0" prefWidth="137.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="Add" textFill="#e5e3d9">
+      <Button fx:id="addTicketButton" layoutX="435.0" layoutY="617.0" mnemonicParsing="false" onAction="#addMaintenanceTicket" prefHeight="51.0" prefWidth="137.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="Add" textFill="#e5e3d9">
          <font>
             <Font name="Arial Rounded MT Bold" size="24.0" />
          </font>

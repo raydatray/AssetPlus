@@ -268,7 +268,20 @@
       }
     ],
     "guests": [
-      ""
+      {
+        "Guest": {
+          "email": "alexander.liu@mail.mcgill.ca",
+          "name": "Alexander Liu",
+          "password": 123412341,
+          "phoneNumber": "(123)123-1234",
+          "raisedTickets": [
+            ""
+          ],
+          "assetPlus": {
+            "@reference": "../../.."
+          }
+        }
+      }
     ],
     "manager": {
       "@reference": "../employees/Employee/maintenanceNotes/MaintenanceNote/ticket/ticketRaiser/maintenanceNotes/MaintenanceNote/ticket/ticketNotes/MaintenanceNote[2]/noteTaker"
