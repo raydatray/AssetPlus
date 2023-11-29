@@ -11,6 +11,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AddUserPopUpController {
 
@@ -54,7 +56,7 @@ public class AddUserPopUpController {
     String userPhoneNumber = phoneNumberTextField.getText();
     String userPassword = passwordTextField.getText();
 
-    String error = AssetPlusFeatureSet1Controller.addEmployeeOrGuest(userEmail, userPassword, userName, userPhoneNumber, false);
+    String error = AssetPlusFeatureSet1Controller.addEmployeeOrGuest(userEmail, userPassword, userName, userPhoneNumber, false).replaceAll("([A-Z])", "\n$1");
     
     // Check if string is not empty... if string is empty, operation was successful
     if (!error.equals("")) {
