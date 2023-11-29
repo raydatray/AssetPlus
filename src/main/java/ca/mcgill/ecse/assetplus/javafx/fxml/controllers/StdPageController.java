@@ -44,6 +44,9 @@ public class StdPageController {
 
     dataTable.getColumns().clear();
     dataTable.getItems().clear();
+
+    AddAssetPopupController popUpController = new AddAssetPopupController();
+    addButton.setOnAction(e -> popUpController.promptAddAssetPopUp(addButton));
     
     List<TOSpecificAsset> specificAssets= AssetPlusFeatureSet3Controller.getSpecificAssets();
     dataTable.getItems().addAll(specificAssets);
