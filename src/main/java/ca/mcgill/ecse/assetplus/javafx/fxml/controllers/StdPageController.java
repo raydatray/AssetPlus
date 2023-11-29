@@ -46,6 +46,28 @@ public class StdPageController {
   private SVGPath deleteIcon;
   private SVGPath editIcon;
 
+  public void refreshTable(String currentPage){
+    ActionEvent refresh = new ActionEvent();
+
+    switch(currentPage) {
+      case "Assets":
+        assetButtonClicked(refresh);
+        break;
+      case "AssetTypes":
+        assetTypeButtonClicked(refresh);
+        break;
+      case "Users":
+        usersButtonClicked(refresh);
+        break;
+      case "Tickets":
+        viewTicketsButtonClicked(refresh);
+        break;
+      case "Status":
+        statusButtonClicked(refresh);
+        break;
+    }
+  }
+
 
   private void addButtonToTable(String buttonType, String currentPage) {
 
