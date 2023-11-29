@@ -10,12 +10,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="994.0" style="-fx-background-color: #252627; -fx-border-color: #6699CC; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="994.0" style="-fx-background-color: #252627; -fx-border-color: #6699CC; -fx-border-width: 4; -fx-background-radius: 50; -fx-border-radius: 45;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox prefHeight="100.0" prefWidth="994.0">
          <children>
             <Pane prefHeight="72.0" prefWidth="217.0" />
-            <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Update an Existing Asset Type" wrappingWidth="580.1875">
+            <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Update Asset Type" textAlignment="CENTER" wrappingWidth="580.1875">
                <font>
                   <Font name="Arial Bold" size="32.0" />
                </font>
@@ -96,7 +96,7 @@
             <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="858.0" />
          </children>
       </VBox>
-      <Button layoutX="429.0" layoutY="356.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="137.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="UPDATE" textFill="#e5e3d9">
+      <Button layoutX="429.0" layoutY="356.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="137.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="Update" textFill="#e5e3d9">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
