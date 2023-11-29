@@ -11,13 +11,15 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AddUserPopUpController {
 
   @FXML private Button addNewUserButton;
   @FXML private Button closePopUpButton;
   @FXML private TextField emailtextField;
-  @FXML private TextField PasswordTextField;
+  @FXML private TextField passwordTextField;
   @FXML private TextField nameTextField;
   @FXML private TextField phoneNumberTextField;
 
@@ -39,12 +41,12 @@ public class AddUserPopUpController {
       popupStage.show();
     } catch (Exception e) {
       // Maybe prompt error pop up in case or error?
-      System.err.println("Error loading FXML: " + e.getMessage());
+      ViewUtils.showError(e.getMessage());
     }
   }
 
   public void handleCloseButtonClick() {
-    closePopUp();
+    ViewUtils.closeWindow(closePopUpButton);
   }
 
   public void handleAddNewUserButtonClick() {
@@ -52,19 +54,15 @@ public class AddUserPopUpController {
     String userEmail = emailtextField.getText();
     String userName = nameTextField.getText();
     String userPhoneNumber = phoneNumberTextField.getText();
-    String userPassword = PasswordTextField.getText();
+    String userPassword = passwordTextField.getText();
 
-    AssetPlusFeatureSet1Controller.addEmployeeOrGuest(userEmail, userPassword, userName, userPhoneNumber, false);
-    // refresh data table
+    String error = AssetPlusFeatureSet1Controller.addEmployeeOrGuest(userEmail, userPassword, userName, userPhoneNumber, false).replaceAll("([A-Z])", "\n$1");
     
-    // Close the pop-up
-    closePopUp();
-  }
+    // Check if string is not empty... if string is empty, operation was successful
+    if (!error.equals("")) {
+      ViewUtils.showError(error);
+    }
 
-  public void closePopUp() {
-    // Get the stage (window) from the close button
-    Stage stage = (Stage) closePopUpButton.getScene().getWindow();
-    // Close the stage
-    stage.close();
+    ViewUtils.closeWindow(emailtextField);
   }
 }
