@@ -17,6 +17,7 @@ public class AddUserPopUpController {
   @FXML private Button addNewUserButton;
   @FXML private Button closePopUpButton;
   @FXML private TextField emailtextField;
+  @FXML private TextField PasswordTextField;
   @FXML private TextField nameTextField;
   @FXML private TextField phoneNumberTextField;
 
@@ -43,10 +44,7 @@ public class AddUserPopUpController {
   }
 
   public void handleCloseButtonClick() {
-    // Get the stage (window) from the close button
-    Stage stage = (Stage) closePopUpButton.getScene().getWindow();
-    // Close the stage
-    stage.close();
+    closePopUp();
   }
 
   public void handleAddNewUserButtonClick() {
@@ -54,11 +52,19 @@ public class AddUserPopUpController {
     String userEmail = emailtextField.getText();
     String userName = nameTextField.getText();
     String userPhoneNumber = phoneNumberTextField.getText();
+    String userPassword = PasswordTextField.getText();
 
-    AssetPlusFeatureSet1Controller.addEmployeeOrGuest(userEmail, "12345", userName, userPhoneNumber, false);
-    // Close the pop-up
-    handleCloseButtonClick();
+    AssetPlusFeatureSet1Controller.addEmployeeOrGuest(userEmail, userPassword, userName, userPhoneNumber, false);
     // refresh data table
+    
+    // Close the pop-up
+    closePopUp();
+  }
 
+  public void closePopUp() {
+    // Get the stage (window) from the close button
+    Stage stage = (Stage) closePopUpButton.getScene().getWindow();
+    // Close the stage
+    stage.close();
   }
 }
