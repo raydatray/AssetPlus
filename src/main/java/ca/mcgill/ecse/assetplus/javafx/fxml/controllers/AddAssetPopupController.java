@@ -73,7 +73,7 @@ public class AddAssetPopupController {
         ViewUtils.showError(error);
       }
 
-      ViewUtils.closeWindow(assetTypeTextField);
+      ViewUtils.closeWindow(addNewAssetButton);
 
     } catch (Exception e) {
         ViewUtils.showError(e.getMessage());
