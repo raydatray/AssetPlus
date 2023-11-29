@@ -128,7 +128,12 @@ public class StdPageController {
                             
                             switch(currentPage){
                               case "Assets":
-                                //send the data to the contoller method!!
+                                TOSpecificAsset selectedAsset = (TOSpecificAsset) data;
+                                int selectedAssetNumber = selectedAsset.getAssetNumber();
+                                UpdateAssetPopupController popupController = new UpdateAssetPopupController();
+
+                                String assetNumber = Integer.toString(selectedAssetNumber);
+                                popupController.promptUpdateAssetPopUp(addButton, assetNumber); 
                                                                 
                                 assetButtonClicked(refresh);
                                 break;

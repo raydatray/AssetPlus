@@ -27,7 +27,10 @@ public class UpdateAssetPopupController {
   public void setAssetNumber(String assetNumber) {
     if (assetNumberTextField != null) {
       assetNumberTextField.setText(assetNumber);
+      System.out.println(assetNumberTextField.getText());
+      return;
     }
+    System.out.println("someting wong");
   }
 
   public void promptUpdateAssetPopUp(Button updateButton, String assetNumber) {
@@ -162,6 +165,3 @@ public class UpdateAssetPopupController {
 
 //   }
 // }
-
-message.txt
-6 KB
