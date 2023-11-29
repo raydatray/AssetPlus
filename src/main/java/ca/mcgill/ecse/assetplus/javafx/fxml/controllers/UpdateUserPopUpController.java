@@ -28,7 +28,7 @@ public class UpdateUserPopUpController {
     }
   }
 
-  public void promptUpdatePopUp(Button updateButton, String email) {
+  public void promptUpdatePopUp(String email) {
     try {
       // Load the FXML file
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/UpdateUserPopUp.fxml"));

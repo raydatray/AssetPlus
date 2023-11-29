@@ -143,7 +143,7 @@ public class StdPageController {
                                 String selectedUserEmail = selectedUser.getEmail();
                                 UpdateUserPopUpController popUpController = new UpdateUserPopUpController();
 
-                                popUpController.promptUpdatePopUp(addButton, selectedUserEmail);
+                                popUpController.promptUpdatePopUp(selectedUserEmail);
 
                                 usersButtonClicked(refresh);
                                 break;
