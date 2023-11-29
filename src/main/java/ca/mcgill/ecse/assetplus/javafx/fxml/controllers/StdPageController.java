@@ -139,6 +139,17 @@ public class StdPageController {
                                 break;
                               case "AssetTypes":
                                 //send the data to the contoller method!!
+                                TOAssetType selectedAssetType = (TOAssetType) data;
+                                String selectedAssetName = selectedAssetType.getName();
+                                Boolean isValidAssetTypeAndName = (selectedAssetType != null && selectedAssetName != null);
+
+                                UpdateAssetTypePopUpController updateAssetController = new UpdateAssetTypePopUpController();
+
+                                if (isValidAssetTypeAndName) {
+                                  updateAssetController.promptUpdateAssetTypePopUp(selectedAssetName);
+                                } else {
+                                  ViewUtils.showError("Invalid asset type data.");
+                                }
                                                            
                                 assetTypeButtonClicked(refresh);
                                 break;
