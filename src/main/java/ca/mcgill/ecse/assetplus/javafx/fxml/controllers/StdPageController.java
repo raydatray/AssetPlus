@@ -351,6 +351,9 @@ public class StdPageController {
     addButton.setVisible(true);
     currentPage = "AssetTypes";
 
+    AddAssetTypePopupController popUpController = new AddAssetTypePopupController();
+    addButton.setOnAction(e -> popUpController.promptAddAssetTypePopUp(addButton));
+
     dataTable.getColumns().clear();
     dataTable.getItems().clear();
     
