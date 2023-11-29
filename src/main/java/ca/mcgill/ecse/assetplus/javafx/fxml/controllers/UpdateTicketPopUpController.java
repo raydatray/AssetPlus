@@ -79,6 +79,7 @@ public class UpdateTicketPopUpController {
         ViewUtils.showError(error);
   
         ViewUtils.closeWindow(updateTicketButton);
+        
   
       }
       } catch (Exception e) {
