@@ -24,7 +24,7 @@ public class AddAssetPopup {
   @FXML private TextField roomTextField;
   @FXML private TextField assetTypeTextField;
 
-  public void promptAddUserPopUp(Button addButton) {
+  public void promptAddAssetPopUp(Button addButton) {
     try {
       // Load the FXML file
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/AddAssetPopUp.fxml"));
@@ -60,23 +60,24 @@ public class AddAssetPopup {
     String roomStr = roomTextField.getText();
     String assetTypeStr = assetTypeTextField.getText();
 
-    try {
-      int assetNumber = Integer.parseInt(assetNumStr);
-    } catch (NumberFormatException e) {
-      showAlert("Error", "Asset number must be an integer.");
-    }
+    AssetPlusFeatureSet3Controller.addSpecificAsset(assetNumStr, floorStr, roomStr, new Date(LocalDate.now().toEpochDay()), assetTypeStr);
+    // try {
+    //   int assetNumber = Integer.parseInt(assetNumStr);
+    // } catch (NumberFormatException e) {
+    //   showAlert("Error", "Asset number must be an integer.");
+    // }
 
-    try {
-      int floorNumber = Integer.parseInt(floorStr);
-    } catch (NumberFormatException e) {
-      showAlert("Error", "Floor number must be an integer.");
-    }
+    // try {
+    //   int floorNumber = Integer.parseInt(floorStr);
+    // } catch (NumberFormatException e) {
+    //   showAlert("Error", "Floor number must be an integer.");
+    // }
 
-    try {
-      int roomNumber = Integer.parseInt(roomStr);
-    } catch (NumberFormatException e) {
-      showAlert("Error", "Room number must be an integer.");
-    }
+    // try {
+    //   int roomNumber = Integer.parseInt(roomStr);
+    // } catch (NumberFormatException e) {
+    //   showAlert("Error", "Room number must be an integer.");
+    // }
 
     AssetPlusFeatureSet3Controller.addSpecificAsset(assetNumber, floorNumber , roomNumber, new Date(LocalDate.now().toEpochDay()), assetTypeStr);
     // Close the pop-up
