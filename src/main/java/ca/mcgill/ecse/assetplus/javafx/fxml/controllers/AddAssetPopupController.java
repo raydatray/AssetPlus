@@ -1,7 +1,7 @@
 package ca.mcgill.ecse.assetplus.javafx.fxml.controllers;
 
 import java.sql.Date;
-import java.time.LocalDate;
+import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet2Controller;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet3Controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +21,7 @@ public class AddAssetPopupController {
   @FXML private TextField assetNumberTextField;
   @FXML private TextField floortextField;
   @FXML private TextField roomTextField;
+  @FXML private TextField purchaseDateTextField;
   @FXML private TextField assetTypeTextField;
 
 
@@ -46,49 +47,44 @@ public class AddAssetPopupController {
     }
   }
 
-public void handleCloseButtonClick() {
-    ViewUtils.closeWindow(closePopUpButton);
-  }
+  public void handleCloseButtonClick() {
+      ViewUtils.closeWindow(closePopUpButton);
+    }
 
   public void handleAddNewAssetButtonClick() {
-
-    
-
 
     try {
 
       String assetNumberStr = assetNumberTextField.getText();
       String floorNumberStr = floortextField.getText();
       String roomNumberStr = roomTextField.getText();
+      String purchaseDateStr = purchaseDateTextField.getText();
       String assetType = assetTypeTextField.getText();
 
-      int assetNumber = 0;
-      int floorNumber = 0;
-      int roomNumber = 0;
+      int assetNumber = Integer.parseInt(assetNumberStr);
+      int floorNumber = Integer.parseInt(floorNumberStr);
+      int roomNumber = Integer.parseInt(roomNumberStr);
+      Date purchaseDate = Date.valueOf(purchaseDateStr); 
 
-      LocalDate localDate = LocalDate.now();
-      Date purchaseDate = java.sql.Date.valueOf(localDate);
-      assetNumber = Integer.parseInt(assetNumberStr);
-      floorNumber = Integer.parseInt(floorNumberStr);
-      roomNumber = Integer.parseInt(roomNumberStr);
-            String error = AssetPlusFeatureSet3Controller.addSpecificAsset(assetNumber, floorNumber, roomNumber, purchaseDate, assetType).replaceAll("([A-Z])", "\n$1");
+      String error = AssetPlusFeatureSet3Controller.addSpecificAsset(assetNumber, floorNumber, roomNumber, purchaseDate, assetType).replaceAll("([A-Z])", "\n$1");
 
-    
-if (!error.equals("")) {
-      ViewUtils.showError(error);
+      
+      if (!error.equals("")) {
+        ViewUtils.showError(error);
+      }
 
       ViewUtils.closeWindow(assetTypeTextField);
 
-    }
     } catch (Exception e) {
-      ViewUtils.showError(e.getMessage());
+        ViewUtils.showError(e.getMessage());
     }
 
-    
-    // Check if string is not empty... if string is empty, operation was successful
-    
+      
+      // Check if string is not empty... if string is empty, operation was successful
+      
 
-  }
+    }
+
 }
 
 

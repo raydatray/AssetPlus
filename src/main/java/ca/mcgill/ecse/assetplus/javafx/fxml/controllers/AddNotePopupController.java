@@ -3,18 +3,18 @@ package ca.mcgill.ecse.assetplus.javafx.fxml.controllers;
   import java.sql.Date;
   import javafx.event.ActionEvent;
   import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
+  import javafx.fxml.FXMLLoader;
+  import javafx.scene.Parent;
+  import javafx.scene.Scene;
+  import javafx.scene.control.Button;
   import javafx.scene.control.TextField;
-import javafx.scene.paint.Color;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import static ca.mcgill.ecse.assetplus.javafx.fxml.controllers.ViewUtils.*;
-import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet3Controller;
-import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet7Controller;
+  import javafx.scene.paint.Color;
+  import javafx.stage.Modality;
+  import javafx.stage.Stage;
+  import javafx.stage.StageStyle;
+  import static ca.mcgill.ecse.assetplus.javafx.fxml.controllers.ViewUtils.*;
+  import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet3Controller;
+  import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet7Controller;
 
   public class AddNotePopupController {
   
@@ -37,6 +37,7 @@ import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet7Controller;
       private TextField ticketIDTextField;
   
       @FXML
+      private TextField addedOnDateTextField;
 
 
   public void promptAddUserPopUp(Button addButton) {
@@ -73,11 +74,14 @@ import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet7Controller;
       String date = dateTextField.getText();
       String description = descriptionTextField.getText();
       String email = emailTextField.getText();
+      String addedOndateStr = addedOnDateTextField.getText();
+
   
       int ticketID = 0;
-      Date addedOnDate = new Date(0);
+      Date addedOnDate = Date.valueOf(addedOndateStr);
       ticketID = Integer.parseInt(ticketIDStr);
       addedOnDate = Date.valueOf(date);
+      
 
       String error = AssetPlusFeatureSet7Controller.addMaintenanceNote(addedOnDate, description, ticketID, email);
       
@@ -85,6 +89,9 @@ import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet7Controller;
       if (!error.equals("")) {
         ViewUtils.showError(error);
       }
+
+      ViewUtils.closeWindow(ticketIDTextField);
+
 
     } catch (Exception e) {
       ViewUtils.showError(e.getMessage());
@@ -96,7 +103,7 @@ import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet7Controller;
   
      
   
-    }
+}
 
   
       

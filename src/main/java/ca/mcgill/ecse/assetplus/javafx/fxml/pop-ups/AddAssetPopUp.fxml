@@ -93,7 +93,27 @@
                   </TextField>
                </children>
             </HBox>
-            <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="858.0">
+            <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="861.0">
+               <children>
+                  <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Purchase Date:" wrappingWidth="156.13671875">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Text>
+                  <TextField fx:id="purchaseDateTextField" prefHeight="35.0" prefWidth="662.0" promptText="ex: 2023-01-01" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Italic" size="18.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="861.0">
                <children>
                   <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Asset Type:" wrappingWidth="127.13671875">
                      <font>
