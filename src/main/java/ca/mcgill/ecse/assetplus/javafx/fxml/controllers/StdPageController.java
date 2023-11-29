@@ -152,7 +152,9 @@ public class StdPageController {
                                 //send the data to the contoller method!!
                                 TOMaintenanceTicket selectedTicket = (TOMaintenanceTicket) data;
                                 int selectedTicketID = selectedTicket.getId();
-                                Boolean isValidTicketID = (selectedTicket != null && selectedTicketID != 0);
+                                Boolean isValidTicketID = (selectedTicket != null);
+                                // Boolean isValidTicketID = (selectedTicket != null && selectedTicketID != 0);
+
 
                                 UpdateTicketPopUpController popUpUpdateTicketController = new UpdateTicketPopUpController();
                           

@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #252627; -fx-border-color: #6699CC; -fx-border-width: 4; -fx-border-radius: 45; -fx-background-radius: 45;" type="AnchorPane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.assetplus.javafx.fxml.controllers.UpdateTicketPopUpController.java">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #252627; -fx-border-color: #6699CC; -fx-border-width: 4; -fx-border-radius: 45; -fx-background-radius: 45;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.assetplus.javafx.fxml.controllers.UpdateTicketPopUpController">
    <children>
       <HBox prefHeight="100.0" prefWidth="994.0">
          <children>
@@ -43,7 +43,7 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <TextField fx:id="ticketIdTextField" prefHeight="39.0" prefWidth="744.0" promptText="ex: 1234" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
+                  <TextField fx:id="ticketIDTextField" prefHeight="39.0" prefWidth="744.0" promptText="ex: 1234" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -63,7 +63,7 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <TextField fx:id="newDateRaisedTextField" prefHeight="39.0" prefWidth="695.0" promptText="ex: 6" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
+                  <TextField fx:id="newDateRaisedTextField" prefHeight="39.0" prefWidth="695.0" promptText="ex: 2020-02-01" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -103,7 +103,7 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <TextField fx:id="newAssetNumberTextField" prefHeight="39.0" prefWidth="673.0" promptText="ex: Lamp" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
+                  <TextField fx:id="newAssetNumberTextField" prefHeight="39.0" prefWidth="673.0" promptText="ex: 1" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -138,4 +138,4 @@
          </font>
       </Button>
    </children>
-</fx:root>
+</AnchorPane>
