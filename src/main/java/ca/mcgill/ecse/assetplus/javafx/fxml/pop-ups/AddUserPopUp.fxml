@@ -125,7 +125,7 @@
             </HBox>
             <HBox prefWidth="200.0" style="-fx-alignment: center;">
                <children>
-                  <Button fx:id="addNewUserButton" mnemonicParsing="false" prefHeight="44.0" prefWidth="101.0" style="-fx-background-color: #6699CC; -fx-background-radius: 45;" text="Add" textFill="#e5e3d9">
+                  <Button fx:id="addNewUserButton" mnemonicParsing="false" prefHeight="51.0" prefWidth="137.0" style="-fx-background-color: #6699CC; -fx-background-radius: 45;" text="Add" textFill="#e5e3d9">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
