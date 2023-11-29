@@ -22,7 +22,7 @@ public class UpdateUserPopUpController {
   @FXML private TextField phoneNumberTextField;
   @FXML private PasswordField passwordTextField;
 
-  public void promptAddUserPopUp(Button updateButton) {
+  public void promptUpdatePopUp(Button updateButton) {
     try {
       // Load the FXML file
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/UpdateUserPopUp.fxml"));
