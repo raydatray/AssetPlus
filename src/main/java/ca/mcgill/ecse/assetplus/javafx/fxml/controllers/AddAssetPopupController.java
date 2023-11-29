@@ -3,6 +3,7 @@ package ca.mcgill.ecse.assetplus.javafx.fxml.controllers;
 import java.sql.Date;
 import java.time.LocalDate;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet1Controller;
+import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet2Controller;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet3Controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,11 +16,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class AddAssetPopup {
+public class AddAssetPopupController {
   
   @FXML private Button addNewAssetButton;
   @FXML private Button closePopUpButton;
-  @FXML private java.awt.TextField assetNumberTextField;
+  @FXML private TextField assetNumberTextField;
   @FXML private TextField floortextField;
   @FXML private TextField roomTextField;
   @FXML private TextField assetTypeTextField;
@@ -53,7 +54,7 @@ public class AddAssetPopup {
     stage.close();
   }
 
-  public void handleAddNewUserButtonClick() {
+  public void handleAddNewAssetButtonClick() {
 
     String assetNumStr = assetNumberTextField.getText();
     String floorStr = floortextField.getText();
@@ -87,4 +88,3 @@ public class AddAssetPopup {
   }
 }
 
-}
