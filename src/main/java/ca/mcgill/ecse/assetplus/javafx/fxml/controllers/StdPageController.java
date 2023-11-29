@@ -141,18 +141,9 @@ public class StdPageController {
                               case "Users":
                                 TOUser selectedUser = (TOUser) data;
                                 String selectedUserEmail = selectedUser.getEmail();
-                                Boolean isValidUserAndEmail = (selectedUser != null && selectedUserEmail != null);
-
                                 UpdateUserPopUpController popUpController = new UpdateUserPopUpController();
-                          
-                                // Check if the data is a TOUser instance and if TOUset has an email
-                                // If so, pass it to the updateUserPopUpController
-                                if (isValidUserAndEmail) {
-                                  popUpController.promptUpdatePopUp(addButton, selectedUserEmail);
-                                } else {
-                                  // Handle the case where data is not a TOUser or doesn't have an email
-                                  ViewUtils.showError("Invalid user data.");
-                                }
+
+                                popUpController.promptUpdatePopUp(addButton, selectedUserEmail);
 
                                 usersButtonClicked(refresh);
                                 break;
