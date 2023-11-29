@@ -71,10 +71,10 @@ public void handleCloseButtonClick() {
       assetNumber = Integer.parseInt(assetNumberStr);
       floorNumber = Integer.parseInt(floorNumberStr);
       roomNumber = Integer.parseInt(roomNumberStr);
-      String error = AssetPlusFeatureSet3Controller.addSpecificAsset(assetNumber, floorNumber, roomNumber, purchaseDate, assetType).replaceAll("([A-Z])", "\n$1");
+            String error = AssetPlusFeatureSet3Controller.addSpecificAsset(assetNumber, floorNumber, roomNumber, purchaseDate, assetType).replaceAll("([A-Z])", "\n$1");
 
-
-      if (!error.equals("")) {
+    
+if (!error.equals("")) {
       ViewUtils.showError(error);
 
       ViewUtils.closeWindow(assetTypeTextField);
