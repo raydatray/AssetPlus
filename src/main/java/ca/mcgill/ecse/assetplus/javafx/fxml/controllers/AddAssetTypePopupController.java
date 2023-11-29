@@ -19,7 +19,7 @@ public class AddAssetTypePopupController {
   @FXML private TextField assetNameTextField;
   @FXML private TextField expectedLifeSpanTextField;
 
-  public void promptAddAssetTypePopUp(Button addButton) {
+  public void promptAddAssetTypePopup(Button addButton) {
     try {
       // Load the FXML file
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/AddAssetTypePopup.fxml"));
