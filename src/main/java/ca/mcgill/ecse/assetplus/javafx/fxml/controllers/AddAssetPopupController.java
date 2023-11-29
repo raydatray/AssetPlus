@@ -38,8 +38,7 @@ public class AddAssetPopupController {
       popupStage.show();
     } catch (Exception e) {
       // Maybe prompt error pop up in case or error?
-      addButton.setStyle("-fx-background-color: red;");
-      System.err.println("Error loading FXML: " + e.getMessage());
+      ViewUtils.showError(e.getMessage());
     }
   }
 

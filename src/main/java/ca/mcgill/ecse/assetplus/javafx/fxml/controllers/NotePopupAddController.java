@@ -7,10 +7,6 @@ package ca.mcgill.ecse.assetplus.javafx.fxml.controllers;
   import javafx.scene.control.TextField;
   import static ca.mcgill.ecse.assetplus.javafx.fxml.controllers.ViewUtils.*;
 
-  import javafx.stage.Stage;
-  import javafx.scene.Node;
-
-
   import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet7Controller;
 
   public class NotePopupAddController {

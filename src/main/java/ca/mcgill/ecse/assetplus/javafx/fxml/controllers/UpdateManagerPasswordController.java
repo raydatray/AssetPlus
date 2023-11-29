@@ -1,7 +1,5 @@
 package ca.mcgill.ecse.assetplus.javafx.fxml.controllers;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet1Controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
