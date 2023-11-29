@@ -45,7 +45,7 @@
                </font></Text>
                <HBox alignment="CENTER_LEFT" spacing="10">
                   <children>
-                      <Text fill="#e5e3d9" style="-fx-font-size: 14px; -fx-font-family: 'Arial';" text="New Password:" wrappingWidth="98.2548828125">
+                      <Text fill="#e5e3d9" style="-fx-font-size: 14px; -fx-font-family: 'Arial';" text="New Password:" wrappingWidth="106.2548828125">
                      <HBox.margin>
                         <Insets left="8.0" />
                      </HBox.margin>
