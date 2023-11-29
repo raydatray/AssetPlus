@@ -27,6 +27,7 @@ public class UpdateAssetPopupController {
   public void setAssetNumber(String assetNumber) {
     if (assetNumberTextField != null) {
       assetNumberTextField.setText(assetNumber);
+      assetNumberTextField.setDisable(true);
       System.out.println(assetNumberTextField.getText());
       return;
     }
