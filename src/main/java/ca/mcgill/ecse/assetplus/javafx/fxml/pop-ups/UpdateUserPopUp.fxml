@@ -3,15 +3,15 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="712.0" style="-fx-background-color: #252627; -fx-background-radius: 50; -fx-border-color: #6699CC; -fx-border-radius: 45; -fx-border-width: 4;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.assetplus.javafx.fxml.controllers.UpdateUserPopUpController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="712.0" style="-fx-background-color: #252627; -fx-background-radius: 50; -fx-border-color: #6699CC; -fx-border-radius: 45; -fx-border-width: 4;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.assetplus.javafx.fxml.controllers.UpdateUserPopUpController">
    <top>
       <StackPane prefHeight="67.0" prefWidth="704.0" BorderPane.alignment="CENTER">
          <children>
@@ -22,7 +22,7 @@
                      <children>
                         <Label contentDisplay="CENTER" text="Update User" textFill="#e5e3d9">
                            <font>
-                              <Font name="System Bold" size="32.0" />
+                              <Font name="Arial Rounded MT Bold" size="32.0" />
                            </font>
                         </Label>
                      </children>
@@ -49,12 +49,12 @@
          <children>
             <HBox prefWidth="200.0">
                <children>
-                  <Label prefHeight="35.0" prefWidth="66.0" text="Email:" textFill="#e5e3d9">
+                  <Label prefHeight="35.0" prefWidth="82.0" text="Email:" textFill="#e5e3d9">
                      <font>
-                        <Font size="24.0" />
+                        <Font name="Arial Rounded MT Bold" size="24.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="emailtextField" prefHeight="39.0" prefWidth="503.0" promptText="ex: user@ap.com" style="-fx-background-color: #303030; -fx-text-fill: #e5e3d9; -fx-background-radius: 15;">
+                  <TextField fx:id="emailtextField" prefHeight="35.0" prefWidth="483.0" promptText="ex: user@ap.com" style="-fx-background-color: #303030; -fx-text-fill: #e5e3d9; -fx-background-radius: 15;">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -69,15 +69,15 @@
             </HBox>
             <HBox prefWidth="200.0">
                <children>
-                  <Label prefHeight="35.0" prefWidth="70.0" text="Name:" textFill="#e5e3d9">
+                  <Label prefHeight="35.0" prefWidth="88.0" text="Name:" textFill="#e5e3d9">
                      <font>
-                        <Font size="24.0" />
+                        <Font name="Arial Rounded MT Bold" size="24.0" />
                      </font>
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="nameTextField" prefHeight="39.0" prefWidth="497.0" promptText="ex: John Doe" style="-fx-background-color: #303030; -fx-text-fill: #e5e3d9; -fx-background-radius: 15;">
+                  <TextField fx:id="nameTextField" prefHeight="35.0" prefWidth="474.0" promptText="ex: John Doe" style="-fx-background-color: #303030; -fx-text-fill: #e5e3d9; -fx-background-radius: 15;">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -92,12 +92,12 @@
             </HBox>
             <HBox prefWidth="200.0">
                <children>
-                  <Label prefHeight="35.0" prefWidth="109.0" text="Password:" textFill="#e5e3d9">
+                  <Label prefHeight="35.0" prefWidth="135.0" text="Password:" textFill="#e5e3d9">
                      <font>
-                        <Font size="24.0" />
+                        <Font name="Arial Rounded MT Bold" size="24.0" />
                      </font>
                   </Label>
-                  <PasswordField fx:id="passwordTextField" prefHeight="39.0" prefWidth="453.0" promptText="ex: ******" style="-fx-background-color: #303030; -fx-text-fill: #e5e3d9; -fx-background-radius: 15;">
+                  <PasswordField fx:id="passwordTextField" prefHeight="35.0" prefWidth="427.0" promptText="ex: ******" style="-fx-background-color: #303030; -fx-text-fill: #e5e3d9; -fx-background-radius: 15;">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -112,12 +112,12 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label prefHeight="35.0" prefWidth="172.0" text="Phone Number:" textFill="#e5e3d9">
+                  <Label prefHeight="35.0" prefWidth="191.0" text="Phone Number:" textFill="#e5e3d9">
                      <font>
-                        <Font size="24.0" />
+                        <Font name="Arial Rounded MT Bold" size="24.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="phoneNumberTextField" prefHeight="39.0" prefWidth="402.0" promptText="ex: (555)555-5555 " style="-fx-background-color: #303030; -fx-text-fill: #e5e3d9; -fx-background-radius: 15;">
+                  <TextField fx:id="phoneNumberTextField" prefHeight="39.0" prefWidth="382.0" promptText="ex: (555)555-5555 " style="-fx-background-color: #303030; -fx-text-fill: #e5e3d9; -fx-background-radius: 15;">
                      <font>
                         <Font name="System Italic" size="18.0" />
                      </font>
@@ -126,9 +126,9 @@
             </HBox>
             <HBox prefWidth="200.0" style="-fx-alignment: center;">
                <children>
-                  <Button fx:id="updateUserButton" mnemonicParsing="false" onAction="#handleUpdateUserButtonClick" prefHeight="51.0" prefWidth="137.0" style="-fx-background-color: #6699CC; -fx-background-radius: 45;" text="UDPATE" textFill="#e5e3d9">
+                  <Button fx:id="updateUserButton" mnemonicParsing="false" onAction="#handleUpdateUserButtonClick" prefHeight="51.0" prefWidth="137.0" style="-fx-background-color: #6699CC; -fx-background-radius: 45;" text="Update" textFill="#e5e3d9">
                      <font>
-                        <Font name="System Bold" size="24.0" />
+                        <Font name="Arial Rounded MT Bold" size="24.0" />
                      </font>
                   </Button>
                </children>
