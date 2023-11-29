@@ -9,13 +9,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="200.0" prefWidth="450.0" style="-fx-background-color: #252627; -fx-border-color: #6699CC; fx-border-width: 2; -fx-border-radius: 5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="your.package.UpdateManagerPasswordController">
+<AnchorPane prefHeight="200.0" prefWidth="450.0" style="-fx-background-color: #252627; -fx-border-color: #6699CC; fx-border-width: 4; -fx-border-radius: 45; -fx-background-radius: 50;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="your.package.UpdateManagerPasswordController">
     <children>
         <VBox alignment="CENTER" spacing="10.0" style="-fx-background-color: #252627;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
             <children>
                <HBox prefHeight="50.0" prefWidth="449.0">
                   <children>
-                     <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Reset Password" wrappingWidth="256.1875">
+                     <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Update Password" wrappingWidth="256.1875">
                         <font>
                            <Font name="Arial Bold" size="24.0" />
                         </font>
@@ -23,13 +23,11 @@
                         <Insets left="115.0" />
                      </HBox.margin>
                      </Text>
-                     <Button fx:id="closePopUpButton" onAction="#handleCloseButtonClick" mnemonicParsing="false" prefHeight="23.0" prefWidth="30.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="X" textFill="#e5e3d9">
+                     <Button fx:id="closePopUpButton" mnemonicParsing="false" onAction="#handleCloseButtonClick" prefHeight="23.0" prefWidth="30.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="x" textFill="#e5e3d9">
                         <font>
                            <Font name="System Bold" size="15.0" />
                         </font>
                      </Button>
-                     <Pane prefHeight="72.0" prefWidth="329.0" />
-                     <Pane prefHeight="72.0" prefWidth="229.0" />
                   </children>
                   <padding>
                      <Insets top="28.0" />
@@ -41,23 +39,32 @@
                 <Text style="-fx-fill: #E5E3D9; -fx-opacity: 0.6;" text="Change the password for the manager account" textAlignment="CENTER" wrappingWidth="280">
                <VBox.margin>
                   <Insets bottom="15.0" top="-8.0" />
-               </VBox.margin></Text>
+               </VBox.margin>
+               <font>
+                  <Font size="13.0" />
+               </font></Text>
                <HBox alignment="CENTER_LEFT" spacing="10">
                   <children>
                       <Text fill="#e5e3d9" style="-fx-font-size: 14px; -fx-font-family: 'Arial';" text="New Password:" wrappingWidth="98.2548828125">
                      <HBox.margin>
                         <Insets left="8.0" />
-                     </HBox.margin></Text>
-                      <PasswordField fx:id="newPasswordField" prefHeight="25.0" prefWidth="319.0" style="-fx-background-radius: 5;                                   -fx-background-color: #333333;                                   -fx-text-fill: #E5E3D9; ">
+                     </HBox.margin>
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="18.0" />
+                     </font></Text>
+                      <PasswordField fx:id="newPasswordField" prefHeight="25.0" prefWidth="319.0" promptText="ex: *******" style="-fx-background-radius: 5;                                   -fx-background-color: #333333;                                   -fx-text-fill: #E5E3D9; ">
                           <HBox.margin>
                               <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                           </HBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
                       </PasswordField>
                   </children>
               </HBox>
-               <Button maxWidth="Infinity" onAction="#handleResetPassword" style="-fx-background-radius: 25; -fx-background-color: #6699CC;-fx-text-fill: #e5e3d9;" text="RESET PASSWORD">
+               <Button maxWidth="Infinity" onAction="#handleResetPassword" prefHeight="30.0" prefWidth="443.0" style="-fx-background-radius: 25; -fx-background-color: #6699CC;-fx-text-fill: #e5e3d9;" text="Update Password">
                   <font>
-                     <Font name="System Bold" size="14.0" />
+                     <Font name="System Bold" size="18.0" />
                   </font>
                   <VBox.margin>
                       <Insets bottom="1.0" left="1.0" right="2.0" top="2.0" />
