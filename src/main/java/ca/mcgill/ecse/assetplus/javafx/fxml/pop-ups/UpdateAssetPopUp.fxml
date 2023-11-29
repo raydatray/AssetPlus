@@ -15,13 +15,13 @@
       <HBox prefHeight="100.0" prefWidth="994.0">
          <children>
             <Pane prefHeight="72.0" prefWidth="274.0" />
-            <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Update an Existing Asset" wrappingWidth="500.1875">
+            <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Update Asset" textAlignment="CENTER" wrappingWidth="500.1875">
                <font>
                   <Font name="Arial Bold" size="32.0" />
                </font>
             </Text>
             <Pane prefHeight="72.0" prefWidth="156.0" />
-            <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="33.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="X" textFill="#e5e3d9">
+            <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="33.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="x" textFill="#e5e3d9">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
