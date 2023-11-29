@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="1024.0" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1440.0" stylesheets="@resources/MainPage.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.assetplus.javafx.fxml.controllers.StdPageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="1024.0" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1440.0" stylesheets="@resources/MainPage.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.assetplus.javafx.fxml.controllers.StdPageController">
    <center>
       <AnchorPane prefHeight="1024.0" prefWidth="1033.0" styleClass="contentBackground" BorderPane.alignment="TOP_LEFT">
          <children>
@@ -88,7 +88,7 @@
                   <SVGPath content="M6.13402 7.06671C5.44192 7.06671 4.8448 6.47453 4.8448 5.80339C4.8448 5.10593 5.44192 4.54006 6.13402 4.54006C6.86685 4.54006 7.4504 5.09277 7.4504 5.80339C7.4504 6.48768 6.86685 7.06671 6.13402 7.06671ZM6.13402 11.212C5.44192 11.212 4.8448 10.633 4.8448 9.94866C4.8448 9.2512 5.44192 8.68534 6.13402 8.68534C6.86685 8.68534 7.4504 9.23805 7.4504 9.94866C7.4504 10.6461 6.86685 11.212 6.13402 11.212ZM6.13402 15.3441C5.42834 15.3441 4.8448 14.7915 4.8448 14.0808C4.8448 13.4096 5.42834 12.8306 6.13402 12.8306C6.86685 12.8306 7.4504 13.3965 7.4504 14.0808C7.4504 14.7915 6.86685 15.3441 6.13402 15.3441ZM6.13402 19.6999C5.44192 19.6999 4.8448 19.121 4.8448 18.4366C4.8448 17.7523 5.44192 17.1602 6.13402 17.1602C6.86685 17.1602 7.4504 17.7392 7.4504 18.4366C7.4504 19.134 6.86685 19.6999 6.13402 19.6999ZM10.3546 6.63245C9.85243 6.63245 9.47246 6.26398 9.47246 5.80339C9.47246 5.31648 9.86601 4.93485 10.3546 4.93485H26.3545C26.8431 4.93485 27.2367 5.31648 27.2367 5.80339C27.2367 6.26398 26.8567 6.63245 26.3545 6.63245H10.3546ZM10.3546 10.7909C9.86601 10.7909 9.47246 10.4093 9.47246 9.94866C9.47246 9.48809 9.86601 9.0933 10.3546 9.0933H19.2163C19.6913 9.0933 20.0848 9.48809 20.0848 9.94866C20.0848 10.4093 19.6913 10.7909 19.2163 10.7909H10.3546ZM10.3546 14.9494C9.85243 14.9494 9.47246 14.5808 9.47246 14.0808C9.47246 13.6202 9.85243 13.2517 10.3546 13.2517H26.3545C26.8567 13.2517 27.2367 13.6202 27.2367 14.0808C27.2367 14.5808 26.8567 14.9494 26.3545 14.9494H10.3546ZM10.3546 19.292C9.86601 19.292 9.47246 18.9104 9.47246 18.4366C9.47246 17.9629 9.85243 17.5943 10.3546 17.5943H19.2163C19.7049 17.5943 20.0848 17.9629 20.0848 18.4366C20.0848 18.9104 19.6913 19.292 19.2163 19.292H10.3546ZM4.26125 24.2268H27.7388C30.5887 24.2268 32 22.8715 32 20.1605V4.07947C32 1.36859 30.5887 0 27.7388 0H4.26125C1.42494 0 0 1.36859 0 4.07947V20.1605C0 22.8715 1.42494 24.2268 4.26125 24.2268Z" fill="#e5e3d9" />
                </graphic>
             </Button>
-            <Button fx:id="statusButton" graphicTextGap="10.0" mnemonicParsing="false" styleClass="inactiveSidebarButton" text="Status">
+            <Button fx:id="statusButton" graphicTextGap="10.0" mnemonicParsing="false" onAction="#statusButtonClicked" styleClass="inactiveSidebarButton" text="Status">
                <font>
                   <Font name="Arial Rounded MT Bold" size="32.0" />
                </font>

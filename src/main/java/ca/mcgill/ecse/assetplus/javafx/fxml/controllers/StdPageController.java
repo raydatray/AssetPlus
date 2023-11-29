@@ -39,6 +39,8 @@ public class StdPageController {
   
   @FXML private TableView dataTable;
 
+  private String currentPageType;
+
   //have a flag variable for current page
 
   private SVGPath deleteIcon;
@@ -71,7 +73,8 @@ public class StdPageController {
                     private Button btn = new Button(buttonType);
 
                     { 
-                      if (buttonType == "Delete"){
+                      if (buttonType.equals("Delete")){
+
                         btn.setOnAction((ActionEvent event) -> {
                             Object data = getTableView().getItems().get(getIndex());
                             System.out.println("selectedData: " + data);        
@@ -79,7 +82,7 @@ public class StdPageController {
                             
                             ActionEvent refresh = new ActionEvent();
                             viewTicketsButtonClicked(refresh);
-                            
+                        
                         });
                       }
                         
@@ -115,6 +118,8 @@ public class StdPageController {
     //Set the title text and the add entry button
     pageTitle.setText("Assets");
     addButton.setText("Add Asset");
+    addButton.setVisible(true);
+    currentPageType = "specificAsset";
 
     //selectedPage
 
@@ -149,12 +154,17 @@ public class StdPageController {
     TableColumn<TOAssetType, String> purchaseDateColumn = new TableColumn<>("Purchase Date");
     purchaseDateColumn.setCellValueFactory(new PropertyValueFactory<>("purchaseDate"));
     dataTable.getColumns().add(purchaseDateColumn); 
+
+    addButtonToTable("Edit");
+    addButtonToTable("Delete");
   }
 
   @FXML
   public void assetTypeButtonClicked(ActionEvent event){
     pageTitle.setText("Asset Types");
     addButton.setText("Add Type");
+    addButton.setVisible(true);
+    currentPageType = "assetType";
 
     dataTable.getColumns().clear();
     dataTable.getItems().clear();
@@ -169,12 +179,17 @@ public class StdPageController {
     TableColumn<TOAssetType, String> expectedLifeColumn = new TableColumn<>("Expected Lifespan");
     expectedLifeColumn.setCellValueFactory(new PropertyValueFactory<>("expectedLifeSpan"));
     dataTable.getColumns().add(expectedLifeColumn);
+
+    addButtonToTable("Edit");
+    addButtonToTable("Delete");
   }
 
   @FXML 
   public void usersButtonClicked(ActionEvent event) {
     pageTitle.setText("Users");
     addButton.setText("Add User");
+    addButton.setVisible(true);
+    currentPageType = "users";
 
     AddUserPopUpController popUpController = new AddUserPopUpController();
     addButton.setOnAction(e -> popUpController.promptAddUserPopUp(addButton));
@@ -196,12 +211,17 @@ public class StdPageController {
     TableColumn<TOAssetType, String> phoneColumn = new TableColumn<>("Phone");
     phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
     dataTable.getColumns().add(phoneColumn);
+
+    addButtonToTable("Edit");
+    addButtonToTable("Delete");
   }
   
   @FXML
   public void viewTicketsButtonClicked(ActionEvent event) { 
     pageTitle.setText("Maintenance Tickets");
     addButton.setText("Add Ticket");
+    addButton.setVisible(true);
+    currentPageType = "tickets";
 
     dataTable.getColumns().clear();
     dataTable.getItems().clear();
@@ -270,8 +290,51 @@ public class StdPageController {
 
     addButtonToTable("Edit");
     addButtonToTable("Delete");
+  }
 
-    System.out.println("X");
-  } 
-  
+  @FXML
+  public void statusButtonClicked(ActionEvent event) { 
+    pageTitle.setText("Status");
+    addButton.setText("Add Ticket");
+    addButton.setVisible(false);
+    currentPageType = "status";
+
+    dataTable.getColumns().clear();
+    dataTable.getItems().clear();
+
+    List<TOMaintenanceTicket> tickets= AssetPlusFeatureSet6Controller.getTickets();
+    dataTable.getItems().addAll(tickets);
+
+    TableColumn<TOMaintenanceTicket, String> ticketIdColumn = new TableColumn<>("Ticket ID");
+    ticketIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+    dataTable.getColumns().add(ticketIdColumn);
+
+    TableColumn<TOMaintenanceTicket, String> priorityColumn = new TableColumn<>("Priority");
+    priorityColumn.setCellValueFactory(new PropertyValueFactory<>("priority"));
+    dataTable.getColumns().add(priorityColumn);
+
+    TableColumn<TOMaintenanceTicket, String> statusColumn = new TableColumn<>("Status");
+    statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+    dataTable.getColumns().add(statusColumn);
+
+    TableColumn<TOMaintenanceTicket, String> timeColumn = new TableColumn<>("Time To Resolve");
+    timeColumn.setCellValueFactory(new PropertyValueFactory<>("timeToResolve"));
+    dataTable.getColumns().add(timeColumn);
+
+    TableColumn<TOMaintenanceTicket, String> approvalColumn = new TableColumn<>("Approval Required");
+    approvalColumn.setCellValueFactory(new PropertyValueFactory<>("approvalRequired"));
+    dataTable.getColumns().add(approvalColumn);
+
+    TableColumn<TOMaintenanceTicket, String> descriptionColumn = new TableColumn<>("Description");
+    descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+    dataTable.getColumns().add(descriptionColumn);
+
+    TableColumn<TOMaintenanceTicket, String> raiserColumn = new TableColumn<>("Raiser");
+    raiserColumn.setCellValueFactory(new PropertyValueFactory<>("raisedByEmail"));
+    dataTable.getColumns().add(raiserColumn);
+
+    TableColumn<TOMaintenanceTicket, String> fixerColumn = new TableColumn<>("Fixer");
+    fixerColumn.setCellValueFactory(new PropertyValueFactory<>("fixedByEmail"));
+    dataTable.getColumns().add(fixerColumn);
+}
 }
