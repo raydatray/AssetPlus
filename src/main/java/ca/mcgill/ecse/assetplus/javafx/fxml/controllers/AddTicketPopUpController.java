@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -55,17 +56,20 @@ public class AddTicketPopUpController {
     String raiserEmail = raiserEmailTextField.getText();
     String ticketId = ticketIdTextField.getText();
 
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    //SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     try {
-      String error = AssetPlusFeatureSet4Controller.addMaintenanceTicket(Integer.parseInt(ticketId), (java.sql.Date) dateFormat.parse(dateRaised), description, raiserEmail, Integer.parseInt(assetNumber));
-
-      if (error.equals("")) {
-        ViewUtils.showError("The provided ticket ID is not valid.");
+      String error = AssetPlusFeatureSet4Controller.addMaintenanceTicket(Integer.parseInt(ticketId), Date.valueOf(dateRaised), description, raiserEmail, Integer.parseInt(assetNumber));
+      if (!error.equals("")) {
+        ViewUtils.showError(error);
+  
+        ViewUtils.closeWindow(addTicketButton);
+  
       }
-    } catch (Exception e) {
-      ViewUtils.showError(e.getMessage());
-    } finally {
+      } catch (Exception e) {
+        ViewUtils.showError(e.getMessage());
+      }
+      finally {
       ViewUtils.closeWindow(addTicketButton);
     }
   }
