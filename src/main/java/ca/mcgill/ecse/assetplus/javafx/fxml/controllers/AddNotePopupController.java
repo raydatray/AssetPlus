@@ -90,7 +90,7 @@ package ca.mcgill.ecse.assetplus.javafx.fxml.controllers;
         ViewUtils.showError(error);
       }
 
-      ViewUtils.closeWindow(ticketIDTextField);
+      ViewUtils.closeWindow(addButton);
 
 
     } catch (Exception e) {

@@ -150,9 +150,24 @@ public class StdPageController {
                               
                               case "Tickets":
                                 //send the data to the contoller method!!
-                                                                
+                                TOMaintenanceTicket selectedTicket = (TOMaintenanceTicket) data;
+                                int selectedTicketID = selectedTicket.getId();
+                                Boolean isValidTicketID = (selectedTicket != null && selectedTicketID != 0);
+
+                                UpdateTicketPopUpController popUpUpdateTicketController = new UpdateTicketPopUpController();
+                          
+                                // Check if the data is a TOMaintenanceTicket instance and if TOMaintenanceTicket has an id
+                                // If so, pass it to the updateTicketPopUpController
+                                if (isValidTicketID) {
+                                  popUpUpdateTicketController.promptUpdateTicketPopUp(addButton, selectedTicketID);
+                                } else {
+                                  // Handle the case where data is not a TOUser or doesn't have an email
+                                  ViewUtils.showError("Invalid user data.");
+                                }
+
+                                                
                                 viewTicketsButtonClicked(refresh);
-                              break;
+                                break;
                             }
                           });
                           break;
