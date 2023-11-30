@@ -195,7 +195,23 @@ public class StdPageController {
                               Object data = getTableView().getItems().get(getIndex());
                               System.out.println("selectedData: " + data);        
                               
-                              //send the data to the contoller method!!
+                                //send the data to the contoller method!!
+                                TOMaintenanceTicket selectedTicket = (TOMaintenanceTicket) data;
+                                int selectedTicketID = selectedTicket.getId();
+                                Boolean isValidTicketID = (selectedTicket != null);
+                                // Boolean isValidTicketID = (selectedTicket != null && selectedTicketID != 0);
+
+
+                                AssignTicketPopUpController popUpAssignTicketController = new AssignTicketPopUpController();
+                          
+                                // Check if the data is a TOMaintenanceTicket instance and if TOMaintenanceTicket has an id
+                                // If so, pass it to the AssignTicketPopUpController
+                                if (isValidTicketID) {
+                                  popUpAssignTicketController.promptAssignTicketPopUp(addButton, selectedTicketID);
+                                } else {
+                                  // Handle the case where data is not a TOUser or doesn't have an email
+                                  ViewUtils.showError("Invalid user data.");
+                                }
                               
                               ActionEvent refresh = new ActionEvent();
                               viewTicketsButtonClicked(refresh);
