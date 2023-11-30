@@ -251,6 +251,11 @@ public class StdPageController {
                               System.out.println("selectedData: " + data);        
                               
                               //send the data to the contoller method!!
+                              TOMaintenanceTicket selectedTicket = (TOMaintenanceTicket) data;
+                              int selectedTicketID = selectedTicket.getId();
+
+                              DisapproveTicketPopUpController controller = new DisapproveTicketPopUpController();
+                              controller.promptDisapproveTicketPopUp(selectedTicketID);
 
                               ActionEvent refresh = new ActionEvent();
                               statusButtonClicked(refresh);

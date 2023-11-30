@@ -36,6 +36,7 @@
          </children>
       </HBox>
       <TableView fx:id="noteTable" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="150.0" />
+      <Button layoutX="1160.0" layoutY="8.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="31.0" text="x" />
    </children>
    <padding>
       <Insets />
