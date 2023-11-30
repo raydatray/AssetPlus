@@ -35,6 +35,7 @@ import ca.mcgill.ecse.assetplus.controller.TOAssetType;
 import ca.mcgill.ecse.assetplus.controller.TOMaintenanceNote;
 import ca.mcgill.ecse.assetplus.controller.TOMaintenanceTicket;
 import ca.mcgill.ecse.assetplus.controller.TOSpecificAsset;
+import ca.mcgill.ecse.assetplus.controller.TOTicketImage;
 import ca.mcgill.ecse.assetplus.controller.TOUser;
 
 //Get a TOMaintenanceTicket over 
@@ -44,17 +45,6 @@ public class ImagePageController {
   @FXML private Button addImage;
 
   private TOMaintenanceTicket mTicket;
-
-  public class ImageURL{
-    private String url;
-
-    public ImageURL(String url){
-      this.url = url;}
-
-    public String getURL(){
-      return url;
-    }
-}
 
   public ImagePageController(TOMaintenanceTicket maintenanceTicket){
     this.mTicket = maintenanceTicket;
@@ -109,7 +99,7 @@ public class ImagePageController {
                             Object data = getTableView().getItems().get(getIndex());
                             System.out.println("selectedData: " + data);
 
-                            AssetPlusFeatureSet5Controller.deleteImageFromMaintenanceTicket(((ImageURL) data).getURL(), mTicket.getId());
+                            AssetPlusFeatureSet5Controller.deleteImageFromMaintenanceTicket(((TOTicketImage) data).getImageURL(), mTicket.getId());
                             //DOES NOT RELOAD PROPERLY 
                             loadTable();
                           });
@@ -143,24 +133,21 @@ public class ImagePageController {
     imageTable.getColumns().clear();
     imageTable.getItems().clear();
 
+    AddImageToTicketPopUpController popUpController = new AddImageToTicketPopUpController();
+    addImage.setOnAction(e -> popUpController.promptAddImagePopUp(addImage, mTicket.getId()));
 
-
-    // AddNotePopUpController popupController = new AddNotePopupController(this);
-    // addButton.setOnAction(e -> popupController.promptAddNotePopUp(addButton));
-
-    ArrayList<ImageURL> images = new ArrayList<ImageURL>();
+    ArrayList<TOTicketImage> images = new ArrayList<TOTicketImage>();
     List<String> oldImages = mTicket.getImageURLs();
 
-    for(int i = 0; i < mTicket.getImageURLs().size(); i++){
-      images.add(new ImageURL(oldImages.get(i)));
+    for (int i = 0; i < mTicket.getImageURLs().size(); i++){
+      images.add(new TOTicketImage(oldImages.get(i)));
     }
 
-    List<ImageURL> listImages = images;
 
-    imageTable.getItems().addAll(listImages);
+    imageTable.getItems().addAll(images);
   
-    TableColumn<TOMaintenanceTicket, String> urlColumn = new TableColumn<>("Image URL");
-    urlColumn.setCellValueFactory(new PropertyValueFactory<>("url"));;
+    TableColumn<TOTicketImage, String> urlColumn = new TableColumn<>("Image URL");
+    urlColumn.setCellValueFactory(new PropertyValueFactory<>("imageURL"));;
     imageTable.getColumns().add(urlColumn);
 
     addDeleteButtonToTable();
