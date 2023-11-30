@@ -25,6 +25,7 @@ import javafx.util.Callback;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet2Controller;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet3Controller;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet4Controller;
@@ -43,6 +44,15 @@ import ca.mcgill.ecse.assetplus.controller.TOUser;
 public class ImagePageController {
   @FXML private TableView imageTable;
   @FXML private Button addImage;
+
+
+  @FXML
+  private Button closeImagePopUpButton;
+
+
+  @FXML
+  private Label pageTitle;
+
 
   private TOMaintenanceTicket mTicket;
 
@@ -153,4 +163,11 @@ public class ImagePageController {
     addDeleteButtonToTable();
 
   }
+
+  
+
+  public void handleCloseButtonClick() {
+    ViewUtils.closeWindow(addImage);
+  }
+
 }

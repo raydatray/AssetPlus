@@ -42,18 +42,14 @@ import ca.mcgill.ecse.assetplus.controller.TOUser;
 public class NewNotePageController {
   @FXML private TableView noteTable;
 
-  @FXML private Button addNoteButton;
+  @FXML private Button addNote;
 
-  @FXML private Button closeButton;
+  @FXML private Button closeNotePopUpButton;
 
   @FXML private Label pageTitle;
 
   @FXML private Button search;
 
-  @FXML
-  void handleAddNoteButtonClick(ActionEvent event) {
-
-  }
 
 
   private TOMaintenanceTicket mTicket;
@@ -227,5 +223,14 @@ public class NewNotePageController {
   }
 
   
+  @FXML
+  void handleAddNoteButtonClick(ActionEvent event) {
+
+  }
+
+  public void handleCloseButtonClick() {
+    ViewUtils.closeWindow(addNote);
+  }
+
   
 }
