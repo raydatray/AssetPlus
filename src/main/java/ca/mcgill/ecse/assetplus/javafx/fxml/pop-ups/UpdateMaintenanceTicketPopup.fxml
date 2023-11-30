@@ -2,6 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -10,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #252627; -fx-border-color: #6699CC; -fx-border-width: 4; -fx-border-radius: 45; -fx-background-radius: 45;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.assetplus.javafx.fxml.controllers.UpdateTicketPopUpController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #252627; -fx-border-color: #6699CC; -fx-border-width: 4; -fx-border-radius: 45; -fx-background-radius: 45;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.assetplus.javafx.fxml.controllers.UpdateTicketPopUpController">
    <children>
       <HBox prefHeight="100.0" prefWidth="994.0">
          <children>
@@ -63,34 +65,20 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <TextField fx:id="newDateRaisedTextField" prefHeight="39.0" prefWidth="695.0" promptText="ex: 2020-02-15" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <font>
-                        <Font name="System Italic" size="18.0" />
-                     </font>
-                  </TextField>
+                  <DatePicker fx:id="newDateRaisedDatePicker" prefHeight="39.0" prefWidth="696.0" />
                </children>
             </HBox>
             <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="New Email:" wrappingWidth="120.80337524414062">
+                  <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="New Ticket Raiser Email:" wrappingWidth="245.80337524414062">
                      <font>
                         <Font size="24.0" />
                      </font>
                      <HBox.margin>
-                        <Insets />
+                        <Insets right="10.0" />
                      </HBox.margin>
                   </Text>
-                  <TextField fx:id="newRaiserEmailTextField" prefHeight="39.0" prefWidth="765.0" promptText="ex: user@app.com" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <font>
-                        <Font name="System Italic" size="18.0" />
-                     </font>
-                  </TextField>
+                  <ChoiceBox fx:id="newTickerRaiserEmailChoiceBox" prefHeight="39.0" prefWidth="664.0" />
                </children>
             </HBox>
             <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="858.0">
@@ -103,14 +91,7 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <TextField fx:id="newAssetNumberTextField" prefHeight="39.0" prefWidth="673.0" promptText="ex: 1" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <font>
-                        <Font name="System Italic" size="18.0" />
-                     </font>
-                  </TextField>
+                  <ChoiceBox fx:id="newAssetNumberChoiceBox" prefHeight="39.0" prefWidth="841.0" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="858.0">
@@ -132,7 +113,7 @@
             </HBox>
          </children>
       </VBox>
-      <Button fx:id="updateTicketButton" layoutX="431.0" layoutY="516.0" mnemonicParsing="false" onAction="#handleUpdateTicketButtonClick" prefHeight="51.0" prefWidth="137.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="Update" textFill="#e5e3d9">
+      <Button fx:id="updateTicketButton" layoutX="431.0" layoutY="516.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="137.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="Update" textFill="#e5e3d9">
          <font>
             <Font name="Arial Rounded MT Bold" size="24.0" />
          </font>

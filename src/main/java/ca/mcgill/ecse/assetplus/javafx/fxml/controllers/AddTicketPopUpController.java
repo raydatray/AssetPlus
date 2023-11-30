@@ -19,7 +19,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import java.text.ParseException;
 import java.util.List;
 
 public class AddTicketPopUpController {
@@ -94,7 +93,7 @@ public class AddTicketPopUpController {
   }
 
   @FXML
-  public void addMaintenanceTicket() throws NumberFormatException, ParseException {
+  public void addMaintenanceTicket() {
     try {
       String assetNumber = assetNumberChoiceBox.getValue();
       java.sql.Date dateRaised = java.sql.Date.valueOf(dateRaisedDatePicker.getValue());
@@ -109,12 +108,12 @@ public class AddTicketPopUpController {
         ViewUtils.closeWindow(addTicketButton);
   
       }
-      } catch (Exception e) {
-        ViewUtils.showError("Invalid inputs provided.");
-      }
-      finally {
-        topController.refreshTable("Tickets");
-        ViewUtils.closeWindow(addTicketButton);
+    } catch (Exception e) {
+      ViewUtils.showError("Invalid inputs provided.");
+    }
+    finally {
+      topController.refreshTable("Tickets");
+      ViewUtils.closeWindow(addTicketButton);
     }
   }
 

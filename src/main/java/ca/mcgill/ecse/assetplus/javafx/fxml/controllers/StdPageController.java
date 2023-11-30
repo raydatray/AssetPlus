@@ -71,6 +71,8 @@ public class StdPageController {
 
   private void addButtonToTable(String buttonType, String currentPage) {
 
+        StdPageController topController = this;
+
         TableColumn<Object, Void> colBtn = new TableColumn("");
 
         Callback<TableColumn<Object, Void>, TableCell<Object, Void>> cellFactory = new Callback<TableColumn<Object, Void>, TableCell<Object, Void>>() {
@@ -171,13 +173,12 @@ public class StdPageController {
                                 Boolean isValidTicketID = (selectedTicket != null);
                                 // Boolean isValidTicketID = (selectedTicket != null && selectedTicketID != 0);
 
-
-                                UpdateTicketPopUpController popUpUpdateTicketController = new UpdateTicketPopUpController();
+                                UpdateTicketPopUpController popUpUpdateTicketController = new UpdateTicketPopUpController(topController);
                           
                                 // Check if the data is a TOMaintenanceTicket instance and if TOMaintenanceTicket has an id
                                 // If so, pass it to the updateTicketPopUpController
                                 if (isValidTicketID) {
-                                  popUpUpdateTicketController.promptUpdateTicketPopUp(addButton, selectedTicketID);
+                                  popUpUpdateTicketController.promptUpdateTicketPopUp(selectedTicketID);
                                 } else {
                                   // Handle the case where data is not a TOUser or doesn't have an email
                                   ViewUtils.showError("Invalid user data.");
