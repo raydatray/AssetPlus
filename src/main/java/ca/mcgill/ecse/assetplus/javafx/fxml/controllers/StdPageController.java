@@ -290,9 +290,9 @@ public class StdPageController {
                               System.out.println("selectedData: " + data);        
                               
                               //send the data to the contoller method!!
-                              
-                              ActionEvent refresh = new ActionEvent();
-                              viewTicketsButtonClicked(refresh);
+
+                              NewNotePageController popUpController = new NewNotePageController((TOMaintenanceTicket) data);
+                              popUpController.promptNotePopUp(btn);       
                           
                           });
                           break;
