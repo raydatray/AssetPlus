@@ -41,7 +41,7 @@ public class UpdateAssetPopupController {
 
       // Autofill the assetNumber textfield
       UpdateAssetPopupController controller = loader.getController();
-      controller.setAssetNumber(assetNumber);     //TODO assetNumber is a string or int
+      controller.setAssetNumber(assetNumber);     
 
       // Create a new stage for the pop-up
       Stage popupStage = new Stage();
