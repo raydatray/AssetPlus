@@ -214,7 +214,7 @@ public class StdPageController {
                                 }
                               
                               ActionEvent refresh = new ActionEvent();
-                              viewTicketsButtonClicked(refresh);
+                              statusButtonClicked(refresh);
                           
                           });
                           break;
