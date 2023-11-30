@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="994.0" style="-fx-background-color: #252627; -fx-border-color: #6699CC; -fx-border-radius: 45; -fx-border-width: 4; -fx-background-radius: 50; -fx-base:: red;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.assetplus.javafx.fxml.controllers.AddAssetPopupController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="397.0" prefWidth="994.0" style="-fx-background-color: #252627; -fx-border-color: #6699CC; -fx-border-radius: 45; -fx-border-width: 4; -fx-background-radius: 50; -fx-base:: red;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.assetplus.javafx.fxml.controllers.AddAssetPopupController">
    <children>
       <HBox prefHeight="100.0" prefWidth="994.0">
          <children>
@@ -105,11 +105,8 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <DatePicker fx:id="purchaseDatePicker" prefHeight="32.0" prefWidth="650.0" promptText="ex: 2023-01-01" style="-fx-background-color: #303030; -fx-text-fill: #e5e3d9; -fx-prompt-text-fill: #e5e3d9; -fx-control-inner-background: #303030; -fx-base: #6699CC; -fx-mark-highlight-color: #e5e3d9;" />
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="861.0">
-               <children>
+                  <DatePicker fx:id="purchaseDatePicker" prefHeight="32.0" prefWidth="217.0" promptText="ex: 2023-01-01" style="-fx-background-color: #303030; -fx-text-fill: #e5e3d9; -fx-prompt-text-fill: #e5e3d9; -fx-control-inner-background: #303030; -fx-base: #6699CC; -fx-mark-highlight-color: #e5e3d9;" />
+                  <Pane prefHeight="56.0" prefWidth="109.0" />
                   <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Asset Type:" wrappingWidth="127.13671875">
                      <font>
                         <Font size="24.0" />
@@ -118,15 +115,20 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <ChoiceBox fx:id="assetTypeChoiceBox" prefHeight="29.0" prefWidth="691.0" />
+                  <ChoiceBox fx:id="assetTypeChoiceBox" prefHeight="29.0" prefWidth="173.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="861.0">
+               <children>
+                  <Pane prefHeight="56.0" prefWidth="368.0" />
+                  <Button fx:id="addNewAssetButton" mnemonicParsing="false" onAction="#handleAddNewAssetButtonClick" prefHeight="51.0" prefWidth="137.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="Add" textFill="#e5e3d9">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Button>
                </children>
             </HBox>
          </children>
       </VBox>
-      <Button fx:id="addNewAssetButton" layoutX="429.0" layoutY="356.0" mnemonicParsing="false" onAction="#handleAddNewAssetButtonClick" prefHeight="51.0" prefWidth="137.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="Add" textFill="#e5e3d9">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </Button>
    </children>
 </AnchorPane>
