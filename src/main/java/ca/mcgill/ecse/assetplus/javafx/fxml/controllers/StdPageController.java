@@ -198,7 +198,7 @@ public class StdPageController {
                               //send the data to the contoller method!!
                               
                               ActionEvent refresh = new ActionEvent();
-                              viewTicketsButtonClicked(refresh);
+                              statusButtonClicked(refresh);
                           
                           });
                           break;
@@ -263,7 +263,7 @@ public class StdPageController {
                               //send the data to the contoller method!!
                               
                               ActionEvent refresh = new ActionEvent();
-                              statusButtonClicked(refresh);
+                              viewTicketsButtonClicked(refresh);
                           
                           });
                           break;
@@ -276,7 +276,7 @@ public class StdPageController {
                               //send the data to the contoller method!!
                               
                               ActionEvent refresh = new ActionEvent();
-                              statusButtonClicked(refresh);
+                              viewTicketsButtonClicked(refresh);
                           
                           });
                           break;
