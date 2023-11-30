@@ -46,6 +46,7 @@ public class AssignTicketPopUpController {
         ObservableList<String> hotelStaffList = FXCollections.observableArrayList();
         
         hotelStaffList.add("Select a hotel staff");
+        hotelStaffList.add("manager@ap.com");
 
         for (TOUser user : userList) {
             if (user.getEmail().endsWith("ap.com")) {
