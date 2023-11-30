@@ -281,7 +281,8 @@ public class StdPageController {
                               Object data = getTableView().getItems().get(getIndex());
                               System.out.println("selectedData: " + data);        
                               
-                              //send the data to the contoller method!!
+                              ImagePageController popUpController = new ImagePageController((TOMaintenanceTicket) data);
+                              popUpController.promptImagePopUp(btn);
                               
                               ActionEvent refresh = new ActionEvent();
                               viewTicketsButtonClicked(refresh);
