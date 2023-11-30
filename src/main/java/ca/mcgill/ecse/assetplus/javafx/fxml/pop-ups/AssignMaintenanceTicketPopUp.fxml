@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="994.0" style="-fx-background-color: #252627; -fx-border-color: #6699CC; -fx-border-width: 3; -fx-background-radius: 50; -fx-border-radius: 45;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.assetplus.javafx.fxml.controllers.AssignTicketPopUpController">
+   <children>
+      <HBox prefHeight="100.0" prefWidth="994.0">
+         <children>
+            <Pane prefHeight="72.0" prefWidth="329.0" />
+            <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Assign Maintenance Ticket" textAlignment="CENTER" wrappingWidth="419.95306396484375">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="32.0" />
+               </font>
+            </Text>
+            <Pane prefHeight="72.0" prefWidth="216.0">
+               <children>
+                  <Button fx:id="closePopUpButton" layoutX="162.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleCloseButtonClick" prefHeight="33.0" prefWidth="33.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="x" textFill="#e5e3d9">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="15.0" />
+                     </font>
+                  </Button>
+               </children></Pane>
+         </children>
+         <padding>
+            <Insets top="28.0" />
+         </padding>
+      </HBox>
+      <VBox layoutX="68.0" layoutY="91.0" prefHeight="340.0" prefWidth="858.0" style="-fx-background-color: #252627; -fx-background-radius: 250;">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Ticket ID:" wrappingWidth="108.8033447265625">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Text>
+                  <TextField fx:id="ticketIDTextField" prefHeight="39.0" prefWidth="724.0" promptText="ex: 982349898" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Italic" size="18.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Staff Member Email:" wrappingWidth="216.7192840576172">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Text>
+                  <TextField fx:id="staffMemberEmailTextField" prefHeight="39.0" prefWidth="615.0" promptText="ex: user@ap.com" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Italic" size="18.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Time to resolve:" wrappingWidth="174.1590576171875">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Text>
+                  <TextField fx:id="timeToResolveTextField" prefHeight="39.0" prefWidth="656.0" promptText="ex: LessThanADay" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Italic" size="18.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="10.0" prefHeight="70.0" prefWidth="858.0">
+               <children>
+                  <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Priority:" wrappingWidth="97.80824279785156">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Text>
+                  <TextField fx:id="priorityLevelTextField" prefHeight="39.0" prefWidth="727.0" promptText="Urgent, Normal or Low" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Italic" size="18.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Button fx:id="assignTicketButton" layoutX="426.0" layoutY="484.0" mnemonicParsing="false" onAction="#handleAssignButtonClick" prefHeight="51.0" prefWidth="137.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="Assign" textFill="#e5e3d9" AnchorPane.topAnchor="484.0">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="24.0" />
+         </font>
+      </Button>
+      <ToggleButton fx:id="requiresManagerApprovalToggle" layoutX="65.0" layoutY="442.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="337.0" text="Requires Manager Approval" />
+   </children>
+</AnchorPane>

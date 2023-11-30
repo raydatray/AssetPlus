@@ -1,8 +1,12 @@
 package ca.mcgill.ecse.assetplus.javafx.fxml.controllers;
 
 import java.sql.Date;
+import java.util.List;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet2Controller;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet3Controller;
+import ca.mcgill.ecse.assetplus.controller.TOAssetType;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -33,14 +37,33 @@ public class UpdateAssetPopupController {
     }
   }
 
+  public void populateAssetTypeChoiceBox() {
+    if (assetTypeChoiceBox != null) {
+      List<TOAssetType> assetTypeList = AssetPlusFeatureSet2Controller.getAssetTypes();
+
+      ObservableList<String> optionsList = FXCollections.observableArrayList();
+      
+      optionsList.addAll("Select an asset type");
+
+      // Loop through the assetTypeList and add names to optionsList
+      for (TOAssetType assetType : assetTypeList) {
+        optionsList.add(assetType.getName());
+      }
+
+      assetTypeChoiceBox.setItems(optionsList);
+      assetTypeChoiceBox.setValue(optionsList.get(0));
+    }
+  }
+
   public void promptUpdateAssetPopUp(Button updateButton, String assetNumber) {
     try {
       // Load the FXML file
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/UpdateAssetPopUp.fxml"));
       Parent root = loader.load();
 
-      // Autofill the assetNumber textfield
+      // Autofill the assetNumber textfield - Populate the choice box
       UpdateAssetPopupController controller = loader.getController();
+      controller.populateAssetTypeChoiceBox();
       controller.setAssetNumber(assetNumber);     
 
       // Create a new stage for the pop-up
