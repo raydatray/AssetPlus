@@ -46,12 +46,6 @@ public class NewNotePageController {
 
   @FXML private Button closeNotePopUpButton;
 
-  @FXML private Label pageTitle;
-
-  @FXML private Button search;
-
-
-
   private TOMaintenanceTicket mTicket;
 
   public NewNotePageController(TOMaintenanceTicket maintenanceTicket){
@@ -103,7 +97,7 @@ public class NewNotePageController {
       Stage popupStage = new Stage();
       popupStage.initModality(Modality.APPLICATION_MODAL);
       popupStage.initStyle(StageStyle.TRANSPARENT);
-      popupStage.setTitle("Add Asset");
+      popupStage.setTitle("Add Note");
       // Set the content from the FXML file
       Scene scene = new Scene(root);
       scene.setFill(Color.TRANSPARENT);
@@ -184,7 +178,8 @@ public class NewNotePageController {
     noteTable.getItems().clear();
 
 
-
+    AddNotePopupController popUpController = new AddNotePopupController();
+    addNote.setOnAction(e -> popUpController.promptAddNotePopUp(addNote, mTicket.getId()));
     // AddNotePopUpController popupController = new AddNotePopupController(this);
     // addButton.setOnAction(e -> popupController.promptAddNotePopUp(addButton));
 
@@ -222,11 +217,8 @@ public class NewNotePageController {
 
   }
 
-  
-  @FXML
-  void handleAddNoteButtonClick(ActionEvent event) {
 
-  }
+
 
   public void handleCloseButtonClick() {
     ViewUtils.closeWindow(addNote);

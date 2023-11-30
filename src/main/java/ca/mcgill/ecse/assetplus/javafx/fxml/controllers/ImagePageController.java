@@ -153,7 +153,6 @@ public class ImagePageController {
       images.add(new TOTicketImage(oldImages.get(i)));
     }
 
-
     imageTable.getItems().addAll(images);
   
     TableColumn<TOTicketImage, String> urlColumn = new TableColumn<>("Image URL");
@@ -164,7 +163,7 @@ public class ImagePageController {
 
   }
 
-  
+
 
   public void handleCloseButtonClick() {
     ViewUtils.closeWindow(addImage);
