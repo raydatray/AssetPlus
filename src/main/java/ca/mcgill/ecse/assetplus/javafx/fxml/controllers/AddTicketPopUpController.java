@@ -25,11 +25,18 @@ public class AddTicketPopUpController {
   @FXML private TextField raiserEmailTextField;
   @FXML private TextField ticketIdTextField;
 
+  StdPageController topController;
+
+  public AddTicketPopUpController(StdPageController headController){
+    this.topController = headController;
+  }
+
   @FXML
   public void promptAddTicketPopUp() {
     try {
       // Load the FXML file
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/AddMaintenanceTicketPopUp.fxml"));
+      loader.setControllerFactory(param -> new AddTicketPopUpController(topController));
       Parent root = loader.load();
       // Create a new stage for the pop-up
       Stage popupStage = new Stage();
@@ -62,7 +69,7 @@ public class AddTicketPopUpController {
       String error = AssetPlusFeatureSet4Controller.addMaintenanceTicket(Integer.parseInt(ticketId), Date.valueOf(dateRaised), description, raiserEmail, Integer.parseInt(assetNumber));
       if (!error.equals("")) {
         ViewUtils.showError(error);
-  
+
         ViewUtils.closeWindow(addTicketButton);
   
       }
@@ -70,7 +77,8 @@ public class AddTicketPopUpController {
         ViewUtils.showError(e.getMessage());
       }
       finally {
-      ViewUtils.closeWindow(addTicketButton);
+        topController.refreshTable("Tickets");
+        ViewUtils.closeWindow(addTicketButton);
     }
   }
 

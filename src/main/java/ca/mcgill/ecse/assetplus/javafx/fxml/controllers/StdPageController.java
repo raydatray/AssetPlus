@@ -281,34 +281,6 @@ public class StdPageController {
                           });
                           break;
                       }
-
-                      // if (buttonType.equals("Delete")){
-
-                      //   btn.setOnAction((ActionEvent event) -> {
-                      //       Object data = getTableView().getItems().get(getIndex());
-                      //       System.out.println("selectedData: " + data);        
-                      //       AssetPlusFeatureSet4Controller.deleteMaintenanceTicket(((TOMaintenanceTicket) data).getId());        
-                            
-                      //       ActionEvent refresh = new ActionEvent();
-                      //       viewTicketsButtonClicked(refresh);
-                        
-                      //   });
-
-                      // } else if (buttonType.equals("Edit")){
-
-                      //   btn.setOnAction((ActionEvent event) -> {
-                      //       Object data = getTableView().getItems().get(getIndex());
-                      //       System.out.println("selectedData: " + data);        
-                            
-                      //       //wtv alice & aure makes -> data
-                            
-                      //       ActionEvent refresh = new ActionEvent();
-                      //       viewTicketsButtonClicked(refresh);
-                        
-                      //   });
-                      // }
-                        
-                        
                         btn.setStyle("-fx-background-color: #222222; ");
                     }
                     
@@ -348,10 +320,7 @@ public class StdPageController {
     dataTable.getColumns().clear();
     dataTable.getItems().clear();
 
-    
-
-
-    AddAssetPopupController popUpController = new AddAssetPopupController();
+    AddAssetPopupController popUpController = new AddAssetPopupController(this);
     addButton.setOnAction(e -> popUpController.promptAddAssetPopUp(addButton));
     
     List<TOSpecificAsset> specificAssets= AssetPlusFeatureSet3Controller.getSpecificAssets();
@@ -388,7 +357,7 @@ public class StdPageController {
     addButton.setVisible(true);
     currentPage = "AssetTypes";
 
-    AddAssetTypePopupController popUpController = new AddAssetTypePopupController();
+    AddAssetTypePopupController popUpController = new AddAssetTypePopupController(this);
     addButton.setOnAction(e -> popUpController.promptAddAssetTypePopup(addButton));
 
     dataTable.getColumns().clear();
@@ -417,7 +386,7 @@ public class StdPageController {
     currentPage = "Users";
 
 
-    AddUserPopUpController popUpController = new AddUserPopUpController();
+    AddUserPopUpController popUpController = new AddUserPopUpController(this);
     addButton.setOnAction(e -> popUpController.promptAddUserPopUp());
 
     dataTable.getColumns().clear();
@@ -444,14 +413,13 @@ public class StdPageController {
   
   @FXML
   public void viewTicketsButtonClicked(ActionEvent event) { 
-    AddTicketPopUpController ticketPopUpController = new AddTicketPopUpController();
+    AddTicketPopUpController ticketPopUpController = new AddTicketPopUpController(this);
     addButton.setOnAction(e -> ticketPopUpController.promptAddTicketPopUp());
     
     pageTitle.setText("Maintenance Tickets");
     addButton.setText("Add Ticket");
     addButton.setVisible(true);
     currentPage = "Tickets";
- 
 
     dataTable.getColumns().clear();
     dataTable.getItems().clear();

@@ -1,6 +1,7 @@
 package ca.mcgill.ecse.assetplus.javafx.fxml.controllers;
 
 import java.sql.Date;
+import java.util.ResourceBundle;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet2Controller;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet3Controller;
 import javafx.fxml.FXML;
@@ -14,7 +15,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class AddAssetPopupController {
+public class AddAssetPopupController{
   
   @FXML private Button addNewAssetButton;
   @FXML private Button closePopUpButton;
@@ -24,11 +25,17 @@ public class AddAssetPopupController {
   @FXML private TextField purchaseDateTextField;
   @FXML private TextField assetTypeTextField;
 
+  StdPageController topController;
+
+  public AddAssetPopupController(StdPageController headController){
+    this.topController = headController;
+  }
 
   public void promptAddAssetPopUp(Button addButton) {
     try {
       // Load the FXML file
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/AddAssetPopUp.fxml"));
+      loader.setControllerFactory(param -> new AddAssetPopupController(topController));
       Parent root = loader.load();
       // Create a new stage for the pop-up
       Stage popupStage = new Stage();
@@ -55,6 +62,7 @@ public class AddAssetPopupController {
 
     try {
 
+
       String assetNumberStr = assetNumberTextField.getText();
       String floorNumberStr = floortextField.getText();
       String roomNumberStr = roomTextField.getText();
@@ -72,6 +80,8 @@ public class AddAssetPopupController {
       if (!error.equals("")) {
         ViewUtils.showError(error);
       }
+
+      topController.refreshTable("Assets");
 
       ViewUtils.closeWindow(addNewAssetButton);
 

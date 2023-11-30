@@ -19,10 +19,17 @@ public class AddAssetTypePopupController {
   @FXML private TextField assetNameTextField;
   @FXML private TextField expectedLifeSpanTextField;
 
+  StdPageController topController;
+
+  public AddAssetTypePopupController(StdPageController headController){
+    this.topController = headController;
+  }
+
   public void promptAddAssetTypePopup(Button addButton) {
     try {
       // Load the FXML file
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/AddAssetTypePopup.fxml"));
+      loader.setControllerFactory(param -> new AddAssetTypePopupController(topController));
       Parent root = loader.load();
       // Create a new stage for the pop-up
       Stage popupStage = new Stage();
@@ -57,6 +64,8 @@ public class AddAssetTypePopupController {
       if (!error.equals("")) {
         ViewUtils.showError(error);
       }
+
+      topController.refreshTable("AssetTypes");
 
       ViewUtils.closeWindow(assetNameTextField);
 
