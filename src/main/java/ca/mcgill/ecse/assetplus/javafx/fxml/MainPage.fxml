@@ -108,7 +108,8 @@
                      <Insets left="22.0" />
                   </VBox.margin>
                </Label>
-            <Button fx:id="settingsButton" graphicTextGap="10.0" mnemonicParsing="false" styleClass="inactiveSidebarButton" text="Settings">
+            <!--TODO: This has been changed for testing purposes (on action)"-->
+            <Button fx:id="settingsButton" graphicTextGap="10.0" mnemonicParsing="false" styleClass="inactiveSidebarButton" text="Settings" onAction="#settingsButtonClicked">
                <font>
                   <Font name="Arial Rounded MT Bold" size="32.0" />
                </font>

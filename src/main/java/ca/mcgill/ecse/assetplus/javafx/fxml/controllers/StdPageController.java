@@ -575,5 +575,13 @@ public class StdPageController {
     addButtonToTable("Approve", currentPage);
     addButtonToTable("Disapprove", currentPage);
 
-}
+  }
+
+  //TODO: To be redirected later
+  @FXML
+  public void settingsButtonClicked(ActionEvent event) { 
+    UpdateManagerPasswordController managerPopUpController = new UpdateManagerPasswordController();
+
+    managerPopUpController.promptUpdateManagerPasswordPopUp();
+  }
 }

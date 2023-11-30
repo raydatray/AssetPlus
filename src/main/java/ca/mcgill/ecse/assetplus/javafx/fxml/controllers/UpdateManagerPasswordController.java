@@ -21,7 +21,7 @@ public class UpdateManagerPasswordController {
   @FXML 
   private Button closePopUpButton;
 
-  public void promptUpdateManagerPasswordPopUp(Button updateButton) {
+  public void promptUpdateManagerPasswordPopUp() {
     try {
       // Load the FXML file
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/UpdateManagerPopUp.fxml"));
@@ -48,7 +48,7 @@ public class UpdateManagerPasswordController {
     ViewUtils.closeWindow(closePopUpButton);
   }
 
-  public void handleUpdateUserButtonClick() {
+  public void handleUpdatePassword() {
     String newPassword = newPasswordField.getText();
 
     String error = AssetPlusFeatureSet1Controller.updateManager(newPassword).replaceAll("([A-Z])", "\n$1");
