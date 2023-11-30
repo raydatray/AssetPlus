@@ -63,7 +63,7 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <TextField fx:id="newDateRaisedTextField" prefHeight="39.0" prefWidth="695.0" promptText="ex: 2020-02-01" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
+                  <TextField fx:id="newDateRaisedTextField" prefHeight="39.0" prefWidth="695.0" promptText="ex: 2020-02-15" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>

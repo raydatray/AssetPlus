@@ -8,6 +8,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
@@ -21,8 +23,8 @@ public class UpdateAssetPopupController {
   @FXML private TextField assetNumberTextField;
   @FXML private TextField floortextField;
   @FXML private TextField roomTextField;
-  @FXML private TextField purchaseDateTextField;
-  @FXML private TextField assetTypeTextField;
+  @FXML private DatePicker purchaseDatePicker;
+  @FXML private ChoiceBox<String> assetTypeChoiceBox;
 
   public void setAssetNumber(String assetNumber) {
     if (assetNumberTextField != null) {
@@ -39,7 +41,7 @@ public class UpdateAssetPopupController {
 
       // Autofill the assetNumber textfield
       UpdateAssetPopupController controller = loader.getController();
-      controller.setAssetNumber(assetNumber);     //TODO assetNumber is a string or int
+      controller.setAssetNumber(assetNumber);     
 
       // Create a new stage for the pop-up
       Stage popupStage = new Stage();
@@ -69,13 +71,12 @@ public class UpdateAssetPopupController {
       String assetNumberStr = assetNumberTextField.getText();
       String floorNumberStr = floortextField.getText();
       String roomNumberStr = roomTextField.getText();
-      String purchaseDateStr = purchaseDateTextField.getText();
-      String assetType = assetTypeTextField.getText();
+      java.sql.Date purchaseDate = Date.valueOf(purchaseDatePicker.getValue());
+      String assetType = assetTypeChoiceBox.getValue();
 
       int assetNumber = Integer.parseInt(assetNumberStr);
       int floorNumber = Integer.parseInt(floorNumberStr);
       int roomNumber = Integer.parseInt(roomNumberStr);
-      Date purchaseDate = Date.valueOf(purchaseDateStr); 
 
       String error = AssetPlusFeatureSet3Controller.updateSpecificAsset(assetNumber, floorNumber, roomNumber, purchaseDate, assetType).replaceAll("([A-Z])", "\n$1");
 
@@ -84,7 +85,7 @@ public class UpdateAssetPopupController {
         ViewUtils.showError(error);
       }
 
-      ViewUtils.closeWindow(assetTypeTextField);
+      ViewUtils.closeWindow(updateAssetButton);
 
     } catch (Exception e) {
         ViewUtils.showError(e.getMessage());
