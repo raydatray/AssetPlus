@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.sql.Date;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 public class UpdateTicketPopUpController {
 
