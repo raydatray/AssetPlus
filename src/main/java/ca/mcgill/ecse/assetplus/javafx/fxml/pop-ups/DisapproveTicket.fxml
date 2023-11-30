@@ -64,11 +64,7 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <DatePicker fx:id="dateRaisedTextField" prefHeight="39.0" prefWidth="695.0" promptText="ex: 2020-01-03" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
-                    <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </DatePicker>
+                  <DatePicker fx:id="purchaseDatePicker" prefHeight="32.0" prefWidth="650.0" promptText="ex: 2023-01-01" style="-fx-background-color: #303030; -fx-text-fill: #e5e3d9; -fx-prompt-text-fill: #e5e3d9; -fx-control-inner-background: #303030; -fx-base: #6699CC; -fx-mark-highlight-color: #e5e3d9;" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="858.0">
