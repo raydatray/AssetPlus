@@ -25,6 +25,7 @@ public class UpdateUserPopUpController {
   public void setEmail(String email) {
     if (emailtextField != null) {
         emailtextField.setText(email);
+        emailtextField.setDisable(true);
     }
   }
 
@@ -36,7 +37,7 @@ public class UpdateUserPopUpController {
 
       // Autofill the email textfield
       UpdateUserPopUpController controller = loader.getController();
-      controller.setEmail(email); 
+      controller.setEmail(email);
 
       // Create a new stage for the pop-up
       Stage popupStage = new Stage();

@@ -128,12 +128,28 @@ public class StdPageController {
                             
                             switch(currentPage){
                               case "Assets":
-                                //send the data to the contoller method!!
+                                TOSpecificAsset selectedAsset = (TOSpecificAsset) data;
+                                int selectedAssetNumber = selectedAsset.getAssetNumber();
+                                UpdateAssetPopupController popupController = new UpdateAssetPopupController();
+
+                                String assetNumber = Integer.toString(selectedAssetNumber);
+                                popupController.promptUpdateAssetPopUp(addButton, assetNumber); 
                                                                 
                                 assetButtonClicked(refresh);
                                 break;
                               case "AssetTypes":
                                 //send the data to the contoller method!!
+                                TOAssetType selectedAssetType = (TOAssetType) data;
+                                String selectedAssetName = selectedAssetType.getName();
+                                Boolean isValidAssetTypeAndName = (selectedAssetType != null && selectedAssetName != null);
+
+                                UpdateAssetTypePopUpController updateAssetController = new UpdateAssetTypePopUpController();
+
+                                if (isValidAssetTypeAndName) {
+                                  updateAssetController.promptUpdateAssetTypePopUp(selectedAssetName);
+                                } else {
+                                  ViewUtils.showError("Invalid asset type data.");
+                                }
                                                            
                                 assetTypeButtonClicked(refresh);
                                 break;
@@ -559,5 +575,13 @@ public class StdPageController {
     addButtonToTable("Approve", currentPage);
     addButtonToTable("Disapprove", currentPage);
 
-}
+  }
+
+  //TODO: To be redirected later
+  @FXML
+  public void settingsButtonClicked(ActionEvent event) { 
+    UpdateManagerPasswordController managerPopUpController = new UpdateManagerPasswordController();
+
+    managerPopUpController.promptUpdateManagerPasswordPopUp();
+  }
 }

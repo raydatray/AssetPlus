@@ -43,7 +43,7 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <TextField prefHeight="29.0" prefWidth="650.0" promptText="ex: 1234" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
+                  <TextField fx:id="assetNumberTextField" prefHeight="29.0" prefWidth="650.0" promptText="ex: 1234" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -63,7 +63,7 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <TextField prefHeight="29.0" prefWidth="650.0" promptText="ex: 3" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
+                  <TextField fx:id="floortextField" prefHeight="29.0" prefWidth="650.0" promptText="ex: 3" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -83,7 +83,7 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <TextField prefHeight="29.0" prefWidth="650.0" promptText="ex: 307" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
+                  <TextField fx:id="roomTextField" prefHeight="29.0" prefWidth="650.0" promptText="ex: 307" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -123,7 +123,7 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <TextField prefHeight="29.0" prefWidth="690.0" promptText="ex: Couch" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
+                  <TextField fx:id="assetTypeTextField" prefHeight="29.0" prefWidth="690.0" promptText="ex: Couch" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
