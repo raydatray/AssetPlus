@@ -1,10 +1,8 @@
 package ca.mcgill.ecse.assetplus.javafx.fxml.controllers;
 
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet1Controller;
-import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet2Controller;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet3Controller;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet4Controller;
-import ca.mcgill.ecse.assetplus.controller.TOAssetType;
 import ca.mcgill.ecse.assetplus.controller.TOSpecificAsset;
 import ca.mcgill.ecse.assetplus.controller.TOUser;
 import javafx.collections.FXCollections;
