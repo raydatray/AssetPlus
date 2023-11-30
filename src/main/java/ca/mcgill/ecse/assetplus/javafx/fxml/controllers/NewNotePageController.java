@@ -25,6 +25,7 @@ import javafx.util.Callback;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet2Controller;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet3Controller;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet4Controller;
@@ -40,7 +41,20 @@ import ca.mcgill.ecse.assetplus.controller.TOUser;
 
 public class NewNotePageController {
   @FXML private TableView noteTable;
-  @FXML private Button addNote;
+
+  @FXML private Button addNoteButton;
+
+  @FXML private Button closeButton;
+
+  @FXML private Label pageTitle;
+
+  @FXML private Button search;
+
+  @FXML
+  void handleAddNoteButtonClick(ActionEvent event) {
+
+  }
+
 
   private TOMaintenanceTicket mTicket;
 
