@@ -142,6 +142,15 @@ public class NewNotePageController {
                           btn.setOnAction((ActionEvent event) -> {
                             Object data = getTableView().getItems().get(getIndex());
 
+                            UpdateNotePopupController popUpUpdateNoteController = new UpdateNotePopupController();
+                          
+                            // Check if the data is a TOMaintenanceTicket instance and if TOMaintenanceTicket has an id
+                            // If so, pass it to the updateNotePopUpController
+                           
+                            popUpUpdateNoteController.promptUpdateNotePopUp(mTicket.getId(), ((IndexedNote) data).getIndex());
+                            
+                        
+
                             System.out.println("selectedData: " + data);
 
                             loadTable();

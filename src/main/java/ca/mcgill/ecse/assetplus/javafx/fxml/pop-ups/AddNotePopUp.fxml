@@ -44,7 +44,7 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <TextField fx:id="ticketIDTextField" prefHeight="35.0" prefWidth="712.0" promptText="ex: 1234" style="-fx-background-color: #303030; -fx-background-radius: 15;">
+                  <TextField fx:id="ticketIDTextField" prefHeight="35.0" prefWidth="712.0" promptText="ex: 1234" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -77,7 +77,7 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <TextField fx:id="emailTextField" prefHeight="35.0" prefWidth="741.0" promptText="ex: user@ap.com" style="-fx-background-color: #303030; -fx-background-radius: 15;">
+                  <TextField fx:id="emailTextField" prefHeight="35.0" prefWidth="741.0" promptText="ex: user@ap.com" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -97,7 +97,7 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <TextField fx:id="descriptionTextField" alignment="TOP_LEFT" prefHeight="100.0" prefWidth="678.0" promptText="ex: Description" style="-fx-background-color: #303030; -fx-background-radius: 15;">
+                  <TextField fx:id="descriptionTextField" alignment="TOP_LEFT" prefHeight="100.0" prefWidth="678.0" promptText="ex: Description" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>

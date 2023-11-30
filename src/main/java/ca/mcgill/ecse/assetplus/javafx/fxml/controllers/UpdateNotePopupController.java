@@ -41,7 +41,7 @@ public class UpdateNotePopupController {
   public void promptUpdateNotePopUp(int ticketID, int noteID) {
     try {
       // Load the FXML file
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/UpdateNotePopUp.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/UpdateNotePop.fxml"));
       Parent root = loader.load();
 
       // Autofill the email textfield
