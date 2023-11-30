@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -63,14 +64,7 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <TextField fx:id="dateTextField" prefHeight="35.0" prefWidth="751.0" promptText="ex: 2023-11-27" style="-fx-background-color: #303030; -fx-background-radius: 15;">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <font>
-                        <Font name="System Bold Italic" size="18.0" />
-                     </font>
-                  </TextField>
+                  <DatePicker fx:id="datePicker" prefHeight="32.0" prefWidth="747.0" promptText="ex: 2023-01-01" style="-fx-background-color: #303030; -fx-text-fill: #e5e3d9; -fx-prompt-text-fill: #e5e3d9; -fx-control-inner-background: #303030; -fx-base: #6699CC; -fx-mark-highlight-color: #e5e3d9;" />
                </children>
             </HBox>
             <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
