@@ -70,8 +70,8 @@ public class AddAssetTypePopupController {
       topController.refreshTable("AssetTypes");
 
       ViewUtils.closeWindow(assetNameTextField);
-    } catch (NumberFormatException e) {
-      ViewUtils.showError("Expected life span must be a number");
+    } catch (Exception e) {
+      ViewUtils.showError("Invalid inputs provided.");
     } 
   }
 }

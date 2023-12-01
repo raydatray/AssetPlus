@@ -96,19 +96,13 @@ public class AddTicketPopUpController {
 
   @FXML
   public void addMaintenanceTicket() {
-    LocalDate dateRaisedValue = dateRaisedDatePicker.getValue();
-    if (dateRaisedValue == null) {
-        ViewUtils.showError("Please select a raised date");
-        return;
-    }
-
-    String assetNumberValue = assetNumberChoiceBox.getValue();
-    java.sql.Date dateRaised = java.sql.Date.valueOf(dateRaisedValue);
-    String description = descriptionTextField.getText();
-    String raiserEmail = ticketRaiserEmailChoiceBox.getValue();
-    String ticketIdValue = ticketIdTextField.getText();
-
     try {
+      String assetNumberValue = assetNumberChoiceBox.getValue();
+      java.sql.Date dateRaised = java.sql.Date.valueOf(dateRaisedDatePicker.getValue());
+      String description = descriptionTextField.getText();
+      String raiserEmail = ticketRaiserEmailChoiceBox.getValue();
+      String ticketIdValue = ticketIdTextField.getText();
+
       int assetNumber = Integer.parseInt(assetNumberValue);
       int ticketId = Integer.parseInt(ticketIdValue);
 
@@ -120,7 +114,7 @@ public class AddTicketPopUpController {
 
       topController.refreshTable("Tickets");
       ViewUtils.closeWindow(addTicketButton);
-    } catch (NumberFormatException e) {
+    } catch (Exception e) {
       ViewUtils.showError("Invalid inputs provided.");
     }
   }

@@ -95,15 +95,14 @@ public class AssignTicketPopUpController {
 
     @FXML
     public void confirmAssignEmployee() throws NumberFormatException, ParseException {
-
-        String ticketId = ticketIdTextField.getText();
-
-        String staffMemberEmail = selectEmployeeChoiceBox.getValue();
-        String timeToResolve = timeToResolveChoiceBox.getValue();
-        String priority = priorityLevelChoiceBox.getValue();
-        boolean requiresManagerApproval = requiresApprovalChoiceBox.getValue() == "Yes" ? true : false;
-
         try {
+            String ticketId = ticketIdTextField.getText();
+
+            String staffMemberEmail = selectEmployeeChoiceBox.getValue();
+            String timeToResolve = timeToResolveChoiceBox.getValue();
+            String priority = priorityLevelChoiceBox.getValue();
+            boolean requiresManagerApproval = requiresApprovalChoiceBox.getValue() == "Yes" ? true : false;
+            
             String error = AssetPlusFeatureSet4Controller.AssignHotelStaffToMaintenanceTicket(
                     Integer.parseInt(ticketId), staffMemberEmail, timeToResolve, priority, requiresManagerApproval,
                     "manager@ap.com");

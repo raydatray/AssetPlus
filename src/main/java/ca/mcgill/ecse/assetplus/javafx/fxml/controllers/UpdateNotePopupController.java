@@ -89,19 +89,13 @@ public class UpdateNotePopupController {
   }
 
   public void handleUpdateNoteButtonClick() {
-    LocalDate noteDateValue = newNoteDatePicker.getValue();
-    if (noteDateValue == null) {
-        ViewUtils.showError("Please select a date");
-        return;
-    }
-
-    String ticketIDStr = ticketIDTextField.getText();
-    String noteIDStr = noteIDTextField.getText();
-    java.sql.Date noteDate = Date.valueOf(noteDateValue);
-    String email = newEmailChoiceBox.getValue();
-    String description = newDescriptionTextField.getText();
-
     try {
+      String ticketIDStr = ticketIDTextField.getText();
+      String noteIDStr = noteIDTextField.getText();
+      java.sql.Date noteDate = Date.valueOf(newNoteDatePicker.getValue());
+      String email = newEmailChoiceBox.getValue();
+      String description = newDescriptionTextField.getText();
+
       int ticketID = Integer.parseInt(ticketIDStr);
       int noteID = Integer.parseInt(noteIDStr);
 
@@ -117,8 +111,7 @@ public class UpdateNotePopupController {
 
       ViewUtils.closeWindow(noteIDTextField);
     } catch (Exception e) {
-        ViewUtils.showError(e.getMessage());
-        ViewUtils.closeWindow(noteIDTextField);
+        ViewUtils.showError("Invalid inputs provided.");
     } 
   }
 }

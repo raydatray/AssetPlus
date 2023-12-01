@@ -109,19 +109,12 @@ public class AddNotePopupController {
 
     @FXML
     public void addButtonClicked() throws NumberFormatException, ParseException {
-        LocalDate datePickerValue = datePicker.getValue();
-        if (datePickerValue == null) {
-            ViewUtils.showError("Please select a date");
-            return;
-        }
-
-        String ticketId = ticketIDTextField.getText();
-
-        java.sql.Date date = Date.valueOf(datePickerValue);
-        String staffMemberEmail = selectEmployeeChoiceBox.getValue();
-        String description = descriptionTextField.getText();
-
         try {
+            String ticketId = ticketIDTextField.getText();
+
+            java.sql.Date date = Date.valueOf(datePicker.getValue());
+            String staffMemberEmail = selectEmployeeChoiceBox.getValue();
+            String description = descriptionTextField.getText();
             String error = AssetPlusFeatureSet7Controller.addMaintenanceNote(date, description, Integer.parseInt(ticketId), staffMemberEmail);
 
             if (!error.equals("")) {
@@ -134,7 +127,7 @@ public class AddNotePopupController {
             topController.getMainController().refreshTable("Tickets");
             ViewUtils.closeWindow(addButton);
         } catch (Exception e) {
-            ViewUtils.showError("Invalid inputs");
+            ViewUtils.showError("Invalid inputs provided");
         } 
     }
 

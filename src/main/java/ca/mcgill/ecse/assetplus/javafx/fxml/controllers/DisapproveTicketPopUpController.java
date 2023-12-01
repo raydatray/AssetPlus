@@ -72,25 +72,23 @@ public class DisapproveTicketPopUpController {
 
   @FXML 
   public void disapproveTicket() {
-    LocalDate dateRaisedValue = dateRaisedDatePicker.getValue();
-    if (dateRaisedValue == null) {
-        ViewUtils.showError("Please select a raised date");
+    try {
+      int ticketId = Integer.parseInt(ticketIdTextField.getText());
+      java.sql.Date date = java.sql.Date.valueOf(dateRaisedDatePicker.getValue());
+      String description = noteTextArea.getText();
+
+      String error = AssetPlusFeatureSet4Controller.DisapproveWorkOnMaintenanceTicket(ticketId, date, description);
+
+      if (error != "") {
+        ViewUtils.showError(error);
         return;
+      }
+      
+      topController.refreshTable("Status");
+
+      closePopUp();
+    } catch (Exception e) {
+      ViewUtils.showError("Invalid inputs provided.");
     }
-
-    int ticketId = Integer.parseInt(ticketIdTextField.getText());
-    java.sql.Date date = java.sql.Date.valueOf(dateRaisedValue);
-    String description = noteTextArea.getText();
-
-    String error = AssetPlusFeatureSet4Controller.DisapproveWorkOnMaintenanceTicket(ticketId, date, description);
-
-    if (error != "") {
-      ViewUtils.showError(error);
-      return;
-    }
-    
-    topController.refreshTable("Status");
-
-    closePopUp();
   }
 }

@@ -89,19 +89,13 @@ public class AddAssetPopupController{
     }
 
   public void handleAddNewAssetButtonClick() {
-    LocalDate purchaseDateValue = purchaseDatePicker.getValue();
-    if (purchaseDateValue == null) {
-        ViewUtils.showError("Please select a purchase date");
-        return;
-    }
-
-    java.sql.Date purchaseDate = java.sql.Date.valueOf(purchaseDateValue);
-    String assetNumberStr = assetNumberTextField.getText();
-    String floorNumberStr = floortextField.getText();
-    String roomNumberStr = roomTextField.getText();
-    String assetType = assetTypeChoiceBox.getValue();
-
     try {
+      java.sql.Date purchaseDate = java.sql.Date.valueOf(purchaseDatePicker.getValue());
+      String assetNumberStr = assetNumberTextField.getText();
+      String floorNumberStr = floortextField.getText();
+      String roomNumberStr = roomTextField.getText();
+      String assetType = assetTypeChoiceBox.getValue();
+
       int assetNumber = Integer.parseInt(assetNumberStr);
       int floorNumber = Integer.parseInt(floorNumberStr);
       int roomNumber = Integer.parseInt(roomNumberStr);
@@ -117,8 +111,8 @@ public class AddAssetPopupController{
 
       ViewUtils.closeWindow(addNewAssetButton);
       
-    } catch (NumberFormatException e) {
-      ViewUtils.showError("Please enter valid numbers for asset, floor, and room");
+    } catch (Exception e) {
+      ViewUtils.showError("Invalid inputs provided.");
     } 
   } 
 }

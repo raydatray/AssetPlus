@@ -95,19 +95,13 @@ public class UpdateTicketPopUpController {
 
   @FXML
   public void handleUpdateTicketButtonClick() {  
-    LocalDate dateRaisedValue = newDateRaisedDatePicker.getValue();
-    if (dateRaisedValue == null) {
-        ViewUtils.showError("Please select a raised date");
-        return;
-    }
-
-    String assetNumberValue = newAssetNumberChoiceBox.getValue();
-    java.sql.Date newDateRaised = java.sql.Date.valueOf(dateRaisedValue);
-    String newDescription = newDescriptionTextField.getText();
-    String newRaiserEmail = newTickerRaiserEmailChoiceBox.getValue();
-    String ticketIdValue = ticketIDTextField.getText();
-
     try {
+      String assetNumberValue = newAssetNumberChoiceBox.getValue();
+      java.sql.Date newDateRaised = java.sql.Date.valueOf(newDateRaisedDatePicker.getValue());
+      String newDescription = newDescriptionTextField.getText();
+      String newRaiserEmail = newTickerRaiserEmailChoiceBox.getValue();
+      String ticketIdValue = ticketIDTextField.getText();
+      
       String error = AssetPlusFeatureSet4Controller.updateMaintenanceTicket(Integer.parseInt(ticketIdValue), newDateRaised, newDescription, newRaiserEmail, Integer.parseInt(assetNumberValue));
       if (!error.equals("")) {
         ViewUtils.showError(error);
