@@ -1,6 +1,7 @@
 package ca.mcgill.ecse.assetplus.javafx.fxml.controllers;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet1Controller;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet7Controller;
@@ -88,14 +89,19 @@ public class UpdateNotePopupController {
   }
 
   public void handleUpdateNoteButtonClick() {
+    LocalDate noteDateValue = newNoteDatePicker.getValue();
+    if (noteDateValue == null) {
+        ViewUtils.showError("Please select a date");
+        return;
+    }
+
+    String ticketIDStr = ticketIDTextField.getText();
+    String noteIDStr = noteIDTextField.getText();
+    java.sql.Date noteDate = Date.valueOf(noteDateValue);
+    String email = newEmailChoiceBox.getValue();
+    String description = newDescriptionTextField.getText();
 
     try {
-      String ticketIDStr = ticketIDTextField.getText();
-      String noteIDStr = noteIDTextField.getText();
-      java.sql.Date noteDate = Date.valueOf(newNoteDatePicker.getValue());
-      String email = newEmailChoiceBox.getValue();
-      String description = newDescriptionTextField.getText();
-
       int ticketID = Integer.parseInt(ticketIDStr);
       int noteID = Integer.parseInt(noteIDStr);
 
@@ -103,21 +109,16 @@ public class UpdateNotePopupController {
       
       if (!error.equals("")) {
         ViewUtils.showError(error);
+        return;
       }
+      topController.refreshMTicket(); //ASK FOR REFRESHED TICKET
+      topController.refreshTable(); //REFRESH THE NOTES TABLE
+      topController.getMainController().refreshTable("Tickets"); //REFRESH THE MAIN PAGE TABLE 
 
-
-    topController.refreshMTicket(); //ASK FOR REFRESHED TICKET
-    topController.refreshTable(); //REFRESH THE NOTES TABLE
-    topController.getMainController().refreshTable("Tickets"); //REFRESH THE MAIN PAGE TABLE 
-
-    ViewUtils.closeWindow(noteIDTextField);
-  } catch (Exception e) {
-      ViewUtils.showError(e.getMessage());
       ViewUtils.closeWindow(noteIDTextField);
-  } finally {
-    ViewUtils.closeWindow(closePopUpButton);
-  }
-     
-
+    } catch (Exception e) {
+        ViewUtils.showError(e.getMessage());
+        ViewUtils.closeWindow(noteIDTextField);
+    } 
   }
 }

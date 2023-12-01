@@ -22,6 +22,7 @@ import javafx.stage.StageStyle;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -108,10 +109,15 @@ public class AddNotePopupController {
 
     @FXML
     public void addButtonClicked() throws NumberFormatException, ParseException {
+        LocalDate datePickerValue = datePicker.getValue();
+        if (datePickerValue == null) {
+            ViewUtils.showError("Please select a date");
+            return;
+        }
 
         String ticketId = ticketIDTextField.getText();
 
-        java.sql.Date date = Date.valueOf(datePicker.getValue());
+        java.sql.Date date = Date.valueOf(datePickerValue);
         String staffMemberEmail = selectEmployeeChoiceBox.getValue();
         String description = descriptionTextField.getText();
 
@@ -120,18 +126,16 @@ public class AddNotePopupController {
 
             if (!error.equals("")) {
                 ViewUtils.showError(error);
-
-                ViewUtils.closeWindow(addButton);
-
+                return;
             }
-        } catch (Exception e) {
-            ViewUtils.showError(e.getMessage());
-        } finally {
+
             topController.refreshMTicket();
             topController.refreshTable();
             topController.getMainController().refreshTable("Tickets");
             ViewUtils.closeWindow(addButton);
-        }
+        } catch (Exception e) {
+            ViewUtils.showError("Invalid inputs");
+        } 
     }
 
     public void handleCloseButtonClick() {
