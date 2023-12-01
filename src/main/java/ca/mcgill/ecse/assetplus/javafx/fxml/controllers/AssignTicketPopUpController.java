@@ -44,7 +44,7 @@ public class AssignTicketPopUpController {
         priorityLevelChoiceBox.getItems().addAll("Urgent", "Normal", "Low");
         priorityLevelChoiceBox.setValue("Normal");
 
-        timeToResolveChoiceBox.getItems().addAll("lessThanADay", "oneToThreeDays", "threeToSevenDays", "oneToThreeWeeks", "threeOrMoreWeeks");
+        timeToResolveChoiceBox.getItems().addAll("LessThanADay", "OneToThreeDays", "ThreeToSevenDays", "OneToThreeWeeks", "ThreeOrMoreWeeks");
         timeToResolveChoiceBox.setValue("LessThanADay");
 
         List<TOUser> userList = AssetPlusFeatureSet1Controller.getUsers();
