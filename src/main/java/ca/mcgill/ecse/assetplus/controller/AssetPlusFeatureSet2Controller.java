@@ -7,6 +7,7 @@ import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
 import ca.mcgill.ecse.assetplus.model.AssetPlus;
 import ca.mcgill.ecse.assetplus.model.AssetType;
 import ca.mcgill.ecse.assetplus.model.MaintenanceTicket;
+import ca.mcgill.ecse.assetplus.model.SpecificAsset;
 import ca.mcgill.ecse.assetplus.model.TicketImage;
 import ca.mcgill.ecse.assetplus.persistence.AssetPlusPersistence;
 
@@ -135,16 +136,17 @@ public class AssetPlusFeatureSet2Controller {
     }
 
     try {
-      AssetType assetType = AssetType.getWithName(name);
+       AssetType assetType = AssetType.getWithName(name);
       
-      if (assetType != null) {
-        for (MaintenanceTicket ticket : assetPlus.getMaintenanceTickets()){
-          if (name.equals(ticket.getAsset().getAssetType().getName())){
-            AssetPlusFeatureSet4Controller.deleteMaintenanceTicket(ticket.getId());
-          }
-        }
-        assetType.delete();
-      }
+       if (assetType != null) {
+      //   for (MaintenanceTicket ticket : assetPlus.getMaintenanceTickets()){
+      //     SpecificAsset specificAsset = ticket.getAsset();
+      //     if (specificAsset != null){
+      //     if (name.equals(specificAsset.getAssetType().getName())){
+      //       AssetPlusFeatureSet4Controller.deleteMaintenanceTicket(ticket.getId());
+      //     }}
+      //   }
+        assetType.delete();}
       AssetPlusPersistence.save();
     } catch (Exception e) {
       throw e;
