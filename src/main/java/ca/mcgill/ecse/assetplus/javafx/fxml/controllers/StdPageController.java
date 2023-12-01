@@ -252,8 +252,12 @@ public class StdPageController {
                               Object data = getTableView().getItems().get(getIndex());
                               System.out.println("selectedData: " + data);        
                               
-                              AssetPlusFeatureSet4Controller.ApproveWorkOnMaintenanceTicket(Integer.toString(((TOMaintenanceTicket) data).getId()));
+                              String error = AssetPlusFeatureSet4Controller.ApproveWorkOnMaintenanceTicket(Integer.toString(((TOMaintenanceTicket) data).getId()));
                               
+                              if (!error.equals("")) {
+                                ViewUtils.showError(error);
+                              }
+
                               ActionEvent refresh = new ActionEvent();
                               statusButtonClicked(refresh);
                           
@@ -283,7 +287,11 @@ public class StdPageController {
                               Object data = getTableView().getItems().get(getIndex());
                               System.out.println("selectedData: " + data);        
                               
-                              AssetPlusFeatureSet4Controller.CompleteWorkOnMaintenanceTicket(Integer.toString(((TOMaintenanceTicket) data).getId()));
+                              String error = AssetPlusFeatureSet4Controller.CompleteWorkOnMaintenanceTicket(Integer.toString(((TOMaintenanceTicket) data).getId()));
+                              
+                              if (!error.equals("")) {
+                                ViewUtils.showError(error);
+                              }
                               
                               ActionEvent refresh = new ActionEvent();
                               statusButtonClicked(refresh);
