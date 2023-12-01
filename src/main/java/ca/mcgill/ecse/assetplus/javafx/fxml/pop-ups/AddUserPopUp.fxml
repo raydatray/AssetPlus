@@ -134,7 +134,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <ChoiceBox fx:id="userTypeChoiceBox" prefHeight="29.0" prefWidth="456.0">
+                  <ChoiceBox fx:id="userTypeChoiceBox" prefHeight="29.0" prefWidth="456.0" stylesheets="@../resources/ChoiceBox.css">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>

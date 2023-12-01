@@ -6,11 +6,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="1023.0" style="-fx-background-color: #252627; -fx-border-color: #6699CC; -fx-border-width: 4; -fx-background-radius: 50; -fx-border-radius: 45;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.assetplus.javafx.fxml.controllers.AddAssetTypePopupController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="390.0" prefWidth="1023.0" style="-fx-background-color: #252627; -fx-border-color: #6699CC; -fx-border-width: 4; -fx-background-radius: 50; -fx-border-radius: 45;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.assetplus.javafx.fxml.controllers.AddAssetTypePopupController">
    <children>
       <HBox prefHeight="100.0" prefWidth="994.0">
          <children>
@@ -73,14 +74,19 @@
                   </TextField>
                </children>
             </HBox>
-            <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" />
-            <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="858.0" />
+            <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <StackPane prefHeight="92.0" prefWidth="911.0" style="-fx-alignment: center;">
+                     <children>
+                        <Button fx:id="addNewAssetTypeButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleAddNewAssetTypeButtonClick" prefHeight="51.0" prefWidth="137.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="Add" textFill="#e5e3d9">
+                           <font>
+                              <Font name="Arial Rounded MT Bold" size="24.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </StackPane>
+               </children></HBox>
          </children>
       </VBox>
-      <Button fx:id="addNewAssetTypeButton" layoutX="429.0" onAction="#handleAddNewAssetTypeButtonClick" layoutY="356.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="137.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="Add" textFill="#e5e3d9">
-         <font>
-            <Font name="Arial Rounded MT Bold" size="24.0" />
-         </font>
-      </Button>
    </children>
 </AnchorPane>

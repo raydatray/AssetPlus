@@ -105,8 +105,8 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <DatePicker fx:id="purchaseDatePicker" prefHeight="32.0" prefWidth="217.0" style="-fx-background-color: #303030; -fx-text-fill: #e5e3d9; -fx-control-inner-background: #303030; -fx-base: #6699CC; -fx-mark-highlight-color: #e5e3d9;" />
-                  <Pane prefHeight="56.0" prefWidth="130.0" />
+                  <DatePicker fx:id="purchaseDatePicker" prefHeight="32.0" prefWidth="217.0" stylesheets="@../resources/DatePicker.css" />
+                  <Pane prefHeight="79.0" prefWidth="92.0" />
                   <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Asset Type:" wrappingWidth="127.13671875">
                      <font>
                         <Font size="24.0" />
@@ -115,7 +115,7 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <ChoiceBox fx:id="assetTypeChoiceBox" prefHeight="29.0" prefWidth="173.0" />
+                  <ChoiceBox fx:id="assetTypeChoiceBox" prefHeight="29.0" prefWidth="212.0" stylesheets="@../resources/ChoiceBox.css" />
                </children>
             </HBox>
             <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="858.0">

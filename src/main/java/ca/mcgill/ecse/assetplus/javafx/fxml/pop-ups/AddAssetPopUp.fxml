@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -105,7 +106,7 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <DatePicker fx:id="purchaseDatePicker" prefHeight="32.0" prefWidth="217.0" promptText="ex: 2023-01-01" style="-fx-background-color: #303030; -fx-text-fill: #e5e3d9; -fx-prompt-text-fill: #e5e3d9; -fx-control-inner-background: #303030; -fx-base: #6699CC; -fx-mark-highlight-color: #e5e3d9;" />
+                  <DatePicker fx:id="purchaseDatePicker" prefHeight="32.0" prefWidth="217.0" promptText="ex: 2023-01-01" stylesheets="@../resources/DatePicker.css" />
                   <Pane prefHeight="56.0" prefWidth="109.0" />
                   <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Asset Type:" wrappingWidth="127.13671875">
                      <font>
@@ -115,7 +116,11 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <ChoiceBox fx:id="assetTypeChoiceBox" prefHeight="29.0" prefWidth="173.0" />
+                  <ChoiceBox fx:id="assetTypeChoiceBox" prefHeight="29.0" prefWidth="196.0">
+                     <stylesheets>
+                        <URL value="@../resources/DatePicker.css" />
+                        <URL value="@../resources/ChoiceBox.css" />
+                     </stylesheets></ChoiceBox>
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="861.0">

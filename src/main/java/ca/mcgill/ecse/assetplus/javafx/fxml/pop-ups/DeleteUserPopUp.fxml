@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="712.0" style="-fx-background-color: #252627; -fx-background-radius: 50; -fx-border-color: #6699CC; -fx-border-radius: 45; -fx-border-width: 4;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.assetplus.javafx.fxml.controllers.AddUserPopUpController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="712.0" style="-fx-background-color: #252627; -fx-background-radius: 50; -fx-border-color: #6699CC; -fx-border-radius: 45; -fx-border-width: 4;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.assetplus.javafx.fxml.controllers.AddUserPopUpController">
    <top>
       <StackPane prefHeight="67.0" prefWidth="704.0" BorderPane.alignment="CENTER">
          <children>
@@ -44,7 +44,7 @@
       </StackPane>
    </top>
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="160.0" prefWidth="704.0" BorderPane.alignment="CENTER">
          <children>
             <HBox prefWidth="200.0">
                <children>
@@ -62,16 +62,6 @@
                      </font>
                   </TextField>
                </children>
-               <VBox.margin>
-                  <Insets bottom="20.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox prefWidth="200.0">
-               <VBox.margin>
-                  <Insets bottom="20.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox prefWidth="200.0">
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin>
