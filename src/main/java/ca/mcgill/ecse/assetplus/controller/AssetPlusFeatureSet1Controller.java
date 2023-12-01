@@ -260,7 +260,7 @@ public class AssetPlusFeatureSet1Controller {
         name = user.getName();
         phoneNumber = user.getPhoneNumber();
 
-      TOUser transferUser = new TOUser(user.getEmail(), name, phoneNumber);
+      TOUser transferUser = new TOUser(user.getEmail(), name, phoneNumber, user.getPassword());
 
       TOUserList.add(transferUser);
     }

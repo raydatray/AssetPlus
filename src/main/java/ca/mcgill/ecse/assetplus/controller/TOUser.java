@@ -15,16 +15,18 @@ public class TOUser
   private String email;
   private String name;
   private String phoneNumber;
+  private String password;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public TOUser(String aEmail, String aName, String aPhoneNumber)
+  public TOUser(String aEmail, String aName, String aPhoneNumber, String aPassword)
   {
     email = aEmail;
     name = aName;
     phoneNumber = aPhoneNumber;
+    password = aPassword;
   }
 
   //------------------------
@@ -46,6 +48,11 @@ public class TOUser
     return phoneNumber;
   }
 
+  public String getPassword()
+  {
+    return password;
+  }
+
   public void delete()
   {}
 
@@ -55,6 +62,7 @@ public class TOUser
     return super.toString() + "["+
             "email" + ":" + getEmail()+ "," +
             "name" + ":" + getName()+ "," +
-            "phoneNumber" + ":" + getPhoneNumber()+ "]";
+            "phoneNumber" + ":" + getPhoneNumber()+ "," +
+            "password" + ":" + getPassword()+ "]";
   }
 }

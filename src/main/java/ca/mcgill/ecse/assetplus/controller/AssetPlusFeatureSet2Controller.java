@@ -138,6 +138,11 @@ public class AssetPlusFeatureSet2Controller {
       AssetType assetType = AssetType.getWithName(name);
       
       if (assetType != null) {
+        for (MaintenanceTicket ticket : assetPlus.getMaintenanceTickets()){
+          if (name.equals(ticket.getAsset().getAssetType().getName())){
+            AssetPlusFeatureSet4Controller.deleteMaintenanceTicket(ticket.getId());
+          }
+        }
         assetType.delete();
       }
       AssetPlusPersistence.save();

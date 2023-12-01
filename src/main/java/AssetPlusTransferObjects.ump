@@ -44,6 +44,7 @@ class TOUser {
   String email;
   String name;
   String phoneNumber;
+  String password;
 }
 
 class TOSpecificAsset {

@@ -443,17 +443,21 @@ public class StdPageController {
     List<TOUser> userList = AssetPlusFeatureSet1Controller.getUsers();
     dataTable.getItems().addAll(userList);
 
-    TableColumn<TOAssetType, String> nameColumn = new TableColumn<>("Name");
+    TableColumn<TOUser, String> nameColumn = new TableColumn<>("Name");
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     dataTable.getColumns().add(nameColumn);
 
-    TableColumn<TOAssetType, String> emailColumn = new TableColumn<>("Email");
+    TableColumn<TOUser, String> emailColumn = new TableColumn<>("Email");
     emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
     dataTable.getColumns().add(emailColumn);
 
-    TableColumn<TOAssetType, String> phoneColumn = new TableColumn<>("Phone");
+    TableColumn<TOUser, String> phoneColumn = new TableColumn<>("Phone");
     phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
     dataTable.getColumns().add(phoneColumn);
+
+    TableColumn<TOUser, String> passwordColumn = new TableColumn<>("Password");
+    passwordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
+    dataTable.getColumns().add(passwordColumn);
 
     addButtonToTable("Edit", currentPage, this);
     addButtonToTable("Delete", currentPage, this);

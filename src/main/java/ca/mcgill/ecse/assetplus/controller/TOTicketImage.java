@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse.assetplus.controller;
 
-// line 58 "../../../../../AssetPlusTransferObjects.ump"
+// line 59 "../../../../../AssetPlusTransferObjects.ump"
 public class TOTicketImage
 {
 
