@@ -81,13 +81,14 @@ public class AddImageToTicketPopUpController {
 
       if (!error.equals("")) {
         ViewUtils.showError(error);
+        return;
       }
 
       ViewUtils.closeWindow(addButton);
 
 
     } catch (Exception e) {
-      ViewUtils.showError(e.getMessage());
+      ViewUtils.showError("Invalid inputs provided.");
           
       
     }

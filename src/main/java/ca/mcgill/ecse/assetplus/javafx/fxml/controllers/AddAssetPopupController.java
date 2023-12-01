@@ -96,16 +96,10 @@ public class AddAssetPopupController{
     }
 
     java.sql.Date purchaseDate = java.sql.Date.valueOf(purchaseDateValue);
-
     String assetNumberStr = assetNumberTextField.getText();
     String floorNumberStr = floortextField.getText();
     String roomNumberStr = roomTextField.getText();
     String assetType = assetTypeChoiceBox.getValue();
-
-    if (assetNumberStr.isEmpty() || floorNumberStr.isEmpty() || roomNumberStr.isEmpty() || assetType == null) {
-      ViewUtils.showError("Please fill in all the fields");
-      return;
-    }
 
     try {
       int assetNumber = Integer.parseInt(assetNumberStr);
@@ -125,6 +119,6 @@ public class AddAssetPopupController{
       
     } catch (NumberFormatException e) {
       ViewUtils.showError("Please enter valid numbers for asset, floor, and room");
-    }
+    } 
   } 
 }

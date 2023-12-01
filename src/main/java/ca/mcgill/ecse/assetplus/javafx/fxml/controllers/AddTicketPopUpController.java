@@ -95,26 +95,32 @@ public class AddTicketPopUpController {
 
   @FXML
   public void addMaintenanceTicket() {
-    try {
-      String assetNumber = assetNumberChoiceBox.getValue();
-      java.sql.Date dateRaised = java.sql.Date.valueOf(dateRaisedDatePicker.getValue());
-      String description = descriptionTextField.getText();
-      String raiserEmail = ticketRaiserEmailChoiceBox.getValue();
-      String ticketId = ticketIdTextField.getText();
-
-      String error = AssetPlusFeatureSet4Controller.addMaintenanceTicket(Integer.parseInt(ticketId), dateRaised, description, raiserEmail, Integer.parseInt(assetNumber));
-      if (!error.equals("")) {
-        ViewUtils.showError(error);
-
-        ViewUtils.closeWindow(addTicketButton);
-  
-      }
-    } catch (Exception e) {
-      ViewUtils.showError("Invalid inputs provided.");
+    LocalDate dateRaisedValue = dateRaisedDatePicker.getValue();
+    if (dateRaisedValue == null) {
+        ViewUtils.showError("Please select a raised date");
+        return;
     }
-    finally {
+
+    String assetNumberValue = assetNumberChoiceBox.getValue();
+    java.sql.Date dateRaised = java.sql.Date.valueOf(dateRaisedValue);
+    String description = descriptionTextField.getText();
+    String raiserEmail = ticketRaiserEmailChoiceBox.getValue();
+    String ticketIdValue = ticketIdTextField.getText();
+
+    try {
+      int assetNumber = Integer.parseInt(assetNumberValue);
+      int ticketId = Integer.parseInt(ticketIdValue);
+
+      String error = AssetPlusFeatureSet4Controller.addMaintenanceTicket(ticketId, dateRaised, description, raiserEmail, assetNumber);
+      if (!error.equals("")) {
+        ViewUtils.showError(error);  
+        return;
+      }
+
       topController.refreshTable("Tickets");
       ViewUtils.closeWindow(addTicketButton);
+    } catch (NumberFormatException e) {
+      ViewUtils.showError("Invalid inputs provided.");
     }
   }
 

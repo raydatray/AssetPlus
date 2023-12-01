@@ -19,6 +19,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import java.time.LocalDate;
 import java.util.List;
 
 public class UpdateTicketPopUpController {
@@ -94,23 +95,29 @@ public class UpdateTicketPopUpController {
 
   @FXML
   public void handleUpdateTicketButtonClick() {  
-    try {
-      String ticketId = ticketIDTextField.getText();
-      java.sql.Date newDateRaised = java.sql.Date.valueOf(newDateRaisedDatePicker.getValue());
-      String newDescription = newDescriptionTextField.getText();
-      String newRaiserEmail = newTickerRaiserEmailChoiceBox.getValue();
-      String newAssetNumber = newAssetNumberChoiceBox.getValue();
+    LocalDate dateRaisedValue = newDateRaisedDatePicker.getValue();
+    if (dateRaisedValue == null) {
+        ViewUtils.showError("Please select a raised date");
+        return;
+    }
 
-      String error = AssetPlusFeatureSet4Controller.updateMaintenanceTicket(Integer.parseInt(ticketId), newDateRaised, newDescription, newRaiserEmail, Integer.parseInt(newAssetNumber));
+    String assetNumberValue = newAssetNumberChoiceBox.getValue();
+    java.sql.Date newDateRaised = java.sql.Date.valueOf(dateRaisedValue);
+    String newDescription = newDescriptionTextField.getText();
+    String newRaiserEmail = newTickerRaiserEmailChoiceBox.getValue();
+    String ticketIdValue = ticketIDTextField.getText();
+
+    try {
+      String error = AssetPlusFeatureSet4Controller.updateMaintenanceTicket(Integer.parseInt(ticketIdValue), newDateRaised, newDescription, newRaiserEmail, Integer.parseInt(assetNumberValue));
       if (!error.equals("")) {
         ViewUtils.showError(error);
+        return;
       }
-    } catch (Exception e) {
-      ViewUtils.showError("Invalid inputs provided.");
-    }
-    finally {
+
       topController.refreshTable("Tickets");
       ViewUtils.closeWindow(updateTicketButton);
+    } catch (Exception e) {
+      ViewUtils.showError("Invalid inputs provided.");
     }
   }
 

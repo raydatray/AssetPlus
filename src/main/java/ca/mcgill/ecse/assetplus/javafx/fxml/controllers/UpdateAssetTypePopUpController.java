@@ -36,11 +36,6 @@ public class UpdateAssetTypePopUpController {
     String newName = newAssetNameTextField.getText();
     String newExpectedLifeSpan = expectedLifeSpanTextField.getText();
 
-    if (oldName.isEmpty() || newName.isEmpty() || newExpectedLifeSpan.isEmpty()) {
-      ViewUtils.showError("Please fill in all the fields");
-      return;
-    }
-
     try {
       int newExpectedLifeSpanInt = Integer.parseInt(newExpectedLifeSpan);
 

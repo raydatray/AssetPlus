@@ -55,13 +55,9 @@ public class AddAssetTypePopupController {
   public void handleAddNewAssetTypeButtonClick() {
     String assetName = assetNameTextField.getText();
     String expectedLifeSpan = expectedLifeSpanTextField.getText();
-    if (assetName.isEmpty() || expectedLifeSpan.isEmpty()) {
-      ViewUtils.showError("Please fill in all the fields");
-      return;
-    }
 
     try {
-      int expectedLifeSpanInt = Integer.parseInt(expectedLifeSpanTextField.getText());
+      int expectedLifeSpanInt = Integer.parseInt(expectedLifeSpan);
 
       String error = AssetPlusFeatureSet2Controller.addAssetType(assetName, expectedLifeSpanInt);
 

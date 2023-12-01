@@ -110,16 +110,14 @@ public class AssignTicketPopUpController {
 
             if (!error.equals("")) {
                 ViewUtils.showError(error);
-
-                ViewUtils.closeWindow(closePopUpButton);
-
+                return;
             }
-        } catch (Exception e) {
-            ViewUtils.showError(e.getMessage());
-        } finally {
+
             topController.refreshTable("Status");
             ViewUtils.closeWindow(closePopUpButton);
-        }
+        } catch (Exception e) {
+            ViewUtils.showError("Invalid inputs provided.");
+        } 
     }
 
     public void closePopUp() {

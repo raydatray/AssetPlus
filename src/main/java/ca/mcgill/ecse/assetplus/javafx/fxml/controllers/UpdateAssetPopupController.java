@@ -109,11 +109,6 @@ public class UpdateAssetPopupController {
     String roomNumberStr = roomTextField.getText();
     String assetType = assetTypeChoiceBox.getValue();
 
-    if (assetNumberStr.isEmpty() || floorNumberStr.isEmpty() || roomNumberStr.isEmpty() || assetType == null) {
-      ViewUtils.showError("Please fill in all the fields");
-      return;
-    }
-
     try{
       int assetNumber = Integer.parseInt(assetNumberStr);
       int floorNumber = Integer.parseInt(floorNumberStr);

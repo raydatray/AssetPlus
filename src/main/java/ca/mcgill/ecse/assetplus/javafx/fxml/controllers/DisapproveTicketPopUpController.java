@@ -1,5 +1,6 @@
 package ca.mcgill.ecse.assetplus.javafx.fxml.controllers;
 
+import java.time.LocalDate;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet4Controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -61,14 +62,21 @@ public class DisapproveTicketPopUpController {
 
   @FXML 
   public void disapproveTicket() {
+    LocalDate dateRaisedValue = dateRaisedDatePicker.getValue();
+    if (dateRaisedValue == null) {
+        ViewUtils.showError("Please select a raised date");
+        return;
+    }
+
     int ticketId = Integer.parseInt(ticketIdTextField.getText());
-    java.sql.Date date = java.sql.Date.valueOf(dateRaisedDatePicker.getValue());
+    java.sql.Date date = java.sql.Date.valueOf(dateRaisedValue);
     String description = noteTextArea.getText();
 
     String error = AssetPlusFeatureSet4Controller.DisapproveWorkOnMaintenanceTicket(ticketId, date, description);
 
     if (error != "") {
       ViewUtils.showError(error);
+      return;
     }
 
     closePopUp();
