@@ -12,12 +12,12 @@
 
 <BorderPane style="-fx-border-radius: 30;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="994.0" style="-fx-background-color: #252627; -fx-border-color: #6699CC; -fx-border-width: 3;">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="314.0" prefWidth="994.0" style="-fx-background-color: #252627; -fx-border-color: #6699CC; -fx-border-width: 4; -fx-border-radius: 45; -fx-background-radius: 50;">
          <children>
             <HBox prefHeight="100.0" prefWidth="994.0">
                <children>
                   <Pane prefHeight="72.0" prefWidth="208.0" />
-                  <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete? " textAlignment="CENTER" wrappingWidth="594.1875">
+                  <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm Delete" textAlignment="CENTER" wrappingWidth="594.1875">
                      <font>
                         <Font name="Arial Rounded MT Bold" size="32.0" />
                      </font>
@@ -33,7 +33,7 @@
                   <Insets top="28.0" />
                </padding>
             </HBox>
-            <VBox layoutX="68.0" layoutY="91.0" prefHeight="63.0" prefWidth="863.0" style="-fx-background-color: #252627; -fx-background-radius: 250;">
+            <VBox layoutX="68.0" layoutY="91.0" prefHeight="217.0" prefWidth="864.0" style="-fx-background-color: #252627; -fx-background-radius: 250;">
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
@@ -44,19 +44,23 @@
                         </Text>
                      </children>
                   </HBox>
-                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="69.0" prefWidth="864.0" />
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="51.0" prefWidth="359.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="No" textFill="#e5e3d9">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Button>
+                        <Pane prefHeight="99.0" prefWidth="168.0" />
+                        <Button mnemonicParsing="false" prefHeight="51.0" prefWidth="359.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="Yes" textFill="#e5e3d9">
+                           <font>
+                              <Font name="Arial Rounded MT Bold" size="24.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
-            <Button layoutX="68.0" layoutY="207.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="359.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="Yes" textFill="#e5e3d9">
-               <font>
-                  <Font name="Arial Rounded MT Bold" size="24.0" />
-               </font>
-            </Button>
-            <Button layoutX="571.0" layoutY="207.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="359.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="No" textFill="#e5e3d9">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-            </Button>
          </children>
       </AnchorPane>
    </center>
