@@ -65,7 +65,7 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <DatePicker fx:id="dateRaisedDatePicker" prefHeight="40.0" prefWidth="693.0" />
+                  <DatePicker fx:id="dateRaisedDatePicker" prefHeight="40.0" prefWidth="693.0" stylesheets="@../resources/DatePicker.css" />
                </children>
             </HBox>
             <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
@@ -78,7 +78,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Text>
-                  <ChoiceBox fx:id="ticketRaiserEmailChoiceBox" prefHeight="40.0" prefWidth="623.0" />
+                  <ChoiceBox fx:id="ticketRaiserEmailChoiceBox" prefHeight="40.0" prefWidth="623.0" stylesheets="@../resources/ChoiceBox.css" />
                </children>
             </HBox>
             <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="858.0">
@@ -91,7 +91,7 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <ChoiceBox fx:id="assetNumberChoiceBox" prefHeight="40.0" prefWidth="669.0" />
+                  <ChoiceBox fx:id="assetNumberChoiceBox" prefHeight="40.0" prefWidth="669.0" stylesheets="@../resources/ChoiceBox.css" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="858.0">

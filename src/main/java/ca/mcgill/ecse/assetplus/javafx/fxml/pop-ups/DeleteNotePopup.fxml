@@ -61,6 +61,9 @@
                      </font>
                   </TextField>
                </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
@@ -82,17 +85,22 @@
                   </TextField>
                </children>
             </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="51.0" prefWidth="359.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="No" textFill="#e5e3d9">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Button>
+                  <Pane prefHeight="77.0" prefWidth="165.0" />
+                  <Button mnemonicParsing="false" prefHeight="51.0" prefWidth="359.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="Yes" textFill="#e5e3d9">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
          </children>
       </VBox>
-      <Button layoutX="68.0" layoutY="360.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="359.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="Yes" textFill="#e5e3d9">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </Button>
-      <Button layoutX="573.0" layoutY="360.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="359.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="No" textFill="#e5e3d9">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </Button>
    </children>
 </AnchorPane>
