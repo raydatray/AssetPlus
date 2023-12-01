@@ -69,9 +69,7 @@ public class StdPageController {
   }
 
 
-  private void addButtonToTable(String buttonType, String currentPage) {
-
-        StdPageController topController = this;
+  private void addButtonToTable(String buttonType, String currentPage, StdPageController topController) {
 
         TableColumn<Object, Void> colBtn = new TableColumn("");
 
@@ -87,7 +85,6 @@ public class StdPageController {
 
                       switch(buttonType){
                         case "Delete":
-
                           btn.setOnAction((ActionEvent event) -> {
                             Object data = getTableView().getItems().get(getIndex());
                             System.out.println("selectedData: " + data);
@@ -122,76 +119,85 @@ public class StdPageController {
                           break;
 
                         case "Edit":
-                          btn.setOnAction((ActionEvent event) -> {
-                            Object data = getTableView().getItems().get(getIndex());
-                            System.out.println("selectedData: " + data);
-
-                            ActionEvent refresh = new ActionEvent();
+                            //ActionEvent refresh = new ActionEvent();
+                            //FORCE OVERWRITE 
                             
                             switch(currentPage){
                               case "Assets":
-                                TOSpecificAsset selectedAsset = (TOSpecificAsset) data;
-                                int selectedAssetNumber = selectedAsset.getAssetNumber();
-                                UpdateAssetPopupController popupController = new UpdateAssetPopupController();
+                                UpdateAssetPopupController popupController = new UpdateAssetPopupController(topController);
+                                btn.setOnAction((ActionEvent event) -> {
+                                  Object data = getTableView().getItems().get(getIndex());
+                                  System.out.println("selectedData: " + data);
+                                  TOSpecificAsset selectedAsset = (TOSpecificAsset) data;
+                                  int selectedAssetNumber = selectedAsset.getAssetNumber();
 
-                                String assetNumber = Integer.toString(selectedAssetNumber);
-                                popupController.promptUpdateAssetPopUp(addButton, assetNumber); 
-                                                                
-                                assetButtonClicked(refresh);
+                                  String assetNumber = Integer.toString(selectedAssetNumber);
+                                  popupController.promptUpdateAssetPopUp(addButton, assetNumber); 
+                                });
+                                
                                 break;
                               case "AssetTypes":
-                                //send the data to the contoller method!!
-                                TOAssetType selectedAssetType = (TOAssetType) data;
-                                String selectedAssetName = selectedAssetType.getName();
-                                Boolean isValidAssetTypeAndName = (selectedAssetType != null && selectedAssetName != null);
+                                UpdateAssetTypePopUpController updateAssetController = new UpdateAssetTypePopUpController(topController);
+                                btn.setOnAction((ActionEvent event) -> {
+                                  //send the data to the contoller method!!
+                                  Object data = getTableView().getItems().get(getIndex());
+                                  System.out.println("selectedData: " + data);
+                                  TOAssetType selectedAssetType = (TOAssetType) data;
+                                  String selectedAssetName = selectedAssetType.getName();
+                                  Boolean isValidAssetTypeAndName = (selectedAssetType != null && selectedAssetName != null);
 
-                                UpdateAssetTypePopUpController updateAssetController = new UpdateAssetTypePopUpController();
 
-                                if (isValidAssetTypeAndName) {
-                                  updateAssetController.promptUpdateAssetTypePopUp(selectedAssetName);
-                                } else {
-                                  ViewUtils.showError("Invalid asset type data.");
-                                }
-                                                           
-                                assetTypeButtonClicked(refresh);
+                                  if (isValidAssetTypeAndName) {
+                                    updateAssetController.promptUpdateAssetTypePopUp(selectedAssetName);
+                                  } else {
+                                    ViewUtils.showError("Invalid asset type data.");
+                                  }
+                                });
+                                                                
                                 break;
 
                               case "Users":
-                                TOUser selectedUser = (TOUser) data;
-                                String selectedUserEmail = selectedUser.getEmail();
-                                UpdateUserPopUpController popUpController = new UpdateUserPopUpController();
+                                UpdateUserPopUpController popUpController = new UpdateUserPopUpController(topController);
+                                btn.setOnAction((ActionEvent event) -> {
+                                  Object data = getTableView().getItems().get(getIndex());
+                                  System.out.println("selectedData: " + data);
+                                  TOUser selectedUser = (TOUser) data;
+                                  String selectedUserEmail = selectedUser.getEmail();
 
-                                popUpController.promptUpdatePopUp(selectedUserEmail);
-
-                                usersButtonClicked(refresh);
+                                  popUpController.promptUpdatePopUp(selectedUserEmail);
+                                });
+  
                                 break;
                               
                               case "Tickets":
-                                //send the data to the contoller method!!
-                                TOMaintenanceTicket selectedTicket = (TOMaintenanceTicket) data;
-                                int selectedTicketID = selectedTicket.getId();
-                                Boolean isValidTicketID = (selectedTicket != null);
-                                // Boolean isValidTicketID = (selectedTicket != null && selectedTicketID != 0);
-
                                 UpdateTicketPopUpController popUpUpdateTicketController = new UpdateTicketPopUpController(topController);
-                          
-                                // Check if the data is a TOMaintenanceTicket instance and if TOMaintenanceTicket has an id
-                                // If so, pass it to the updateTicketPopUpController
-                                if (isValidTicketID) {
-                                  popUpUpdateTicketController.promptUpdateTicketPopUp(selectedTicketID);
-                                } else {
-                                  // Handle the case where data is not a TOUser or doesn't have an email
-                                  ViewUtils.showError("Invalid user data.");
-                                }
+                                btn.setOnAction((ActionEvent event) -> {
+                                  Object data = getTableView().getItems().get(getIndex());
+                                  System.out.println("selectedData: " + data);
+                                  //send the data to the contoller method!!
+                                  TOMaintenanceTicket selectedTicket = (TOMaintenanceTicket) data;
+                                  int selectedTicketID = selectedTicket.getId();
+                                  Boolean isValidTicketID = (selectedTicket != null);
+                                  // Boolean isValidTicketID = (selectedTicket != null && selectedTicketID != 0);
 
-                                                
-                                viewTicketsButtonClicked(refresh);
+
+                            
+                                  // Check if the data is a TOMaintenanceTicket instance and if TOMaintenanceTicket has an id
+                                  // If so, pass it to the updateTicketPopUpController
+                                  if (isValidTicketID) {
+                                    popUpUpdateTicketController.promptUpdateTicketPopUp(selectedTicketID);
+                                  } else {
+                                    // Handle the case where data is not a TOUser or doesn't have an email
+                                    ViewUtils.showError("Invalid user data.");
+                                  }
+                                });
+
                                 break;
                             }
-                          });
                           break;
                         
                         case "Assign":
+                          AssignTicketPopUpController popUpAssignTicketController = new AssignTicketPopUpController(topController);
                           btn.setOnAction((ActionEvent event) -> {
                               Object data = getTableView().getItems().get(getIndex());
                               System.out.println("selectedData: " + data);        
@@ -203,7 +209,7 @@ public class StdPageController {
                                 // Boolean isValidTicketID = (selectedTicket != null && selectedTicketID != 0);
 
 
-                                AssignTicketPopUpController popUpAssignTicketController = new AssignTicketPopUpController();
+                                
                           
                                 // Check if the data is a TOMaintenanceTicket instance and if TOMaintenanceTicket has an id
                                 // If so, pass it to the AssignTicketPopUpController
@@ -369,8 +375,8 @@ public class StdPageController {
     purchaseDateColumn.setCellValueFactory(new PropertyValueFactory<>("purchaseDate"));
     dataTable.getColumns().add(purchaseDateColumn); 
 
-    addButtonToTable("Edit", currentPage);
-    addButtonToTable("Delete", currentPage);
+    addButtonToTable("Edit", currentPage, this);
+    addButtonToTable("Delete", currentPage, this);
   }
 
   @FXML
@@ -397,8 +403,8 @@ public class StdPageController {
     expectedLifeColumn.setCellValueFactory(new PropertyValueFactory<>("expectedLifeSpan"));
     dataTable.getColumns().add(expectedLifeColumn);
 
-    addButtonToTable("Edit", currentPage);
-    addButtonToTable("Delete", currentPage);
+    addButtonToTable("Edit", currentPage, this);
+    addButtonToTable("Delete", currentPage, this);
   }
 
   @FXML 
@@ -430,8 +436,8 @@ public class StdPageController {
     phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
     dataTable.getColumns().add(phoneColumn);
 
-    addButtonToTable("Edit", currentPage);
-    addButtonToTable("Delete", currentPage);
+    addButtonToTable("Edit", currentPage, this);
+    addButtonToTable("Delete", currentPage, this);
   }
   
   @FXML
@@ -439,7 +445,7 @@ public class StdPageController {
     AddTicketPopUpController ticketPopUpController = new AddTicketPopUpController(this);
     addButton.setOnAction(e -> ticketPopUpController.promptAddTicketPopUp());
     
-    pageTitle.setText("Maintenance Tickets");
+    pageTitle.setText("Tickets");
     addButton.setText("Add Ticket");
     addButton.setVisible(true);
     currentPage = "Tickets";
@@ -508,10 +514,10 @@ public class StdPageController {
     dataTable.getColumns().add(fixerColumn);
 
     //NOTES AND IMAGES
-    addButtonToTable("Notes", currentPage);
-    addButtonToTable("Images", currentPage);
-    addButtonToTable("Edit", currentPage);
-    addButtonToTable("Delete", currentPage);
+    addButtonToTable("Notes", currentPage, this);
+    addButtonToTable("Images", currentPage, this);
+    addButtonToTable("Edit", currentPage, this);
+    addButtonToTable("Delete", currentPage, this);
   }
 
   @FXML
@@ -560,11 +566,11 @@ public class StdPageController {
     fixerColumn.setCellValueFactory(new PropertyValueFactory<>("fixedByEmail"));
     dataTable.getColumns().add(fixerColumn);
 
-    addButtonToTable("Assign", currentPage);
-    addButtonToTable("Start", currentPage);
-    addButtonToTable("Complete", currentPage);
-    addButtonToTable("Approve", currentPage);
-    addButtonToTable("Disapprove", currentPage);
+    addButtonToTable("Assign", currentPage, this);
+    addButtonToTable("Start", currentPage, this);
+    addButtonToTable("Complete", currentPage, this);
+    addButtonToTable("Approve", currentPage, this);
+    addButtonToTable("Disapprove", currentPage, this);
 
   }
 

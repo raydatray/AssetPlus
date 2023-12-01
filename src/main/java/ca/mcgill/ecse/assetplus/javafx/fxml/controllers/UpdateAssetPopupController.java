@@ -30,6 +30,12 @@ public class UpdateAssetPopupController {
   @FXML private DatePicker purchaseDatePicker;
   @FXML private ChoiceBox<String> assetTypeChoiceBox;
 
+  StdPageController topController;
+
+  public UpdateAssetPopupController(StdPageController headController){
+    this.topController = headController;
+  }
+
   public void setAssetNumber(String assetNumber) {
     if (assetNumberTextField != null) {
       assetNumberTextField.setText(assetNumber);
@@ -59,6 +65,7 @@ public class UpdateAssetPopupController {
     try {
       // Load the FXML file
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/UpdateAssetPopUp.fxml"));
+      loader.setControllerFactory(param -> new UpdateAssetPopupController(topController));
       Parent root = loader.load();
 
       // Autofill the assetNumber textfield - Populate the choice box
@@ -107,7 +114,7 @@ public class UpdateAssetPopupController {
       if (!error.equals("")) {
         ViewUtils.showError(error);
       }
-
+      topController.refreshTable("Assets");
       ViewUtils.closeWindow(updateAssetButton);
 
     } catch (Exception e) {

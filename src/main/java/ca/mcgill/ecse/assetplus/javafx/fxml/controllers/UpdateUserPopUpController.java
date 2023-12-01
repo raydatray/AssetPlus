@@ -22,6 +22,12 @@ public class UpdateUserPopUpController {
   @FXML private TextField phoneNumberTextField;
   @FXML private PasswordField passwordTextField;
 
+  StdPageController topController;
+
+  public UpdateUserPopUpController(StdPageController headController){
+    this.topController = headController;
+  }
+
   public void setEmail(String email) {
     if (emailtextField != null) {
         emailtextField.setText(email);
@@ -33,6 +39,7 @@ public class UpdateUserPopUpController {
     try {
       // Load the FXML file
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/UpdateUserPopUp.fxml"));
+      loader.setControllerFactory(param -> new UpdateUserPopUpController(topController));
       Parent root = loader.load();
 
       // Autofill the email textfield
@@ -74,6 +81,7 @@ public class UpdateUserPopUpController {
       ViewUtils.showError(error);
     }
 
+    topController.refreshTable("Users");
     ViewUtils.closeWindow(emailtextField);
   }
 }

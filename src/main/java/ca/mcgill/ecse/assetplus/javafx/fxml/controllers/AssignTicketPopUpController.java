@@ -28,6 +28,12 @@ public class AssignTicketPopUpController {
     @FXML private TextField ticketIdTextField;
     @FXML private ChoiceBox<String> timeToResolveChoiceBox;
 
+    StdPageController topController;
+
+    public AssignTicketPopUpController(StdPageController headController){
+        this.topController = headController;
+    }
+
     public void setFieldsAndChoiceBoxes(int ticketID) {
         ticketIdTextField.setText(String.valueOf(ticketID));
         ticketIdTextField.setDisable(true);
@@ -62,8 +68,8 @@ public class AssignTicketPopUpController {
     public void promptAssignTicketPopUp(Button updateButton, int ticketID) {
         try {
             // Load the FXML file
-            FXMLLoader loader = new FXMLLoader(getClass()
-                    .getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/AssignMaintenanceTicketPopup.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/AssignMaintenanceTicketPopup.fxml"));
+            loader.setControllerFactory(param -> new AssignTicketPopUpController(topController));
             Parent root = loader.load();
 
             // Autofill the ticket textfield
@@ -111,6 +117,7 @@ public class AssignTicketPopUpController {
         } catch (Exception e) {
             ViewUtils.showError(e.getMessage());
         } finally {
+            topController.refreshTable("Status");
             ViewUtils.closeWindow(closePopUpButton);
         }
     }

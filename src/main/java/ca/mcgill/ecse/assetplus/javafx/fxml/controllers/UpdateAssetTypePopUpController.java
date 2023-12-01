@@ -19,6 +19,12 @@ public class UpdateAssetTypePopUpController {
   @FXML private TextField oldAssetNameTextField;
   @FXML private Button updateAssetButton;
 
+  StdPageController topController;
+
+  public UpdateAssetTypePopUpController(StdPageController headController){
+    this.topController = headController;
+  }
+
   @FXML
   public void closePopUp() {
     ViewUtils.closeWindow(closeButton);
@@ -39,6 +45,7 @@ public class UpdateAssetTypePopUpController {
     } catch (Exception e) {
       ViewUtils.showError("Invalid input for new expected life span in days.");
     } finally {
+      topController.refreshTable("AssetTypes");
       ViewUtils.closeWindow(updateAssetButton);
     }
   }
@@ -48,6 +55,7 @@ public class UpdateAssetTypePopUpController {
     try {
       // Load the FXML file
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/UpdateAssetTypePopUp.fxml"));
+      loader.setControllerFactory(param -> new UpdateAssetTypePopUpController(topController));
       Parent root = loader.load();
       // Create a new stage for the pop-up
       Stage popupStage = new Stage();

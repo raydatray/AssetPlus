@@ -1,14 +1,8 @@
 package ca.mcgill.ecse.assetplus.javafx.fxml.controllers;
 
-import java.lang.reflect.Array;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import org.checkerframework.checker.units.qual.m;
-import com.google.common.collect.Table;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +10,6 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.skin.TableRowSkin;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -31,11 +24,9 @@ import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet3Controller;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet4Controller;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet6Controller;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet7Controller;
-import ca.mcgill.ecse.assetplus.controller.TOAssetType;
 import ca.mcgill.ecse.assetplus.controller.TOMaintenanceNote;
 import ca.mcgill.ecse.assetplus.controller.TOMaintenanceTicket;
-import ca.mcgill.ecse.assetplus.controller.TOSpecificAsset;
-import ca.mcgill.ecse.assetplus.controller.TOUser;
+
 
 //Get a TOMaintenanceTicket over 
 
