@@ -164,7 +164,7 @@ public class AssetPlusFeatureSet1Controller {
   private static String isValidEmployeeOrGuest(String email, String password, String name, String phoneNumber){
     var error = "";
     //Make sure the email is not empty or null
-    if (email == null || email.trim().isEmpty() || email.contains(" ") || ) {
+    if (email == null || email.trim().isEmpty() || email.contains(" ")) {
       return "Email cannot be empty";
     }
     //Make sure the email does not contain spaces
