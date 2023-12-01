@@ -137,6 +137,19 @@ public class AssetPlusFeatureSet2Controller {
 
     try {
        AssetType assetType = AssetType.getWithName(name);
+
+       List<SpecificAsset> specificAssetsToDelete = new ArrayList<SpecificAsset>();
+
+      for (SpecificAsset asset : assetPlus.getSpecificAssets()) {
+        if (asset.getAssetType() != null && asset.getAssetType().equals(assetType)) {
+          specificAssetsToDelete.add(asset);
+        }
+      }
+
+      for (SpecificAsset asset : specificAssetsToDelete) {
+        int assetNumber = asset.getAssetNumber();
+        AssetPlusFeatureSet3Controller.deleteSpecificAsset(assetNumber);
+      }
       
        if (assetType != null) {
       //   for (MaintenanceTicket ticket : assetPlus.getMaintenanceTickets()){

@@ -140,7 +140,7 @@ public class AssetPlusFeatureSet3Controller {
       List<MaintenanceTicket> ticketsToDelete = new ArrayList<MaintenanceTicket>();
 
       for (MaintenanceTicket ticket : assetPlus.getMaintenanceTickets()) {
-        if (ticket.getAsset() == assetToDelete) {
+        if (ticket.getAsset() != null && ticket.getAsset().equals(assetToDelete)) {
           ticketsToDelete.add(ticket);
         }
       }
