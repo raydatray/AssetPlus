@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import ca.mcgill.ecse.assetplus.model.AssetPlus;
 import ca.mcgill.ecse.assetplus.model.AssetType;
+import ca.mcgill.ecse.assetplus.model.MaintenanceTicket;
 import ca.mcgill.ecse.assetplus.model.SpecificAsset;
 import ca.mcgill.ecse.assetplus.persistence.AssetPlusPersistence;
 import ca.mcgill.ecse.assetplus.application.AssetPlusApplication;
@@ -135,6 +136,18 @@ public class AssetPlusFeatureSet3Controller {
     //Delete a Specific Asset by assetNumber
      try {
       SpecificAsset assetToDelete = SpecificAsset.getWithAssetNumber(assetNumber); // Get the Specific Asset with the corresponding asset number
+
+      List<MaintenanceTicket> ticketsToDelete = new ArrayList<MaintenanceTicket>();
+
+      for (MaintenanceTicket ticket : assetPlus.getMaintenanceTickets()) {
+        if (ticket.getAsset() == assetToDelete) {
+          ticketsToDelete.add(ticket);
+        }
+      }
+
+      for (MaintenanceTicket ticket : ticketsToDelete) {
+        ticket.delete();
+      }
 
       if (assetToDelete != null){ // Check if the Specific Asset exists
         assetToDelete.delete(); //Delete the Specific Asset
