@@ -56,6 +56,7 @@ public class AddTicketPopUpController {
     List<TOUser> userList = AssetPlusFeatureSet1Controller.getUsers();
     ObservableList<String> userEmailList = FXCollections.observableArrayList();
     userEmailList.addAll("-- Select a ticket raiser email -- ");
+    userEmailList.addAll("manager@ap.com");
     for (TOUser user : userList) {
       userEmailList.add(user.getEmail());
     }

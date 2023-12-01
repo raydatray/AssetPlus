@@ -1,19 +1,18 @@
 package ca.mcgill.ecse.assetplus.javafx.fxml.controllers;
 
-  import java.sql.Date;
+
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet5Controller;
 import javafx.event.ActionEvent;
-  import javafx.fxml.FXML;
-  import javafx.fxml.FXMLLoader;
-  import javafx.scene.Parent;
-  import javafx.scene.Scene;
-  import javafx.scene.control.Button;
-  import javafx.scene.control.TextField;
-  import javafx.scene.paint.Color;
-  import javafx.stage.Modality;
-  import javafx.stage.Stage;
-  import javafx.stage.StageStyle;
-  import static ca.mcgill.ecse.assetplus.javafx.fxml.controllers.ViewUtils.*;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class AddImageToTicketPopUpController {
     
