@@ -98,7 +98,7 @@ public class UpdateAssetPopupController {
       java.sql.Date purchaseDate = java.sql.Date.valueOf(purchaseDatePicker.getValue());
       String assetNumberStr = assetNumberTextField.getText();
       String floorNumberStr = floortextField.getText();
-      String roomNumberStr = roomTextField.getText();
+      String roomNumberStr = roomTextField.getText() == "" ? "-1" : roomTextField.getText();
       String assetType = assetTypeChoiceBox.getValue();
 
       int assetNumber = Integer.parseInt(assetNumberStr);
