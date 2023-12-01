@@ -28,7 +28,11 @@ public class AddImageToTicketPopUpController {
   @FXML
   private TextField ticketIDTextField;
 
-  @FXML
+  ImagePageController topController;
+
+  public AddImageToTicketPopUpController(ImagePageController headController){
+    this.topController = headController;
+  }
   
   public void setTicketID(int ticketID) {
       if (ticketIDTextField != null) {
@@ -40,8 +44,8 @@ public class AddImageToTicketPopUpController {
   public void promptAddImagePopUp(Button addButton, int ticketID) {
     try {
       // Load the FXML file
-      FXMLLoader loader = new FXMLLoader(getClass()
-              .getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/AddImageToMaintenanceTicket.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/AddImageToMaintenanceTicket.fxml"));
+      loader.setControllerFactory(param -> new AddImageToTicketPopUpController(topController));
       Parent root = loader.load();
 
       // Autofill the ticket textfield
@@ -83,6 +87,9 @@ public class AddImageToTicketPopUpController {
         ViewUtils.showError(error);
         return;
       }
+      topController.refreshMTicket();
+      topController.refreshTable();
+      topController.getMainController().refreshTable("Tickets");
 
       ViewUtils.closeWindow(addButton);
 

@@ -22,11 +22,18 @@ public class DisapproveTicketPopUpController {
   @FXML Button disapproveTicketButton;
   @FXML Button closePopUpButton;
 
+  StdPageController topController;
+
+  public DisapproveTicketPopUpController(StdPageController headController){
+    this.topController = headController;
+  }
+
   @FXML
   public void promptDisapproveTicketPopUp(int ticketId) {
     try {
       // Load the FXML file
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/DisapproveTicket.fxml"));
+      loader.setControllerFactory(param -> new DisapproveTicketPopUpController(topController));
       Parent root = loader.load();
       // Fill in ticket id field
       DisapproveTicketPopUpController controller = loader.getController();
@@ -48,6 +55,9 @@ public class DisapproveTicketPopUpController {
       ViewUtils.showError(e.getMessage());
     }
   }
+
+
+  //wtf why?????
 
   @FXML
   public void closePopUp() {
@@ -78,6 +88,8 @@ public class DisapproveTicketPopUpController {
       ViewUtils.showError(error);
       return;
     }
+    
+    topController.refreshTable("Status");
 
     closePopUp();
   }

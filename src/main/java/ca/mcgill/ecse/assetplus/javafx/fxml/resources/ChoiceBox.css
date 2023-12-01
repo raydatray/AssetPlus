@@ -17,3 +17,7 @@
 
 /* Selected item text color on the control itself */
 .choice-box > .label { -fx-text-fill: #e5e3d9; }
+
+.choice-box {
+  -fx-font-size: 18px;
+}
