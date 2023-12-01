@@ -1,6 +1,7 @@
 package ca.mcgill.ecse.assetplus.javafx.fxml.controllers;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet2Controller;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet3Controller;
@@ -95,30 +96,41 @@ public class UpdateAssetPopupController {
     }
 
   public void handleUpdateAssetButtonClick() {
+    LocalDate purchaseDateValue = purchaseDatePicker.getValue();
+    if (purchaseDateValue == null) {
+        ViewUtils.showError("Please select a purchase date");
+        return;
+    }
 
-    try {
+    java.sql.Date purchaseDate = java.sql.Date.valueOf(purchaseDateValue);
 
-      String assetNumberStr = assetNumberTextField.getText();
-      String floorNumberStr = floortextField.getText();
-      String roomNumberStr = roomTextField.getText();
-      java.sql.Date purchaseDate = Date.valueOf(purchaseDatePicker.getValue());
-      String assetType = assetTypeChoiceBox.getValue();
+    String assetNumberStr = assetNumberTextField.getText();
+    String floorNumberStr = floortextField.getText();
+    String roomNumberStr = roomTextField.getText();
+    String assetType = assetTypeChoiceBox.getValue();
 
+    if (assetNumberStr.isEmpty() || floorNumberStr.isEmpty() || roomNumberStr.isEmpty() || assetType == null) {
+      ViewUtils.showError("Please fill in all the fields");
+      return;
+    }
+
+    try{
       int assetNumber = Integer.parseInt(assetNumberStr);
       int floorNumber = Integer.parseInt(floorNumberStr);
       int roomNumber = Integer.parseInt(roomNumberStr);
 
       String error = AssetPlusFeatureSet3Controller.updateSpecificAsset(assetNumber, floorNumber, roomNumber, purchaseDate, assetType).replaceAll("([A-Z])", "\n$1");
 
-      
       if (!error.equals("")) {
         ViewUtils.showError(error);
+        return;
       }
+
       topController.refreshTable("Assets");
       ViewUtils.closeWindow(updateAssetButton);
 
-    } catch (Exception e) {
-        ViewUtils.showError(e.getMessage());
+    } catch (NumberFormatException e) {
+      ViewUtils.showError("Please enter valid numbers for asset, floor, and room");
     }
   }
 }

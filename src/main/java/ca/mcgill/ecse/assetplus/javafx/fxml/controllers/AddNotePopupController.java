@@ -116,7 +116,7 @@ public class AddNotePopupController {
         String description = descriptionTextField.getText();
 
         try {
-            String error = AssetPlusFeatureSet7Controller.addMaintenanceNote(date, description, Integer.parseInt(ticketId), email);
+            String error = AssetPlusFeatureSet7Controller.addMaintenanceNote(date, description, Integer.parseInt(ticketId), staffMemberEmail);
 
             if (!error.equals("")) {
                 ViewUtils.showError(error);

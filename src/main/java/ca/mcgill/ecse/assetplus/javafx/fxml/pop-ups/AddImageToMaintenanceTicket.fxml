@@ -30,7 +30,7 @@
                      <children>
                         <Button fx:id="closeButton" mnemonicParsing="false" onAction="#handleCloseButtonClick" prefHeight="33.0" prefWidth="33.0" style="-fx-background-color: #6699CC; -fx-background-radius: 360;" text="x" textFill="#e5e3d9">
                            <font>
-                              <Font name="System Bold" size="15.0" />
+                              <Font name="Arial Rounded MT Bold" size="15.0" />
                            </font>
                         </Button>
                      </children>

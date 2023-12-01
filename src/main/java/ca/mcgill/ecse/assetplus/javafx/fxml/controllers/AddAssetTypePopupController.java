@@ -53,24 +53,29 @@ public class AddAssetTypePopupController {
   }
 
   public void handleAddNewAssetTypeButtonClick() {
+    String assetName = assetNameTextField.getText();
+    String expectedLifeSpan = expectedLifeSpanTextField.getText();
+    if (assetName.isEmpty() || expectedLifeSpan.isEmpty()) {
+      ViewUtils.showError("Please fill in all the fields");
+      return;
+    }
 
-    try{
-      String assetName = assetNameTextField.getText();
-      int expectedLifeSpan = Integer.parseInt(expectedLifeSpanTextField.getText());
+    try {
+      int expectedLifeSpanInt = Integer.parseInt(expectedLifeSpanTextField.getText());
 
-      String error = AssetPlusFeatureSet2Controller.addAssetType(assetName, expectedLifeSpan);
+      String error = AssetPlusFeatureSet2Controller.addAssetType(assetName, expectedLifeSpanInt);
 
       // Check if string is not empty... if string is empty, operation was successful
       if (!error.equals("")) {
         ViewUtils.showError(error);
+        return;
       }
 
       topController.refreshTable("AssetTypes");
 
       ViewUtils.closeWindow(assetNameTextField);
-
-    } catch (Exception e) {
-      ViewUtils.showError(e.getMessage());
-    }
+    } catch (NumberFormatException e) {
+      ViewUtils.showError("Expected life span must be a number");
+    } 
   }
 }

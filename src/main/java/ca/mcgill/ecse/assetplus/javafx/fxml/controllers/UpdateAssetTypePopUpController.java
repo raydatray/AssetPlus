@@ -36,18 +36,26 @@ public class UpdateAssetTypePopUpController {
     String newName = newAssetNameTextField.getText();
     String newExpectedLifeSpan = expectedLifeSpanTextField.getText();
 
+    if (oldName.isEmpty() || newName.isEmpty() || newExpectedLifeSpan.isEmpty()) {
+      ViewUtils.showError("Please fill in all the fields");
+      return;
+    }
+
     try {
-      String error = AssetPlusFeatureSet2Controller.updateAssetType(oldName, newName, Integer.parseInt(newExpectedLifeSpan));
+      int newExpectedLifeSpanInt = Integer.parseInt(newExpectedLifeSpan);
+
+      String error = AssetPlusFeatureSet2Controller.updateAssetType(oldName, newName, newExpectedLifeSpanInt);
 
       if (error != "") {
         ViewUtils.showError(error);
+        return;
       }
-    } catch (Exception e) {
-      ViewUtils.showError("Invalid input for new expected life span in days.");
-    } finally {
+
       topController.refreshTable("AssetTypes");
       ViewUtils.closeWindow(updateAssetButton);
-    }
+    } catch (NumberFormatException e) {
+      ViewUtils.showError("Expected life span must be a number");
+    } 
   }
 
   @FXML
