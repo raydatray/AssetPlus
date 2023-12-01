@@ -164,34 +164,12 @@ public class AssetPlusFeatureSet1Controller {
   private static String isValidEmployeeOrGuest(String email, String password, String name, String phoneNumber){
     var error = "";
     //Make sure the email is not empty or null
-    if (email == null || email.trim().isEmpty()) {
+    if (email == null || email.trim().isEmpty() || email.contains(" ") || ) {
       return "Email cannot be empty";
     }
     //Make sure the email does not contain spaces
-    if (email.contains(" ")) {
-      error += "Email must not contain any spaces";
-    }
-    if (!email.contains("@")){
-      error += "Invalid email";
-    }
-    //Make sure the email contains @
-    if (email.indexOf("@")==0) {
-      error += "Invalid email";
-    }
-    if (email.indexOf("@")+1 == email.lastIndexOf(".")) {
-      error += "Invalid email";
-    }
-    if (email.indexOf("@") != email.lastIndexOf("@")) {
-      error += "Invalid email";
-    }
-    if (email.indexOf("@") > (email.lastIndexOf(".") - 1)) {
-      error += "Invalid email";
-    }
-    if (email.endsWith(".")) {
-      error += "Invalid email";
-    }
-    if (email.equals("manager@ap.com")) {
-      error += "Email cannot be manager@ap.com";
+    if (email.contains(" ") || !email.contains("@") || email.indexOf("@")==0 || email.indexOf("@")+1 == email.lastIndexOf(".") || email.indexOf("@") != email.lastIndexOf("@") || email.indexOf("@") > (email.lastIndexOf(".") - 1) || email.endsWith(".") || email.equals("manager@ap.com")) {
+      return "Email must not contain any spaces";
     }
     if (password == null || password.trim().isEmpty()) {
       error += "Password cannot be empty";
