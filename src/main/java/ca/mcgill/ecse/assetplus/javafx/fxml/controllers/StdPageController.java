@@ -182,7 +182,7 @@ public class StdPageController {
                                 // Check if the data is a TOMaintenanceTicket instance and if TOMaintenanceTicket has an id
                                 // If so, pass it to the updateTicketPopUpController
                                 if (isValidTicketID) {
-                                  popUpUpdateTicketController.promptUpdateTicketPopUp(addButton, selectedTicketID);
+                                  popUpUpdateTicketController.promptUpdateTicketPopUp(selectedTicketID);
                                 } else {
                                   // Handle the case where data is not a TOUser or doesn't have an email
                                   ViewUtils.showError("Invalid user data.");
@@ -443,7 +443,7 @@ public class StdPageController {
     AddTicketPopUpController ticketPopUpController = new AddTicketPopUpController(this);
     addButton.setOnAction(e -> ticketPopUpController.promptAddTicketPopUp());
     
-    pageTitle.setText("Maintenance Tickets");
+    pageTitle.setText("Tickets");
     addButton.setText("Add Ticket");
     addButton.setVisible(true);
     currentPage = "Tickets";
