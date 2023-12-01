@@ -46,9 +46,14 @@ public class ViewUtils {
     dialog.initModality(Modality.APPLICATION_MODAL);
     VBox dialogPane = new VBox();
 
+    // Add the style class to the VBox
+    dialogPane.getStyleClass().add("popup-root");
+
     // create UI elements
     Text text = new Text(message);
+    text.getStyleClass().add("text");
     Button okButton = new Button("OK");
+    okButton.getStyleClass().add("okButton");
     okButton.setOnAction(a -> dialog.close());
 
     // display the popup window
@@ -59,6 +64,11 @@ public class ViewUtils {
     dialogPane.setPadding(new Insets(innerPadding, innerPadding, innerPadding, innerPadding));
     dialogPane.getChildren().addAll(text, okButton);
     Scene dialogScene = new Scene(dialogPane, outerPadding + 5 * message.length(), outerPadding);
+    
+    // Add CSS
+    dialogScene.getStylesheets().add(ViewUtils.class.getResource("../resources/ErrorPopUp.css").toExternalForm());
+
+
     dialog.setScene(dialogScene);
     dialog.setTitle(title);
     dialog.show();
