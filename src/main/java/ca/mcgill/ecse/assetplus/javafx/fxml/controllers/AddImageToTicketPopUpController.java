@@ -33,6 +33,7 @@ public class AddImageToTicketPopUpController {
   public void setTicketID(int ticketID) {
       if (ticketIDTextField != null) {
           ticketIDTextField.setText(String.valueOf(ticketID));
+          ticketIDTextField.setText(String.valueOf(ticketID));
       }
   }
   

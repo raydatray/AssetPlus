@@ -40,6 +40,7 @@ public class AddNotePopupController {
     public void setTicketID(int ticketID) {
         if (ticketIDTextField != null) {
             ticketIDTextField.setText(String.valueOf(ticketID));
+            ticketIDTextField.setDisable(true);
         }
     }
 
