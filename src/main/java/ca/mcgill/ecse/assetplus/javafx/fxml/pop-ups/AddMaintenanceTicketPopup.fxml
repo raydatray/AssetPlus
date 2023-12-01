@@ -53,7 +53,7 @@
                         <Font name="System Italic" size="18.0" />
                      </font>
                   </TextField>
-                  <Pane prefHeight="94.0" prefWidth="155.0" />
+                  <Pane prefHeight="91.0" prefWidth="83.0" />
                   <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Asset Number:" wrappingWidth="158.47003173828125">
                      <font>
                         <Font size="24.0" />
@@ -62,7 +62,7 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <ChoiceBox fx:id="assetNumberChoiceBox" prefHeight="40.0" prefWidth="189.0" stylesheets="@../resources/ChoiceBox.css" />
+                  <ChoiceBox fx:id="assetNumberChoiceBox" prefHeight="40.0" prefWidth="263.0" stylesheets="@../resources/ChoiceBox.css" />
                </children>
             </HBox>
             <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
