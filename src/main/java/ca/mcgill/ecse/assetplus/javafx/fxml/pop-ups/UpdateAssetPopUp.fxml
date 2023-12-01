@@ -12,20 +12,20 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="397.0" prefWidth="994.0" style="-fx-background-color: #252627; -fx-border-color: #6699CC; -fx-border-width: 4; -fx-background-radius: 50; -fx-border-radius: 45;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.assetplus.javafx.fxml.controllers.UpdateAssetPopupController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="397.0" prefWidth="994.0" style="-fx-background-color: #252627; -fx-border-color: #6699CC; -fx-border-width: 4; -fx-background-radius: 50; -fx-border-radius: 45;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.assetplus.javafx.fxml.controllers.UpdateAssetPopupController">
    <children>
       <HBox prefHeight="100.0" prefWidth="994.0">
          <children>
             <Pane prefHeight="72.0" prefWidth="260.0" />
             <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Update Asset" textAlignment="CENTER" wrappingWidth="500.1875">
                <font>
-                  <Font name="Arial Bold" size="32.0" />
+                  <Font name="Arial Rounded MT Bold" size="32.0" />
                </font>
             </Text>
             <Pane prefHeight="72.0" prefWidth="156.0" />
             <Button fx:id="closePopUpButton" mnemonicParsing="false" onAction="#handleCloseButtonClick" prefHeight="33.0" prefWidth="33.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="x" textFill="#e5e3d9">
                <font>
-                  <Font name="System Bold" size="15.0" />
+                  <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Button>
          </children>
@@ -39,7 +39,7 @@
                <children>
                   <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Asset Number:" wrappingWidth="166.13671875">
                      <font>
-                        <Font size="24.0" />
+                        <Font name="Arial Rounded MT Bold" size="21.0" />
                      </font>
                      <HBox.margin>
                         <Insets />
@@ -59,7 +59,7 @@
                <children>
                   <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Floor Number:" wrappingWidth="166.13671875">
                      <font>
-                        <Font size="24.0" />
+                        <Font name="Arial Rounded MT Bold" size="21.0" />
                      </font>
                      <HBox.margin>
                         <Insets />
@@ -79,7 +79,7 @@
                <children>
                   <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Number:" wrappingWidth="166.13671875">
                      <font>
-                        <Font size="24.0" />
+                        <Font name="Arial Rounded MT Bold" size="21.0" />
                      </font>
                      <HBox.margin>
                         <Insets />
@@ -99,7 +99,7 @@
                <children>
                   <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Purchase Date:" wrappingWidth="166.13671875">
                      <font>
-                        <Font size="24.0" />
+                        <Font name="Arial Rounded MT Bold" size="21.0" />
                      </font>
                      <HBox.margin>
                         <Insets />
@@ -109,7 +109,7 @@
                   <Pane prefHeight="79.0" prefWidth="92.0" />
                   <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Asset Type:" wrappingWidth="127.13671875">
                      <font>
-                        <Font size="24.0" />
+                        <Font name="Arial Rounded MT Bold" size="21.0" />
                      </font>
                      <HBox.margin>
                         <Insets />
@@ -123,7 +123,7 @@
                   <Pane prefHeight="56.0" prefWidth="368.0" />
                   <Button fx:id="updateAssetButton" mnemonicParsing="false" onAction="#handleUpdateAssetButtonClick" prefHeight="51.0" prefWidth="137.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="Update" textFill="#e5e3d9">
                      <font>
-                        <Font name="System Bold" size="24.0" />
+                        <Font name="Arial Rounded MT Bold" size="24.0" />
                      </font>
                   </Button>
                </children>

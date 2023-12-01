@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -64,27 +65,20 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <DatePicker fx:id="datePicker" prefHeight="32.0" prefWidth="747.0" promptText="ex: 2023-01-01" stylesheets="@../resources/DatePicker.css" />
+                  <DatePicker fx:id="datePicker" prefHeight="32.0" prefWidth="747.0" stylesheets="@../resources/DatePicker.css" />
                </children>
             </HBox>
-            <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:" wrappingWidth="66.71466064453125">
+                  <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Staff Assignee Email:" wrappingWidth="212.1298828125">
                      <font>
                         <Font size="24.0" />
                      </font>
                      <HBox.margin>
-                        <Insets />
+                        <Insets right="10.0" />
                      </HBox.margin>
                   </Text>
-                  <TextField fx:id="emailTextField" prefHeight="35.0" prefWidth="741.0" promptText="ex: user@ap.com" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <font>
-                        <Font name="System Italic" size="18.0" />
-                     </font>
-                  </TextField>
+                  <ChoiceBox fx:id="selectEmployeeChoiceBox" prefHeight="40.0" prefWidth="588.0" stylesheets="@../resources/ChoiceBox.css" />
                </children>
             </HBox>
             <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="858.0">

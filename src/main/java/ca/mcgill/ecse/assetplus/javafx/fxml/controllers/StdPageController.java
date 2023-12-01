@@ -308,8 +308,13 @@ public class StdPageController {
                               
                               //send the data to the contoller method!!
 
-                              NewNotePageController popUpController = new NewNotePageController((TOMaintenanceTicket) data);
-                              popUpController.promptNotePopUp(btn);       
+                              NewNotePageController popUpController = new NewNotePageController((TOMaintenanceTicket) data, topController);
+                              popUpController.promptNotePopUp(btn);   
+                              
+                              //immediately occurs after call ASYNC
+                              
+                              // ActionEvent refresh = new ActionEvent();
+                              // viewTicketsButtonClicked(refresh);
                           
                           });
                           break;
