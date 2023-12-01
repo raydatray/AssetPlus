@@ -92,6 +92,7 @@ public class AddAssetPopupController{
     LocalDate purchaseDateValue = purchaseDatePicker.getValue();
     if (purchaseDateValue == null) {
         ViewUtils.showError("Please select a purchase date");
+        return;
     }
 
     java.sql.Date purchaseDate = java.sql.Date.valueOf(purchaseDateValue);
@@ -103,6 +104,7 @@ public class AddAssetPopupController{
 
     if (assetNumberStr.isEmpty() || floorNumberStr.isEmpty() || roomNumberStr.isEmpty() || assetType == null) {
       ViewUtils.showError("Please fill in all the fields");
+      return;
     }
 
     try {
@@ -114,14 +116,15 @@ public class AddAssetPopupController{
 
       if (!error.equals("")) {
         ViewUtils.showError(error);
+        return;
       }
 
+      topController.refreshTable("Assets");
+
+      ViewUtils.closeWindow(addNewAssetButton);
+      
     } catch (NumberFormatException e) {
       ViewUtils.showError("Please enter valid numbers for asset, floor, and room");
     }
-    
-    topController.refreshTable("Assets");
-
-    ViewUtils.closeWindow(addNewAssetButton);
-    } 
+  } 
 }
