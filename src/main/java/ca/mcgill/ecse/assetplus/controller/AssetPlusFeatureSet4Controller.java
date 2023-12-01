@@ -40,7 +40,7 @@ public class AssetPlusFeatureSet4Controller {
 
     for (MaintenanceTicket ticket : assetPlus.getMaintenanceTickets()) {
       if (ticket.getId() == id) {
-        return "Ticket IDs cannot be the same.";
+        return "Ticket id already exists";
       }
     }
 
