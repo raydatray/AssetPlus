@@ -173,9 +173,14 @@ public class AssetPlusFeatureSet1Controller {
     }
 
     //Make sure the email does not contain spaces
-    if (email.contains(" ") || !email.contains("@") || email.indexOf("@")==0 || email.indexOf("@")+1 == email.lastIndexOf(".") || email.indexOf("@") != email.lastIndexOf("@") || email.indexOf("@") > (email.lastIndexOf(".") - 1) || email.endsWith(".") || email.equals("manager@ap.com")) {
+    if (email.contains(" ") || !email.contains("@") || email.indexOf("@")==0 || email.indexOf("@")+1 == email.lastIndexOf(".") || email.indexOf("@") != email.lastIndexOf("@") || email.indexOf("@") > (email.lastIndexOf(".") - 1) || email.endsWith(".")) {
       return "Invalid email.";
     }
+
+    if (email.equals("manager@ap.com")){
+      return "Email cannot be manager@ap.com";
+    }
+
     if (password == null || password.trim().isEmpty()) {
       error += "Password cannot be empty";
     }
