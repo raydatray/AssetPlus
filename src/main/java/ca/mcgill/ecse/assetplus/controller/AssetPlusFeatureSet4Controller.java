@@ -38,6 +38,12 @@ public class AssetPlusFeatureSet4Controller {
       return error; // Returning the error message
     }
 
+    for (MaintenanceTicket ticket : assetPlus.getMaintenanceTickets()) {
+      if (ticket.getId() == id) {
+        return "Ticket IDs cannot be the same.";
+      }
+    }
+
     try {
       User ticketRaiser = User.getWithEmail(email); // Gets the user who raised the MaintenanceTicket
       if (ticketRaiser == null){ // Checking that the user exists
