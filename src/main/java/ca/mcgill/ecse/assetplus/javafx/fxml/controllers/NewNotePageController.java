@@ -141,9 +141,10 @@ public class NewNotePageController {
                             System.out.println("selectedData: " + data);
 
                             AssetPlusFeatureSet7Controller.deleteMaintenanceNote(mTicket.getId(), ((IndexedNote) data).getIndex());
-                            //DOES NOT RELOAD PROPERLY 
-                            //ask for a new TOMaintenanceTicket and reload
-                            loadTable();
+
+                            refreshMTicket();
+                            refreshTable();
+                            topController.refreshTable("Tickets");
                           });
                           break;
 
@@ -151,15 +152,12 @@ public class NewNotePageController {
                           UpdateNotePopupController popUpUpdateNoteController = new UpdateNotePopupController(controller);
                           btn.setOnAction((ActionEvent event) -> {
                             Object data = getTableView().getItems().get(getIndex());
+                            System.out.println("selectedData: " + data);
 
                             // Check if the data is a TOMaintenanceTicket instance and if TOMaintenanceTicket has an id
                             // If so, pass it to the updateNotePopUpController
                            
                             popUpUpdateNoteController.promptUpdateNotePopUp(mTicket.getId(), ((IndexedNote) data).getIndex());
-                            
-                            System.out.println("selectedData: " + data);
-                            //RUNS IN MT, ASYNC?
-                            loadTable();
                           });    
                           break;
                       }
@@ -193,7 +191,7 @@ public class NewNotePageController {
     noteTable.getItems().clear();
 
 
-    AddNotePopupController popUpController = new AddNotePopupController();
+    AddNotePopupController popUpController = new AddNotePopupController(this);
     addNote.setOnAction(e -> popUpController.promptAddNotePopUp(addNote, mTicket.getId()));
  
     ArrayList<IndexedNote> notes = new ArrayList<IndexedNote>();

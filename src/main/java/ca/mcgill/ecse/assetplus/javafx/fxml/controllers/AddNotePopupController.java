@@ -37,6 +37,12 @@ public class AddNotePopupController {
     @FXML
     private TextField ticketIDTextField;
 
+    NewNotePageController topController;
+
+    public AddNotePopupController(NewNotePageController headController){
+        this.topController = headController;
+    }
+
     public void setTicketID(int ticketID) {
         if (ticketIDTextField != null) {
             ticketIDTextField.setText(String.valueOf(ticketID));
@@ -47,8 +53,8 @@ public class AddNotePopupController {
     public void promptAddNotePopUp(Button addButton, int ticketID) {
         try {
             // Load the FXML file
-            FXMLLoader loader = new FXMLLoader(getClass()
-                    .getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/AddNotePopUp.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/AddNotePopUp.fxml"));
+            loader.setControllerFactory(param -> new AddNotePopupController(topController));
             Parent root = loader.load();
 
             // Autofill the ticket textfield
@@ -93,6 +99,9 @@ public class AddNotePopupController {
         } catch (Exception e) {
             ViewUtils.showError(e.getMessage());
         } finally {
+            topController.refreshMTicket();
+            topController.refreshTable();
+            topController.getMainController().refreshTable("Tickets");
             ViewUtils.closeWindow(addButton);
         }
     }
