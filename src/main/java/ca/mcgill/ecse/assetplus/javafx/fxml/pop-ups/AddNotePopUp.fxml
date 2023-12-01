@@ -12,11 +12,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #252627; -fx-border-color: #6699CC; -fx-border-width: 4; -fx-background-radius: 45; -fx-border-radius: 45;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.assetplus.javafx.fxml.controllers.AddNotePopupController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="529.0" prefWidth="1000.0" style="-fx-background-color: #252627; -fx-border-color: #6699CC; -fx-border-width: 4; -fx-background-radius: 45; -fx-border-radius: 45;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.assetplus.javafx.fxml.controllers.AddNotePopupController">
    <children>
       <HBox prefHeight="100.0" prefWidth="994.0" AnchorPane.bottomAnchor="499.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Pane prefHeight="72.0" prefWidth="329.0" />
+            <Pane prefHeight="1.0" prefWidth="298.0" />
             <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Add New Note" textAlignment="CENTER" wrappingWidth="372.1875">
                <font>
                   <Font name="Arial Rounded MT Bold" size="32.0" />
@@ -57,20 +57,7 @@
             </HBox>
             <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" wrappingWidth="65.08479309082031">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Text>
-                  <DatePicker fx:id="datePicker" prefHeight="32.0" prefWidth="747.0" style="-fx-background-color: #303030; -fx-text-fill: #e5e3d9; -fx-prompt-text-fill: #e5e3d9; -fx-control-inner-background: #303030; -fx-base: #6699CC; -fx-mark-highlight-color: #e5e3d9;" />
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Staff Assignee Email:" wrappingWidth="212.1298828125">
+                  <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Staff Assignee Email:" wrappingWidth="218.1298828125">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -78,35 +65,49 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Text>
-                  <ChoiceBox fx:id="selectEmployeeChoiceBox" prefHeight="40.0" prefWidth="588.0" stylesheets="@../resources/ChoiceBox.css" />
-               </children>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="858.0">
-               <children>
-                  <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" wrappingWidth="134.7044219970703">
+                  <ChoiceBox fx:id="selectEmployeeChoiceBox" prefHeight="40.0" prefWidth="284.0" stylesheets="@../resources/ChoiceBox.css" />
+                  <Pane prefHeight="100.0" prefWidth="92.0" />
+                  <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" wrappingWidth="65.08479309082031">
                      <font>
                         <Font size="24.0" />
                      </font>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
                   </Text>
-                  <TextField fx:id="descriptionTextField" alignment="TOP_LEFT" prefHeight="100.0" prefWidth="678.0" promptText="ex: Description" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <font>
-                        <Font name="System Italic" size="18.0" />
-                     </font>
-                  </TextField>
+                  <DatePicker fx:id="datePicker" prefHeight="32.0" prefWidth="142.0" style="-fx-background-color: #303030; -fx-text-fill: #e5e3d9; -fx-prompt-text-fill: #e5e3d9; -fx-control-inner-background: #303030; -fx-base: #6699CC; -fx-mark-highlight-color: #e5e3d9;" />
                </children>
             </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="858.0">
+                     <children>
+                        <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" wrappingWidth="134.7044219970703">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Text>
+                        <TextField fx:id="descriptionTextField" alignment="TOP_LEFT" prefHeight="100.0" prefWidth="678.0" promptText="ex: Description" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <font>
+                              <Font name="System Italic" size="18.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <Button fx:id="addButton" mnemonicParsing="false" onAction="#addButtonClicked" prefHeight="51.0" prefWidth="137.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="Add" textFill="#e5e3d9">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="350.0" top="35.0" />
+               </VBox.margin>
+            </Button>
          </children>
       </VBox>
-      <Button fx:id="addButton" layoutX="446.0" layoutY="496.0" mnemonicParsing="false" onAction="#addButtonClicked" prefHeight="51.0" prefWidth="137.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="Add" textFill="#e5e3d9" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="446.0" AnchorPane.rightAnchor="444.0">
-         <font>
-            <Font name="Arial Rounded MT Bold" size="24.0" />
-         </font>
-      </Button>
    </children>
 </AnchorPane>
