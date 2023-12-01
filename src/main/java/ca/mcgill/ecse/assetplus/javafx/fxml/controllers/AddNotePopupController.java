@@ -1,11 +1,18 @@
 package ca.mcgill.ecse.assetplus.javafx.fxml.controllers;
 
+import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet1Controller;
+import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet2Controller;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet7Controller;
+import ca.mcgill.ecse.assetplus.controller.TOAssetType;
+import ca.mcgill.ecse.assetplus.controller.TOUser;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
@@ -15,6 +22,7 @@ import javafx.stage.StageStyle;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 
 public class AddNotePopupController {
@@ -32,7 +40,7 @@ public class AddNotePopupController {
     private TextField descriptionTextField;
 
     @FXML
-    private TextField emailTextField;
+    private ChoiceBox<String> selectEmployeeChoiceBox;
 
     @FXML
     private TextField ticketIDTextField;
@@ -42,11 +50,30 @@ public class AddNotePopupController {
     public AddNotePopupController(NewNotePageController headController){
         this.topController = headController;
     }
-
+    
     public void setTicketID(int ticketID) {
         if (ticketIDTextField != null) {
             ticketIDTextField.setText(String.valueOf(ticketID));
+            ticketIDTextField.setDisable(true);
         }
+    }
+
+    public void setChoiceBox(int ticketID) {
+        List<TOUser> userList = AssetPlusFeatureSet1Controller.getUsers();
+
+        ObservableList<String> hotelStaffList = FXCollections.observableArrayList();
+        
+        hotelStaffList.add("-- Select a hotel staff --");
+        hotelStaffList.add("manager@ap.com");
+
+        for (TOUser user : userList) {
+            if (user.getEmail().endsWith("ap.com")) {
+            hotelStaffList.add(user.getEmail());
+            }
+        }     
+        
+        selectEmployeeChoiceBox.setItems(hotelStaffList);
+        selectEmployeeChoiceBox.setValue(hotelStaffList.get(0));
     }
 
     @FXML
@@ -60,6 +87,7 @@ public class AddNotePopupController {
             // Autofill the ticket textfield
             AddNotePopupController controller = loader.getController();
             controller.setTicketID(ticketID);
+            controller.setChoiceBox(ticketID);
 
             // Create a new stage for the pop-up
             Stage popupStage = new Stage();
@@ -84,7 +112,7 @@ public class AddNotePopupController {
         String ticketId = ticketIDTextField.getText();
 
         java.sql.Date date = Date.valueOf(datePicker.getValue());
-        String email = emailTextField.getText();
+        String staffMemberEmail = selectEmployeeChoiceBox.getValue();
         String description = descriptionTextField.getText();
 
         try {

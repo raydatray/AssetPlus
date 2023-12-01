@@ -69,19 +69,25 @@ public class UpdateUserPopUpController {
 
   public void handleUpdateUserButtonClick() {
 
-    String userEmail = emailtextField.getText();
-    String userName = nameTextField.getText();
-    String userPassword = passwordTextField.getText();
-    String userPhoneNumber = phoneNumberTextField.getText();
+    try{
+      String userEmail = emailtextField.getText();
+      String userName = nameTextField.getText();
+      String userPassword = passwordTextField.getText();
+      String userPhoneNumber = phoneNumberTextField.getText();
 
-    String error = AssetPlusFeatureSet1Controller.updateEmployeeOrGuest(userEmail, userPassword, userName, userPhoneNumber).replaceAll("([A-Z])", "\n$1");
+      String error = AssetPlusFeatureSet1Controller.updateEmployeeOrGuest(userEmail, userPassword, userName, userPhoneNumber).replaceAll("([A-Z])", "\n$1");
 
-    // Check if string is not empty... if string is empty, operation was successful
-    if (!error.equals("")) {
-      ViewUtils.showError(error);
+      // Check if string is not empty... if string is empty, operation was successful
+      if (!error.equals("")) {
+        ViewUtils.showError(error);
+        return;
+      }
+
+      topController.refreshTable("Users");
+      ViewUtils.closeWindow(emailtextField);
+    } catch (Exception e) {
+      // Maybe prompt error pop up in case or error?
+      ViewUtils.showError(e.getMessage());
     }
-
-    topController.refreshTable("Users");
-    ViewUtils.closeWindow(emailtextField);
   }
 }

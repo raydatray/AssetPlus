@@ -65,7 +65,7 @@
                         <Insets />
                      </HBox.margin>
                   </Text>
-                  <DatePicker fx:id="dateRaisedDatePicker" prefHeight="32.0" prefWidth="690.0" promptText="ex: 2023-01-01" style="-fx-background-color: #303030; -fx-text-fill: #e5e3d9; -fx-prompt-text-fill: #e5e3d9; -fx-control-inner-background: #303030; -fx-base: #6699CC; -fx-mark-highlight-color: #e5e3d9;" />
+                  <DatePicker fx:id="dateRaisedDatePicker" prefHeight="32.0" prefWidth="690.0" stylesheets="@../resources/DatePicker.css" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="858.0">

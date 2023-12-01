@@ -13,7 +13,7 @@
 
 <BorderPane style="-fx-border-radius: 30;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="994.0" style="-fx-background-color: #252627; -fx-border-color: #6699CC; -fx-border-width: 4; -fx-border-radius: 45; -fx-background-radius: 50;">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="377.0" prefWidth="994.0" style="-fx-background-color: #252627; -fx-border-color: #6699CC; -fx-border-width: 4; -fx-border-radius: 45; -fx-background-radius: 50;">
          <children>
             <HBox prefHeight="100.0" prefWidth="994.0">
                <children>
@@ -45,7 +45,7 @@
                         </Text>
                      </children>
                   </HBox>
-                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="69.0" prefWidth="864.0">
+                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="81.0" prefWidth="864.0">
                      <children>
                         <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Asset Name:" wrappingWidth="153.52871704101562">
                            <font>
@@ -55,7 +55,7 @@
                               <Insets />
                            </HBox.margin>
                         </Text>
-                        <TextField prefHeight="39.0" prefWidth="752.0" promptText="ex: Supreme Table Top" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
+                        <TextField prefHeight="39.0" prefWidth="710.0" promptText="ex: Supreme Table Top" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -67,28 +67,21 @@
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="109.90965270996094">
+                        <Button mnemonicParsing="false" prefHeight="51.0" prefWidth="359.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="No" textFill="#e5e3d9">
                            <font>
-                              <Font size="24.0" />
+                              <Font name="System Bold" size="24.0" />
                            </font>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </Text>
+                        </Button>
+                        <Pane prefHeight="99.0" prefWidth="168.0" />
+                        <Button mnemonicParsing="false" prefHeight="51.0" prefWidth="359.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="Yes" textFill="#e5e3d9">
+                           <font>
+                              <Font name="Arial Rounded MT Bold" size="24.0" />
+                           </font>
+                        </Button>
                      </children>
                   </HBox>
                </children>
             </VBox>
-            <Button layoutX="68.0" layoutY="360.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="359.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="Yes" textFill="#e5e3d9">
-               <font>
-                  <Font name="Arial Rounded MT Bold" size="24.0" />
-               </font>
-            </Button>
-            <Button layoutX="573.0" layoutY="360.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="359.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="No" textFill="#e5e3d9">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-            </Button>
          </children>
       </AnchorPane>
    </center>

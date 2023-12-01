@@ -62,22 +62,26 @@ public class AddUserPopUpController {
   }
 
   public void handleAddNewUserButtonClick() {
+    try{
+      String userEmail = emailtextField.getText();
+      String userName = nameTextField.getText();
+      String userPhoneNumber = phoneNumberTextField.getText();
+      String userPassword = passwordTextField.getText();
+      Boolean isEmployee = userTypeChoiceBox.getValue() == "Hotel Staff" ? true : false;
 
-    String userEmail = emailtextField.getText();
-    String userName = nameTextField.getText();
-    String userPhoneNumber = phoneNumberTextField.getText();
-    String userPassword = passwordTextField.getText();
-    Boolean isEmployee = userTypeChoiceBox.getValue() == "Hotel Staff" ? true : false;
+      String error = AssetPlusFeatureSet1Controller.addEmployeeOrGuest(userEmail, userPassword, userName, userPhoneNumber, isEmployee).replaceAll("([A-Z])", "\n$1");
+      
+      // Check if string is not empty... if string is empty, operation was successful
+      if (!error.equals("")) {
+        ViewUtils.showError(error);
+        return;
+      }
+      
+      topController.refreshTable("Users");
 
-    String error = AssetPlusFeatureSet1Controller.addEmployeeOrGuest(userEmail, userPassword, userName, userPhoneNumber, isEmployee).replaceAll("([A-Z])", "\n$1");
-    
-    // Check if string is not empty... if string is empty, operation was successful
-    if (!error.equals("")) {
-      ViewUtils.showError(error);
+      ViewUtils.closeWindow(emailtextField);
+    } catch (Exception e) {
+      ViewUtils.showError(e.getMessage());
     }
-    
-    topController.refreshTable("Users");
-
-    ViewUtils.closeWindow(emailtextField);
   }
 }
