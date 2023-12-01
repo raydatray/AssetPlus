@@ -1,6 +1,5 @@
 package ca.mcgill.ecse.assetplus.javafx.fxml.controllers;
 
-import java.time.LocalDate;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet4Controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

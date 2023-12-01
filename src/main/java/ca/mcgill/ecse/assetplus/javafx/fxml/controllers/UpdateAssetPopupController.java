@@ -1,7 +1,5 @@
 package ca.mcgill.ecse.assetplus.javafx.fxml.controllers;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet2Controller;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet3Controller;

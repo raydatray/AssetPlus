@@ -19,7 +19,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import java.time.LocalDate;
 import java.util.List;
 
 public class UpdateTicketPopUpController {
@@ -101,7 +100,7 @@ public class UpdateTicketPopUpController {
       String newDescription = newDescriptionTextField.getText();
       String newRaiserEmail = newTickerRaiserEmailChoiceBox.getValue();
       String ticketIdValue = ticketIDTextField.getText();
-      
+
       String error = AssetPlusFeatureSet4Controller.updateMaintenanceTicket(Integer.parseInt(ticketIdValue), newDateRaised, newDescription, newRaiserEmail, Integer.parseInt(assetNumberValue));
       if (!error.equals("")) {
         ViewUtils.showError(error);
