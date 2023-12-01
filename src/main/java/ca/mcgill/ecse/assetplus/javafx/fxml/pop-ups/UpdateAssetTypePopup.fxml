@@ -11,20 +11,20 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="393.0" prefWidth="994.0" style="-fx-background-color: #252627; -fx-border-color: #6699CC; -fx-border-width: 4; -fx-background-radius: 50; -fx-border-radius: 45;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.assetplus.javafx.fxml.controllers.UpdateAssetTypePopUpController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="393.0" prefWidth="994.0" style="-fx-background-color: #252627; -fx-border-color: #6699CC; -fx-border-width: 4; -fx-background-radius: 50; -fx-border-radius: 45;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.assetplus.javafx.fxml.controllers.UpdateAssetTypePopUpController">
    <children>
       <HBox prefHeight="100.0" prefWidth="994.0">
          <children>
             <Pane prefHeight="72.0" prefWidth="217.0" />
             <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Update Asset Type" textAlignment="CENTER" wrappingWidth="580.1875">
                <font>
-                  <Font name="Arial Bold" size="32.0" />
+                  <Font name="Arial Rounded MT Bold" size="32.0" />
                </font>
             </Text>
             <Pane prefHeight="72.0" prefWidth="134.0" />
             <Button fx:id="closeButton" mnemonicParsing="false" onAction="#closePopUp" prefHeight="33.0" prefWidth="33.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="x" textFill="#e5e3d9">
                <font>
-                  <Font name="System Bold" size="15.0" />
+                  <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Button>
          </children>
@@ -100,7 +100,7 @@
                      <children>
                         <Button fx:id="updateAssetButton" mnemonicParsing="false" onAction="#updateSpecificAsset" prefHeight="51.0" prefWidth="137.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="Update" textFill="#e5e3d9">
                            <font>
-                              <Font name="System Bold" size="24.0" />
+                              <Font name="Arial Rounded MT Bold" size="24.0" />
                            </font>
                         </Button>
                      </children>
