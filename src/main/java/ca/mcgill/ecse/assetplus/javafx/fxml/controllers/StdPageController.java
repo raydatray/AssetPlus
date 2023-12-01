@@ -265,7 +265,7 @@ public class StdPageController {
                               TOMaintenanceTicket selectedTicket = (TOMaintenanceTicket) data;
                               int selectedTicketID = selectedTicket.getId();
 
-                              DisapproveTicketPopUpController controller = new DisapproveTicketPopUpController();
+                              DisapproveTicketPopUpController controller = new DisapproveTicketPopUpController(topController);
                               controller.promptDisapproveTicketPopUp(selectedTicketID);
 
                               ActionEvent refresh = new ActionEvent();
@@ -292,7 +292,7 @@ public class StdPageController {
                               Object data = getTableView().getItems().get(getIndex());
                               System.out.println("selectedData: " + data);        
                               
-                              ImagePageController popUpController = new ImagePageController((TOMaintenanceTicket) data);
+                              ImagePageController popUpController = new ImagePageController((TOMaintenanceTicket) data, topController);
                               popUpController.promptImagePopUp(btn);
                               
                               ActionEvent refresh = new ActionEvent();
@@ -319,7 +319,7 @@ public class StdPageController {
                           });
                           break;
                       }
-                        btn.setStyle("-fx-background-color: #222222; ");
+                        btn.setStyle("-fx-background-color: #212121; ");
                     }
                     
                     

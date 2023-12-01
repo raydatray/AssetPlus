@@ -44,20 +44,29 @@ import ca.mcgill.ecse.assetplus.controller.TOUser;
 public class ImagePageController {
   @FXML private TableView imageTable;
   @FXML private Button addImage;
-
-
-  @FXML
-  private Button closeImagePopUpButton;
-
-
-  @FXML
-  private Label pageTitle;
-
+  @FXML private Button closeImagePopUpButton;
 
   private TOMaintenanceTicket mTicket;
+  private StdPageController topController;
 
-  public ImagePageController(TOMaintenanceTicket maintenanceTicket){
+  public ImagePageController(TOMaintenanceTicket maintenanceTicket, StdPageController headController){
     this.mTicket = maintenanceTicket;
+    this.topController = headController;
+  }
+
+  public void refreshMTicket(){
+    TOMaintenanceTicket newMTicket;
+
+    for(TOMaintenanceTicket ticket :  AssetPlusFeatureSet6Controller.getTickets()){
+      if(ticket.getId() == this.mTicket.getId()){ //found the same ticket
+        this.mTicket = ticket;
+        break;
+      }
+    }
+  }
+
+  public StdPageController getMainController(){
+    return this.topController;
   }
 
 
@@ -65,7 +74,7 @@ public class ImagePageController {
     try {
       // Load the FXML file
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/ImagesPopup.fxml"));
-      loader.setControllerFactory(param -> new ImagePageController(mTicket));
+      loader.setControllerFactory(param -> new ImagePageController(mTicket, topController));
       Parent root = loader.load();
 
       // Populate the choice box
@@ -111,10 +120,12 @@ public class ImagePageController {
 
                             AssetPlusFeatureSet5Controller.deleteImageFromMaintenanceTicket(((TOTicketImage) data).getImageURL(), mTicket.getId());
                             //DOES NOT RELOAD PROPERLY 
-                            loadTable();
+                            refreshMTicket();
+                            refreshTable();
+                            topController.refreshTable("Tickets");
                           });
 
-                        btn.setStyle("-fx-background-color: #222222; ");
+                        btn.setStyle("-fx-background-color: #212121; ");
                     }
                     
                     
@@ -143,7 +154,7 @@ public class ImagePageController {
     imageTable.getColumns().clear();
     imageTable.getItems().clear();
 
-    AddImageToTicketPopUpController popUpController = new AddImageToTicketPopUpController();
+    AddImageToTicketPopUpController popUpController = new AddImageToTicketPopUpController(this);
     addImage.setOnAction(e -> popUpController.promptAddImagePopUp(addImage, mTicket.getId()));
 
     ArrayList<TOTicketImage> images = new ArrayList<TOTicketImage>();
@@ -162,8 +173,6 @@ public class ImagePageController {
     addDeleteButtonToTable();
 
   }
-
-
 
   public void handleCloseButtonClick() {
     ViewUtils.closeWindow(addImage);

@@ -161,7 +161,7 @@ public class NewNotePageController {
                           });    
                           break;
                       }
-                        btn.setStyle("-fx-background-color: #222222; ");
+                        btn.setStyle("-fx-background-color: #212121; ");
                     }
                     
                     
