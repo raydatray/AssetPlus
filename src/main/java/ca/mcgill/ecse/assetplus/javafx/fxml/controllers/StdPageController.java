@@ -219,6 +219,7 @@ public class StdPageController {
                                   // Handle the case where data is not a TOUser or doesn't have an email
                                   ViewUtils.showError("Invalid user data.");
                                 }
+                                
                               
                               ActionEvent refresh = new ActionEvent();
                               statusButtonClicked(refresh);
@@ -231,8 +232,11 @@ public class StdPageController {
                               Object data = getTableView().getItems().get(getIndex());
                               System.out.println("selectedData: " + data);        
 
-                              AssetPlusFeatureSet4Controller.StartWorkOnMaintenanceTicket(Integer.toString(((TOMaintenanceTicket) data).getId()));
-                                                         
+                              String error = AssetPlusFeatureSet4Controller.StartWorkOnMaintenanceTicket(Integer.toString(((TOMaintenanceTicket) data).getId()));
+                                      
+                              if (!error.equals("")) {
+                                ViewUtils.showError(error);
+                              }
                               ActionEvent refresh = new ActionEvent();
                               statusButtonClicked(refresh);
                           
