@@ -56,6 +56,7 @@ public class UpdateManagerPasswordController {
     // Check if string is not empty... if string is empty, operation was successful
     if (!error.equals("")) {
       ViewUtils.showError(error);
+      return;
     }
 
     ViewUtils.closeWindow(newPasswordField);
