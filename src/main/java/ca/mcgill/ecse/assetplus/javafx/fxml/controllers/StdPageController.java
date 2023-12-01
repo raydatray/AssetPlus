@@ -439,7 +439,7 @@ public class StdPageController {
     AddTicketPopUpController ticketPopUpController = new AddTicketPopUpController(this);
     addButton.setOnAction(e -> ticketPopUpController.promptAddTicketPopUp());
     
-    pageTitle.setText("Maintenance Tickets");
+    pageTitle.setText("Tickets");
     addButton.setText("Add Ticket");
     addButton.setVisible(true);
     currentPage = "Tickets";
