@@ -57,7 +57,7 @@
             </HBox>
             <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Staff Assignee Email:" wrappingWidth="218.1298828125">
+                  <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Note Raiser Email:" wrappingWidth="185.1298828125">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -65,14 +65,14 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Text>
-                  <ChoiceBox fx:id="selectEmployeeChoiceBox" prefHeight="40.0" prefWidth="284.0" stylesheets="@../resources/ChoiceBox.css" />
-                  <Pane prefHeight="100.0" prefWidth="92.0" />
+                  <ChoiceBox fx:id="selectEmployeeChoiceBox" prefHeight="40.0" prefWidth="274.0" stylesheets="@../resources/ChoiceBox.css" />
+                  <Pane prefHeight="94.0" prefWidth="109.0" />
                   <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" wrappingWidth="65.08479309082031">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Text>
-                  <DatePicker fx:id="datePicker" prefHeight="32.0" prefWidth="142.0" stylesheets="@../resources/DatePicker.css" />
+                  <DatePicker fx:id="datePicker" prefHeight="32.0" prefWidth="167.0" stylesheets="@../resources/DatePicker.css" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
