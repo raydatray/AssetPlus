@@ -38,9 +38,26 @@ public class NewNotePageController {
   @FXML private Button closeNotePopUpButton;
 
   private TOMaintenanceTicket mTicket;
+  private StdPageController topController;
 
-  public NewNotePageController(TOMaintenanceTicket maintenanceTicket){
+  public NewNotePageController(TOMaintenanceTicket maintenanceTicket, StdPageController headController){
     this.mTicket = maintenanceTicket;
+    this.topController = headController;
+  }
+
+  public void refreshMTicket(){
+    TOMaintenanceTicket newMTicket;
+
+    for(TOMaintenanceTicket ticket :  AssetPlusFeatureSet6Controller.getTickets()){
+      if(ticket.getId() == this.mTicket.getId()){ //found the same ticket
+        this.mTicket = ticket;
+        break;
+      }
+    }
+  }
+
+  public StdPageController getMainController(){
+    return this.topController;
   }
 
   public class IndexedNote{
@@ -77,7 +94,7 @@ public class NewNotePageController {
     try {
       // Load the FXML file
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/NotesPopup.fxml"));
-      loader.setControllerFactory(param -> new NewNotePageController(mTicket));
+      loader.setControllerFactory(param -> new NewNotePageController(mTicket, topController));
       Parent root = loader.load();
 
       // Populate the choice box
@@ -105,7 +122,7 @@ public class NewNotePageController {
     loadTable();
   }
 
-  private void addButtonToTable(String buttonType){
+  private void addButtonToTable(String buttonType, NewNotePageController controller){
     TableColumn<Object, Void> colBtn = new TableColumn("");
 
         Callback<TableColumn<Object, Void>, TableCell<Object, Void>> cellFactory = new Callback<TableColumn<Object, Void>, TableCell<Object, Void>>() {
@@ -125,25 +142,23 @@ public class NewNotePageController {
 
                             AssetPlusFeatureSet7Controller.deleteMaintenanceNote(mTicket.getId(), ((IndexedNote) data).getIndex());
                             //DOES NOT RELOAD PROPERLY 
+                            //ask for a new TOMaintenanceTicket and reload
                             loadTable();
                           });
                           break;
 
                         case "Edit":
+                          UpdateNotePopupController popUpUpdateNoteController = new UpdateNotePopupController(controller);
                           btn.setOnAction((ActionEvent event) -> {
                             Object data = getTableView().getItems().get(getIndex());
 
-                            UpdateNotePopupController popUpUpdateNoteController = new UpdateNotePopupController();
-                          
                             // Check if the data is a TOMaintenanceTicket instance and if TOMaintenanceTicket has an id
                             // If so, pass it to the updateNotePopUpController
                            
                             popUpUpdateNoteController.promptUpdateNotePopUp(mTicket.getId(), ((IndexedNote) data).getIndex());
                             
-                        
-
                             System.out.println("selectedData: " + data);
-
+                            //RUNS IN MT, ASYNC?
                             loadTable();
                           });    
                           break;
@@ -180,10 +195,7 @@ public class NewNotePageController {
 
     AddNotePopupController popUpController = new AddNotePopupController();
     addNote.setOnAction(e -> popUpController.promptAddNotePopUp(addNote, mTicket.getId()));
-    // AddNotePopUpController popupController = new AddNotePopupController(this);
-    // addButton.setOnAction(e -> popupController.promptAddNotePopUp(addButton));
-
-
+ 
     ArrayList<IndexedNote> notes = new ArrayList<IndexedNote>();
     List<TOMaintenanceNote> oldNotes = mTicket.getNotes();
 
@@ -212,13 +224,10 @@ public class NewNotePageController {
     noteTakerColumn.setCellValueFactory(new PropertyValueFactory<>("noteTakerEmail"));;
     noteTable.getColumns().add(noteTakerColumn);
 
-    addButtonToTable("Edit");
-    addButtonToTable("Delete");
+    addButtonToTable("Edit", this);
+    addButtonToTable("Delete", this);
 
   }
-
-
-
 
   public void handleCloseButtonClick() {
     ViewUtils.closeWindow(addNote);

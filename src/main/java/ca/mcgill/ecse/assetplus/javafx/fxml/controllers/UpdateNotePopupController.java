@@ -24,6 +24,12 @@ public class UpdateNotePopupController {
   @FXML private TextField newEmailTextField;
   @FXML private TextField newDescriptionTextField;
 
+  NewNotePageController topController;
+
+  public UpdateNotePopupController(NewNotePageController headController){
+    this.topController = headController;
+  }
+
   public void setTicketID(int ticketID) {
     if (ticketIDTextField != null) {
         ticketIDTextField.setText(String.valueOf(ticketID));
@@ -42,6 +48,7 @@ public class UpdateNotePopupController {
     try {
       // Load the FXML file
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/UpdateNotePop.fxml"));
+      loader.setControllerFactory(param -> new UpdateNotePopupController(topController));
       Parent root = loader.load();
 
       // Autofill the email textfield
@@ -88,9 +95,16 @@ public class UpdateNotePopupController {
         ViewUtils.showError(error);
     }
 
+
+    topController.refreshMTicket(); //ASK FOR REFRESHED TICKET
+    topController.refreshTable(); //REFRESH THE NOTES TABLE
+    topController.getMainController().refreshTable("Tickets"); //REFRESH THE MAIN PAGE TABLE 
+
     ViewUtils.closeWindow(noteIDTextField);
   } catch (Exception e) {
       ViewUtils.showError(e.getMessage());
     }
+     
+
   }
 }
