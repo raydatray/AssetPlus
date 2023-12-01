@@ -116,7 +116,76 @@
                                           }
                                         ],
                                         "maintenanceTasks": [
-                                          ""
+                                          {
+                                            "MaintenanceTicket": {
+                                              "id": 4,
+                                              "raisedOnDate": "2023-11-30",
+                                              "description": "TEST",
+                                              "timeToResolve": "LessThanADay",
+                                              "priority": "Normal",
+                                              "status": "Closed",
+                                              "ticketNotes": [
+                                                ""
+                                              ],
+                                              "ticketImages": [
+                                                ""
+                                              ],
+                                              "assetPlus": {
+                                                "@reference": "../../../../../../../../../../../../../../.."
+                                              },
+                                              "ticketRaiser": {
+                                                "@class": "Guest",
+                                                "email": "duck@duck.com",
+                                                "name": "ducky",
+                                                "password": "duck",
+                                                "phoneNumber": "123-123-1234",
+                                                "raisedTickets": [
+                                                  {
+                                                    "MaintenanceTicket": {
+                                                      "@reference": "../../.."
+                                                    }
+                                                  }
+                                                ],
+                                                "assetPlus": {
+                                                  "@reference": "../../../../../../../../../../../../../../../.."
+                                                }
+                                              },
+                                              "ticketFixer": {
+                                                "@class": "Manager",
+                                                "@reference": "../../.."
+                                              },
+                                              "asset": {
+                                                "assetNumber": 4,
+                                                "floorNumber": 40,
+                                                "roomNumber": 120,
+                                                "purchaseDate": "2023-10-31",
+                                                "assetPlus": {
+                                                  "@reference": "../../../../../../../../../../../../../../../.."
+                                                },
+                                                "maintenanceTickets": [
+                                                  {
+                                                    "MaintenanceTicket": {
+                                                      "@reference": "../../.."
+                                                    }
+                                                  }
+                                                ],
+                                                "assetType": {
+                                                  "name": "testAsset1",
+                                                  "expectedLifeSpan": 1000,
+                                                  "assetPlus": {
+                                                    "@reference": "../../../../../../../../../../../../../../../../.."
+                                                  },
+                                                  "specificAssets": [
+                                                    {
+                                                      "SpecificAsset": {
+                                                        "@reference": "../../.."
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
                                         ],
                                         "assetPlus": {
                                           "@reference": "../../../../../../../../../../../../.."
@@ -269,18 +338,23 @@
     ],
     "guests": [
       {
-        "Guest": {
-          "email": "alexander.liu@mail.mcgill.ca",
-          "name": "Alexander Liu",
-          "password": 123412341,
-          "phoneNumber": "(123)123-1234",
-          "raisedTickets": [
-            ""
-          ],
-          "assetPlus": {
-            "@reference": "../../.."
+        "Guest": [
+          {
+            "email": "alexander.liu@mail.mcgill.ca",
+            "name": "Alexander Liu",
+            "password": 123412341,
+            "phoneNumber": "(123)123-1234",
+            "raisedTickets": [
+              ""
+            ],
+            "assetPlus": {
+              "@reference": "../../.."
+            }
+          },
+          {
+            "@reference": "../../employees/Employee/maintenanceNotes/MaintenanceNote/ticket/ticketRaiser/maintenanceNotes/MaintenanceNote/ticket/ticketNotes/MaintenanceNote[2]/noteTaker/maintenanceTasks/MaintenanceTicket/ticketRaiser"
           }
-        }
+        ]
       }
     ],
     "manager": {
@@ -297,6 +371,9 @@
           },
           {
             "@reference": "../../employees/Employee/maintenanceNotes/MaintenanceNote/ticket/ticketRaiser/maintenanceNotes/MaintenanceNote/ticket/ticketNotes/MaintenanceNote[2]/noteTaker/raisedTickets/MaintenanceTicket[2]"
+          },
+          {
+            "@reference": "../../employees/Employee/maintenanceNotes/MaintenanceNote/ticket/ticketRaiser/maintenanceNotes/MaintenanceNote/ticket/ticketNotes/MaintenanceNote[2]/noteTaker/maintenanceTasks/MaintenanceTicket"
           }
         ]
       }
@@ -309,6 +386,9 @@
           },
           {
             "@reference": "../../employees/Employee/maintenanceNotes/MaintenanceNote/ticket/ticketRaiser/maintenanceNotes/MaintenanceNote/ticket/asset/assetType"
+          },
+          {
+            "@reference": "../../employees/Employee/maintenanceNotes/MaintenanceNote/ticket/ticketRaiser/maintenanceNotes/MaintenanceNote/ticket/ticketNotes/MaintenanceNote[2]/noteTaker/maintenanceTasks/MaintenanceTicket/asset/assetType"
           }
         ]
       }
@@ -324,6 +404,9 @@
           },
           {
             "@reference": "../../employees/Employee/maintenanceNotes/MaintenanceNote/ticket/ticketRaiser/maintenanceNotes/MaintenanceNote/ticket/asset/assetType/specificAssets/SpecificAsset[2]"
+          },
+          {
+            "@reference": "../../employees/Employee/maintenanceNotes/MaintenanceNote/ticket/ticketRaiser/maintenanceNotes/MaintenanceNote/ticket/ticketNotes/MaintenanceNote[2]/noteTaker/maintenanceTasks/MaintenanceTicket/asset"
           }
         ]
       }

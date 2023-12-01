@@ -119,9 +119,6 @@ public class StdPageController {
                           break;
 
                         case "Edit":
-                            Object data = getTableView().getItems().get(getIndex());
-                            System.out.println("selectedData: " + data);
-
                             //ActionEvent refresh = new ActionEvent();
                             //FORCE OVERWRITE 
                             
@@ -129,6 +126,8 @@ public class StdPageController {
                               case "Assets":
                                 UpdateAssetPopupController popupController = new UpdateAssetPopupController(topController);
                                 btn.setOnAction((ActionEvent event) -> {
+                                  Object data = getTableView().getItems().get(getIndex());
+                                  System.out.println("selectedData: " + data);
                                   TOSpecificAsset selectedAsset = (TOSpecificAsset) data;
                                   int selectedAssetNumber = selectedAsset.getAssetNumber();
 
@@ -141,6 +140,8 @@ public class StdPageController {
                                 UpdateAssetTypePopUpController updateAssetController = new UpdateAssetTypePopUpController(topController);
                                 btn.setOnAction((ActionEvent event) -> {
                                   //send the data to the contoller method!!
+                                  Object data = getTableView().getItems().get(getIndex());
+                                  System.out.println("selectedData: " + data);
                                   TOAssetType selectedAssetType = (TOAssetType) data;
                                   String selectedAssetName = selectedAssetType.getName();
                                   Boolean isValidAssetTypeAndName = (selectedAssetType != null && selectedAssetName != null);
@@ -158,6 +159,8 @@ public class StdPageController {
                               case "Users":
                                 UpdateUserPopUpController popUpController = new UpdateUserPopUpController(topController);
                                 btn.setOnAction((ActionEvent event) -> {
+                                  Object data = getTableView().getItems().get(getIndex());
+                                  System.out.println("selectedData: " + data);
                                   TOUser selectedUser = (TOUser) data;
                                   String selectedUserEmail = selectedUser.getEmail();
 
@@ -169,27 +172,26 @@ public class StdPageController {
                               case "Tickets":
                                 UpdateTicketPopUpController popUpUpdateTicketController = new UpdateTicketPopUpController(topController);
                                 btn.setOnAction((ActionEvent event) -> {
+                                  Object data = getTableView().getItems().get(getIndex());
+                                  System.out.println("selectedData: " + data);
+                                  //send the data to the contoller method!!
+                                  TOMaintenanceTicket selectedTicket = (TOMaintenanceTicket) data;
+                                  int selectedTicketID = selectedTicket.getId();
+                                  Boolean isValidTicketID = (selectedTicket != null);
+                                  // Boolean isValidTicketID = (selectedTicket != null && selectedTicketID != 0);
 
+
+                            
+                                  // Check if the data is a TOMaintenanceTicket instance and if TOMaintenanceTicket has an id
+                                  // If so, pass it to the updateTicketPopUpController
+                                  if (isValidTicketID) {
+                                    popUpUpdateTicketController.promptUpdateTicketPopUp(selectedTicketID);
+                                  } else {
+                                    // Handle the case where data is not a TOUser or doesn't have an email
+                                    ViewUtils.showError("Invalid user data.");
+                                  }
                                 });
-                                //send the data to the contoller method!!
-                                TOMaintenanceTicket selectedTicket = (TOMaintenanceTicket) data;
-                                int selectedTicketID = selectedTicket.getId();
-                                Boolean isValidTicketID = (selectedTicket != null);
-                                // Boolean isValidTicketID = (selectedTicket != null && selectedTicketID != 0);
 
-
-                          
-                                // Check if the data is a TOMaintenanceTicket instance and if TOMaintenanceTicket has an id
-                                // If so, pass it to the updateTicketPopUpController
-                                if (isValidTicketID) {
-                                  popUpUpdateTicketController.promptUpdateTicketPopUp(selectedTicketID);
-                                } else {
-                                  // Handle the case where data is not a TOUser or doesn't have an email
-                                  ViewUtils.showError("Invalid user data.");
-                                }
-
-                                                
-                                viewTicketsButtonClicked(refresh);
                                 break;
                             }
                           break;
