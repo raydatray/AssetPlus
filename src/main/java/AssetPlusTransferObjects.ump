@@ -54,3 +54,8 @@ class TOSpecificAsset {
   Date purchaseDate;
   String assetType;
 }
+
+class TOTicketImage {
+  immutable;
+  String imageURL;
+}

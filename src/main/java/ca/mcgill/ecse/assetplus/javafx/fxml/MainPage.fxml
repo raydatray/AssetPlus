@@ -19,7 +19,7 @@
          <children>
             <HBox alignment="CENTER" prefWidth="976.0" spacing="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0">
                <children>
-                  <Label fx:id="pageTitle" contentDisplay="TEXT_ONLY" graphicTextGap="10.0" prefHeight="66.0" prefWidth="588.0" text="PLACEHOLDER" HBox.hgrow="NEVER">
+                  <Label fx:id="pageTitle" contentDisplay="TEXT_ONLY" graphicTextGap="10.0" prefHeight="66.0" prefWidth="588.0" text="AssetPlus" HBox.hgrow="NEVER">
                      <font>
                         <Font name="Arial Rounded MT Bold" size="57.0" />
                      </font>
@@ -109,7 +109,7 @@
                   </VBox.margin>
                </Label>
             <!--TODO: This has been changed for testing purposes (on action)"-->
-            <Button fx:id="settingsButton" graphicTextGap="10.0" mnemonicParsing="false" styleClass="inactiveSidebarButton" text="Settings" onAction="#settingsButtonClicked">
+            <Button fx:id="settingsButton" graphicTextGap="10.0" mnemonicParsing="false" onAction="#settingsButtonClicked" styleClass="inactiveSidebarButton" text="Settings">
                <font>
                   <Font name="Arial Rounded MT Bold" size="32.0" />
                </font>

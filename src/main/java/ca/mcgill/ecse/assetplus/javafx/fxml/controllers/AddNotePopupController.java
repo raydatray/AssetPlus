@@ -44,11 +44,11 @@ public class AddNotePopupController {
     }
 
     @FXML
-    public void promptAddNotePopUp(Button updateButton, int ticketID) {
+    public void promptAddNotePopUp(Button addButton, int ticketID) {
         try {
             // Load the FXML file
             FXMLLoader loader = new FXMLLoader(getClass()
-                    .getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/.AddNotePopUpfxml"));
+                    .getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/AddNotePopUp.fxml"));
             Parent root = loader.load();
 
             // Autofill the ticket textfield

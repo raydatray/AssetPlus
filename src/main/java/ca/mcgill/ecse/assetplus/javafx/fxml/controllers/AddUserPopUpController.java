@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
@@ -20,6 +21,7 @@ public class AddUserPopUpController {
   @FXML private TextField passwordTextField;
   @FXML private TextField nameTextField;
   @FXML private TextField phoneNumberTextField;
+  @FXML private ChoiceBox<String> userTypeChoiceBox;
 
   StdPageController topController;
 
@@ -33,6 +35,11 @@ public class AddUserPopUpController {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/ca/mcgill/ecse/assetplus/javafx/fxml/pop-ups/AddUserPopUp.fxml"));
       loader.setControllerFactory(param -> new AddUserPopUpController(topController));
       Parent root = loader.load();
+
+      AddUserPopUpController controller = loader.getController();
+      controller.userTypeChoiceBox.getItems().addAll("Guest", "Hotel Staff");
+      controller.userTypeChoiceBox.setValue("Guest");
+
       // Create a new stage for the pop-up
       Stage popupStage = new Stage();
       popupStage.initModality(Modality.APPLICATION_MODAL);
@@ -60,8 +67,9 @@ public class AddUserPopUpController {
     String userName = nameTextField.getText();
     String userPhoneNumber = phoneNumberTextField.getText();
     String userPassword = passwordTextField.getText();
+    Boolean isEmployee = userTypeChoiceBox.getValue() == "Hotel Staff" ? true : false;
 
-    String error = AssetPlusFeatureSet1Controller.addEmployeeOrGuest(userEmail, userPassword, userName, userPhoneNumber, false).replaceAll("([A-Z])", "\n$1");
+    String error = AssetPlusFeatureSet1Controller.addEmployeeOrGuest(userEmail, userPassword, userName, userPhoneNumber, isEmployee).replaceAll("([A-Z])", "\n$1");
     
     // Check if string is not empty... if string is empty, operation was successful
     if (!error.equals("")) {

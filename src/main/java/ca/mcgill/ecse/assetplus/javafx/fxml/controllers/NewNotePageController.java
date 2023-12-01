@@ -18,6 +18,11 @@ import javafx.util.Callback;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet2Controller;
+import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet3Controller;
+import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet4Controller;
+import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet6Controller;
 import ca.mcgill.ecse.assetplus.controller.AssetPlusFeatureSet7Controller;
 import ca.mcgill.ecse.assetplus.controller.TOMaintenanceNote;
 import ca.mcgill.ecse.assetplus.controller.TOMaintenanceTicket;
@@ -27,7 +32,10 @@ import ca.mcgill.ecse.assetplus.controller.TOMaintenanceTicket;
 
 public class NewNotePageController {
   @FXML private TableView noteTable;
+
   @FXML private Button addNote;
+
+  @FXML private Button closeNotePopUpButton;
 
   private TOMaintenanceTicket mTicket;
 
@@ -80,7 +88,7 @@ public class NewNotePageController {
       Stage popupStage = new Stage();
       popupStage.initModality(Modality.APPLICATION_MODAL);
       popupStage.initStyle(StageStyle.TRANSPARENT);
-      popupStage.setTitle("Add Asset");
+      popupStage.setTitle("Add Note");
       // Set the content from the FXML file
       Scene scene = new Scene(root);
       scene.setFill(Color.TRANSPARENT);
@@ -125,6 +133,15 @@ public class NewNotePageController {
                           btn.setOnAction((ActionEvent event) -> {
                             Object data = getTableView().getItems().get(getIndex());
 
+                            UpdateNotePopupController popUpUpdateNoteController = new UpdateNotePopupController();
+                          
+                            // Check if the data is a TOMaintenanceTicket instance and if TOMaintenanceTicket has an id
+                            // If so, pass it to the updateNotePopUpController
+                           
+                            popUpUpdateNoteController.promptUpdateNotePopUp(mTicket.getId(), ((IndexedNote) data).getIndex());
+                            
+                        
+
                             System.out.println("selectedData: " + data);
 
                             loadTable();
@@ -161,7 +178,8 @@ public class NewNotePageController {
     noteTable.getItems().clear();
 
 
-
+    AddNotePopupController popUpController = new AddNotePopupController();
+    addNote.setOnAction(e -> popUpController.promptAddNotePopUp(addNote, mTicket.getId()));
     // AddNotePopUpController popupController = new AddNotePopupController(this);
     // addButton.setOnAction(e -> popupController.promptAddNotePopUp(addButton));
 
@@ -199,6 +217,12 @@ public class NewNotePageController {
 
   }
 
-  
+
+
+
+  public void handleCloseButtonClick() {
+    ViewUtils.closeWindow(addNote);
+  }
+
   
 }

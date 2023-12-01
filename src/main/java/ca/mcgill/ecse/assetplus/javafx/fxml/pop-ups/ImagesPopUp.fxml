@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800.0" minWidth="-Infinity" prefHeight="0.0" prefWidth="1200.0" styleClass="contentBackground" stylesheets="@../resources/MainPage.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.assetplus.javafx.fxml.controllers.ImagePageController">
+   <children>
+      <HBox alignment="CENTER" prefWidth="976.0" spacing="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0">
+         <children>
+            <Label fx:id="pageTitle" contentDisplay="TEXT_ONLY" graphicTextGap="10.0" prefHeight="66.0" prefWidth="588.0" text="Ticket Images" HBox.hgrow="NEVER">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="57.0" />
+               </font>
+            </Label>
+            <Region HBox.hgrow="ALWAYS" />
+            <Button fx:id="addImage" mnemonicParsing="false" styleClass="contentButton" text="Add Image">
+               <graphic>
+                  <SVGPath content="M0 9.99999C0 10.5939 0.49697 11.0788 1.07879 11.0788H8.9212V18.9211C8.9212 19.503 9.40604 20 9.99999 20C10.5939 20 11.0909 19.503 11.0909 18.9211V11.0788H18.9211C19.503 11.0788 20 10.5939 20 9.99999C20 9.40604 19.503 8.90908 18.9211 8.90908H11.0909V1.07879C11.0909 0.49697 10.5939 0 9.99999 0C9.40604 0 8.9212 0.49697 8.9212 1.07879V8.90908H1.07879C0.49697 8.90908 0 9.40604 0 9.99999Z" fill="#e5e3d9" />
+               </graphic>
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="32.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <TableView fx:id="imageTable" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="150.0" />
+      <Button fx:id="closeImagePopUpButton" layoutX="1160.0" layoutY="8.0" mnemonicParsing="false" onAction="#handleCloseButtonClick" prefHeight="26.0" prefWidth="31.0" styleClass="closeButton" text="x" />
+   </children>
+   <padding>
+      <Insets />
+   </padding>
+</AnchorPane>

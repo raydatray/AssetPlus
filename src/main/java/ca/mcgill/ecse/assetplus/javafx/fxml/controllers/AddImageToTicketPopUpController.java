@@ -52,7 +52,7 @@ public class AddImageToTicketPopUpController {
       Stage popupStage = new Stage();
       popupStage.initModality(Modality.APPLICATION_MODAL);
       popupStage.initStyle(StageStyle.TRANSPARENT);
-      popupStage.setTitle("Assign Maintenance Ticket");
+      popupStage.setTitle("Add Image");
       // Set the content from the FXML file
       Scene scene = new Scene(root);
       scene.setFill(Color.TRANSPARENT);

@@ -27,6 +27,12 @@
     -fx-text-fill: "e5e3d9";
 }
 
+.closeButton{
+    -fx-background-color: "6699CC";
+    -fx-background-radius: 90;
+    -fx-text-fill: "e5e3d9";
+}
+
 .table-view{
     -fx-background-color: "303030";
     -fx-background-radius: 15;
