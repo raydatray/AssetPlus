@@ -1,0 +1,26 @@
+#anchor{
+    -fx-background-color: "181818";
+}
+
+#vBox{
+    -fx-background-color: "181818";
+}
+
+.title{
+    -fx-fill: "e5e3d9";
+}
+
+.collapseButton {
+    -fx-background-color: transparent;
+    -fx-alignment: CENTER
+}
+
+.inactiveSidebarButton {
+    -fx-background-color: transparent;
+    -fx-text-fill: "e5e3d9";
+}
+
+.activeSidebarButton{
+    -fx-background-color: "6699CC";
+    -fx-text-fill: "6699cc"
+}

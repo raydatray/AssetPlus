@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800.0" minWidth="-Infinity" prefHeight="0.0" prefWidth="1200.0" styleClass="contentBackground" stylesheets="@../resources/MainPage.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.assetplus.javafx.fxml.controllers.NewNotePageController">
+   <children>
+      <HBox alignment="CENTER" prefWidth="976.0" spacing="40.0" styleClass="contentBackground" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0">
+         <children>
+            <Label fx:id="pageTitle" contentDisplay="TEXT_ONLY" graphicTextGap="10.0" prefHeight="66.0" prefWidth="588.0" text="Ticket Note" HBox.hgrow="NEVER">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="57.0" />
+               </font>
+            </Label>
+            <Region HBox.hgrow="ALWAYS" />
+            <Button fx:id="search" minWidth="59.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="59.0" styleClass="contentButton">
+               <graphic>
+                  <SVGPath content="M0 8.49366C0 13.1768 3.8475 16.9873 8.57627 16.9873C10.4463 16.9873 12.1551 16.3913 13.5629 15.3908L18.8506 20.638C19.0978 20.8829 19.4202 21 19.7641 21C20.4949 21 21 20.4571 21 19.744C21 19.4034 20.871 19.0947 20.6454 18.8713L15.39 13.6346C16.4969 12.2083 17.1525 10.4308 17.1525 8.49366C17.1525 3.81043 13.305 0 8.57627 0C3.8475 0 0 3.81043 0 8.49366ZM1.83777 8.49366C1.83777 4.81094 4.85773 1.82007 8.57627 1.82007C12.2948 1.82007 15.3147 4.81094 15.3147 8.49366C15.3147 12.1764 12.2948 15.1672 8.57627 15.1672C4.85773 15.1672 1.83777 12.1764 1.83777 8.49366Z" fill="#e5e3d9" />
+               </graphic>
+            </Button>
+            <Button fx:id="addNote" mnemonicParsing="false" styleClass="contentButton" stylesheets="@../resources/MainPage.css" text="Add Note">
+               <graphic>
+                  <SVGPath content="M0 9.99999C0 10.5939 0.49697 11.0788 1.07879 11.0788H8.9212V18.9211C8.9212 19.503 9.40604 20 9.99999 20C10.5939 20 11.0909 19.503 11.0909 18.9211V11.0788H18.9211C19.503 11.0788 20 10.5939 20 9.99999C20 9.40604 19.503 8.90908 18.9211 8.90908H11.0909V1.07879C11.0909 0.49697 10.5939 0 9.99999 0C9.40604 0 8.9212 0.49697 8.9212 1.07879V8.90908H1.07879C0.49697 8.90908 0 9.40604 0 9.99999Z" fill="#e5e3d9" />
+               </graphic>
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="32.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <TableView fx:id="noteTable" styleClass="contentBackground" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="150.0" />
+      <Button fx:id="closeNotePopUpButton" layoutX="1153.0" layoutY="8.0" mnemonicParsing="false" onAction="#handleCloseButtonClick" prefHeight="30.0" prefWidth="30.0" styleClass="closeButton" text="x" />
+   </children>
+   <padding>
+      <Insets />
+   </padding>
+</AnchorPane>

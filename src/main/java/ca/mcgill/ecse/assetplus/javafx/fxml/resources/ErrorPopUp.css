@@ -1,0 +1,29 @@
+/* ErrorPopUp.css */
+
+/* Popup box color */
+.popup-root {
+    -fx-background-color: #5E6164;
+}
+
+/* Text color */
+.popup-root .text {
+    -fx-fill: #e5e3d9;
+}
+
+/* OK button color */
+.popup-root .okButton {
+    -fx-background-color: #6699CC;
+    -fx-text-fill: #e5e3d9;
+}
+
+/* Close button color */
+.popup-root .closeButton {
+    -fx-background-color: #6699CC;
+    -fx-text-fill: #e5e3d9;
+}
+
+/* Title bar color */
+.popup-root .title-bar {
+    -fx-background-color: #6699CC;
+    -fx-text-fill: #e5e3d9;
+}

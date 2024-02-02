@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="462.0" prefWidth="994.0" style="-fx-background-color: #252627; -fx-border-color: #6699CC; -fx-border-width: 3; -fx-background-radius: 50; -fx-border-radius: 45;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.assetplus.javafx.fxml.controllers.AddTicketPopUpController">
+   <children>
+      <HBox prefHeight="100.0" prefWidth="994.0">
+         <children>
+            <Pane prefHeight="72.0" prefWidth="313.0" />
+            <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Maintenance Ticket" textAlignment="CENTER" wrappingWidth="392.4735107421875">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="32.0" />
+               </font>
+            </Text>
+            <Pane prefHeight="72.0" prefWidth="216.0" />
+            <Button fx:id="closePopUpButton" mnemonicParsing="false" onAction="#handleCloseButtonClick" prefHeight="33.0" prefWidth="33.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="x" textFill="#e5e3d9">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="15.0" />
+               </font>
+            </Button>
+         </children>
+         <padding>
+            <Insets top="28.0" />
+         </padding>
+      </HBox>
+      <VBox layoutX="68.0" layoutY="91.0" prefHeight="359.0" prefWidth="858.0" style="-fx-background-color: #252627; -fx-background-radius: 250;">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Ticket ID:" wrappingWidth="108.8033447265625">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Text>
+                  <TextField fx:id="ticketIdTextField" prefHeight="39.0" prefWidth="218.0" promptText="ex: 982349898" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Italic" size="18.0" />
+                     </font>
+                  </TextField>
+                  <Pane prefHeight="91.0" prefWidth="83.0" />
+                  <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Asset Number:" wrappingWidth="158.47003173828125">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Text>
+                  <ChoiceBox fx:id="assetNumberChoiceBox" prefHeight="40.0" prefWidth="263.0" stylesheets="@../resources/ChoiceBox.css" />
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Ticket Raiser Email:" wrappingWidth="195.1298828125">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Text>
+                  <ChoiceBox fx:id="ticketRaiserEmailChoiceBox" prefHeight="40.0" prefWidth="273.0" stylesheets="@../resources/ChoiceBox.css" />
+                  <Pane prefHeight="97.0" prefWidth="43.0" />
+                  <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Raised:" wrappingWidth="140.13671875">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Text>
+                  <DatePicker fx:id="dateRaisedDatePicker" prefHeight="40.0" prefWidth="168.0" stylesheets="@../resources/DatePicker.css" />
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Text fill="#e5e3d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" wrappingWidth="145.25230407714844">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Text>
+                  <TextField fx:id="descriptionTextField" alignment="TOP_LEFT" prefHeight="127.0" prefWidth="692.0" promptText="ex: Lamp" style="-fx-background-color: #303030; -fx-background-radius: 15; -fx-text-fill: #e5e3d9;">
+                     <font>
+                        <Font name="System Italic" size="18.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="10.0" prefHeight="53.0" prefWidth="858.0">
+               <children>
+                  <Button fx:id="addTicketButton" mnemonicParsing="false" onAction="#addMaintenanceTicket" prefHeight="51.0" prefWidth="137.0" style="-fx-background-color: #6699CC; -fx-background-radius: 25;" text="Add" textFill="#e5e3d9">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="375.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox prefHeight="32.0" prefWidth="858.0" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
